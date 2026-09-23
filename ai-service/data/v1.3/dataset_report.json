@@ -1,0 +1,34 @@
+{
+  "dataset_version": "v1.3",
+  "total_files_scanned": 6,
+  "dataset_size_bytes": 13183,
+  "dataset_size_mb": 0.0126,
+  "total_samples": 150,
+  "valid_samples": 150,
+  "invalid_samples": 0,
+  "duplicate_count": 6,
+  "total_char_count": 9220,
+  "estimated_token_count": 1696,
+  "category_counts": {
+    "general": 22,
+    "conversation": 1,
+    "instruction": 0,
+    "reasoning": 0,
+    "coding": 63,
+    "math": 24,
+    "tamil": 18,
+    "tanglish": 16,
+    "tool_use": 2,
+    "rag": 2,
+    "safety": 2
+  },
+  "quality_score": 100.0,
+  "validation_issues": [
+    "Duplicate sample in coding/programming_code.txt: }",
+    "Duplicate sample in coding/programming_code.txt: }",
+    "Duplicate sample in coding/programming_code.txt: try {",
+    "Duplicate sample in coding/programming_code.txt: }",
+    "Duplicate sample in coding/programming_code.txt: }",
+    "Duplicate sample in coding/programming_code.txt: }"
+  ]
+}

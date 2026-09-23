@@ -1,0 +1,31 @@
+Mathiyon AI Platform General English Dataset v1.3
+
+What is Mathiyon AI?
+Mathiyon AI is a next-generation intelligence platform engineered with a React 19 frontend, Express Node.js backend, MongoDB database, and PyTorch Small Language Model (SLM) neural engine.
+
+What is a Small Language Model (SLM)?
+A Small Language Model (SLM) is a compact neural language model optimized for efficient execution on standard CPU hardware or consumer GPUs while maintaining high accuracy for domain-specific tasks.
+
+What is an AI Orchestrator?
+An AI Orchestrator is a central routing service that inspects incoming user queries, classifies intent, dynamically selects required tools, executes them in sequence or parallel, and synthesizes a unified, verified response.
+
+Explain client-side rendering versus server-side rendering.
+Client-side rendering renders HTML dynamically in the web browser using JavaScript frameworks like React, while server-side rendering generates HTML on the server before sending it to the client.
+
+How does single page application routing work?
+Single page application routing intercepts browser navigation events and updates the user interface components without reloading the entire web page.
+
+What is RESTful API architecture?
+RESTful API architecture is a stateless client-server communication pattern utilizing HTTP request methods such as GET, POST, PUT, and DELETE to manage resources.
+
+What is JSON Web Token (JWT) authentication?
+JSON Web Token (JWT) authentication is an open standard method for securely transmitting information between parties as a compact JSON object verified with a digital signature.
+
+What is Cross-Origin Resource Sharing (CORS)?
+CORS is a browser security mechanism that uses HTTP headers to allow or restrict resources requested from a domain outside the origin domain.
+
+What is environment variable configuration?
+Environment variable configuration stores sensitive credentials, API keys, and server settings outside the application source code.
+
+What is asynchronous programming?
+Asynchronous programming allows a program to execute non-blocking operations, permitting other tasks to run while waiting for I/O operations to complete.

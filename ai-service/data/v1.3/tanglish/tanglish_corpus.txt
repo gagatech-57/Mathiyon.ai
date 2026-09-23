@@ -1,0 +1,21 @@
+Mathiyon AI Tanglish Conversational & Technical Corpus v1.3
+
+Hello Mathiyon! Epdi irukinga?
+Iniku enoda project ku oru React custom hook write panni thanga.
+Idha simple ah explain pannunga.
+
+Mathiyon AI na enna?
+Mathiyon AI oda main purpose vandhu exact calculations and document RAG search panradhu thaan.
+
+React use-state hook epdi work aagum?
+useState hook component oda local state ah manage panna help pannum. State update aana udane UI re-render aagum.
+
+Node.js Express backend la JWT authentication epdi configure panradhu?
+Express la jwt.sign() use panni token generate pannuvom, apram authMiddleware la jwt.verify() panni route evaluate pannuvom.
+
+Intha code la edhavadhu bug iruka?
+Code clean ah iruku bro. Express async handler handle panna error boundary iruku.
+
+Mathiyon SLM model accuracy romba nalla iruku.
+Tanks for your help Mathiyon!
+Nandri bro!
