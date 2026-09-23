@@ -1,0 +1,67 @@
+{
+  "dataset_version": "v1.3_focused",
+  "scope": "English + Coding + Mathematics ONLY",
+  "total_files_scanned": 4,
+  "dataset_size_bytes": 18931,
+  "dataset_size_mb": 0.0181,
+  "total_samples": 100,
+  "valid_samples": 100,
+  "invalid_samples": 0,
+  "duplicate_count": 0,
+  "instruction_pair_count": 100,
+  "total_tokens": 11298,
+  "overall_avg_seq_len": 112.98,
+  "overall_unk_rate_pct": 0.0,
+  "tokens_per_parameter": 0.000515,
+  "category_counts": {
+    "coding": 40,
+    "general": 21,
+    "math": 39
+  },
+  "split_counts": {
+    "train": 90,
+    "validation": 5,
+    "test": 5
+  },
+  "domain_token_stats": {
+    "general": {
+      "status": "IN_SCOPE",
+      "sample_count": 21,
+      "total_tokens": 2025,
+      "avg_seq_len": 96.43,
+      "max_seq_len": 239,
+      "unk_count": 0,
+      "unk_rate_pct": 0.0,
+      "unk_target_passed": true
+    },
+    "coding": {
+      "status": "IN_SCOPE",
+      "sample_count": 40,
+      "total_tokens": 5205,
+      "avg_seq_len": 130.12,
+      "max_seq_len": 202,
+      "unk_count": 0,
+      "unk_rate_pct": 0.0,
+      "unk_target_passed": true
+    },
+    "math": {
+      "status": "IN_SCOPE",
+      "sample_count": 39,
+      "total_tokens": 4068,
+      "avg_seq_len": 104.31,
+      "max_seq_len": 212,
+      "unk_count": 0,
+      "unk_rate_pct": 0.0,
+      "unk_target_passed": true
+    },
+    "tamil": {
+      "status": "OUT_OF_CURRENT_TRAINING_SCOPE",
+      "reason": "Phase 11.3B training is strictly focused on English, Coding, and Mathematics"
+    },
+    "tanglish": {
+      "status": "OUT_OF_CURRENT_TRAINING_SCOPE",
+      "reason": "Phase 11.3B training is strictly focused on English, Coding, and Mathematics"
+    }
+  },
+  "validation_issues": []
+}
