@@ -6,7 +6,7 @@ import type { DocumentItem } from '../api';
 interface ChatComposerProps {
   prompt: string;
   setPrompt: (value: string) => void;
-  onSend: (text?: string, attachedDocId?: string) => void;
+  onSend: (text?: string, attachedDocId?: string, enableWebSearch?: boolean) => void;
   isGenerating: boolean;
   onStopGenerating?: () => void;
   activeModel: string;
@@ -35,6 +35,7 @@ export const ChatComposer: React.FC<ChatComposerProps> = ({
   const [showDocPicker, setShowDocPicker] = useState(false);
   const [userDocs, setUserDocs] = useState<DocumentItem[]>([]);
   const [isLoadingDocs, setIsLoadingDocs] = useState(false);
+  const [enableWebSearch, setEnableWebSearch] = useState(false);
 
   useEffect(() => {
     if (attachedDoc !== undefined) {
@@ -83,10 +84,11 @@ export const ChatComposer: React.FC<ChatComposerProps> = ({
     if (e.key === 'Enter' && !e.shiftKey) {
       e.preventDefault();
       if (prompt.trim() && !isGenerating) {
-        onSend(prompt, currentDoc?.id);
+        onSend(prompt, currentDoc?.id, enableWebSearch);
       }
     }
   };
+
 
   const handleFileChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
@@ -202,6 +204,20 @@ export const ChatComposer: React.FC<ChatComposerProps> = ({
               <Sparkles className="w-3 h-3 text-rose-400" />
               <span>Active Engine: <strong className="text-white">{activeModel}</strong></span>
             </div>
+
+            {/* Web Search Toggle */}
+            <button
+              type="button"
+              onClick={() => setEnableWebSearch(!enableWebSearch)}
+              className={`px-2 py-0.5 rounded-full border text-[10px] font-medium transition cursor-pointer flex items-center gap-1 ${
+                enableWebSearch
+                  ? 'bg-cyan-500/20 border-cyan-500/50 text-cyan-300 font-semibold'
+                  : 'bg-slate-800/60 border-slate-700 text-slate-400 hover:text-slate-200'
+              }`}
+            >
+              <span>🌐 Web Search</span>
+              <span className={`w-1.5 h-1.5 rounded-full ${enableWebSearch ? 'bg-cyan-400 animate-pulse' : 'bg-slate-500'}`} />
+            </button>
           </div>
 
           {currentDoc && (
@@ -272,7 +288,7 @@ export const ChatComposer: React.FC<ChatComposerProps> = ({
             ) : (
               <button
                 type="button"
-                onClick={() => onSend(prompt, currentDoc?.id)}
+                onClick={() => onSend(prompt, currentDoc?.id, enableWebSearch)}
                 disabled={!prompt.trim()}
                 className="flex items-center justify-center shrink-0 w-9 h-9 sm:w-10 sm:h-10 rounded-xl mathiyon-btn-primary text-white disabled:opacity-40 disabled:hover:shadow-none disabled:hover:transform-none shadow-md shadow-rose-950/50 cursor-pointer transition-all"
                 title="Send Message (Enter)"

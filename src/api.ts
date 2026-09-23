@@ -42,10 +42,17 @@ export interface SendChatResponse {
   conversationTitle?: string;
   message?: string;
   response?: string;
+  answer?: string;
   model?: string;
   timestamp?: string;
   messageText?: string;
   offline?: boolean;
+  intent?: string;
+  toolsUsed?: string[];
+  sources?: any[];
+  verified?: boolean;
+  requestId?: string;
+  totalLatencyMs?: number;
   generation_time_ms?: number;
 }
 
@@ -137,7 +144,8 @@ export const apiSendChatMessage = async (
   message: string,
   model: string,
   conversationId?: string,
-  documentId?: string
+  documentId?: string,
+  enableWebSearch?: boolean
 ): Promise<SendChatResponse> => {
   const token = getToken();
   if (!token) return { success: false, messageText: 'Authentication required. No JWT token found.' };
@@ -149,7 +157,7 @@ export const apiSendChatMessage = async (
         'Content-Type': 'application/json',
         Authorization: `Bearer ${token}`,
       },
-      body: JSON.stringify({ message, model, conversationId, documentId }),
+      body: JSON.stringify({ message, model, conversationId, documentId, enableWebSearch }),
     });
     return await res.json();
   } catch (error) {

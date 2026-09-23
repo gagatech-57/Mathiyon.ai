@@ -6,13 +6,15 @@ import { MessageBubble } from './MessageBubble';
 import { ChatComposer } from './ChatComposer';
 import { RightPanel } from './RightPanel';
 import { DocumentLibrary } from './DocumentLibrary';
+import { MemoryManager } from './MemoryManager';
 import { RefreshCw } from 'lucide-react';
 import confetti from 'canvas-confetti';
 import { 
   apiSendChatMessage, 
   apiGetConversations, 
   apiGetConversationMessages, 
-  apiCreateConversation 
+  apiCreateConversation,
+  getToken
 } from '../api';
 import type { UserProfile, DocumentItem } from '../api';
 import type { ChatMessage } from './MessageBubble';
@@ -151,7 +153,7 @@ export const DashboardPreview: React.FC<DashboardPreviewProps> = ({ user, onSign
   };
 
   // Send Prompt to Express Chat API Endpoint (Protected by JWT)
-  const handleSendPrompt = async (textToSend?: string, docIdToSend?: string) => {
+  const handleSendPrompt = async (textToSend?: string, docIdToSend?: string, enableWebSearch?: boolean) => {
     const input = textToSend || prompt;
     if (!input.trim() || isGenerating) return;
 
@@ -168,11 +170,11 @@ export const DashboardPreview: React.FC<DashboardPreviewProps> = ({ user, onSign
     setPrompt('');
     setIsGenerating(true);
 
-    // Call POST /api/chat protected endpoint with documentId
-    const res = await apiSendChatMessage(input, activeModel, activeConversationId, targetDocId);
+    // Call POST /api/chat protected endpoint with documentId & enableWebSearch
+    const res = await apiSendChatMessage(input, activeModel, activeConversationId, targetDocId, enableWebSearch);
     setIsGenerating(false);
 
-    if (res.success && res.response) {
+    if (res.success && (res.response || res.answer)) {
       // Set active conversation ID if newly created by backend
       if (res.conversationId) {
         setActiveConversationId(res.conversationId);
@@ -202,9 +204,12 @@ export const DashboardPreview: React.FC<DashboardPreviewProps> = ({ user, onSign
       const assistantMessage: ChatMessage = {
         id: `ai_${Date.now()}`,
         role: 'assistant',
-        text: res.response,
+        text: res.answer || res.response || '',
         timestamp: res.timestamp || new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
         model: res.model || activeModel,
+        toolsUsed: res.toolsUsed,
+        sources: res.sources,
+        verified: res.verified
       };
       setMessages((prev) => [...prev, assistantMessage]);
     } else {
@@ -220,7 +225,6 @@ export const DashboardPreview: React.FC<DashboardPreviewProps> = ({ user, onSign
       };
       setMessages((prev) => [...prev, errorMessage]);
     }
-
   };
 
   return (
@@ -273,6 +277,10 @@ export const DashboardPreview: React.FC<DashboardPreviewProps> = ({ user, onSign
                   setActiveNav('explore');
                 }}
               />
+            ) : activeNav === 'memory' || activeNav === 'settings' ? (
+              <div className="flex-1 overflow-y-auto p-4 sm:p-6 z-10">
+                <MemoryManager token={getToken()} />
+              </div>
             ) : isLoadingHistory ? (
               <div className="flex-1 flex flex-col items-center justify-center text-rose-400 gap-3">
                 <RefreshCw className="w-6 h-6 animate-spin text-rose-500" />

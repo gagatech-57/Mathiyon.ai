@@ -69,13 +69,13 @@ const callPythonMathSolver = async (question) => {
   return null;
 };
 
-// @desc    Send chat prompt & save to MongoDB
+// @desc    Send chat prompt & save to MongoDB (Powered by AI Orchestrator)
 // @route   POST /api/chat
 // @access  Private (JWT Protected)
 const sendChatMessage = async (req, res) => {
   try {
     const userId = req.user.id;
-    const { message, model, conversationId, documentId, documentIds } = req.body;
+    const { message, model, conversationId, documentId, documentIds, enableWebSearch } = req.body;
 
     if (!message || !message.trim()) {
       return res.status(400).json({ success: false, message: 'Message prompt is required' });
@@ -93,118 +93,7 @@ const sendChatMessage = async (req, res) => {
       documentIds.forEach((id) => { if (id && !targetDocIds.includes(id)) targetDocIds.push(id); });
     }
 
-    // --- RAG DOCUMENT INTELLIGENCE RETRIEVAL ---
-    let ragContextText = '';
-    let ragCitations = [];
-    let isRagActive = false;
-
-    if (targetDocIds.length > 0 || /pdf|doc|document|file|chapter|page|according to/i.test(message)) {
-      try {
-        const { searchDocumentChunks } = require('./fileController');
-        let searchResult = null;
-        let statusCode = 200;
-        
-        await searchDocumentChunks({
-          user: { id: userId },
-          body: { query: message, documentIds: targetDocIds, topK: 5 }
-        }, {
-          json: (data) => { searchResult = data; },
-          status: (code) => {
-            statusCode = code;
-            return { json: (data) => { searchResult = data; } };
-          }
-        });
-
-        // PART 8 Security Check: Unauthorized Document Access
-        if (statusCode === 403) {
-          return res.status(403).json({ success: false, message: 'Access denied to requested document(s)' });
-        }
-
-        if (searchResult && searchResult.success && searchResult.chunks && searchResult.chunks.length > 0) {
-          const relevantChunks = searchResult.chunks.filter(c => c.score >= 0.15);
-
-          if (relevantChunks.length > 0) {
-            isRagActive = true;
-            ragContextText = relevantChunks
-              .map(c => `[Source: ${c.originalFilename} — Page ${c.page}]\n${c.text}`)
-              .join('\n\n');
-            
-            const uniqueCit = new Set();
-            relevantChunks.forEach(c => uniqueCit.add(`${c.originalFilename} — Page ${c.page}`));
-            ragCitations = Array.from(uniqueCit);
-          } else if (targetDocIds.length > 0) {
-            // User explicitly selected document(s), but no relevant chunk found
-            return res.status(201).json({
-              success: true,
-              conversationId: currentConvId || 'conv_rag',
-              conversationTitle: 'Document Search',
-              message: message.trim(),
-              response: "The document does not contain this information.",
-              model: model || 'Mathiyon SLM v1.2 RAG',
-              timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
-            });
-          }
-        } else if (targetDocIds.length > 0) {
-          return res.status(201).json({
-            success: true,
-            conversationId: currentConvId || 'conv_rag',
-            conversationTitle: 'Document Search',
-            message: message.trim(),
-            response: "The document does not contain this information.",
-            model: model || 'Mathiyon SLM v1.2 RAG',
-            timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
-          });
-        }
-      } catch (ragErr) {
-        console.warn('RAG retrieval warning:', ragErr.message);
-      }
-    }
-
-    // --- REQUIREMENT 17: HYBRID RAG + MATH ENGINE ROUTING ---
-    let finalPrompt = message.trim();
-    let isMathCalculationRequested = /calculate|multiply|solve|compute|\+|\*|\/|\^|percentage|sum|total/i.test(message);
-
-    if (isRagActive) {
-      if (isMathCalculationRequested) {
-        const mathAttempt = await callPythonMathSolver(`${message} given ${ragContextText.substring(0, 300)}`);
-        if (mathAttempt && mathAttempt.success && mathAttempt.verified) {
-          const mathResponse = `${mathAttempt.explanation || mathAttempt.result}\n\nSource:\n${ragCitations.map(c => `📄 ${c}`).join('\n')}`;
-          return res.status(201).json({
-            success: true,
-            conversationId: currentConvId || 'conv_rag_math',
-            conversationTitle: 'Math Document Query',
-            message: message.trim(),
-            response: mathResponse,
-            model: 'Mathiyon Verified Math Engine + RAG',
-            timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
-          });
-        }
-      }
-
-      // PART 9 RAG PROMPT FORMATTING
-      finalPrompt = `SYSTEM:
-You are Mathiyon AI.
-Answer the user's question using the supplied document context.
-
-Rules:
-1. Prefer information from the document.
-2. Do not invent information that is not present.
-3. If the document does not contain the answer, clearly say:
-   "The document does not contain this information."
-4. Keep the answer concise and useful.
-5. Preserve mathematical values exactly.
-6. If calculations are required, route calculations through the existing SymPy Math Engine.
-7. Include document source information when available.
-
-DOCUMENT CONTEXT:
-${ragContextText}
-
-USER QUESTION:
-${message.trim()}`;
-    }
-
     if (isMongoConnected) {
-      // Find or create conversation in MongoDB
       let conversation;
       if (currentConvId) {
         conversation = await Conversation.findOne({ _id: currentConvId, userId });
@@ -214,14 +103,13 @@ ${message.trim()}`;
         conversation = await Conversation.create({
           userId,
           title: convTitle,
-          model: model || 'Mathiyon Neural Prototype / SLM v1.0',
+          model: model || 'Mathiyon SLM v1.2 Orchestrator',
         });
         currentConvId = conversation._id.toString();
       } else {
         conversation.updatedAt = Date.now();
         await conversation.save();
 
-        // Fetch up to MAX_CONTEXT_MESSAGES past conversation messages for context window
         const pastMessages = await Message.find({ conversationId: currentConvId, userId })
           .sort({ createdAt: -1 })
           .limit(MAX_CONTEXT_MESSAGES);
@@ -231,108 +119,80 @@ ${message.trim()}`;
           { role: 'assistant', content: m.response },
         ]).flat();
       }
+    } else {
+      if (!currentConvId) currentConvId = 'conv_' + Date.now();
+    }
 
-      // Query Python FastAPI PyTorch AI Engine with RAG Context
-      const aiResult = await callPythonAiService(finalPrompt, pastContext);
+    // Pass request through AI Orchestrator
+    const aiOrchestrator = require('../services/aiOrchestrator');
+    const orchResult = await aiOrchestrator.processRequest({
+      userId,
+      message: message.trim(),
+      conversationHistory: pastContext,
+      documentIds: targetDocIds,
+      model: model || 'Mathiyon SLM v1.2',
+      enableWebSearch: Boolean(enableWebSearch)
+    });
 
-      if (!aiResult.success) {
-        return res.status(503).json({
-          success: false,
-          message: 'Mathiyon AI is temporarily unavailable.',
-          offline: true,
-        });
+    if (!orchResult.success) {
+      if (orchResult.statusCode === 403) {
+        return res.status(403).json({ success: false, message: orchResult.message || 'Access denied to requested document(s)' });
       }
+      return res.status(503).json({
+        success: false,
+        message: orchResult.error || 'Mathiyon AI Orchestrator is temporarily unavailable.',
+        offline: true,
+      });
+    }
 
-      let finalResponse = aiResult.response;
-      if (isRagActive && ragCitations.length > 0 && !finalResponse.includes('Source Citation')) {
-        finalResponse += `\n\n📍 **Source Citation:**\n${ragCitations.map(c => `- ${c}`).join('\n')}`;
-      }
+    const finalResponse = orchResult.answer;
 
-      // Save message pair in MongoDB
+    if (isMongoConnected) {
       const savedMessage = await Message.create({
         conversationId: currentConvId,
         userId,
         message: message.trim(),
         response: finalResponse,
-        model: isRagActive ? `${aiResult.model} + RAG` : aiResult.model,
+        model: `Mathiyon Orchestrator (${orchResult.intent})`,
       });
 
       return res.status(201).json({
         success: true,
+        answer: finalResponse,
+        response: finalResponse,
+        intent: orchResult.intent,
+        toolsUsed: orchResult.toolsUsed,
+        sources: orchResult.sources,
+        verified: orchResult.verified,
+        requestId: orchResult.requestId,
+        totalLatencyMs: orchResult.totalLatencyMs,
         conversationId: currentConvId,
-        conversationTitle: conversation.title,
+        conversationTitle: convTitle,
         message: savedMessage.message,
-        response: savedMessage.response,
         model: savedMessage.model,
-        version: aiResult.version,
-        engine: aiResult.engine,
-        generation_time_ms: aiResult.generation_time_ms,
         timestamp: new Date(savedMessage.createdAt).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
       });
     } else {
-      // Memory store fallback
-      let conversation = memoryConversations.find((c) => c.id === currentConvId && c.userId === userId);
-      if (!conversation) {
-        currentConvId = 'conv_' + Date.now();
-        conversation = {
-          id: currentConvId,
-          userId,
-          title: convTitle,
-          model: model || 'Mathiyon Neural Prototype / SLM v1.0',
-          createdAt: new Date(),
-          updatedAt: new Date(),
-        };
-        memoryConversations.push(conversation);
-      } else {
-        conversation.updatedAt = new Date();
-      }
-
-      const pastMsgs = memoryMessages
-        .filter((m) => m.conversationId === currentConvId && m.userId === userId)
-        .slice(-MAX_CONTEXT_MESSAGES);
-
-      pastContext = pastMsgs.map((m) => [
-        { role: 'user', content: m.message },
-        { role: 'assistant', content: m.response },
-      ]).flat();
-
-      const aiResult = await callPythonAiService(message.trim(), pastContext);
-
-      if (!aiResult.success) {
-        return res.status(503).json({
-          success: false,
-          message: 'Mathiyon AI is temporarily unavailable.',
-          offline: true,
-        });
-      }
-
-      const msgObj = {
-        id: 'msg_' + Date.now(),
-        conversationId: currentConvId,
-        userId,
-        message: message.trim(),
-        response: aiResult.response,
-        model: aiResult.model,
-        createdAt: new Date(),
-      };
-      memoryMessages.push(msgObj);
-
       return res.status(201).json({
         success: true,
+        answer: finalResponse,
+        response: finalResponse,
+        intent: orchResult.intent,
+        toolsUsed: orchResult.toolsUsed,
+        sources: orchResult.sources,
+        verified: orchResult.verified,
+        requestId: orchResult.requestId,
+        totalLatencyMs: orchResult.totalLatencyMs,
         conversationId: currentConvId,
-        conversationTitle: conversation.title,
-        message: msgObj.message,
-        response: msgObj.response,
-        model: msgObj.model,
-        version: aiResult.version,
-        engine: aiResult.engine,
-        generation_time_ms: aiResult.generation_time_ms,
-        timestamp: new Date(msgObj.createdAt).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
+        conversationTitle: convTitle,
+        message: message.trim(),
+        model: model || 'Mathiyon SLM v1.2 Orchestrator',
+        timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
       });
     }
   } catch (error) {
-    console.error('Chat API Error:', error);
-    return res.status(500).json({ success: false, message: error.message || 'Chat processing error' });
+    console.error('sendChatMessage error:', error);
+    return res.status(500).json({ success: false, message: `Chat processing error: ${error.message}` });
   }
 };
 

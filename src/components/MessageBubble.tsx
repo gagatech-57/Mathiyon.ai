@@ -7,6 +7,9 @@ export interface ChatMessage {
   text: string;
   timestamp?: string;
   model?: string;
+  toolsUsed?: string[];
+  sources?: any[];
+  verified?: boolean;
 }
 
 interface MessageBubbleProps {
@@ -29,7 +32,7 @@ export const MessageBubble: React.FC<MessageBubbleProps> = ({ message, userIniti
 
   // Format code blocks & Math Engine markdown if message contains special math output
   const renderMessageContent = (text: string) => {
-    const isVerifiedMath = text.includes('[Verified Math Engine]');
+    const isVerifiedMath = text.includes('[Verified Math Engine]') || message.verified;
 
     if (text.includes('```')) {
       const parts = text.split(/(```[\s\S]*?```)/g);
@@ -124,15 +127,38 @@ export const MessageBubble: React.FC<MessageBubbleProps> = ({ message, userIniti
       {/* Content Container */}
       <div className={`flex flex-col max-w-[85%] sm:max-w-[75%] ${isUser ? 'items-end' : 'items-start'}`}>
         {/* Role & Model Header */}
-        <div className="flex items-center gap-2 mb-1 px-1 text-[11px] text-slate-400 font-medium">
+        <div className="flex flex-wrap items-center gap-2 mb-1 px-1 text-[11px] text-slate-400 font-medium">
           <span>{isUser ? 'You' : 'Mathiyon AI'}</span>
           {!isUser && message.model && (
             <span className="text-[10px] px-1.5 py-0.2 rounded bg-rose-500/10 text-rose-300 border border-rose-500/20">
               {message.model}
             </span>
           )}
+
+          {/* Tools Used Badges */}
+          {!isUser && message.toolsUsed && message.toolsUsed.length > 0 && (
+            <div className="flex items-center gap-1">
+              {message.toolsUsed.map((tool, idx) => {
+                let badgeLabel = tool;
+                let badgeColor = 'bg-slate-800 text-slate-300 border-slate-700';
+                if (tool === 'RAG') { badgeLabel = '📄 RAG'; badgeColor = 'bg-blue-500/10 text-blue-300 border-blue-500/30'; }
+                if (tool === 'MathEngine') { badgeLabel = '🧮 Math Engine'; badgeColor = 'bg-emerald-500/10 text-emerald-300 border-emerald-500/30'; }
+                if (tool === 'SLM') { badgeLabel = '🧠 Mathiyon SLM'; badgeColor = 'bg-rose-500/10 text-rose-300 border-rose-500/30'; }
+                if (tool === 'WebSearch') { badgeLabel = '🌐 Web Search'; badgeColor = 'bg-cyan-500/10 text-cyan-300 border-cyan-500/30'; }
+                if (tool === 'Memory') { badgeLabel = '💾 Memory'; badgeColor = 'bg-purple-500/10 text-purple-300 border-purple-500/30'; }
+
+                return (
+                  <span key={idx} className={`text-[10px] px-1.5 py-0.2 rounded border font-mono ${badgeColor}`}>
+                    {badgeLabel}
+                  </span>
+                );
+              })}
+            </div>
+          )}
+
           {message.timestamp && <span className="text-[10px] text-slate-500">{message.timestamp}</span>}
         </div>
+
 
         {/* Message Bubble Box */}
         <div

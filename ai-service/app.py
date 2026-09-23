@@ -58,15 +58,38 @@ class GenerateResponse(BaseModel):
 @app.get("/health")
 def health_check():
     """Health check endpoint returning PyTorch service status."""
+    import torch
     is_model_loaded = generator.model is not None and len(list(generator.model.parameters())) > 0
+    device = "cuda" if torch.cuda.is_available() else "cpu"
     return {
         "status": "ok",
         "service": "Mathiyon AI",
         "model": "Mathiyon Neural",
         "version": MODEL_VERSION,
         "framework": "PyTorch",
+        "device": device,
+        "cuda_available": torch.cuda.is_available(),
         "model_loaded": is_model_loaded
     }
+
+@app.get("/models")
+def get_model_registry():
+    """Model Registry endpoint returning active & available model versions."""
+    import torch
+    device = "cuda" if torch.cuda.is_available() else "cpu"
+    return {
+        "activeModel": "mathiyon-slm-v1.2",
+        "availableModels": [
+            "mathiyon-slm-v1.1",
+            "mathiyon-slm-v1.2",
+            "mathiyon-slm-v1.3 (Upcoming)",
+            "mathiyon-slm-v2.0 (Planned)"
+        ],
+        "defaultModel": "mathiyon-slm-v1.2",
+        "device": device,
+        "cudaAvailable": torch.cuda.is_available()
+    }
+
 
 class MathSolveRequest(BaseModel):
     question: str = Field(..., description="Mathematical question string")

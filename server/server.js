@@ -7,6 +7,7 @@ const aiRoutes = require('./routes/aiRoutes');
 const chatRoutes = require('./routes/chatRoutes');
 const mathRoutes = require('./routes/mathRoutes');
 const fileRoutes = require('./routes/fileRoutes');
+const memoryRoutes = require('./routes/memoryRoutes');
 
 // Load env variables
 dotenv.config();
@@ -29,6 +30,8 @@ app.use('/api/ai', aiRoutes);
 app.use('/api/chat', chatRoutes);
 app.use('/api/math', mathRoutes);
 app.use('/api/files', fileRoutes);
+app.use('/api/memory', memoryRoutes);
+
 
 
 // Health check endpoint
