@@ -1,0 +1,5 @@
+[
+  "self.k_proj = nn.Linear(d_model, d_model)",
+  "PyTorch provides dynamic computational graphs, automatic differentiation, and GPU tensor acceleration for deep neural network training.",
+  "Optimization algorithms seek the global minimum of loss functions using gradient vector updates."
+]

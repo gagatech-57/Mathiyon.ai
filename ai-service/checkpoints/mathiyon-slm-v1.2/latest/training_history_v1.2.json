@@ -1,0 +1,31 @@
+{
+  "model_name": "Mathiyon SLM v1.2",
+  "version": "1.2",
+  "total_parameters": 7434632,
+  "num_layers": 6,
+  "vocab_size": 5000,
+  "context_length": 512,
+  "tokenizer_unk_rate": 0.0,
+  "device": "cpu",
+  "epochs": 15,
+  "training_loss": [
+    6.254,
+    4.6346,
+    4.2747,
+    4.0377
+  ],
+  "validation_loss": [
+    7.0093,
+    7.401,
+    7.8195,
+    8.0949
+  ],
+  "perplexity": [
+    1106.8876,
+    1637.6455,
+    2488.6227,
+    3277.8001
+  ],
+  "training_time_seconds": 398.89,
+  "best_val_loss": 7.0093
+}

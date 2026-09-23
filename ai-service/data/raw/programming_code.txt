@@ -1,0 +1,47 @@
+// React Functional Component with Hooks
+import React, { useState, useEffect } from 'react';
+
+export const CounterApp = () => {
+  const [count, setCount] = useState(0);
+
+  useEffect(() => {
+    console.log(`Count changed to ${count}`);
+  }, [count]);
+
+  return (
+    <div className="p-6 bg-slate-900 text-white rounded-xl">
+      <h2>Count: {count}</h2>
+      <button onClick={() => setCount(count + 1)}>Increment</button>
+    </div>
+  );
+};
+
+// Express REST API Route Handler with JWT Protection
+const express = require('express');
+const jwt = require('jsonwebtoken');
+const router = express.Router();
+
+router.post('/login', async (req, res) => {
+  const { email, password } = req.body;
+  const token = jwt.sign({ email }, process.env.JWT_SECRET, { expiresIn: '30d' });
+  res.json({ success: true, token });
+});
+
+// Python PyTorch Transformer Forward Pass
+import torch
+import torch.nn as nn
+
+class SimpleAttention(nn.Module):
+    def __init__(self, d_model=256):
+        super().__init__()
+        self.q_proj = nn.Linear(d_model, d_model)
+        self.k_proj = nn.Linear(d_model, d_model)
+        self.v_proj = nn.Linear(d_model, d_model)
+
+    def forward(self, x):
+        q = self.q_proj(x)
+        k = self.k_proj(x)
+        v = self.v_proj(x)
+        scores = torch.matmul(q, k.transpose(-2, -1))
+        probs = torch.softmax(scores, dim=-1)
+        return torch.matmul(probs, v)

@@ -1,0 +1,148 @@
+@import "tailwindcss";
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;500;600;700;800;900&display=swap');
+
+:root {
+  --bg-main: #080711;
+  --bg-card: rgba(18, 15, 32, 0.7);
+  --bg-panel: #0c0a1a;
+  --border-color: rgba(244, 63, 94, 0.18);
+  --text-primary: #f8fafc;
+  --text-secondary: #94a3b8;
+  --accent-glow: rgba(225, 29, 72, 0.3);
+}
+
+.light-theme {
+  --bg-main: #f8fafc;
+  --bg-card: rgba(255, 255, 255, 0.9);
+  --bg-panel: #ffffff;
+  --border-color: rgba(225, 29, 72, 0.2);
+  --text-primary: #0f172a;
+  --text-secondary: #475569;
+  --accent-glow: rgba(225, 29, 72, 0.15);
+}
+
+@layer base {
+  body {
+    background-color: var(--bg-main);
+    color: var(--text-primary);
+    font-family: 'Inter', system-ui, -apple-system, sans-serif;
+    overflow-x: hidden;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: 'Outfit', sans-serif;
+  }
+}
+
+/* Custom Mathiyon Glassmorphism & Effects */
+.glass-panel {
+  background: var(--bg-card);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid var(--border-color);
+}
+
+.glass-panel-subtle {
+  background: rgba(255, 255, 255, 0.03);
+  backdrop-filter: blur(8px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.light-theme .glass-panel-subtle {
+  background: rgba(0, 0, 0, 0.02);
+  border: 1px solid rgba(0, 0, 0, 0.06);
+}
+
+.glass-input {
+  background: rgba(10, 9, 20, 0.6);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.light-theme .glass-input {
+  background: rgba(255, 255, 255, 0.95);
+  border: 1px solid rgba(225, 29, 72, 0.2);
+  color: #0f172a;
+}
+
+.glass-input:focus-within {
+  border-color: rgba(225, 29, 72, 0.6);
+  box-shadow: 0 0 20px -2px rgba(225, 29, 72, 0.25);
+  background: rgba(14, 12, 28, 0.9);
+  outline: none;
+}
+
+.mathiyon-gradient-text {
+  background: linear-gradient(135deg, #ffffff 0%, #fda4af 40%, #e11d48 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.light-theme .mathiyon-gradient-text {
+  background: linear-gradient(135deg, #0f172a 0%, #be123c 60%, #e11d48 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.mathiyon-btn-primary {
+  background: linear-gradient(135deg, #e11d48 0%, #be123c 60%, #881337 100%);
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.mathiyon-btn-primary::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.25), transparent);
+  transition: 0.5s;
+}
+
+.mathiyon-btn-primary:hover::before {
+  left: 100%;
+}
+
+.mathiyon-btn-primary:hover {
+  box-shadow: 0 0 20px 2px rgba(225, 29, 72, 0.45);
+  transform: translateY(-1px);
+}
+
+.ambient-glow-1 {
+  position: absolute;
+  width: 450px;
+  height: 450px;
+  background: radial-gradient(circle, rgba(225, 29, 72, 0.18) 0%, rgba(127, 29, 29, 0.05) 50%, transparent 70%);
+  filter: blur(70px);
+  pointer-events: none;
+  z-index: 0;
+}
+
+.ambient-glow-2 {
+  position: absolute;
+  width: 400px;
+  height: 400px;
+  background: radial-gradient(circle, rgba(159, 18, 57, 0.2) 0%, rgba(76, 5, 25, 0.04) 60%, transparent 75%);
+  filter: blur(80px);
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: rgba(225, 29, 72, 0.25);
+  border-radius: 9999px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(225, 29, 72, 0.55);
+}

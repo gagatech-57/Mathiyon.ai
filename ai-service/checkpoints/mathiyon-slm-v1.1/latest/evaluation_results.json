@@ -1,0 +1,64 @@
+{
+  "model": "Mathiyon SLM v1.1",
+  "version": "v1.1",
+  "checkpoint_path": "C:\\DISK-D\\Personal folder\\Mathiyon\\ai-service\\checkpoints\\mathiyon-slm-v1.1\\latest\\model.pt",
+  "eval_date": "2026-09-22T14:23:23.783116",
+  "benchmark_results": [
+    {
+      "category": "General Knowledge",
+      "prompt": "Who are you?",
+      "response": "Hello! I am **Mathiyon AI (மதியோன் AI)**, a next-generation intelligence platform powered by PyTorch Small Language Model (SLM v1.0) architecture. How can I assist you with your project today?",
+      "generation_time_ms": 9.16,
+      "tokens_processed": 14,
+      "confidence": 0.0511
+    },
+    {
+      "category": "Tamil Language",
+      "prompt": "தமிழ் மொழி பற்றி கூறுக.",
+      "response": "Hello! I have processed your request: \"தமிழ் மொழி பற்றி கூறுக.\".\n\n• **Neural Model**: Mathiyon Neural Prototype / SLM v1.0\n• **PyTorch Forward Pass Confidence**: 4.66%\n\nHow would you like me to assist you further with your code or project?",
+      "generation_time_ms": 22.94,
+      "tokens_processed": 161,
+      "confidence": 0.0466
+    },
+    {
+      "category": "English Conversational",
+      "prompt": "Hello, my name is Guna.",
+      "response": "Nice to meet you, **Guna**! How can I help you today?",
+      "generation_time_ms": 56.54,
+      "tokens_processed": 351,
+      "confidence": 0.0548
+    },
+    {
+      "category": "Context Retention",
+      "prompt": "What is my name?",
+      "response": "Based on our conversation, your name is **Guna**!",
+      "generation_time_ms": 70.15,
+      "tokens_processed": 397,
+      "confidence": 0.0372
+    },
+    {
+      "category": "Coding (React)",
+      "prompt": "Explain React.",
+      "response": "**React** is a popular component-based JavaScript frontend library developed by Meta. Key concepts include:\n\n• **Component Architecture**: Reusable UI blocks (`JSX`/`TSX`).\n• **Virtual DOM**: High-performance DOM updates.\n• **React Hooks**: Stateful logic management using `useState` and `useEffect`.",
+      "generation_time_ms": 77.52,
+      "tokens_processed": 435,
+      "confidence": 0.0462
+    },
+    {
+      "category": "Coding (JavaScript)",
+      "prompt": "Give me a simple React example.",
+      "response": "Here is a simple React functional component using TypeScript & Tailwind CSS:\n\n```tsx\nimport React, { useState } from 'react';\n\nexport const Counter = () => {\n  const [count, setCount] = useState(0);\n\n  return (\n    <div className=\"p-6 rounded-2xl bg-[#0e0c1c] text-white border border-rose-500/30 shadow-glow-md\">\n      <h3 className=\"text-xl font-bold mb-3\">Mathiyon Counter Component</h3>\n      <p className=\"text-slate-300 mb-4\">Current Count: <span className=\"text-rose-400 font-bold\">{count}</span></p>\n      <button \n        onClick={() => setCount(count + 1)}\n        className=\"px-4 py-2 bg-gradient-to-r from-rose-600 to-rose-500 rounded-xl font-semibold hover:opacity-90 transition\"\n      >\n        Increment\n      </button>\n    </div>\n  );\n};\n```",
+      "generation_time_ms": 80.2,
+      "tokens_processed": 698,
+      "confidence": 0.0361
+    },
+    {
+      "category": "Science & Math",
+      "prompt": "What is calculus?",
+      "response": "Hello Guna! I have processed your request: \"What is calculus?\".\n\n• **Neural Model**: Mathiyon Neural Prototype / SLM v1.0\n• **PyTorch Forward Pass Confidence**: 4.45%\n\nHow would you like me to assist you further with your code or project?",
+      "generation_time_ms": 89.62,
+      "tokens_processed": 1390,
+      "confidence": 0.0445
+    }
+  ]
+}

@@ -1,0 +1,900 @@
+{
+  "model": "Mathiyon SLM v1.2",
+  "version": "1.2",
+  "checkpoint_path": "C:\\DISK-D\\Personal folder\\Mathiyon\\ai-service\\checkpoints\\mathiyon-slm-v1.2\\latest\\best.pt",
+  "total_prompts_tested": 120,
+  "overall_avg_latency_ms": 94.12,
+  "overall_avg_confidence": 0.3498,
+  "category_summary": {
+    "General Q&A": {
+      "count": 20,
+      "avg_time_ms": 88.87,
+      "avg_confidence": 0.3826
+    },
+    "Coding": {
+      "count": 20,
+      "avg_time_ms": 98.08,
+      "avg_confidence": 0.3412
+    },
+    "Mathematics": {
+      "count": 20,
+      "avg_time_ms": 99.45,
+      "avg_confidence": 0.3463
+    },
+    "Tamil Language": {
+      "count": 20,
+      "avg_time_ms": 91.39,
+      "avg_confidence": 0.3437
+    },
+    "English Conversational": {
+      "count": 20,
+      "avg_time_ms": 92.65,
+      "avg_confidence": 0.3494
+    },
+    "Instruction Following": {
+      "count": 20,
+      "avg_time_ms": 94.3,
+      "avg_confidence": 0.3359
+    }
+  },
+  "robustness_test": [
+    {
+      "prompt": "What is the exact population of Mars right now?",
+      "response": "Hello! I have processed your request: \"What is the exact population of Mars right now?\".\n\n• **Neural Model**: Mathiyon SLM v1.1\n• **PyTorch Forward Pass Confidence**: 68.56%\n\nHow would you like me to assist you further with your code or project?"
+    },
+    {
+      "prompt": "repeat repeat repeat repeat repeat repeat repeat repeat",
+      "response": "Hello! I have processed your request: \"repeat repeat repeat repeat repeat repeat repeat repeat\".\n\n• **Neural Model**: Mathiyon SLM v1.1\n• **PyTorch Forward Pass Confidence**: 58.13%\n\nHow would you like me to assist you further with your code or project?"
+    },
+    {
+      "prompt": "React தமிழ் Python JavaScript 123 !@#",
+      "response": "Hello! I have processed your request: \"React தமிழ் Python JavaScript 123 !@#\".\n\n• **Neural Model**: Mathiyon SLM v1.1\n• **PyTorch Forward Pass Confidence**: 53.25%\n\nHow would you like me to assist you further with your code or project?"
+    },
+    {
+      "prompt": "Please explain a concept that does not exist in universe XYZ",
+      "response": "Hello! I have processed your request: \"Please explain a concept that does not exist in universe XYZ\".\n\n• **Neural Model**: Mathiyon SLM v1.1\n• **PyTorch Forward Pass Confidence**: 58.72%\n\nHow would you like me to assist you further with your code or project?"
+    }
+  ],
+  "benchmark_results": [
+    {
+      "category": "General Q&A",
+      "prompt": "Who are you?",
+      "response": "Hello! I am **Mathiyon AI (மதியோன் AI)**, a next-generation intelligence platform powered by PyTorch Small Language Model (SLM v1.0) architecture. How can I assist you with your project today?",
+      "generation_time_ms": 64.72,
+      "confidence": 0.4374
+    },
+    {
+      "category": "General Q&A",
+      "prompt": "What is artificial intelligence?",
+      "response": "Hello! I have processed your request: \"What is artificial intelligence?\".\n\n• **Neural Model**: Mathiyon SLM v1.1\n• **PyTorch Forward Pass Confidence**: 23.97%\n\nHow would you like me to assist you further with your code or project?",
+      "generation_time_ms": 27.78,
+      "confidence": 0.2397
+    },
+    {
+      "category": "General Q&A",
+      "prompt": "What is machine learning?",
+      "response": "Hello! I am Mathiyon AI. How can I help you with your coding or queries today?",
+      "generation_time_ms": 62.35,
+      "confidence": 0.6213
+    },
+    {
+      "category": "General Q&A",
+      "prompt": "What is a neural network?",
+      "response": "Hello Mathiyon! I have processed your request: \"What is a neural network?\".\n\n• **Neural Model**: Mathiyon SLM v1.1\n• **PyTorch Forward Pass Confidence**: 55.47%\n\nHow would you like me to assist you further with your code or project?",
+      "generation_time_ms": 78.67,
+      "confidence": 0.5547
+    },
+    {
+      "category": "General Q&A",
+      "prompt": "What is deep learning?",
+      "response": "Hello Mathiyon! I have processed your request: \"What is deep learning?\".\n\n• **Neural Model**: Mathiyon SLM v1.1\n• **PyTorch Forward Pass Confidence**: 43.66%\n\nHow would you like me to assist you further with your code or project?",
+      "generation_time_ms": 90.55,
+      "confidence": 0.4366
+    },
+    {
+      "category": "General Q&A",
+      "prompt": "What is a database?",
+      "response": "Hello Mathiyon! I have processed your request: \"What is a database?\".\n\n• **Neural Model**: Mathiyon SLM v1.1\n• **PyTorch Forward Pass Confidence**: 33.87%\n\nHow would you like me to assist you further with your code or project?",
+      "generation_time_ms": 94.04,
+      "confidence": 0.3387
+    },
+    {
+      "category": "General Q&A",
+      "prompt": "What is the internet?",
+      "response": "Hello Mathiyon! I have processed your request: \"What is the internet?\".\n\n• **Neural Model**: Mathiyon SLM v1.1\n• **PyTorch Forward Pass Confidence**: 37.21%\n\nHow would you like me to assist you further with your code or project?",
+      "generation_time_ms": 109.51,
+      "confidence": 0.3721
+    },
+    {
+      "category": "General Q&A",
+      "prompt": "What is an operating system?",
+      "response": "Hello Mathiyon! I have processed your request: \"What is an operating system?\".\n\n• **Neural Model**: Mathiyon SLM v1.1\n• **PyTorch Forward Pass Confidence**: 34.11%\n\nHow would you like me to assist you further with your code or project?",
+      "generation_time_ms": 95.69,
+      "confidence": 0.3411
+    },
+    {
+      "category": "General Q&A",
+      "prompt": "What is cloud computing?",
+      "response": "Hello Mathiyon! I have processed your request: \"What is cloud computing?\".\n\n• **Neural Model**: Mathiyon SLM v1.1\n• **PyTorch Forward Pass Confidence**: 27.17%\n\nHow would you like me to assist you further with your code or project?",
+      "generation_time_ms": 102.2,
+      "confidence": 0.2717
+    },
+    {
+      "category": "General Q&A",
+      "prompt": "What is open source software?",
+      "response": "Hello Mathiyon! I have processed your request: \"What is open source software?\".\n\n• **Neural Model**: Mathiyon SLM v1.1\n• **PyTorch Forward Pass Confidence**: 39.37%\n\nHow would you like me to assist you further with your code or project?",
+      "generation_time_ms": 114.22,
+      "confidence": 0.3937
+    },
+    {
+      "category": "General Q&A",
+      "prompt": "What is a server?",
+      "response": "Hello Mathiyon! I have processed your request: \"What is a server?\".\n\n• **Neural Model**: Mathiyon SLM v1.1\n• **PyTorch Forward Pass Confidence**: 31.43%\n\nHow would you like me to assist you further with your code or project?",
+      "generation_time_ms": 98.22,
+      "confidence": 0.3143
+    },
+    {
+      "category": "General Q&A",
+      "prompt": "What is a web browser?",
+      "response": "Hello Mathiyon! I have processed your request: \"What is a web browser?\".\n\n• **Neural Model**: Mathiyon SLM v1.1\n• **PyTorch Forward Pass Confidence**: 35.08%\n\nHow would you like me to assist you further with your code or project?",
+      "generation_time_ms": 99.13,
+      "confidence": 0.3508
+    },
+    {
+      "category": "General Q&A",
+      "prompt": "What is cybersecurity?",
+      "response": "Hello Mathiyon! I have processed your request: \"What is cybersecurity?\".\n\n• **Neural Model**: Mathiyon SLM v1.1\n• **PyTorch Forward Pass Confidence**: 30.39%\n\nHow would you like me to assist you further with your code or project?",
+      "generation_time_ms": 102.39,
+      "confidence": 0.3039
+    },
+    {
+      "category": "General Q&A",
+      "prompt": "What is cryptography?",
+      "response": "Hello Mathiyon! I have processed your request: \"What is cryptography?\".\n\n• **Neural Model**: Mathiyon SLM v1.1\n• **PyTorch Forward Pass Confidence**: 42.70%\n\nHow would you like me to assist you further with your code or project?",
+      "generation_time_ms": 92.43,
+      "confidence": 0.427
+    },
+    {
+      "category": "General Q&A",
+      "prompt": "What is data science?",
+      "response": "Hello Mathiyon! I have processed your request: \"What is data science?\".\n\n• **Neural Model**: Mathiyon SLM v1.1\n• **PyTorch Forward Pass Confidence**: 37.35%\n\nHow would you like me to assist you further with your code or project?",
+      "generation_time_ms": 100.05,
+      "confidence": 0.3735
+    },
+    {
+      "category": "General Q&A",
+      "prompt": "What is an algorithm?",
+      "response": "Hello Mathiyon! I have processed your request: \"What is an algorithm?\".\n\n• **Neural Model**: Mathiyon SLM v1.1\n• **PyTorch Forward Pass Confidence**: 30.27%\n\nHow would you like me to assist you further with your code or project?",
+      "generation_time_ms": 83.06,
+      "confidence": 0.3027
+    },
+    {
+      "category": "General Q&A",
+      "prompt": "What is a computer network?",
+      "response": "Hello Mathiyon! I have processed your request: \"What is a computer network?\".\n\n• **Neural Model**: Mathiyon SLM v1.1\n• **PyTorch Forward Pass Confidence**: 37.22%\n\nHow would you like me to assist you further with your code or project?",
+      "generation_time_ms": 89.58,
+      "confidence": 0.3722
+    },
+    {
+      "category": "General Q&A",
+      "prompt": "What is software architecture?",
+      "response": "Hello, Mathiyon! I am Mathiyon AI. How can I help you with your coding or queries today?",
+      "generation_time_ms": 93.25,
+      "confidence": 0.4351
+    },
+    {
+      "category": "General Q&A",
+      "prompt": "What is a compiler?",
+      "response": "Hello Mathiyon! I have processed your request: \"What is a compiler?\".\n\n• **Neural Model**: Mathiyon SLM v1.1\n• **PyTorch Forward Pass Confidence**: 44.45%\n\nHow would you like me to assist you further with your code or project?",
+      "generation_time_ms": 92.58,
+      "confidence": 0.4445
+    },
+    {
+      "category": "General Q&A",
+      "prompt": "What is version control?",
+      "response": "Hello Mathiyon! I have processed your request: \"What is version control?\".\n\n• **Neural Model**: Mathiyon SLM v1.1\n• **PyTorch Forward Pass Confidence**: 32.03%\n\nHow would you like me to assist you further with your code or project?",
+      "generation_time_ms": 87.03,
+      "confidence": 0.3203
+    },
+    {
+      "category": "Coding",
+      "prompt": "Explain React.",
+      "response": "**React** is a popular component-based JavaScript frontend library developed by Meta. Key concepts include:\n\n• **Component Architecture**: Reusable UI blocks (`JSX`/`TSX`).\n• **Virtual DOM**: High-performance DOM updates.\n• **React Hooks**: Stateful logic management using `useState` and `useEffect`.",
+      "generation_time_ms": 92.23,
+      "confidence": 0.341
+    },
+    {
+      "category": "Coding",
+      "prompt": "Give me a simple React example.",
+      "response": "Here is a simple React functional component using TypeScript & Tailwind CSS:\n\n```tsx\nimport React, { useState } from 'react';\n\nexport const Counter = () => {\n  const [count, setCount] = useState(0);\n\n  return (\n    <div className=\"p-6 rounded-2xl bg-[#0e0c1c] text-white border border-rose-500/30 shadow-glow-md\">\n      <h3 className=\"text-xl font-bold mb-3\">Mathiyon Counter Component</h3>\n      <p className=\"text-slate-300 mb-4\">Current Count: <span className=\"text-rose-400 font-bold\">{count}</span></p>\n      <button \n        onClick={() => setCount(count + 1)}\n        className=\"px-4 py-2 bg-gradient-to-r from-rose-600 to-rose-500 rounded-xl font-semibold hover:opacity-90 transition\"\n      >\n        Increment\n      </button>\n    </div>\n  );\n};\n```",
+      "generation_time_ms": 94.56,
+      "confidence": 0.2646
+    },
+    {
+      "category": "Coding",
+      "prompt": "Explain JavaScript.",
+      "response": "**JavaScript** is the core programming language of the Web. It enables interactive web pages, server-side code (Node.js/Express), and full-stack web application development.",
+      "generation_time_ms": 86.89,
+      "confidence": 0.2577
+    },
+    {
+      "category": "Coding",
+      "prompt": "What is TypeScript?",
+      "response": "Hello Mathiyon! I have processed your request: \"What is TypeScript?\".\n\n• **Neural Model**: Mathiyon SLM v1.1\n• **PyTorch Forward Pass Confidence**: 25.82%\n\nHow would you like me to assist you further with your code or project?",
+      "generation_time_ms": 91.74,
+      "confidence": 0.2582
+    },
+    {
+      "category": "Coding",
+      "prompt": "Explain Express.js",
+      "response": "Hello Mathiyon! I have processed your request: \"Explain Express.js\".\n\n• **Neural Model**: Mathiyon SLM v1.1\n• **PyTorch Forward Pass Confidence**: 28.85%\n\nHow would you like me to assist you further with your code or project?",
+      "generation_time_ms": 99.32,
+      "confidence": 0.2885
+    },
+    {
+      "category": "Coding",
+      "prompt": "What is MongoDB?",
+      "response": "Hello Mathiyon! I have processed your request: \"What is MongoDB?\".\n\n• **Neural Model**: Mathiyon SLM v1.1\n• **PyTorch Forward Pass Confidence**: 44.84%\n\nHow would you like me to assist you further with your code or project?",
+      "generation_time_ms": 104.77,
+      "confidence": 0.4484
+    },
+    {
+      "category": "Coding",
+      "prompt": "What is JWT authentication?",
+      "response": "Hello Mathiyon! I have processed your request: \"What is JWT authentication?\".\n\n• **Neural Model**: Mathiyon SLM v1.1\n• **PyTorch Forward Pass Confidence**: 35.53%\n\nHow would you like me to assist you further with your code or project?",
+      "generation_time_ms": 101.12,
+      "confidence": 0.3553
+    },
+    {
+      "category": "Coding",
+      "prompt": "What is PyTorch?",
+      "response": "Hello Mathiyon! I have processed your request: \"What is PyTorch?\".\n\n• **Neural Model**: Mathiyon SLM v1.1\n• **PyTorch Forward Pass Confidence**: 43.25%\n\nHow would you like me to assist you further with your code or project?",
+      "generation_time_ms": 102.72,
+      "confidence": 0.4325
+    },
+    {
+      "category": "Coding",
+      "prompt": "What is HTML?",
+      "response": "Hello Mathiyon! I have processed your request: \"What is HTML?\".\n\n• **Neural Model**: Mathiyon SLM v1.1\n• **PyTorch Forward Pass Confidence**: 36.69%\n\nHow would you like me to assist you further with your code or project?",
+      "generation_time_ms": 108.17,
+      "confidence": 0.3669
+    },
+    {
+      "category": "Coding",
+      "prompt": "What is CSS?",
+      "response": "Hello Mathiyon! I have processed your request: \"What is CSS?\".\n\n• **Neural Model**: Mathiyon SLM v1.1\n• **PyTorch Forward Pass Confidence**: 46.30%\n\nHow would you like me to assist you further with your code or project?",
+      "generation_time_ms": 103.82,
+      "confidence": 0.463
+    },
+    {
+      "category": "Coding",
+      "prompt": "What is SQL?",
+      "response": "Hello Mathiyon! I have processed your request: \"What is SQL?\".\n\n• **Neural Model**: Mathiyon SLM v1.1\n• **PyTorch Forward Pass Confidence**: 35.18%\n\nHow would you like me to assist you further with your code or project?",
+      "generation_time_ms": 110.86,
+      "confidence": 0.3518
+    },
+    {
+      "category": "Coding",
+      "prompt": "What is Git?",
+      "response": "Hello Mathiyon! I have processed your request: \"What is Git?\".\n\n• **Neural Model**: Mathiyon SLM v1.1\n• **PyTorch Forward Pass Confidence**: 39.28%\n\nHow would you like me to assist you further with your code or project?",
+      "generation_time_ms": 106.75,
+      "confidence": 0.3928
+    },
+    {
+      "category": "Coding",
+      "prompt": "What is Docker?",
+      "response": "Hello Mathiyon! I have processed your request: \"What is Docker?\".\n\n• **Neural Model**: Mathiyon SLM v1.1\n• **PyTorch Forward Pass Confidence**: 24.75%\n\nHow would you like me to assist you further with your code or project?",
+      "generation_time_ms": 92.25,
+      "confidence": 0.2475
+    },
+    {
+      "category": "Coding",
+      "prompt": "What is REST API?",
+      "response": "Hello Mathiyon! I have processed your request: \"What is REST API?\".\n\n• **Neural Model**: Mathiyon SLM v1.1\n• **PyTorch Forward Pass Confidence**: 32.67%\n\nHow would you like me to assist you further with your code or project?",
+      "generation_time_ms": 113.03,
+      "confidence": 0.3267
+    },
+    {
+      "category": "Coding",
+      "prompt": "How does useState work in React?",
+      "response": "Hello Mathiyon! I have processed your request: \"How does useState work in React?\".\n\n• **Neural Model**: Mathiyon SLM v1.1\n• **PyTorch Forward Pass Confidence**: 38.69%\n\nHow would you like me to assist you further with your code or project?",
+      "generation_time_ms": 93.49,
+      "confidence": 0.3869
+    },
+    {
+      "category": "Coding",
+      "prompt": "How does useEffect work in React?",
+      "response": "Hello Mathiyon! I have processed your request: \"How does useEffect work in React?\".\n\n• **Neural Model**: Mathiyon SLM v1.1\n• **PyTorch Forward Pass Confidence**: 43.25%\n\nHow would you like me to assist you further with your code or project?",
+      "generation_time_ms": 93.77,
+      "confidence": 0.4325
+    },
+    {
+      "category": "Coding",
+      "prompt": "Explain async/await in JS.",
+      "response": "Hello Mathiyon! I have processed your request: \"Explain async/await in JS.\".\n\n• **Neural Model**: Mathiyon SLM v1.1\n• **PyTorch Forward Pass Confidence**: 29.34%\n\nHow would you like me to assist you further with your code or project?",
+      "generation_time_ms": 88.51,
+      "confidence": 0.2934
+    },
+    {
+      "category": "Coding",
+      "prompt": "What is a Promise in JS?",
+      "response": "Hello Mathiyon! I have processed your request: \"What is a Promise in JS?\".\n\n• **Neural Model**: Mathiyon SLM v1.1\n• **PyTorch Forward Pass Confidence**: 31.89%\n\nHow would you like me to assist you further with your code or project?",
+      "generation_time_ms": 88.98,
+      "confidence": 0.3189
+    },
+    {
+      "category": "Coding",
+      "prompt": "What is Big O notation?",
+      "response": "Hello Mathiyon! I have processed your request: \"What is Big O notation?\".\n\n• **Neural Model**: Mathiyon SLM v1.1\n• **PyTorch Forward Pass Confidence**: 26.57%\n\nHow would you like me to assist you further with your code or project?",
+      "generation_time_ms": 95.45,
+      "confidence": 0.2657
+    },
+    {
+      "category": "Coding",
+      "prompt": "What is a Binary Search Tree?",
+      "response": "Hello Mathiyon! I have processed your request: \"What is a Binary Search Tree?\".\n\n• **Neural Model**: Mathiyon SLM v1.1\n• **PyTorch Forward Pass Confidence**: 33.12%\n\nHow would you like me to assist you further with your code or project?",
+      "generation_time_ms": 93.18,
+      "confidence": 0.3312
+    },
+    {
+      "category": "Mathematics",
+      "prompt": "What is linear algebra?",
+      "response": "Hello Mathiyon! I have processed your request: \"What is linear algebra?\".\n\n• **Neural Model**: Mathiyon SLM v1.1\n• **PyTorch Forward Pass Confidence**: 32.13%\n\nHow would you like me to assist you further with your code or project?",
+      "generation_time_ms": 96.48,
+      "confidence": 0.3213
+    },
+    {
+      "category": "Mathematics",
+      "prompt": "What is calculus?",
+      "response": "Hello Mathiyon! I have processed your request: \"What is calculus?\".\n\n• **Neural Model**: Mathiyon SLM v1.1\n• **PyTorch Forward Pass Confidence**: 30.48%\n\nHow would you like me to assist you further with your code or project?",
+      "generation_time_ms": 88.06,
+      "confidence": 0.3048
+    },
+    {
+      "category": "Mathematics",
+      "prompt": "What is derivative?",
+      "response": "Hello Mathiyon! I have processed your request: \"What is derivative?\".\n\n• **Neural Model**: Mathiyon SLM v1.1\n• **PyTorch Forward Pass Confidence**: 37.59%\n\nHow would you like me to assist you further with your code or project?",
+      "generation_time_ms": 90.53,
+      "confidence": 0.3759
+    },
+    {
+      "category": "Mathematics",
+      "prompt": "What is integral?",
+      "response": "Hello Mathiyon! I have processed your request: \"What is integral?\".\n\n• **Neural Model**: Mathiyon SLM v1.1\n• **PyTorch Forward Pass Confidence**: 33.40%\n\nHow would you like me to assist you further with your code or project?",
+      "generation_time_ms": 106.58,
+      "confidence": 0.334
+    },
+    {
+      "category": "Mathematics",
+      "prompt": "What is probability theory?",
+      "response": "Hello Mathiyon! I have processed your request: \"What is probability theory?\".\n\n• **Neural Model**: Mathiyon SLM v1.1\n• **PyTorch Forward Pass Confidence**: 34.39%\n\nHow would you like me to assist you further with your code or project?",
+      "generation_time_ms": 98.56,
+      "confidence": 0.3439
+    },
+    {
+      "category": "Mathematics",
+      "prompt": "What is gradient descent?",
+      "response": "Hello Mathiyon! I have processed your request: \"What is gradient descent?\".\n\n• **Neural Model**: Mathiyon SLM v1.1\n• **PyTorch Forward Pass Confidence**: 37.13%\n\nHow would you like me to assist you further with your code or project?",
+      "generation_time_ms": 97.59,
+      "confidence": 0.3713
+    },
+    {
+      "category": "Mathematics",
+      "prompt": "What is a matrix?",
+      "response": "Hello Mathiyon! I have processed your request: \"What is a matrix?\".\n\n• **Neural Model**: Mathiyon SLM v1.1\n• **PyTorch Forward Pass Confidence**: 39.46%\n\nHow would you like me to assist you further with your code or project?",
+      "generation_time_ms": 99.9,
+      "confidence": 0.3946
+    },
+    {
+      "category": "Mathematics",
+      "prompt": "What is a vector?",
+      "response": "Hello Mathiyon! I have processed your request: \"What is a vector?\".\n\n• **Neural Model**: Mathiyon SLM v1.1\n• **PyTorch Forward Pass Confidence**: 36.41%\n\nHow would you like me to assist you further with your code or project?",
+      "generation_time_ms": 105.02,
+      "confidence": 0.3641
+    },
+    {
+      "category": "Mathematics",
+      "prompt": "What is prime number?",
+      "response": "Hello Mathiyon! I have processed your request: \"What is prime number?\".\n\n• **Neural Model**: Mathiyon SLM v1.1\n• **PyTorch Forward Pass Confidence**: 33.94%\n\nHow would you like me to assist you further with your code or project?",
+      "generation_time_ms": 99.59,
+      "confidence": 0.3394
+    },
+    {
+      "category": "Mathematics",
+      "prompt": "What is Pythagorean theorem?",
+      "response": "Hello Mathiyon! I have processed your request: \"What is Pythagorean theorem?\".\n\n• **Neural Model**: Mathiyon SLM v1.1\n• **PyTorch Forward Pass Confidence**: 36.81%\n\nHow would you like me to assist you further with your code or project?",
+      "generation_time_ms": 93.42,
+      "confidence": 0.3681
+    },
+    {
+      "category": "Mathematics",
+      "prompt": "What is a function?",
+      "response": "Hello Mathiyon! I have processed your request: \"What is a function?\".\n\n• **Neural Model**: Mathiyon SLM v1.1\n• **PyTorch Forward Pass Confidence**: 34.01%\n\nHow would you like me to assist you further with your code or project?",
+      "generation_time_ms": 104.73,
+      "confidence": 0.3401
+    },
+    {
+      "category": "Mathematics",
+      "prompt": "What is an equation?",
+      "response": "Hello Mathiyon! I have processed your request: \"What is an equation?\".\n\n• **Neural Model**: Mathiyon SLM v1.1\n• **PyTorch Forward Pass Confidence**: 35.49%\n\nHow would you like me to assist you further with your code or project?",
+      "generation_time_ms": 94.53,
+      "confidence": 0.3549
+    },
+    {
+      "category": "Mathematics",
+      "prompt": "What is statistics?",
+      "response": "Hello Mathiyon! I have processed your request: \"What is statistics?\".\n\n• **Neural Model**: Mathiyon SLM v1.1\n• **PyTorch Forward Pass Confidence**: 39.73%\n\nHow would you like me to assist you further with your code or project?",
+      "generation_time_ms": 102.02,
+      "confidence": 0.3973
+    },
+    {
+      "category": "Mathematics",
+      "prompt": "What is standard deviation?",
+      "response": "Hello Mathiyon! I have processed your request: \"What is standard deviation?\".\n\n• **Neural Model**: Mathiyon SLM v1.1\n• **PyTorch Forward Pass Confidence**: 39.66%\n\nHow would you like me to assist you further with your code or project?",
+      "generation_time_ms": 99.16,
+      "confidence": 0.3966
+    },
+    {
+      "category": "Mathematics",
+      "prompt": "What is variance?",
+      "response": "Hello Mathiyon! I have processed your request: \"What is variance?\".\n\n• **Neural Model**: Mathiyon SLM v1.1\n• **PyTorch Forward Pass Confidence**: 30.76%\n\nHow would you like me to assist you further with your code or project?",
+      "generation_time_ms": 123.57,
+      "confidence": 0.3076
+    },
+    {
+      "category": "Mathematics",
+      "prompt": "What is mean?",
+      "response": "Hello Mathiyon! I have processed your request: \"What is mean?\".\n\n• **Neural Model**: Mathiyon SLM v1.1\n• **PyTorch Forward Pass Confidence**: 31.06%\n\nHow would you like me to assist you further with your code or project?",
+      "generation_time_ms": 101.83,
+      "confidence": 0.3106
+    },
+    {
+      "category": "Mathematics",
+      "prompt": "What is median?",
+      "response": "Hello Mathiyon! I have processed your request: \"What is median?\".\n\n• **Neural Model**: Mathiyon SLM v1.1\n• **PyTorch Forward Pass Confidence**: 37.96%\n\nHow would you like me to assist you further with your code or project?",
+      "generation_time_ms": 108.38,
+      "confidence": 0.3796
+    },
+    {
+      "category": "Mathematics",
+      "prompt": "What is mode?",
+      "response": "Hello Mathiyon! I have processed your request: \"What is mode?\".\n\n• **Neural Model**: Mathiyon SLM v1.1\n• **PyTorch Forward Pass Confidence**: 33.85%\n\nHow would you like me to assist you further with your code or project?",
+      "generation_time_ms": 94.75,
+      "confidence": 0.3385
+    },
+    {
+      "category": "Mathematics",
+      "prompt": "What is exponential function?",
+      "response": "Hello Mathiyon! I have processed your request: \"What is exponential function?\".\n\n• **Neural Model**: Mathiyon SLM v1.1\n• **PyTorch Forward Pass Confidence**: 30.22%\n\nHow would you like me to assist you further with your code or project?",
+      "generation_time_ms": 87.33,
+      "confidence": 0.3022
+    },
+    {
+      "category": "Mathematics",
+      "prompt": "What is logarithm?",
+      "response": "Hello Mathiyon! I have processed your request: \"What is logarithm?\".\n\n• **Neural Model**: Mathiyon SLM v1.1\n• **PyTorch Forward Pass Confidence**: 28.07%\n\nHow would you like me to assist you further with your code or project?",
+      "generation_time_ms": 96.96,
+      "confidence": 0.2807
+    },
+    {
+      "category": "Tamil Language",
+      "prompt": "தமிழ் மொழி பற்றி கூறுக.",
+      "response": "Hello Mathiyon! I have processed your request: \"தமிழ் மொழி பற்றி கூறுக.\".\n\n• **Neural Model**: Mathiyon SLM v1.1\n• **PyTorch Forward Pass Confidence**: 27.85%\n\nHow would you like me to assist you further with your code or project?",
+      "generation_time_ms": 99.99,
+      "confidence": 0.2785
+    },
+    {
+      "category": "Tamil Language",
+      "prompt": "இந்தியாவின் தலைநகர் எது?",
+      "response": "Hello Mathiyon! I have processed your request: \"இந்தியாவின் தலைநகர் எது?\".\n\n• **Neural Model**: Mathiyon SLM v1.1\n• **PyTorch Forward Pass Confidence**: 31.96%\n\nHow would you like me to assist you further with your code or project?",
+      "generation_time_ms": 95.28,
+      "confidence": 0.3196
+    },
+    {
+      "category": "Tamil Language",
+      "prompt": "தமிழ்நாட்டின் தலைநகரம் எது?",
+      "response": "Hello Mathiyon! I have processed your request: \"தமிழ்நாட்டின் தலைநகரம் எது?\".\n\n• **Neural Model**: Mathiyon SLM v1.1\n• **PyTorch Forward Pass Confidence**: 30.92%\n\nHow would you like me to assist you further with your code or project?",
+      "generation_time_ms": 90.93,
+      "confidence": 0.3092
+    },
+    {
+      "category": "Tamil Language",
+      "prompt": "செயற்கை நுண்ணறிவு என்றால் என்ன?",
+      "response": "Hello Mathiyon! I have processed your request: \"செயற்கை நுண்ணறிவு என்றால் என்ன?\".\n\n• **Neural Model**: Mathiyon SLM v1.1\n• **PyTorch Forward Pass Confidence**: 40.06%\n\nHow would you like me to assist you further with your code or project?",
+      "generation_time_ms": 83.1,
+      "confidence": 0.4006
+    },
+    {
+      "category": "Tamil Language",
+      "prompt": "கணினி நிரலாக்கம் என்றால் என்ன?",
+      "response": "Hello Mathiyon! I have processed your request: \"கணினி நிரலாக்கம் என்றால் என்ன?\".\n\n• **Neural Model**: Mathiyon SLM v1.1\n• **PyTorch Forward Pass Confidence**: 35.53%\n\nHow would you like me to assist you further with your code or project?",
+      "generation_time_ms": 93.17,
+      "confidence": 0.3553
+    },
+    {
+      "category": "Tamil Language",
+      "prompt": "மதியோன் AI எவ்வாறு செயல்படுகிறது?",
+      "response": "Hello Mathiyon! I have processed your request: \"மதியோன் AI எவ்வாறு செயல்படுகிறது?\".\n\n• **Neural Model**: Mathiyon SLM v1.1\n• **PyTorch Forward Pass Confidence**: 44.61%\n\nHow would you like me to assist you further with your code or project?",
+      "generation_time_ms": 91.85,
+      "confidence": 0.4461
+    },
+    {
+      "category": "Tamil Language",
+      "prompt": "வணக்கம்!",
+      "response": "Hello Mathiyon! I have processed your request: \"வணக்கம்!\".\n\n• **Neural Model**: Mathiyon SLM v1.1\n• **PyTorch Forward Pass Confidence**: 36.65%\n\nHow would you like me to assist you further with your code or project?",
+      "generation_time_ms": 89.09,
+      "confidence": 0.3665
+    },
+    {
+      "category": "Tamil Language",
+      "prompt": "நன்றி!",
+      "response": "Hello Mathiyon! I have processed your request: \"நன்றி!\".\n\n• **Neural Model**: Mathiyon SLM v1.1\n• **PyTorch Forward Pass Confidence**: 30.48%\n\nHow would you like me to assist you further with your code or project?",
+      "generation_time_ms": 89.49,
+      "confidence": 0.3048
+    },
+    {
+      "category": "Tamil Language",
+      "prompt": "நல்வரவு!",
+      "response": "Hello Mathiyon! I have processed your request: \"நல்வரவு!\".\n\n• **Neural Model**: Mathiyon SLM v1.1\n• **PyTorch Forward Pass Confidence**: 28.29%\n\nHow would you like me to assist you further with your code or project?",
+      "generation_time_ms": 88.6,
+      "confidence": 0.2829
+    },
+    {
+      "category": "Tamil Language",
+      "prompt": "தமிழ் இலக்கணம் என்றால் என்ன?",
+      "response": "Hello Mathiyon! I have processed your request: \"தமிழ் இலக்கணம் என்றால் என்ன?\".\n\n• **Neural Model**: Mathiyon SLM v1.1\n• **PyTorch Forward Pass Confidence**: 43.66%\n\nHow would you like me to assist you further with your code or project?",
+      "generation_time_ms": 89.68,
+      "confidence": 0.4366
+    },
+    {
+      "category": "Tamil Language",
+      "prompt": "திருக்குறள் என்றால் என்ன?",
+      "response": "Hello Mathiyon! I have processed your request: \"திருக்குறள் என்றால் என்ன?\".\n\n• **Neural Model**: Mathiyon SLM v1.1\n• **PyTorch Forward Pass Confidence**: 29.01%\n\nHow would you like me to assist you further with your code or project?",
+      "generation_time_ms": 89.28,
+      "confidence": 0.2901
+    },
+    {
+      "category": "Tamil Language",
+      "prompt": "தமிழ் எழுத்துக்கள் எத்தனை?",
+      "response": "Hello Mathiyon! I have processed your request: \"தமிழ் எழுத்துக்கள் எத்தனை?\".\n\n• **Neural Model**: Mathiyon SLM v1.1\n• **PyTorch Forward Pass Confidence**: 46.15%\n\nHow would you like me to assist you further with your code or project?",
+      "generation_time_ms": 94.87,
+      "confidence": 0.4615
+    },
+    {
+      "category": "Tamil Language",
+      "prompt": "தமிழ் காப்பியங்கள் யாவை?",
+      "response": "Hello Mathiyon! I have processed your request: \"தமிழ் காப்பியங்கள் யாவை?\".\n\n• **Neural Model**: Mathiyon SLM v1.1\n• **PyTorch Forward Pass Confidence**: 34.97%\n\nHow would you like me to assist you further with your code or project?",
+      "generation_time_ms": 90.68,
+      "confidence": 0.3497
+    },
+    {
+      "category": "Tamil Language",
+      "prompt": "கணினி என்றால் என்ன?",
+      "response": "Hello Mathiyon! I have processed your request: \"கணினி என்றால் என்ன?\".\n\n• **Neural Model**: Mathiyon SLM v1.1\n• **PyTorch Forward Pass Confidence**: 26.99%\n\nHow would you like me to assist you further with your code or project?",
+      "generation_time_ms": 95.31,
+      "confidence": 0.2699
+    },
+    {
+      "category": "Tamil Language",
+      "prompt": "இணையம் என்றால் என்ன?",
+      "response": "Hello Mathiyon! I have processed your request: \"இணையம் என்றால் என்ன?\".\n\n• **Neural Model**: Mathiyon SLM v1.1\n• **PyTorch Forward Pass Confidence**: 32.07%\n\nHow would you like me to assist you further with your code or project?",
+      "generation_time_ms": 96.54,
+      "confidence": 0.3207
+    },
+    {
+      "category": "Tamil Language",
+      "prompt": "மென்பொருள் என்றால் என்ன?",
+      "response": "Hello Mathiyon! I have processed your request: \"மென்பொருள் என்றால் என்ன?\".\n\n• **Neural Model**: Mathiyon SLM v1.1\n• **PyTorch Forward Pass Confidence**: 30.78%\n\nHow would you like me to assist you further with your code or project?",
+      "generation_time_ms": 84.51,
+      "confidence": 0.3078
+    },
+    {
+      "category": "Tamil Language",
+      "prompt": "தரவுத்தளம் என்றால் என்ன?",
+      "response": "Hello Mathiyon! I have processed your request: \"தரவுத்தளம் என்றால் என்ன?\".\n\n• **Neural Model**: Mathiyon SLM v1.1\n• **PyTorch Forward Pass Confidence**: 31.98%\n\nHow would you like me to assist you further with your code or project?",
+      "generation_time_ms": 90.44,
+      "confidence": 0.3198
+    },
+    {
+      "category": "Tamil Language",
+      "prompt": "செயலி என்றால் என்ன?",
+      "response": "Hello Mathiyon! I have processed your request: \"செயலி என்றால் என்ன?\".\n\n• **Neural Model**: Mathiyon SLM v1.1\n• **PyTorch Forward Pass Confidence**: 33.82%\n\nHow would you like me to assist you further with your code or project?",
+      "generation_time_ms": 92.18,
+      "confidence": 0.3382
+    },
+    {
+      "category": "Tamil Language",
+      "prompt": "அறிவியல் என்றால் என்ன?",
+      "response": "Hello Mathiyon! I have processed your request: \"அறிவியல் என்றால் என்ன?\".\n\n• **Neural Model**: Mathiyon SLM v1.1\n• **PyTorch Forward Pass Confidence**: 38.53%\n\nHow would you like me to assist you further with your code or project?",
+      "generation_time_ms": 88.03,
+      "confidence": 0.3853
+    },
+    {
+      "category": "Tamil Language",
+      "prompt": "கணிதம் என்றால் என்ன?",
+      "response": "Hello Mathiyon! I have processed your request: \"கணிதம் என்றால் என்ன?\".\n\n• **Neural Model**: Mathiyon SLM v1.1\n• **PyTorch Forward Pass Confidence**: 33.01%\n\nHow would you like me to assist you further with your code or project?",
+      "generation_time_ms": 94.74,
+      "confidence": 0.3301
+    },
+    {
+      "category": "English Conversational",
+      "prompt": "Hello, my name is Guna.",
+      "response": "Nice to meet you, **Guna**! How can I help you today?",
+      "generation_time_ms": 96.48,
+      "confidence": 0.3913
+    },
+    {
+      "category": "English Conversational",
+      "prompt": "What is my name?",
+      "response": "Based on our conversation, your name is **Guna**!",
+      "generation_time_ms": 94.97,
+      "confidence": 0.4749
+    },
+    {
+      "category": "English Conversational",
+      "prompt": "Nice to meet you.",
+      "response": "Hello Guna! I have processed your request: \"Nice to meet you.\".\n\n• **Neural Model**: Mathiyon SLM v1.1\n• **PyTorch Forward Pass Confidence**: 32.50%\n\nHow would you like me to assist you further with your code or project?",
+      "generation_time_ms": 92.44,
+      "confidence": 0.325
+    },
+    {
+      "category": "English Conversational",
+      "prompt": "How are you today?",
+      "response": "Hello Guna! I have processed your request: \"How are you today?\".\n\n• **Neural Model**: Mathiyon SLM v1.1\n• **PyTorch Forward Pass Confidence**: 44.84%\n\nHow would you like me to assist you further with your code or project?",
+      "generation_time_ms": 96.67,
+      "confidence": 0.4484
+    },
+    {
+      "category": "English Conversational",
+      "prompt": "Can you help me code?",
+      "response": "Here is a simple React functional component using TypeScript & Tailwind CSS:\n\n```tsx\nimport React, { useState } from 'react';\n\nexport const Counter = () => {\n  const [count, setCount] = useState(0);\n\n  return (\n    <div className=\"p-6 rounded-2xl bg-[#0e0c1c] text-white border border-rose-500/30 shadow-glow-md\">\n      <h3 className=\"text-xl font-bold mb-3\">Mathiyon Counter Component</h3>\n      <p className=\"text-slate-300 mb-4\">Current Count: <span className=\"text-rose-400 font-bold\">{count}</span></p>\n      <button \n        onClick={() => setCount(count + 1)}\n        className=\"px-4 py-2 bg-gradient-to-r from-rose-600 to-rose-500 rounded-xl font-semibold hover:opacity-90 transition\"\n      >\n        Increment\n      </button>\n    </div>\n  );\n};\n```",
+      "generation_time_ms": 92.28,
+      "confidence": 0.4617
+    },
+    {
+      "category": "English Conversational",
+      "prompt": "I am learning React.",
+      "response": "Nice to meet you, **Learning**! How can I help you today?",
+      "generation_time_ms": 91.8,
+      "confidence": 0.2148
+    },
+    {
+      "category": "English Conversational",
+      "prompt": "What am I learning?",
+      "response": "Hello Learning! I have processed your request: \"What am I learning?\".\n\n• **Neural Model**: Mathiyon SLM v1.1\n• **PyTorch Forward Pass Confidence**: 24.59%\n\nHow would you like me to assist you further with your code or project?",
+      "generation_time_ms": 85.38,
+      "confidence": 0.2459
+    },
+    {
+      "category": "English Conversational",
+      "prompt": "Good morning!",
+      "response": "Hello Learning! I have processed your request: \"Good morning!\".\n\n• **Neural Model**: Mathiyon SLM v1.1\n• **PyTorch Forward Pass Confidence**: 28.21%\n\nHow would you like me to assist you further with your code or project?",
+      "generation_time_ms": 90.14,
+      "confidence": 0.2821
+    },
+    {
+      "category": "English Conversational",
+      "prompt": "Thank you for your help.",
+      "response": "Hello Learning! I have processed your request: \"Thank you for your help.\".\n\n• **Neural Model**: Mathiyon SLM v1.1\n• **PyTorch Forward Pass Confidence**: 32.49%\n\nHow would you like me to assist you further with your code or project?",
+      "generation_time_ms": 93.16,
+      "confidence": 0.3249
+    },
+    {
+      "category": "English Conversational",
+      "prompt": "What can you do?",
+      "response": "Hello Learning! I have processed your request: \"What can you do?\".\n\n• **Neural Model**: Mathiyon SLM v1.1\n• **PyTorch Forward Pass Confidence**: 38.21%\n\nHow would you like me to assist you further with your code or project?",
+      "generation_time_ms": 95.16,
+      "confidence": 0.3821
+    },
+    {
+      "category": "English Conversational",
+      "prompt": "Tell me a fun fact.",
+      "response": "Hello Learning! I have processed your request: \"Tell me a fun fact.\".\n\n• **Neural Model**: Mathiyon SLM v1.1\n• **PyTorch Forward Pass Confidence**: 30.99%\n\nHow would you like me to assist you further with your code or project?",
+      "generation_time_ms": 88.63,
+      "confidence": 0.3099
+    },
+    {
+      "category": "English Conversational",
+      "prompt": "How does AI work?",
+      "response": "Hello Learning! I have processed your request: \"How does AI work?\".\n\n• **Neural Model**: Mathiyon SLM v1.1\n• **PyTorch Forward Pass Confidence**: 34.64%\n\nHow would you like me to assist you further with your code or project?",
+      "generation_time_ms": 90.86,
+      "confidence": 0.3464
+    },
+    {
+      "category": "English Conversational",
+      "prompt": "What programming language should I learn?",
+      "response": "Hello Learning! I have processed your request: \"What programming language should I learn?\".\n\n• **Neural Model**: Mathiyon SLM v1.1\n• **PyTorch Forward Pass Confidence**: 34.36%\n\nHow would you like me to assist you further with your code or project?",
+      "generation_time_ms": 97.27,
+      "confidence": 0.3436
+    },
+    {
+      "category": "English Conversational",
+      "prompt": "Why is React popular?",
+      "response": "Hello Learning! I have processed your request: \"Why is React popular?\".\n\n• **Neural Model**: Mathiyon SLM v1.1\n• **PyTorch Forward Pass Confidence**: 36.55%\n\nHow would you like me to assist you further with your code or project?",
+      "generation_time_ms": 91.14,
+      "confidence": 0.3655
+    },
+    {
+      "category": "English Conversational",
+      "prompt": "How to learn TypeScript?",
+      "response": "Hello Learning! I have processed your request: \"How to learn TypeScript?\".\n\n• **Neural Model**: Mathiyon SLM v1.1\n• **PyTorch Forward Pass Confidence**: 39.18%\n\nHow would you like me to assist you further with your code or project?",
+      "generation_time_ms": 96.46,
+      "confidence": 0.3918
+    },
+    {
+      "category": "English Conversational",
+      "prompt": "What is the best database for web apps?",
+      "response": "Hello Learning! I have processed your request: \"What is the best database for web apps?\".\n\n• **Neural Model**: Mathiyon SLM v1.1\n• **PyTorch Forward Pass Confidence**: 40.38%\n\nHow would you like me to assist you further with your code or project?",
+      "generation_time_ms": 93.86,
+      "confidence": 0.4038
+    },
+    {
+      "category": "English Conversational",
+      "prompt": "Explain frontend vs backend.",
+      "response": "Hello Learning! I have processed your request: \"Explain frontend vs backend.\".\n\n• **Neural Model**: Mathiyon SLM v1.1\n• **PyTorch Forward Pass Confidence**: 27.76%\n\nHow would you like me to assist you further with your code or project?",
+      "generation_time_ms": 89.12,
+      "confidence": 0.2776
+    },
+    {
+      "category": "English Conversational",
+      "prompt": "What is fullstack development?",
+      "response": "Hello Learning! I have processed your request: \"What is fullstack development?\".\n\n• **Neural Model**: Mathiyon SLM v1.1\n• **PyTorch Forward Pass Confidence**: 31.19%\n\nHow would you like me to assist you further with your code or project?",
+      "generation_time_ms": 94.45,
+      "confidence": 0.3119
+    },
+    {
+      "category": "English Conversational",
+      "prompt": "How to build a web app?",
+      "response": "Hello Learning! I have processed your request: \"How to build a web app?\".\n\n• **Neural Model**: Mathiyon SLM v1.1\n• **PyTorch Forward Pass Confidence**: 38.81%\n\nHow would you like me to assist you further with your code or project?",
+      "generation_time_ms": 90.03,
+      "confidence": 0.3881
+    },
+    {
+      "category": "English Conversational",
+      "prompt": "What is Mathiyon AI?",
+      "response": "Hello, Learning! I am Mathiyon AI. How can I help you with your coding or queries today?",
+      "generation_time_ms": 92.64,
+      "confidence": 0.2982
+    },
+    {
+      "category": "Instruction Following",
+      "prompt": "Summarize what React is in one sentence.",
+      "response": "Hello Mathiyon! I have processed your request: \"Summarize what React is in one sentence.\".\n\n• **Neural Model**: Mathiyon SLM v1.1\n• **PyTorch Forward Pass Confidence**: 51.07%\n\nHow would you like me to assist you further with your code or project?",
+      "generation_time_ms": 87.96,
+      "confidence": 0.5107
+    },
+    {
+      "category": "Instruction Following",
+      "prompt": "List 3 features of TypeScript.",
+      "response": "Hello Mathiyon! I have processed your request: \"List 3 features of TypeScript.\".\n\n• **Neural Model**: Mathiyon SLM v1.1\n• **PyTorch Forward Pass Confidence**: 39.64%\n\nHow would you like me to assist you further with your code or project?",
+      "generation_time_ms": 90.09,
+      "confidence": 0.3964
+    },
+    {
+      "category": "Instruction Following",
+      "prompt": "Write a JS arrow function.",
+      "response": "Hello Mathiyon! I have processed your request: \"Write a JS arrow function.\".\n\n• **Neural Model**: Mathiyon SLM v1.1\n• **PyTorch Forward Pass Confidence**: 44.42%\n\nHow would you like me to assist you further with your code or project?",
+      "generation_time_ms": 95.54,
+      "confidence": 0.4442
+    },
+    {
+      "category": "Instruction Following",
+      "prompt": "Convert JSON string to object in JS.",
+      "response": "Hello Mathiyon! I have processed your request: \"Convert JSON string to object in JS.\".\n\n• **Neural Model**: Mathiyon SLM v1.1\n• **PyTorch Forward Pass Confidence**: 25.36%\n\nHow would you like me to assist you further with your code or project?",
+      "generation_time_ms": 96.64,
+      "confidence": 0.2536
+    },
+    {
+      "category": "Instruction Following",
+      "prompt": "Write a basic HTML button.",
+      "response": "Hello Mathiyon! I have processed your request: \"Write a basic HTML button.\".\n\n• **Neural Model**: Mathiyon SLM v1.1\n• **PyTorch Forward Pass Confidence**: 36.27%\n\nHow would you like me to assist you further with your code or project?",
+      "generation_time_ms": 93.98,
+      "confidence": 0.3627
+    },
+    {
+      "category": "Instruction Following",
+      "prompt": "Explain HTTP 404 code.",
+      "response": "Here is a simple React functional component using TypeScript & Tailwind CSS:\n\n```tsx\nimport React, { useState } from 'react';\n\nexport const Counter = () => {\n  const [count, setCount] = useState(0);\n\n  return (\n    <div className=\"p-6 rounded-2xl bg-[#0e0c1c] text-white border border-rose-500/30 shadow-glow-md\">\n      <h3 className=\"text-xl font-bold mb-3\">Mathiyon Counter Component</h3>\n      <p className=\"text-slate-300 mb-4\">Current Count: <span className=\"text-rose-400 font-bold\">{count}</span></p>\n      <button \n        onClick={() => setCount(count + 1)}\n        className=\"px-4 py-2 bg-gradient-to-r from-rose-600 to-rose-500 rounded-xl font-semibold hover:opacity-90 transition\"\n      >\n        Increment\n      </button>\n    </div>\n  );\n};\n```",
+      "generation_time_ms": 98.71,
+      "confidence": 0.3027
+    },
+    {
+      "category": "Instruction Following",
+      "prompt": "Explain HTTP 200 code.",
+      "response": "Here is a simple React functional component using TypeScript & Tailwind CSS:\n\n```tsx\nimport React, { useState } from 'react';\n\nexport const Counter = () => {\n  const [count, setCount] = useState(0);\n\n  return (\n    <div className=\"p-6 rounded-2xl bg-[#0e0c1c] text-white border border-rose-500/30 shadow-glow-md\">\n      <h3 className=\"text-xl font-bold mb-3\">Mathiyon Counter Component</h3>\n      <p className=\"text-slate-300 mb-4\">Current Count: <span className=\"text-rose-400 font-bold\">{count}</span></p>\n      <button \n        onClick={() => setCount(count + 1)}\n        className=\"px-4 py-2 bg-gradient-to-r from-rose-600 to-rose-500 rounded-xl font-semibold hover:opacity-90 transition\"\n      >\n        Increment\n      </button>\n    </div>\n  );\n};\n```",
+      "generation_time_ms": 94.21,
+      "confidence": 0.2611
+    },
+    {
+      "category": "Instruction Following",
+      "prompt": "Explain HTTP 500 code.",
+      "response": "Here is a simple React functional component using TypeScript & Tailwind CSS:\n\n```tsx\nimport React, { useState } from 'react';\n\nexport const Counter = () => {\n  const [count, setCount] = useState(0);\n\n  return (\n    <div className=\"p-6 rounded-2xl bg-[#0e0c1c] text-white border border-rose-500/30 shadow-glow-md\">\n      <h3 className=\"text-xl font-bold mb-3\">Mathiyon Counter Component</h3>\n      <p className=\"text-slate-300 mb-4\">Current Count: <span className=\"text-rose-400 font-bold\">{count}</span></p>\n      <button \n        onClick={() => setCount(count + 1)}\n        className=\"px-4 py-2 bg-gradient-to-r from-rose-600 to-rose-500 rounded-xl font-semibold hover:opacity-90 transition\"\n      >\n        Increment\n      </button>\n    </div>\n  );\n};\n```",
+      "generation_time_ms": 95.79,
+      "confidence": 0.2626
+    },
+    {
+      "category": "Instruction Following",
+      "prompt": "Explain HTTP 401 code.",
+      "response": "Here is a simple React functional component using TypeScript & Tailwind CSS:\n\n```tsx\nimport React, { useState } from 'react';\n\nexport const Counter = () => {\n  const [count, setCount] = useState(0);\n\n  return (\n    <div className=\"p-6 rounded-2xl bg-[#0e0c1c] text-white border border-rose-500/30 shadow-glow-md\">\n      <h3 className=\"text-xl font-bold mb-3\">Mathiyon Counter Component</h3>\n      <p className=\"text-slate-300 mb-4\">Current Count: <span className=\"text-rose-400 font-bold\">{count}</span></p>\n      <button \n        onClick={() => setCount(count + 1)}\n        className=\"px-4 py-2 bg-gradient-to-r from-rose-600 to-rose-500 rounded-xl font-semibold hover:opacity-90 transition\"\n      >\n        Increment\n      </button>\n    </div>\n  );\n};\n```",
+      "generation_time_ms": 93.52,
+      "confidence": 0.2618
+    },
+    {
+      "category": "Instruction Following",
+      "prompt": "What is .env file?",
+      "response": "Hello Mathiyon! I have processed your request: \"What is .env file?\".\n\n• **Neural Model**: Mathiyon SLM v1.1\n• **PyTorch Forward Pass Confidence**: 21.74%\n\nHow would you like me to assist you further with your code or project?",
+      "generation_time_ms": 93.68,
+      "confidence": 0.2174
+    },
+    {
+      "category": "Instruction Following",
+      "prompt": "What is npm?",
+      "response": "Hello Mathiyon! I have processed your request: \"What is npm?\".\n\n• **Neural Model**: Mathiyon SLM v1.1\n• **PyTorch Forward Pass Confidence**: 29.19%\n\nHow would you like me to assist you further with your code or project?",
+      "generation_time_ms": 89.91,
+      "confidence": 0.2919
+    },
+    {
+      "category": "Instruction Following",
+      "prompt": "What is package.json?",
+      "response": "Hello Mathiyon! I have processed your request: \"What is package.json?\".\n\n• **Neural Model**: Mathiyon SLM v1.1\n• **PyTorch Forward Pass Confidence**: 36.45%\n\nHow would you like me to assist you further with your code or project?",
+      "generation_time_ms": 95.25,
+      "confidence": 0.3645
+    },
+    {
+      "category": "Instruction Following",
+      "prompt": "What is ESLint?",
+      "response": "Hello Mathiyon! I have processed your request: \"What is ESLint?\".\n\n• **Neural Model**: Mathiyon SLM v1.1\n• **PyTorch Forward Pass Confidence**: 35.80%\n\nHow would you like me to assist you further with your code or project?",
+      "generation_time_ms": 96.47,
+      "confidence": 0.358
+    },
+    {
+      "category": "Instruction Following",
+      "prompt": "What is Prettier?",
+      "response": "Hello Mathiyon! I have processed your request: \"What is Prettier?\".\n\n• **Neural Model**: Mathiyon SLM v1.1\n• **PyTorch Forward Pass Confidence**: 39.20%\n\nHow would you like me to assist you further with your code or project?",
+      "generation_time_ms": 101.96,
+      "confidence": 0.392
+    },
+    {
+      "category": "Instruction Following",
+      "prompt": "What is single page application?",
+      "response": "Hello Mathiyon! I have processed your request: \"What is single page application?\".\n\n• **Neural Model**: Mathiyon SLM v1.1\n• **PyTorch Forward Pass Confidence**: 40.84%\n\nHow would you like me to assist you further with your code or project?",
+      "generation_time_ms": 92.99,
+      "confidence": 0.4084
+    },
+    {
+      "category": "Instruction Following",
+      "prompt": "What is server-side rendering?",
+      "response": "Hello Mathiyon! I have processed your request: \"What is server-side rendering?\".\n\n• **Neural Model**: Mathiyon SLM v1.1\n• **PyTorch Forward Pass Confidence**: 30.20%\n\nHow would you like me to assist you further with your code or project?",
+      "generation_time_ms": 96.19,
+      "confidence": 0.302
+    },
+    {
+      "category": "Instruction Following",
+      "prompt": "What is static site generation?",
+      "response": "Hello Mathiyon! I have processed your request: \"What is static site generation?\".\n\n• **Neural Model**: Mathiyon SLM v1.1\n• **PyTorch Forward Pass Confidence**: 33.83%\n\nHow would you like me to assist you further with your code or project?",
+      "generation_time_ms": 90.99,
+      "confidence": 0.3383
+    },
+    {
+      "category": "Instruction Following",
+      "prompt": "What is Next.js?",
+      "response": "Hello Mathiyon! I have processed your request: \"What is Next.js?\".\n\n• **Neural Model**: Mathiyon SLM v1.1\n• **PyTorch Forward Pass Confidence**: 27.62%\n\nHow would you like me to assist you further with your code or project?",
+      "generation_time_ms": 93.45,
+      "confidence": 0.2762
+    },
+    {
+      "category": "Instruction Following",
+      "prompt": "What is Mathiyon SLM v1.2?",
+      "response": "Hello, Mathiyon! I am Mathiyon AI. How can I help you with your coding or queries today?",
+      "generation_time_ms": 94.19,
+      "confidence": 0.3729
+    },
+    {
+      "category": "Instruction Following",
+      "prompt": "Explain clean code principles.",
+      "response": "Here is a simple React functional component using TypeScript & Tailwind CSS:\n\n```tsx\nimport React, { useState } from 'react';\n\nexport const Counter = () => {\n  const [count, setCount] = useState(0);\n\n  return (\n    <div className=\"p-6 rounded-2xl bg-[#0e0c1c] text-white border border-rose-500/30 shadow-glow-md\">\n      <h3 className=\"text-xl font-bold mb-3\">Mathiyon Counter Component</h3>\n      <p className=\"text-slate-300 mb-4\">Current Count: <span className=\"text-rose-400 font-bold\">{count}</span></p>\n      <button \n        onClick={() => setCount(count + 1)}\n        className=\"px-4 py-2 bg-gradient-to-r from-rose-600 to-rose-500 rounded-xl font-semibold hover:opacity-90 transition\"\n      >\n        Increment\n      </button>\n    </div>\n  );\n};\n```",
+      "generation_time_ms": 94.55,
+      "confidence": 0.3413
+    }
+  ]
+}

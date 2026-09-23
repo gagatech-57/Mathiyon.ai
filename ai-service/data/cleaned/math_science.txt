@@ -1,0 +1,10 @@
+Mathematics is the study of numbers, quantities, shapes, formulas, and structural patterns.
+Algebra deals with mathematical symbols and the rules for manipulating these symbols in equations.
+Calculus is the mathematical study of continuous change, focusing on derivatives and integrals.
+Physics explores the fundamental laws governing matter, energy, space, time, and forces.
+Einstein's theory of relativity established E = mc^2, equating mass and energy.
+Computer science studies algorithmic processes, computational complexity, and information systems.
+Neural networks simulate biological neuron activations to approximate complex non-linear functions.
+Probability theory calculates the likelihood of events occurring based on frequency distributions.
+Linear algebra studies vector spaces, matrices, linear transformations, and eigenvalue decompositions.
+Optimization algorithms seek the global minimum of loss functions using gradient vector updates.
