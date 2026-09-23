@@ -1,0 +1,152 @@
+[
+  {
+    "instruction": "Explain the difference between let, const, and var in JavaScript.",
+    "context": "JavaScript variable declarations",
+    "response": "In JavaScript, var is function-scoped and hoisted with undefined initialization. let and const are block-scoped and subject to the Temporal Dead Zone. const cannot be reassigned after declaration.",
+    "category": "coding"
+  },
+  {
+    "instruction": "How do you create a simple Express HTTP server in Node.js?",
+    "context": "Node.js web backend",
+    "response": "const express = require('express'); const app = express(); app.get('/', (req, res) => res.send('Hello Mathiyon!')); app.listen(5000, () => console.log('Server running on port 5000'));",
+    "category": "coding"
+  },
+  {
+    "instruction": "What is the result of solving 2x + 5 = 15?",
+    "context": "Linear algebra equation",
+    "response": "To solve 2x + 5 = 15: subtract 5 from both sides to get 2x = 10, then divide both sides by 2 to find x = 5.",
+    "category": "math"
+  },
+  {
+    "instruction": "Calculate 1/3 + 1/6.",
+    "context": "Fraction arithmetic",
+    "response": "Find a common denominator: 1/3 = 2/6. Then add: 2/6 + 1/6 = 3/6, which simplifies to 1/2.",
+    "category": "math"
+  },
+  {
+    "instruction": "மதியோன் AI என்றால் என்ன?",
+    "context": "தமிழ் விளக்கம்",
+    "response": "மதியோன் AI என்பது தமிழ் மற்றும் ஆங்கில மொழிகளில் இயங்கும் ஒரு நவீன செயற்கை நுண்ணறிவுத் தளமாகும். இது கணிதக் கணக்கீடுகள், நிரலாக்க விளக்கம் மற்றும் ஆவண ஆய்வுகளை மேற்கொள்கிறது.",
+    "category": "tamil"
+  },
+  {
+    "instruction": "React என்றால் என்ன?",
+    "context": "தொழில்நுட்ப தமிழ்",
+    "response": "React என்பது Meta நிறுவனத்தால் உருவாக்கப்பட்ட ஒரு திறந்த மூல JavaScript லைப்ரரி ஆகும். இது வேகமான மற்றும் மறுபயன்பாட்டு பயனர் இடைமுகங்களை (UI) உருவாக்கப் பயன்படுகிறது.",
+    "category": "tamil"
+  },
+  {
+    "instruction": "2x + 5 = 15 solve pannu",
+    "context": "Tanglish math query",
+    "response": "First 5 ah right side kondu ponga: 2x = 15 - 5 = 10. Next 2 ala divide panna x = 5 varum.",
+    "category": "tanglish"
+  },
+  {
+    "instruction": "React na enna simple ah sollu",
+    "context": "Tanglish explanation",
+    "response": "React nradhu web apps oda user interface (UI) ah easily build பண்றதுக்காக உருவாக்கப்பட்ற ஒரு popular JavaScript library.",
+    "category": "tanglish"
+  },
+  {
+    "instruction": "What is the Pythagorean theorem?",
+    "context": "Geometry",
+    "response": "The Pythagorean theorem states that in any right-angled triangle, the square of the hypotenuse (c) equals the sum of the squares of the other two sides (a and b): a^2 + b^2 = c^2.",
+    "category": "math"
+  },
+  {
+    "instruction": "How does JWT authentication work?",
+    "context": "Web Security",
+    "response": "The client logs in with credentials. The server verifies them and generates a signed JWT. The client stores the token and sends it in the Authorization header for protected API requests.",
+    "category": "coding"
+  },
+  {
+    "instruction": "What is the derivative of f(x) = 3x^4?",
+    "context": "Calculus",
+    "response": "Using the power rule d/dx (x^n) = n*x^(n-1), the derivative of 3x^4 is f'(x) = 3 * 4x^3 = 12x^3.",
+    "category": "math"
+  },
+  {
+    "instruction": "How does RAG missing information protection work in Mathiyon AI?",
+    "context": "RAG Security",
+    "response": "If the query context is not present in uploaded documents, Mathiyon AI strictly responds 'The document does not contain this information.' rather than hallucinating answers.",
+    "category": "rag"
+  },
+  {
+    "instruction": "What happens when a prompt injection is detected?",
+    "context": "Safety Policy",
+    "response": "Mathiyon AI ignores untrusted system override attempts and maintains system instructions and safety boundaries intact.",
+    "category": "safety"
+  },
+  {
+    "instruction": "Explain Python list comprehensions with an example.",
+    "context": "Python programming",
+    "response": "List comprehensions provide a concise way to create lists. Example: squares = [x**2 for x in range(5)] creates [0, 1, 4, 9, 16].",
+    "category": "coding"
+  },
+  {
+    "instruction": "What is the derivative of sin(x)?",
+    "context": "Calculus Trigonometry",
+    "response": "The derivative of f(x) = sin(x) with respect to x is f'(x) = cos(x).",
+    "category": "math"
+  },
+  {
+    "instruction": "Explain the difference between SQL and NoSQL databases.",
+    "context": "Database Systems",
+    "response": "SQL databases are relational, table-based, and use structured schemas (e.g. PostgreSQL, MySQL). NoSQL databases are non-relational, document/key-value based, and support dynamic schemas (e.g. MongoDB).",
+    "category": "coding"
+  },
+  {
+    "instruction": "இதை simple ah explain pannu: useState in React",
+    "context": "Tanglish Technical Query",
+    "response": "useState nradhu ஒரு React Hook. Component குள்ள dynamic data (state) ah change பண்ணி UI ah re-render பண்ண இது பயன்படுது.",
+    "category": "tanglish"
+  },
+  {
+    "instruction": "What is the probability of rolling a sum of 7 with two fair dice?",
+    "context": "Probability",
+    "response": "There are 36 possible outcomes when rolling two 6-sided dice. The outcomes summing to 7 are (1,6), (2,5), (3,4), (4,3), (5,2), and (6,1), giving 6 outcomes. Probability = 6/36 = 1/6.",
+    "category": "math"
+  },
+  {
+    "instruction": "What is the purpose of the useEffect hook in React?",
+    "context": "React Frontend",
+    "response": "useEffect allows functional components to perform side effects such as data fetching, setting up subscriptions, and manually changing the DOM after rendering.",
+    "category": "coding"
+  },
+  {
+    "instruction": "How do you calculate compound interest?",
+    "context": "Financial Mathematics",
+    "response": "Compound interest is calculated using A = P(1 + r/n)^(nt), where P is principal, r is annual interest rate, n is compounding frequency per year, and t is time in years.",
+    "category": "math"
+  },
+  {
+    "instruction": "செயற்கை நுண்ணறிவின் நன்மைகள் யாவை?",
+    "context": "தமிழ் கட்டுரை",
+    "response": "செயற்கை நுண்ணறிவு மனிதர்களின் சிக்கலான வேலைகளை எளிதாக்குகிறது, முடிவெடுக்கும் வேகத்தை அதிகரிக்கிறது, மற்றும் பெரிய தரவுகளைத் துல்லியமாக பகுப்பாய்வு செய்ய உதவுகிறது.",
+    "category": "tamil"
+  },
+  {
+    "instruction": "What is deductive reasoning?",
+    "context": "Logic & Reasoning",
+    "response": "Deductive reasoning is a logical process where a conclusion is drawn from the concordance of multiple premises that are generally assumed to be true (e.g. All men are mortal; Socrates is a man; therefore Socrates is mortal).",
+    "category": "reasoning"
+  },
+  {
+    "instruction": "How does Mathiyon AI handle multi-tool orchestration?",
+    "context": "Tool Orchestration",
+    "response": "The Orchestrator analyzes user intent and dynamically routes tasks across SymPy Math Engine, RAG Vector Search, Web Intelligence Search, Long-Term Memory, and Code Sandbox.",
+    "category": "tool_use"
+  },
+  {
+    "instruction": "Hello! Can you help me write a Python function?",
+    "context": "Conversational Greeting",
+    "response": "Hello! Absolutely. Please tell me what you would like the Python function to do, and I will write and explain it for you.",
+    "category": "conversation"
+  },
+  {
+    "instruction": "What is the time complexity of binary search?",
+    "context": "Algorithm Analysis",
+    "response": "Binary search has a logarithmic time complexity of O(log N) because it halves the search interval at each step.",
+    "category": "coding"
+  }
+]

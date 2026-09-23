@@ -1,0 +1,24 @@
+JavaScript event loop: The event loop in JavaScript continuously checks the call stack and task queues (microtasks like Promises, macrotasks like setTimeout) to enable asynchronous, non-blocking I/O operations.
+TypeScript interface vs type: An interface is primarily used to define object shapes and can be extended or merged automatically. A type alias can represent primitive types, unions, intersections, and tuple types.
+React useState and useEffect: useState creates dynamic state within a functional component. useEffect handles side effects like data fetching, subscriptions, and DOM manipulations after render cycles.
+Express middleware function signature: Express middleware functions take req, res, and next as arguments. Calling next() passes execution to the subsequent middleware function in the stack.
+Python list comprehension: List comprehensions offer a concise syntax for creating lists based on existing iterables: numbers = [x * 2 for x in range(10) if x % 2 == 0].
+HTML5 semantic elements: Semantic elements like header, nav, main, article, section, and footer clearly describe their meaning to both browser agents and search engines.
+CSS Flexbox vs Grid: Flexbox is designed for one-dimensional layouts (rows or columns), whereas CSS Grid is optimized for two-dimensional layouts (rows and columns simultaneously).
+SQL INNER JOIN query: SELECT orders.id, users.name FROM orders INNER JOIN users ON orders.user_id = users.id WHERE orders.status = 'completed';
+MongoDB Mongoose Schema: const userSchema = new mongoose.Schema({ username: { type: String, required: true, unique: true }, email: { type: String, required: true } }, { timestamps: true });
+JWT Authentication Flow: The client sends login credentials to the server. Upon validation, the server generates a signed JSON Web Token containing claims and returns it to the client for subsequent Authorization headers.
+REST API HTTP Methods: GET retrieves resources, POST creates new resources, PUT replaces existing resources completely, PATCH applies partial modifications, and DELETE removes resources.
+Git feature branch workflow: git checkout -b feature/auth -> make commits -> git push origin feature/auth -> create pull request to merge into main branch after code review.
+JSON Data Interchange: JSON (JavaScript Object Notation) is a lightweight, text-based data format structured as key-value pairs and arrays, supporting strings, numbers, booleans, arrays, and nested objects.
+React Custom Hook: const useFetch = (url) => { const [data, setData] = useState(null); const [loading, setLoading] = useState(true); useEffect(() => { fetch(url).then(res => res.json()).then(d => { setData(d); setLoading(false); }); }, [url]); return { data, loading }; };
+Node.js Async Await Error Handling: try { const result = await asyncTask(); res.status(200).json({ success: true, data: result }); } catch (error) { res.status(500).json({ success: false, error: error.message }); }
+Python FastAPI Endpoint: @app.get("/items/{item_id}") def read_item(item_id: int, q: str = None): return {"item_id": item_id, "q": q}
+SQL Group By Aggregation: SELECT category, COUNT(*) as item_count, AVG(price) as avg_price FROM products GROUP BY category HAVING COUNT(*) > 5;
+MongoDB Aggregation Pipeline: db.orders.aggregate([{ $match: { status: "shipped" } }, { $group: { _id: "$customer_id", totalSpent: { $sum: "$amount" } } }]);
+TypeScript Generics: function identity<T>(arg: T): T { return arg; } const num = identity<number>(42); const str = identity<string>("Mathiyon");
+React Context API: const AuthContext = createContext(); export const AuthProvider = ({ children }) => { const [user, setUser] = useState(null); return <AuthContext.Provider value={{ user, setUser }}>{children}</AuthContext.Provider>; };
+Express JWT Verification Middleware: const verifyToken = (req, res, next) => { const token = req.headers['authorization']?.split(' ')[1]; if (!token) return res.status(401).json({ error: 'No token provided' }); jwt.verify(token, SECRET_KEY, (err, decoded) => { if (err) return res.status(403).json({ error: 'Invalid token' }); req.userId = decoded.id; next(); }); };
+Python PyTorch Linear Layer: import torch.nn as nn class SimpleLinear(nn.Module): def __init__(self, in_features, out_features): super().__init__(); self.linear = nn.Linear(in_features, out_features) def forward(self, x): return self.linear(x)
+CSS Glassmorphism UI Style: .glass-card { background: rgba(255, 255, 255, 0.1); backdrop-filter: blur(10px); border: 1px solid rgba(255, 255, 255, 0.2); border-radius: 12px; }
+JavaScript Promise.all vs Promise.allSettled: Promise.all fails fast if any promise rejects, whereas Promise.allSettled waits for all promises to settle regardless of fulfillment or rejection.

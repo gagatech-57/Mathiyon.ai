@@ -1,0 +1,9 @@
+{
+  "seed": 42,
+  "train_count": 131,
+  "val_count": 7,
+  "test_count": 8,
+  "train_ratio": 0.9,
+  "val_ratio": 0.05,
+  "test_ratio": 0.05
+}

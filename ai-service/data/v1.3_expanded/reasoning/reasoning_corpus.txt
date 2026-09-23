@@ -1,0 +1,7 @@
+Deductive Reasoning: All humans are mortal. Socrates is a human. Therefore, Socrates is mortal.
+Inductive Reasoning: The sun has risen in the east every morning in recorded history. Therefore, the sun will rise in the east tomorrow morning.
+Logical Equivalence: Contrapositive of "If it rains, the ground is wet" is "If the ground is not wet, it did not rain." Both statements are logically equivalent.
+Algorithm Analysis: Binary search divides the search space in half each step, yielding O(log N) time complexity compared to linear search's O(N).
+Problem Solving Decomposition: To design a scalable system, break the problem into independent microservices, state management, caching, database persistence, and API gateway routing.
+Counterexample Method: To disprove the claim "All prime numbers are odd", we present the counterexample 2, which is an even prime number.
+Probability Tree Reasoning: When flipping a fair coin twice, sample space is {HH, HT, TH, TT}. Probability of getting at least one head is 3/4 = 0.75.

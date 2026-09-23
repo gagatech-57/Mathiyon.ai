@@ -1,0 +1,15 @@
+Mathiyon AI enna pannum? Mathiyon AI complex math problems solve பண்ணும், code explain பண்ணும், அப்புறம் documents analyze பண்ணும்.
+React na enna? React vandhu user interfaces (UI) build பண்றதுக்காக உருவாக்கப்பட்ற ஒரு JavaScript library.
+2x + 5 = 15 solve pannu. 5 ah right side kondu ponga 2x = 10, apro 2 ala divide panna x = 5 varum.
+indha code explain pannu. Intha function 2 numbers ah input ah eduthu adhodha sum ah return pannudhu.
+1/3 + 1/6 evvalavu? LCM 6 edutha 2/6 + 1/6 = 3/6, simplifies to 1/2.
+Python la list comprehension epdi use பண்றது? numbers = [x*2 for x in range(5)] nu simple ah podalam.
+MongoDB vs SQL enna difference? SQL relational tables use பண்ணும், MongoDB JSON documents use பண்ணும்.
+Express la middleware na enna? Middleware req and res ku naduvula run aagi tasks process பண்ணும் function.
+JWT auth epdi work aagum? Login panna server signed JWT token tharum, client adha headers la anuppum.
+FastAPI la status code 200 na enna meaning? Request success ah complete aachunu அர்த்தம்.
+Vite use panna build speed adhigama irukuma? Aama, Vite ES modules use பண்றதால HMR and build romba fast ah irukkum.
+TypeScript la interface and type enna difference? Interface object shapes merge பண்ணும், Type unions and primitives ku use aagum.
+Mathiyon SLM la context memory epdi store aagudhu? Short-term conversation history and long-term facts isolations oda store aagudhu.
+CSS la Flexbox epdi align பண்ணும்? display flex kuduthu justify-content and align-items vachi center பண்ணலாம்.
+git push error vantha enna pannanum? First git pull rebase kuduthu conflicts solve pannanum.
