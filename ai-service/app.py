@@ -139,9 +139,10 @@ def generate_ai_response(payload: GenerateRequest):
         )
     
     # Handle explicit experimental override if requested, else use production v1.2 generator
-    target_model_id = (payload.model or "mathiyon-slm-v1.2").lower()
+    raw_model = (payload.model or "mathiyon-slm-v1.2").strip()
+    target_model_id = raw_model.lower().replace(" ", "-")
     
-    if target_model_id == "mathiyon-slm-v1.3":
+    if target_model_id in ["mathiyon-slm-v1.3", "v1.3", "slm-v1.3"]:
         try:
             v13_gen = model_registry.load_v1_3_generator()
             res_v13 = v13_gen.generate(
@@ -165,7 +166,16 @@ def generate_ai_response(payload: GenerateRequest):
                 detail=f"v1.3 experimental model execution error: {str(e)}"
             )
 
-    if target_model_id not in ["mathiyon-slm-v1.2", "mathiyon-slm-v1.1", "default"]:
+    valid_v12_aliases = [
+        "mathiyon-slm-v1.2",
+        "v1.2",
+        "slm-v1.2",
+        "mathiyon-slm-v1.1",
+        "mathiyon-neural-prototype-/-slm-v1.0",
+        "mathiyon-slm-v1.2-orchestrator",
+        "default"
+    ]
+    if target_model_id not in valid_v12_aliases and not target_model_id.startswith("mathiyon-orchestrator"):
         raise HTTPException(
             status_code=status.HTTP_400_BAD_REQUEST,
             detail=f"Invalid model ID '{payload.model}'. Active production model is 'mathiyon-slm-v1.2'."

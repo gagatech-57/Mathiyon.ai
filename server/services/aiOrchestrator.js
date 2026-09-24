@@ -218,7 +218,7 @@ const processRequest = async ({ userId, message, conversationHistory = [], docum
     const slmPrompt = `${systemInstructions}\nUSER PROMPT: ${message}`;
 
     const slmStart = Date.now();
-    const slmRes = await slmTool.execute({ message: slmPrompt, conversation: conversationHistory });
+    const slmRes = await slmTool.execute({ message: slmPrompt, conversation: conversationHistory, model });
     const slmLatency = Date.now() - slmStart;
 
     toolsUsed.push('SLM');
@@ -252,7 +252,8 @@ const processRequest = async ({ userId, message, conversationHistory = [], docum
       verified: isVerified || (mathResult ? mathResult.verified : false),
       requestId,
       totalLatencyMs,
-      toolsTrace
+      toolsTrace,
+      model: slmRes ? (slmRes.model || model) : model
     };
 
   } catch (err) {
