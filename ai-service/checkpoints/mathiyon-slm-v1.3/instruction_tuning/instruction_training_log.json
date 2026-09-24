@@ -1,0 +1,26 @@
+[
+  {
+    "epoch": 1,
+    "train_loss": 3.8851,
+    "validation_loss": 3.9092,
+    "perplexity": 49.8611,
+    "learning_rate": 7.2e-05,
+    "duration_seconds": 8.67
+  },
+  {
+    "epoch": 2,
+    "train_loss": 3.6951,
+    "validation_loss": 3.8754,
+    "perplexity": 48.2011,
+    "learning_rate": 1.9e-05,
+    "duration_seconds": 10.42
+  },
+  {
+    "epoch": 3,
+    "train_loss": 3.6021,
+    "validation_loss": 3.8685,
+    "perplexity": 47.8691,
+    "learning_rate": 1e-06,
+    "duration_seconds": 7.51
+  }
+]

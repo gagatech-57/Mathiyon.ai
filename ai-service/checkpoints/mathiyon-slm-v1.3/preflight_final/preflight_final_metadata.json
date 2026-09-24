@@ -1,0 +1,23 @@
+{
+  "model_version": "mathiyon-slm-v1.3",
+  "vocab_size": 8000,
+  "param_count": 21952896,
+  "tokens_per_parameter": 0.000515,
+  "dry_run_train_loss": 9.165087699890137,
+  "dry_run_val_loss": 8.819082260131836,
+  "device": "cpu",
+  "config_dict": {
+    "model_version": "mathiyon-slm-v1.3",
+    "vocab_size": 8000,
+    "context_length": 1024,
+    "hidden_size": 384,
+    "num_layers": 8,
+    "num_heads": 12,
+    "ffn_hidden_size": 1536,
+    "rope_theta": 10000.0,
+    "rms_norm_eps": 1e-06,
+    "tie_word_embeddings": true,
+    "dropout": 0.0
+  },
+  "readiness_status": "READY (WITH OVERFITTING WARNING)"
+}
