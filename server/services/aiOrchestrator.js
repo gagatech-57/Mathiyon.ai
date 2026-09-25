@@ -1,10 +1,11 @@
 /**
- * Mathiyon AI - Production AI Agent & Multi-Tool Orchestrator (Phase 12.2)
+ * Mathiyon AI - Production AI Agent & Multi-Tool Orchestrator (Phase 12.3)
  *
- * Capabilities:
- * - Intent Classification: GENERAL, MATH, CODING, DOCUMENT, MEMORY, WEB, MULTI_TOOL, UNKNOWN
- * - Task Planning & Dependency Resolution (dependsOn)
- * - Safe Context Passing between tools (results object)
+ * Real-Time Web Intelligence + Multi-Tool Chaining + Citations + Live Events
+ * - Intent System: GENERAL, MATH, CODING, DOCUMENT, MEMORY, WEB, MULTI_TOOL, UNKNOWN
+ * - Multi-Tool Chaining: WEB->MATH->SLM, RAG->WEB->SLM, MEMORY->WEB->SLM, WEB->CODE/SLM
+ * - Standardized Citations & Sources formatting ({ id, title, url, domain })
+ * - SSRF Protection & Safe Web Query Sanitization
  * - Single-retry tool fault recovery & controlled fallbacks
  * - Strict User Isolation & Authorization (HTTP 403 enforcement)
  * - Production Model Integrity: Mathiyon SLM v1.2 = 100% Production Default
@@ -49,11 +50,11 @@ const detectIntent = (message, hasDocSelected = false, hasWebEnabled = false) =>
   const isMath = /calculate|solve|\+|\*|\/|\^|percentage|sum|total|average|mean|area|integrate|derivative|equation|\bmath\b|\bmaths\b|x\s*=/i.test(msgLower);
   const isDoc = hasDocSelected || /pdf|doc|document|file|chapter|page|according to|uploaded/i.test(msgLower);
   const isCode = /```|function|const |let |var |import |export |class |react|javascript|python|typescript|html|css/i.test(msgLower);
-  const isWeb = hasWebEnabled || /latest|current|news|web search|online|url|price of|weather/i.test(msgLower);
+  const isWeb = hasWebEnabled || /latest|current|news|web search|online|url|price of|weather|rate|exchange/i.test(msgLower);
   const isMemory = /remember that|my project is|i use|my name is|what do you remember/i.test(msgLower);
 
   // Multi-Tool Detection Rules
-  if ((isDoc && isMath) || (isDoc && isCode) || (isMemory && isMath)) {
+  if ((isDoc && isMath) || (isDoc && isCode) || (isMemory && isMath) || (isWeb && isMath) || (isDoc && isWeb)) {
     return 'MULTI_TOOL';
   }
 
@@ -67,9 +68,8 @@ const detectIntent = (message, hasDocSelected = false, hasWebEnabled = false) =>
 };
 
 /**
- * Helper to execute tool with strict timeout
+ * Helper to execute tool with strict timeout & standardized return
  */
-
 async function executeToolWithTimeout(tool, params, timeoutMs = TOOL_TIMEOUT_MS) {
   let timeoutId;
   const timeoutPromise = new Promise((resolve) => {
@@ -95,7 +95,7 @@ async function executeToolWithTimeout(tool, params, timeoutMs = TOOL_TIMEOUT_MS)
         return {
           success: true,
           tool: tool.name || 'Tool',
-          data: res,
+          data: res.data || res,
           error: null,
           metadata: { latencyMs, verified: Boolean(res.verified) }
         };
@@ -104,7 +104,7 @@ async function executeToolWithTimeout(tool, params, timeoutMs = TOOL_TIMEOUT_MS)
           success: false,
           tool: tool.name || 'Tool',
           data: null,
-          error: { code: res.error ? 'TOOL_EXECUTION_ERROR' : 'UNKNOWN_ERROR', message: res.error || 'Tool execution failed' },
+          error: { code: res.error?.code || 'TOOL_EXECUTION_ERROR', message: res.error?.message || res.error || 'Tool execution failed' },
           metadata: { latencyMs, forbidden: Boolean(res.forbidden), statusCode: res.statusCode || 500 }
         };
       }
@@ -124,7 +124,7 @@ async function executeToolWithTimeout(tool, params, timeoutMs = TOOL_TIMEOUT_MS)
 }
 
 /**
- * AI Orchestrator Main Entrypoint (Phase 12.2 Production Agent)
+ * AI Orchestrator Main Entrypoint (Phase 12.3 Real-Time Web Agent)
  */
 const processRequest = async ({
   userId,
@@ -141,6 +141,7 @@ const processRequest = async ({
   const toolsUsed = [];
   const agentTrace = [];
   const sources = [];
+  const citations = [];
   let isVerified = false;
   let finalAnswer = '';
 
@@ -159,7 +160,7 @@ const processRequest = async ({
       const memSave = await executeToolWithTimeout(memoryTool, { userId, action: 'remember', content: message });
       if (memSave.success) {
         toolsUsed.push('Memory');
-        agentTrace.push({ tool: 'Memory', action: 'remember', status: 'success', latencyMs: memSave.metadata.latencyMs });
+        agentTrace.push({ stage: 'tool_success', tool: 'Memory', action: 'remember', status: 'success', latencyMs: memSave.metadata.latencyMs });
       }
     }
 
@@ -167,7 +168,7 @@ const processRequest = async ({
     if (userMemories && userMemories.length > 0) {
       memoryContextStr = userMemories.map(m => `- ${m.content}`).join('\n');
       if (!toolsUsed.includes('Memory')) toolsUsed.push('Memory');
-      agentTrace.push({ tool: 'Memory', action: 'retrieve', status: 'success', count: userMemories.length });
+      agentTrace.push({ stage: 'tool_success', tool: 'Memory', action: 'retrieve', status: 'success', count: userMemories.length });
     }
 
     // --- STEP 2: MULTI-TOOL & SINGLE-TOOL EXECUTION PIPELINE ---
@@ -179,10 +180,11 @@ const processRequest = async ({
     // Step 2A: RAG Document Search
     if (intent === 'DOCUMENT' || intent === 'MULTI_TOOL' || documentIds.length > 0) {
       taskModel.steps.push({ stepId: 'step_rag', tool: 'RAG', action: 'search', status: 'running' });
-      
+      agentTrace.push({ stage: 'tool_running', tool: 'RAG', label: 'Searching documents...' });
+
       let ragRes = await executeToolWithTimeout(ragTool, { userId, query: message, documentIds, topK: 5 });
 
-      // Single-retry on non-fatal failure
+      // Single-retry on non-fatal timeout
       if (!ragRes.success && !ragRes.metadata.forbidden && ragRes.error?.code === 'TOOL_TIMEOUT') {
         ragRes = await executeToolWithTimeout(ragTool, { userId, query: message, documentIds, topK: 5 });
       }
@@ -200,31 +202,61 @@ const processRequest = async ({
       if (ragRes.success && ragRes.data) {
         ragData = ragRes.data;
         toolsUsed.push('RAG');
-        agentTrace.push({ tool: 'RAG', action: 'search', status: 'success', latencyMs: ragRes.metadata.latencyMs });
+        agentTrace.push({ stage: 'tool_success', tool: 'RAG', action: 'search', status: 'success', latencyMs: ragRes.metadata.latencyMs });
         if (ragData.sources) {
           ragData.sources.forEach(s => sources.push(s));
         }
       } else {
-        agentTrace.push({ tool: 'RAG', action: 'search', status: 'failed', error: ragRes.error?.message });
+        agentTrace.push({ stage: 'tool_error', tool: 'RAG', action: 'search', status: 'failed', error: ragRes.error?.message });
       }
     }
 
-    // Step 2B: Math Engine Solver (SymPy Authoritative)
+    // Step 2B: Web Intelligence Search
+    if (intent === 'WEB' || intent === 'MULTI_TOOL' || enableWebSearch) {
+      taskModel.steps.push({ stepId: 'step_web', tool: 'WebSearch', action: 'search', status: 'running' });
+      agentTrace.push({ stage: 'tool_running', tool: 'WebSearch', label: 'Searching live web...' });
+
+      let webRes = await executeToolWithTimeout(webSearchTool, { query: message });
+
+      // Single-retry on web timeout
+      if (!webRes.success && webRes.error?.code === 'TOOL_TIMEOUT') {
+        webRes = await executeToolWithTimeout(webSearchTool, { query: message });
+      }
+
+      if (webRes.success && webRes.data) {
+        webData = webRes.data;
+        toolsUsed.push('WebSearch');
+        agentTrace.push({ stage: 'tool_success', tool: 'WebSearch', action: 'search', status: 'success', latencyMs: webRes.metadata.latencyMs });
+        if (webData.citations) {
+          webData.citations.forEach(c => citations.push(c));
+        }
+        if (webData.sources) {
+          webData.sources.forEach(s => sources.push({ file: s.title, url: s.url, domain: s.domain }));
+        }
+      } else {
+        agentTrace.push({ stage: 'tool_error', tool: 'WebSearch', action: 'search', status: 'failed', error: webRes.error?.message });
+      }
+    }
+
+    // Step 2C: Math Engine Solver (SymPy Authoritative)
     if (intent === 'MATH' || intent === 'MULTI_TOOL') {
-      taskModel.steps.push({ stepId: 'step_math', tool: 'MathEngine', action: 'solve', dependsOn: ragData ? ['step_rag'] : [] });
+      taskModel.steps.push({ stepId: 'step_math', tool: 'MathEngine', action: 'solve', dependsOn: ragData ? ['step_rag'] : (webData ? ['step_web'] : []) });
+      agentTrace.push({ stage: 'tool_running', tool: 'MathEngine', label: 'Calculating with SymPy...' });
 
       let mathQuery = message;
-      // Extract numeric math expression or use RAG context if multi-tool
+      // Extract numeric math expression or use Web / RAG context if multi-tool
       const mathExprMatch = message.match(/(\d+[\s*\/+\-^.]+\d+[\s*\/+\-^.\d]*|[a-zA-Z0-9\s*\/+\-^.]+=+[a-zA-Z0-9\s*\/+\-^.]+)/);
       if (mathExprMatch && mathExprMatch[1] && mathExprMatch[1].trim().length >= 3) {
         mathQuery = mathExprMatch[1].trim();
+      } else if (webData && webData.contextText) {
+        mathQuery = `${message} given web context: ${webData.contextText.substring(0, 300)}`;
       } else if (ragData && ragData.context) {
         mathQuery = `${message} given text: ${ragData.context.substring(0, 300)}`;
       }
 
       let mathRes = await executeToolWithTimeout(mathTool, { question: mathQuery });
 
-      // Single-retry on math timeout/failure
+      // Single-retry on math failure
       if (!mathRes.success) {
         mathRes = await executeToolWithTimeout(mathTool, { question: mathQuery });
       }
@@ -233,36 +265,22 @@ const processRequest = async ({
         mathData = mathRes.data;
         if (mathData.verified) {
           toolsUsed.push('MathEngine');
-          agentTrace.push({ tool: 'MathEngine', action: 'solve', status: 'success', latencyMs: mathRes.metadata.latencyMs });
+          agentTrace.push({ stage: 'tool_success', tool: 'MathEngine', action: 'solve', status: 'success', latencyMs: mathRes.metadata.latencyMs });
           isVerified = true;
         }
       } else {
-        agentTrace.push({ tool: 'MathEngine', action: 'solve', status: 'failed', error: mathRes.error?.message });
-      }
-    }
-
-    // Step 2C: Web Search Execution
-    if (intent === 'WEB' || enableWebSearch) {
-      let webRes = await executeToolWithTimeout(webSearchTool, { query: message });
-      if (webRes.success && webRes.data) {
-        webData = webRes.data;
-        toolsUsed.push('WebSearch');
-        agentTrace.push({ tool: 'WebSearch', action: 'search', status: 'success', latencyMs: webRes.metadata.latencyMs });
-        if (webData.sources) {
-          webData.sources.forEach(s => sources.push({ file: s.title, url: s.url }));
-        }
-      } else {
-        agentTrace.push({ tool: 'WebSearch', action: 'search', status: 'failed', error: webRes.error?.message });
+        agentTrace.push({ stage: 'tool_error', tool: 'MathEngine', action: 'solve', status: 'failed', error: mathRes.error?.message });
       }
     }
 
     // Step 2D: Code Engine Analysis
     if (intent === 'CODING') {
+      agentTrace.push({ stage: 'tool_running', tool: 'CodeEngine', label: 'Analyzing code...' });
       let codeRes = await executeToolWithTimeout(codeTool, { code: message, query: message });
       if (codeRes.success && codeRes.data) {
         codeData = codeRes.data;
         toolsUsed.push('CodeEngine');
-        agentTrace.push({ tool: 'CodeEngine', action: 'analyze', status: 'success', latencyMs: codeRes.metadata.latencyMs });
+        agentTrace.push({ stage: 'tool_success', tool: 'CodeEngine', action: 'analyze', status: 'success', latencyMs: codeRes.metadata.latencyMs });
       }
     }
 
@@ -271,13 +289,14 @@ const processRequest = async ({
     // Deterministic Math Answer (Pure Math Intent)
     if (intent === 'MATH' && mathData && mathData.verified) {
       toolsUsed.push('SLM');
-      agentTrace.push({ tool: 'SLM', action: 'format', status: 'success', latencyMs: 5 });
+      agentTrace.push({ stage: 'composing', tool: 'SLM', action: 'format', status: 'success', latencyMs: 5 });
       return {
         success: true,
         answer: `**Verified Solution:** ${mathData.result}\n\n${mathData.explanation}`,
         intent,
         toolsUsed,
         sources: [],
+        citations: [],
         verified: true,
         requestId,
         totalLatencyMs: Date.now() - startTime,
@@ -295,6 +314,7 @@ const processRequest = async ({
         intent,
         toolsUsed,
         sources: [],
+        citations: [],
         verified: false,
         requestId,
         totalLatencyMs: Date.now() - startTime,
@@ -323,6 +343,8 @@ const processRequest = async ({
     }
 
     const slmPrompt = `${systemInstructions}\nUSER PROMPT: ${message}`;
+    agentTrace.push({ stage: 'composing', tool: 'SLM', label: 'Preparing final response...' });
+
     let slmRes = await executeToolWithTimeout(slmTool, { message: slmPrompt, conversation: conversationHistory, model });
 
     // Single-retry for SLM tool
@@ -331,7 +353,7 @@ const processRequest = async ({
     }
 
     toolsUsed.push('SLM');
-    agentTrace.push({ tool: 'SLM', action: 'generate', status: slmRes.success ? 'success' : 'failed', latencyMs: slmRes.metadata.latencyMs });
+    agentTrace.push({ stage: 'complete', tool: 'SLM', action: 'generate', status: slmRes.success ? 'success' : 'failed', latencyMs: slmRes.metadata.latencyMs });
 
     if (slmRes.success && slmRes.data) {
       finalAnswer = slmRes.data.response;
@@ -341,7 +363,7 @@ const processRequest = async ({
       }
 
       if (sources.length > 0 && !finalAnswer.includes('Source Citation') && !finalAnswer.includes('Sources:')) {
-        const citStr = sources.map(s => s.page ? `- ${s.file} — Page ${s.page}` : `- ${s.file} (${s.url || 'Web'})`).join('\n');
+        const citStr = sources.map(s => s.page ? `- ${s.file} — Page ${s.page}` : `- [${s.file}](${s.url || '#'})`).join('\n');
         finalAnswer += `\n\n📍 **Source Citations:**\n${citStr}`;
       }
     } else {
@@ -356,6 +378,7 @@ const processRequest = async ({
       intent,
       toolsUsed,
       sources,
+      citations,
       verified: isVerified || Boolean(mathData && mathData.verified),
       requestId,
       totalLatencyMs,

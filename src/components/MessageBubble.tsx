@@ -9,6 +9,8 @@ export interface ChatMessage {
   model?: string;
   toolsUsed?: string[];
   sources?: any[];
+  citations?: any[];
+  agentTrace?: any[];
   verified?: boolean;
 }
 
@@ -159,7 +161,6 @@ export const MessageBubble: React.FC<MessageBubbleProps> = ({ message, userIniti
           {message.timestamp && <span className="text-[10px] text-slate-500">{message.timestamp}</span>}
         </div>
 
-
         {/* Message Bubble Box */}
         <div
           className={`p-4 rounded-2xl text-xs sm:text-sm shadow-md transition-all ${
@@ -170,6 +171,33 @@ export const MessageBubble: React.FC<MessageBubbleProps> = ({ message, userIniti
         >
           {renderMessageContent(message.text)}
         </div>
+
+        {/* Web Source Citations Cards */}
+        {!isUser && message.citations && message.citations.length > 0 && (
+          <div className="mt-2.5 w-full flex flex-col gap-1.5">
+            <span className="text-[11px] font-semibold text-cyan-400 flex items-center gap-1">
+              🌐 Verified Web Sources ({message.citations.length})
+            </span>
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
+              {message.citations.map((cit, cIdx) => (
+                <a
+                  key={cIdx}
+                  href={cit.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="p-2 rounded-xl bg-slate-900/80 border border-cyan-500/20 hover:border-cyan-400/50 transition-all flex flex-col text-left group/card"
+                >
+                  <span className="text-xs font-semibold text-slate-200 group-hover/card:text-cyan-300 truncate">
+                    [{cIdx + 1}] {cit.title}
+                  </span>
+                  <span className="text-[10px] font-mono text-cyan-400/80 truncate">
+                    {cit.domain || cit.url}
+                  </span>
+                </a>
+              ))}
+            </div>
+          </div>
+        )}
 
         {/* Action Toolbar for AI responses */}
         {!isUser && (
