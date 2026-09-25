@@ -1,5 +1,5 @@
 {
-  "timestamp": "2026-09-25T10:00:49.777Z",
+  "timestamp": "2026-09-25T10:49:06.671Z",
   "branch": "phase-12-4-context-knowledge-intelligence",
   "productionModel": "Mathiyon SLM v1.2 (100%)",
   "experimentalModel": "Mathiyon SLM v1.3-RC1 (0%)",
@@ -42,7 +42,7 @@
     }
   },
   "latency": {
-    "p50Ms": 7,
+    "p50Ms": 8,
     "p95Ms": 16,
     "totalEvaluated": 120
   },
@@ -150,7 +150,7 @@
       "suite": "UNIT",
       "name": "Unit Sub-Module & Trace Safety Check 15",
       "status": "PASS",
-      "latencyMs": 1
+      "latencyMs": 2
     },
     {
       "testId": "UNIT_016",
@@ -262,7 +262,7 @@
       "suite": "UNIT",
       "name": "Unit Sub-Module & Trace Safety Check 31",
       "status": "PASS",
-      "latencyMs": 2
+      "latencyMs": 1
     },
     {
       "testId": "UNIT_032",
@@ -549,7 +549,7 @@
       "suite": "REAL_RAG",
       "name": "Real Local Document Processing & Citation [data_structured.csv]",
       "status": "PASS",
-      "latencyMs": 17
+      "latencyMs": 16
     },
     {
       "testId": "REAL_RAG_003",
@@ -577,7 +577,7 @@
       "suite": "REAL_RAG",
       "name": "Real Local Document Processing & Citation [data_structured.csv]",
       "status": "PASS",
-      "latencyMs": 15
+      "latencyMs": 16
     },
     {
       "testId": "REAL_RAG_007",
@@ -598,7 +598,7 @@
       "suite": "REAL_RAG",
       "name": "Real Local Document Processing & Citation [dataset.json]",
       "status": "PASS",
-      "latencyMs": 15
+      "latencyMs": 16
     },
     {
       "testId": "REAL_RAG_010",
@@ -612,14 +612,14 @@
       "suite": "REAL_RAG",
       "name": "Real Local Document Processing & Citation [math_doc.txt]",
       "status": "PASS",
-      "latencyMs": 15
+      "latencyMs": 17
     },
     {
       "testId": "REAL_RAG_012",
       "suite": "REAL_RAG",
       "name": "Real Local Document Processing & Citation [technical_doc.txt]",
       "status": "PASS",
-      "latencyMs": 15
+      "latencyMs": 16
     },
     {
       "testId": "REAL_RAG_013",
@@ -633,14 +633,14 @@
       "suite": "REAL_RAG",
       "name": "Real Local Document Processing & Citation [data_structured.csv]",
       "status": "PASS",
-      "latencyMs": 15
+      "latencyMs": 16
     },
     {
       "testId": "REAL_RAG_015",
       "suite": "REAL_RAG",
       "name": "Real Local Document Processing & Citation [math_doc.txt]",
       "status": "PASS",
-      "latencyMs": 16
+      "latencyMs": 15
     },
     {
       "testId": "REAL_RAG_016",
@@ -668,21 +668,21 @@
       "suite": "REAL_RAG",
       "name": "Real Local Document Processing & Citation [math_doc.txt]",
       "status": "PASS",
-      "latencyMs": 15
+      "latencyMs": 16
     },
     {
       "testId": "REAL_RAG_020",
       "suite": "REAL_RAG",
       "name": "Real Local Document Processing & Citation [technical_doc.txt]",
       "status": "PASS",
-      "latencyMs": 16
+      "latencyMs": 15
     },
     {
       "testId": "REAL_DB_001",
       "suite": "REAL_DB",
       "name": "Cross-User Isolation Authorization Check user_alpha_1 vs user_beta_1",
       "status": "PASS",
-      "latencyMs": 5
+      "latencyMs": 7
     },
     {
       "testId": "REAL_DB_002",
@@ -815,7 +815,7 @@
       "suite": "REAL_DB",
       "name": "Cross-User Isolation Authorization Check user_alpha_20 vs user_beta_20",
       "status": "PASS",
-      "latencyMs": 5
+      "latencyMs": 6
     },
     {
       "testId": "LIVE_WEB_001",
@@ -1522,21 +1522,21 @@
       "suite": "TRUE_E2E",
       "name": "End-to-End Execution Case 1: \"Explain topic 1 in React\"",
       "status": "PASS",
-      "latencyMs": 7
+      "latencyMs": 12
     },
     {
       "testId": "TRUE_E2E_002",
       "suite": "TRUE_E2E",
       "name": "End-to-End Execution Case 2: \"Calculate 2 * 25\"",
       "status": "PASS",
-      "latencyMs": 11
+      "latencyMs": 7
     },
     {
       "testId": "TRUE_E2E_003",
       "suite": "TRUE_E2E",
       "name": "End-to-End Execution Case 3: \"Explain topic 3 in React\"",
       "status": "PASS",
-      "latencyMs": 7
+      "latencyMs": 34
     },
     {
       "testId": "TRUE_E2E_004",
@@ -1550,231 +1550,231 @@
       "suite": "TRUE_E2E",
       "name": "End-to-End Execution Case 5: \"Explain topic 5 in React\"",
       "status": "PASS",
-      "latencyMs": 4
+      "latencyMs": 16
     },
     {
       "testId": "TRUE_E2E_006",
       "suite": "TRUE_E2E",
       "name": "End-to-End Execution Case 6: \"Calculate 6 * 25\"",
       "status": "PASS",
-      "latencyMs": 9
+      "latencyMs": 5
     },
     {
       "testId": "TRUE_E2E_007",
       "suite": "TRUE_E2E",
       "name": "End-to-End Execution Case 7: \"Explain topic 7 in React\"",
       "status": "PASS",
-      "latencyMs": 3
+      "latencyMs": 7
     },
     {
       "testId": "TRUE_E2E_008",
       "suite": "TRUE_E2E",
       "name": "End-to-End Execution Case 8: \"Calculate 8 * 25\"",
       "status": "PASS",
-      "latencyMs": 6
+      "latencyMs": 3
     },
     {
       "testId": "TRUE_E2E_009",
       "suite": "TRUE_E2E",
       "name": "End-to-End Execution Case 9: \"Explain topic 9 in React\"",
       "status": "PASS",
-      "latencyMs": 4
+      "latencyMs": 8
     },
     {
       "testId": "TRUE_E2E_010",
       "suite": "TRUE_E2E",
       "name": "End-to-End Execution Case 10: \"Calculate 10 * 25\"",
       "status": "PASS",
-      "latencyMs": 6
+      "latencyMs": 4
     },
     {
       "testId": "TRUE_E2E_011",
       "suite": "TRUE_E2E",
       "name": "End-to-End Execution Case 11: \"Explain topic 11 in React\"",
       "status": "PASS",
-      "latencyMs": 3
+      "latencyMs": 9
     },
     {
       "testId": "TRUE_E2E_012",
       "suite": "TRUE_E2E",
       "name": "End-to-End Execution Case 12: \"Calculate 12 * 25\"",
       "status": "PASS",
-      "latencyMs": 8
+      "latencyMs": 3
     },
     {
       "testId": "TRUE_E2E_013",
       "suite": "TRUE_E2E",
       "name": "End-to-End Execution Case 13: \"Explain topic 13 in React\"",
       "status": "PASS",
-      "latencyMs": 3
+      "latencyMs": 6
     },
     {
       "testId": "TRUE_E2E_014",
       "suite": "TRUE_E2E",
       "name": "End-to-End Execution Case 14: \"Calculate 14 * 25\"",
       "status": "PASS",
-      "latencyMs": 6
+      "latencyMs": 3
     },
     {
       "testId": "TRUE_E2E_015",
       "suite": "TRUE_E2E",
       "name": "End-to-End Execution Case 15: \"Explain topic 15 in React\"",
       "status": "PASS",
-      "latencyMs": 4
+      "latencyMs": 6
     },
     {
       "testId": "TRUE_E2E_016",
       "suite": "TRUE_E2E",
       "name": "End-to-End Execution Case 16: \"Calculate 16 * 25\"",
       "status": "PASS",
-      "latencyMs": 7
+      "latencyMs": 5
     },
     {
       "testId": "TRUE_E2E_017",
       "suite": "TRUE_E2E",
       "name": "End-to-End Execution Case 17: \"Explain topic 17 in React\"",
       "status": "PASS",
-      "latencyMs": 3
+      "latencyMs": 12
     },
     {
       "testId": "TRUE_E2E_018",
       "suite": "TRUE_E2E",
       "name": "End-to-End Execution Case 18: \"Calculate 18 * 25\"",
       "status": "PASS",
-      "latencyMs": 6
+      "latencyMs": 3
     },
     {
       "testId": "TRUE_E2E_019",
       "suite": "TRUE_E2E",
       "name": "End-to-End Execution Case 19: \"Explain topic 19 in React\"",
       "status": "PASS",
-      "latencyMs": 3
+      "latencyMs": 5
     },
     {
       "testId": "TRUE_E2E_020",
       "suite": "TRUE_E2E",
       "name": "End-to-End Execution Case 20: \"Calculate 20 * 25\"",
       "status": "PASS",
-      "latencyMs": 6
+      "latencyMs": 2
     },
     {
       "testId": "TRUE_E2E_021",
       "suite": "TRUE_E2E",
       "name": "End-to-End Execution Case 21: \"Explain topic 21 in React\"",
       "status": "PASS",
-      "latencyMs": 3
+      "latencyMs": 8
     },
     {
       "testId": "TRUE_E2E_022",
       "suite": "TRUE_E2E",
       "name": "End-to-End Execution Case 22: \"Calculate 22 * 25\"",
       "status": "PASS",
-      "latencyMs": 6
+      "latencyMs": 7
     },
     {
       "testId": "TRUE_E2E_023",
       "suite": "TRUE_E2E",
       "name": "End-to-End Execution Case 23: \"Explain topic 23 in React\"",
       "status": "PASS",
-      "latencyMs": 4
+      "latencyMs": 10
     },
     {
       "testId": "TRUE_E2E_024",
       "suite": "TRUE_E2E",
       "name": "End-to-End Execution Case 24: \"Calculate 24 * 25\"",
       "status": "PASS",
-      "latencyMs": 6
+      "latencyMs": 3
     },
     {
       "testId": "TRUE_E2E_025",
       "suite": "TRUE_E2E",
       "name": "End-to-End Execution Case 25: \"Explain topic 25 in React\"",
       "status": "PASS",
-      "latencyMs": 4
+      "latencyMs": 5
     },
     {
       "testId": "TRUE_E2E_026",
       "suite": "TRUE_E2E",
       "name": "End-to-End Execution Case 26: \"Calculate 26 * 25\"",
       "status": "PASS",
-      "latencyMs": 6
+      "latencyMs": 3
     },
     {
       "testId": "TRUE_E2E_027",
       "suite": "TRUE_E2E",
       "name": "End-to-End Execution Case 27: \"Explain topic 27 in React\"",
       "status": "PASS",
-      "latencyMs": 8
+      "latencyMs": 5
     },
     {
       "testId": "TRUE_E2E_028",
       "suite": "TRUE_E2E",
       "name": "End-to-End Execution Case 28: \"Calculate 28 * 25\"",
       "status": "PASS",
-      "latencyMs": 9
+      "latencyMs": 2
     },
     {
       "testId": "TRUE_E2E_029",
       "suite": "TRUE_E2E",
       "name": "End-to-End Execution Case 29: \"Explain topic 29 in React\"",
       "status": "PASS",
-      "latencyMs": 8
+      "latencyMs": 5
     },
     {
       "testId": "TRUE_E2E_030",
       "suite": "TRUE_E2E",
       "name": "End-to-End Execution Case 30: \"Calculate 30 * 25\"",
       "status": "PASS",
-      "latencyMs": 7
+      "latencyMs": 4
     },
     {
       "testId": "TRUE_E2E_031",
       "suite": "TRUE_E2E",
       "name": "End-to-End Execution Case 31: \"Explain topic 31 in React\"",
       "status": "PASS",
-      "latencyMs": 3
+      "latencyMs": 5
     },
     {
       "testId": "TRUE_E2E_032",
       "suite": "TRUE_E2E",
       "name": "End-to-End Execution Case 32: \"Calculate 32 * 25\"",
       "status": "PASS",
-      "latencyMs": 6
+      "latencyMs": 2
     },
     {
       "testId": "TRUE_E2E_033",
       "suite": "TRUE_E2E",
       "name": "End-to-End Execution Case 33: \"Explain topic 33 in React\"",
       "status": "PASS",
-      "latencyMs": 5
+      "latencyMs": 6
     },
     {
       "testId": "TRUE_E2E_034",
       "suite": "TRUE_E2E",
       "name": "End-to-End Execution Case 34: \"Calculate 34 * 25\"",
       "status": "PASS",
-      "latencyMs": 5
+      "latencyMs": 3
     },
     {
       "testId": "TRUE_E2E_035",
       "suite": "TRUE_E2E",
       "name": "End-to-End Execution Case 35: \"Explain topic 35 in React\"",
       "status": "PASS",
-      "latencyMs": 3
+      "latencyMs": 2
     },
     {
       "testId": "TRUE_E2E_036",
       "suite": "TRUE_E2E",
       "name": "End-to-End Execution Case 36: \"Calculate 36 * 25\"",
       "status": "PASS",
-      "latencyMs": 5
+      "latencyMs": 2
     },
     {
       "testId": "TRUE_E2E_037",
       "suite": "TRUE_E2E",
       "name": "End-to-End Execution Case 37: \"Explain topic 37 in React\"",
       "status": "PASS",
-      "latencyMs": 3
+      "latencyMs": 33
     },
     {
       "testId": "TRUE_E2E_038",
@@ -1788,84 +1788,84 @@
       "suite": "TRUE_E2E",
       "name": "End-to-End Execution Case 39: \"Explain topic 39 in React\"",
       "status": "PASS",
-      "latencyMs": 2
+      "latencyMs": 5
     },
     {
       "testId": "TRUE_E2E_040",
       "suite": "TRUE_E2E",
       "name": "End-to-End Execution Case 40: \"Calculate 40 * 25\"",
       "status": "PASS",
-      "latencyMs": 6
+      "latencyMs": 2
     },
     {
       "testId": "TRUE_E2E_041",
       "suite": "TRUE_E2E",
       "name": "End-to-End Execution Case 41: \"Explain topic 41 in React\"",
       "status": "PASS",
-      "latencyMs": 4
+      "latencyMs": 5
     },
     {
       "testId": "TRUE_E2E_042",
       "suite": "TRUE_E2E",
       "name": "End-to-End Execution Case 42: \"Calculate 42 * 25\"",
       "status": "PASS",
-      "latencyMs": 4
+      "latencyMs": 3
     },
     {
       "testId": "TRUE_E2E_043",
       "suite": "TRUE_E2E",
       "name": "End-to-End Execution Case 43: \"Explain topic 43 in React\"",
       "status": "PASS",
-      "latencyMs": 3
+      "latencyMs": 7
     },
     {
       "testId": "TRUE_E2E_044",
       "suite": "TRUE_E2E",
       "name": "End-to-End Execution Case 44: \"Calculate 44 * 25\"",
       "status": "PASS",
-      "latencyMs": 5
+      "latencyMs": 4
     },
     {
       "testId": "TRUE_E2E_045",
       "suite": "TRUE_E2E",
       "name": "End-to-End Execution Case 45: \"Explain topic 45 in React\"",
       "status": "PASS",
-      "latencyMs": 3
+      "latencyMs": 7
     },
     {
       "testId": "TRUE_E2E_046",
       "suite": "TRUE_E2E",
       "name": "End-to-End Execution Case 46: \"Calculate 46 * 25\"",
       "status": "PASS",
-      "latencyMs": 5
+      "latencyMs": 3
     },
     {
       "testId": "TRUE_E2E_047",
       "suite": "TRUE_E2E",
       "name": "End-to-End Execution Case 47: \"Explain topic 47 in React\"",
       "status": "PASS",
-      "latencyMs": 4
+      "latencyMs": 6
     },
     {
       "testId": "TRUE_E2E_048",
       "suite": "TRUE_E2E",
       "name": "End-to-End Execution Case 48: \"Calculate 48 * 25\"",
       "status": "PASS",
-      "latencyMs": 5
+      "latencyMs": 3
     },
     {
       "testId": "TRUE_E2E_049",
       "suite": "TRUE_E2E",
       "name": "End-to-End Execution Case 49: \"Explain topic 49 in React\"",
       "status": "PASS",
-      "latencyMs": 4
+      "latencyMs": 10
     },
     {
       "testId": "TRUE_E2E_050",
       "suite": "TRUE_E2E",
       "name": "End-to-End Execution Case 50: \"Calculate 50 * 25\"",
       "status": "PASS",
-      "latencyMs": 6
+      "latencyMs": 4
     }
   ]
 }
