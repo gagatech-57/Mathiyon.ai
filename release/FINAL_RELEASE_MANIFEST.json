@@ -1,0 +1,44 @@
+{
+  "name": "Mathiyon AI Final Production Release Candidate",
+  "version": "1.2.0-final.12.8",
+  "phase": "12.8",
+  "branch": "phase-12-8-final-production-readiness",
+  "baseline_commit": "1563acc8971411ab94ef38ff155008ce9997d504",
+  "release_date": "2026-09-25",
+  "models": {
+    "production_model": "mathiyon-slm-v1.2",
+    "production_traffic_percent": 100,
+    "experimental_model": "mathiyon-slm-v1.3-RC1",
+    "experimental_traffic_percent": 0
+  },
+  "agent_limits": {
+    "max_agent_steps": 10,
+    "tool_timeout_ms": 10000,
+    "request_timeout_ms": 30000,
+    "max_retries": 2
+  },
+  "security_controls": {
+    "jwt_authentication": true,
+    "rbac_authorization": true,
+    "ssrf_protection": true,
+    "telemetry_log_scrubbing": true,
+    "prompt_injection_guard": true
+  },
+  "final_release_artifacts": [
+    "release/FINAL_RELEASE_MANIFEST.json",
+    "release/FINAL_ROLLBACK.md",
+    "release/final_environment.json",
+    "release/DATABASE_RECOVERY.md",
+    "release/validate_final_release.py",
+    "docs/PHASE_12_8_PRODUCTION_READINESS_AUDIT.md",
+    "docs/PHASE_12_8_GO_LIVE_CHECKLIST.md",
+    "docs/PHASE_12_8_FINAL_PRODUCTION_READINESS_REPORT.md",
+    "tests/final_release/results/final_summary.json"
+  ],
+  "known_limitations": [
+    "PyTorch runtime running in CPU fallback mode (CUDA host hardware not present)",
+    "External live web search relies on public HTTP query sandbox; high frequency tests use mock web provider",
+    "Software readiness validated under tested conditions; formal zero-defect claims strictly avoided"
+  ],
+  "go_live_decision": "GO_LIVE_READY_WITH_LIMITATIONS"
+}

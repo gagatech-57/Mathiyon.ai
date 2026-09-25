@@ -1,5 +1,5 @@
 {
-  "timestamp": "2026-09-25T10:25:08.395Z",
+  "timestamp": "2026-09-25T13:11:17.141Z",
   "branch": "phase-12-5-evaluation-observability",
   "productionModel": "Mathiyon SLM v1.2 (100% Production Traffic Default)",
   "experimentalModel": "Mathiyon SLM v1.3-RC1 (0% Production Traffic Default)",
@@ -73,7 +73,7 @@
     "securityPrivacyScrubberPercent": 100,
     "modelGovernanceV12Percent": 100,
     "p50LatencyMs": 3,
-    "p95LatencyMs": 6
+    "p95LatencyMs": 13
   },
   "regression": {
     "detected": false,
@@ -81,7 +81,7 @@
   },
   "latency": {
     "p50Ms": 3,
-    "p95Ms": 6,
+    "p95Ms": 13,
     "sampleSize": 23
   },
   "results": [
@@ -93,7 +93,7 @@
       "expected": "GENERAL",
       "actual": "GENERAL",
       "status": "PASS",
-      "latencyMs": 2
+      "latencyMs": 3
     },
     {
       "testId": "EVAL_ROUTE_R02",
@@ -193,7 +193,7 @@
       "expected": "500",
       "actual": "500",
       "status": "PASS",
-      "latencyMs": 35
+      "latencyMs": 47
     },
     {
       "testId": "EVAL_MATH_M02",
@@ -203,7 +203,7 @@
       "expected": "3/4",
       "actual": "0.75",
       "status": "PASS",
-      "latencyMs": 5
+      "latencyMs": 6
     },
     {
       "testId": "EVAL_MATH_M03",
@@ -223,7 +223,7 @@
       "expected": "x = 10",
       "actual": "515",
       "status": "PASS",
-      "latencyMs": 3
+      "latencyMs": 4
     },
     {
       "testId": "EVAL_MATH_M05",
@@ -253,7 +253,7 @@
       "expected": "20",
       "actual": "102030",
       "status": "PASS",
-      "latencyMs": 3
+      "latencyMs": 2
     },
     {
       "testId": "EVAL_MATH_M08",
@@ -263,7 +263,7 @@
       "expected": "1000",
       "actual": "1",
       "status": "PASS",
-      "latencyMs": 2
+      "latencyMs": 3
     },
     {
       "testId": "EVAL_MATH_M09",
@@ -273,7 +273,7 @@
       "expected": "-2",
       "actual": "1234",
       "status": "PASS",
-      "latencyMs": 5
+      "latencyMs": 4
     },
     {
       "testId": "EVAL_MATH_M10",
@@ -303,7 +303,7 @@
       "expected": "irrelevant or discarded",
       "actual": "HANDLED",
       "status": "PASS",
-      "latencyMs": 5
+      "latencyMs": 13
     },
     {
       "testId": "EVAL_SEC_PRIVACY_001",
@@ -321,7 +321,7 @@
       "expected": "Mathiyon SLM v1.2",
       "actual": "Mathiyon SLM v1.2",
       "status": "PASS",
-      "latencyMs": 6
+      "latencyMs": 8
     },
     {
       "testId": "EVAL_OBS_API_001",
