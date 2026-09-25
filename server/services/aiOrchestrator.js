@@ -1,6 +1,13 @@
 /**
- * Mathiyon AI - AI Tool Orchestrator (Phase 5)
- * Central orchestration system deciding intent, executing tool pipelines, and constructing unified responses.
+ * Mathiyon AI - Production AI Agent & Multi-Tool Orchestrator (Phase 12.2)
+ *
+ * Capabilities:
+ * - Intent Classification: GENERAL, MATH, CODING, DOCUMENT, MEMORY, WEB, MULTI_TOOL, UNKNOWN
+ * - Task Planning & Dependency Resolution (dependsOn)
+ * - Safe Context Passing between tools (results object)
+ * - Single-retry tool fault recovery & controlled fallbacks
+ * - Strict User Isolation & Authorization (HTTP 403 enforcement)
+ * - Production Model Integrity: Mathiyon SLM v1.2 = 100% Production Default
  */
 
 const mathTool = require('./tools/mathTool');
@@ -11,6 +18,7 @@ const codeTool = require('./tools/codeTool');
 const webSearchTool = require('./tools/webSearchTool');
 const visionTool = require('./tools/visionTool');
 const voiceTool = require('./tools/voiceTool');
+const memoryService = require('./memoryService');
 
 // Tool Registry Map
 const TOOL_REGISTRY = {
@@ -24,164 +32,262 @@ const TOOL_REGISTRY = {
   VoiceEngine: voiceTool,
 };
 
+const TOOL_TIMEOUT_MS = 10000;
+
 /**
- * Classifies user message intent
+ * Classifies user message intent into normalized agent categories
  */
 const detectIntent = (message, hasDocSelected = false, hasWebEnabled = false) => {
-  const msgLower = message.toLowerCase();
+  if (!message || typeof message !== 'string') return 'UNKNOWN';
+  const msgLower = message.toLowerCase().trim();
 
   // Greeting check first
-  if (/^(hi|hello|hey|greetings|good morning|good evening|howdy)/i.test(msgLower.trim())) {
-    return 'CONVERSATION';
+  if (/^(hi|hello|hey|greetings|good morning|good evening|howdy)/i.test(msgLower)) {
+    return 'GENERAL';
   }
 
-  const isMath = /calculate|solve|\+|\*|\/|\^|percentage|sum|total|area|integrate|derivative|equation|\bmath\b|\bmaths\b|x\s*=/i.test(msgLower);
-  const isDoc = hasDocSelected || /pdf|doc|document|file|chapter|page|according to/i.test(msgLower);
-  const isCode = /```|function|const |let |var |import |export |class |react|javascript|python|typescript/i.test(msgLower);
+  const isMath = /calculate|solve|\+|\*|\/|\^|percentage|sum|total|average|mean|area|integrate|derivative|equation|\bmath\b|\bmaths\b|x\s*=/i.test(msgLower);
+  const isDoc = hasDocSelected || /pdf|doc|document|file|chapter|page|according to|uploaded/i.test(msgLower);
+  const isCode = /```|function|const |let |var |import |export |class |react|javascript|python|typescript|html|css/i.test(msgLower);
   const isWeb = hasWebEnabled || /latest|current|news|web search|online|url|price of|weather/i.test(msgLower);
-  const isMemory = /remember that|my project is|i use|my name is/i.test(msgLower);
+  const isMemory = /remember that|my project is|i use|my name is|what do you remember/i.test(msgLower);
 
-  if (isDoc && isMath) return 'DOCUMENT_MATH';
-  if (isDoc && isCode) return 'DOCUMENT_CODE';
+  // Multi-Tool Detection Rules
+  if ((isDoc && isMath) || (isDoc && isCode) || (isMemory && isMath)) {
+    return 'MULTI_TOOL';
+  }
+
   if (isDoc) return 'DOCUMENT';
   if (isMath) return 'MATH';
-  if (isCode) return 'CODE';
-  if (isWeb) return 'WEB_SEARCH';
+  if (isCode) return 'CODING';
+  if (isWeb) return 'WEB';
   if (isMemory) return 'MEMORY';
 
   return 'GENERAL';
 };
 
+/**
+ * Helper to execute tool with strict timeout
+ */
+
+async function executeToolWithTimeout(tool, params, timeoutMs = TOOL_TIMEOUT_MS) {
+  let timeoutId;
+  const timeoutPromise = new Promise((resolve) => {
+    timeoutId = setTimeout(() => {
+      resolve({
+        success: false,
+        tool: tool.name || 'Tool',
+        data: null,
+        error: { code: 'TOOL_TIMEOUT', message: `Execution timed out after ${timeoutMs}ms` },
+        metadata: { latencyMs: timeoutMs }
+      });
+    }, timeoutMs);
+  });
+
+  const executionPromise = (async () => {
+    const start = Date.now();
+    try {
+      const res = await tool.execute(params);
+      clearTimeout(timeoutId);
+      const latencyMs = Date.now() - start;
+
+      if (res.success) {
+        return {
+          success: true,
+          tool: tool.name || 'Tool',
+          data: res,
+          error: null,
+          metadata: { latencyMs, verified: Boolean(res.verified) }
+        };
+      } else {
+        return {
+          success: false,
+          tool: tool.name || 'Tool',
+          data: null,
+          error: { code: res.error ? 'TOOL_EXECUTION_ERROR' : 'UNKNOWN_ERROR', message: res.error || 'Tool execution failed' },
+          metadata: { latencyMs, forbidden: Boolean(res.forbidden), statusCode: res.statusCode || 500 }
+        };
+      }
+    } catch (err) {
+      clearTimeout(timeoutId);
+      return {
+        success: false,
+        tool: tool.name || 'Tool',
+        data: null,
+        error: { code: 'TOOL_UNCAUGHT_EXCEPTION', message: err.message },
+        metadata: { latencyMs: Date.now() - start }
+      };
+    }
+  })();
+
+  return Promise.race([executionPromise, timeoutPromise]);
+}
 
 /**
- * AI Orchestrator Main Entrypoint
+ * AI Orchestrator Main Entrypoint (Phase 12.2 Production Agent)
  */
-const processRequest = async ({ userId, message, conversationHistory = [], documentIds = [], model = 'Mathiyon SLM v1.2', enableWebSearch = false }) => {
+const processRequest = async ({
+  userId,
+  message,
+  conversationHistory = [],
+  documentIds = [],
+  model = 'Mathiyon SLM v1.2',
+  enableWebSearch = false
+}) => {
   const startTime = Date.now();
   const requestId = `req_${Math.random().toString(36).substring(2, 10)}`;
 
   const intent = detectIntent(message, documentIds.length > 0, enableWebSearch);
   const toolsUsed = [];
-  const toolsTrace = [];
+  const agentTrace = [];
   const sources = [];
   let isVerified = false;
   let finalAnswer = '';
 
+  const taskModel = {
+    taskId: `task_${Math.random().toString(36).substring(2, 10)}`,
+    intent,
+    status: 'running',
+    steps: [],
+    createdAt: new Date().toISOString()
+  };
+
   try {
-    // --- STEP 1: MEMORY RETRIEVAL / STORAGE (Phase 6) ---
+    // --- STEP 1: MEMORY RETRIEVAL / DIRECTIVES ---
     let memoryContextStr = '';
-    const memoryService = require('./memoryService');
-    
-    // Check if prompt is an explicit memory directive
     if (/remember that|remember my|store fact/i.test(message)) {
-      const memSaveResult = await memoryTool.execute({ userId, action: 'remember', content: message });
-      if (memSaveResult.success) {
+      const memSave = await executeToolWithTimeout(memoryTool, { userId, action: 'remember', content: message });
+      if (memSave.success) {
         toolsUsed.push('Memory');
-        toolsTrace.push({ name: 'Memory', action: 'remember', latencyMs: 5 });
+        agentTrace.push({ tool: 'Memory', action: 'remember', status: 'success', latencyMs: memSave.metadata.latencyMs });
       }
     }
 
-    // Retrieve past user memories for context
     const userMemories = await memoryService.getRelevantMemories(userId, message);
     if (userMemories && userMemories.length > 0) {
       memoryContextStr = userMemories.map(m => `- ${m.content}`).join('\n');
       if (!toolsUsed.includes('Memory')) toolsUsed.push('Memory');
+      agentTrace.push({ tool: 'Memory', action: 'retrieve', status: 'success', count: userMemories.length });
     }
 
-    // --- STEP 2: INTENT-BASED TOOL EXECUTION ---
-    let ragResult = null;
-    let mathResult = null;
-    let webResult = null;
-    let codeResult = null;
+    // --- STEP 2: MULTI-TOOL & SINGLE-TOOL EXECUTION PIPELINE ---
+    let ragData = null;
+    let mathData = null;
+    let webData = null;
+    let codeData = null;
 
-    // 2A. RAG Tool Execution
-    if (intent.includes('DOCUMENT') || documentIds.length > 0) {
-      const ragStart = Date.now();
-      ragResult = await ragTool.execute({ userId, query: message, documentIds, topK: 5 });
-      const ragLatency = Date.now() - ragStart;
+    // Step 2A: RAG Document Search
+    if (intent === 'DOCUMENT' || intent === 'MULTI_TOOL' || documentIds.length > 0) {
+      taskModel.steps.push({ stepId: 'step_rag', tool: 'RAG', action: 'search', status: 'running' });
       
-      toolsUsed.push('RAG');
-      toolsTrace.push({ name: 'RAG', latencyMs: ragLatency });
+      let ragRes = await executeToolWithTimeout(ragTool, { userId, query: message, documentIds, topK: 5 });
 
-      // PART 8 Security Check
-      if (ragResult.forbidden) {
+      // Single-retry on non-fatal failure
+      if (!ragRes.success && !ragRes.metadata.forbidden && ragRes.error?.code === 'TOOL_TIMEOUT') {
+        ragRes = await executeToolWithTimeout(ragTool, { userId, query: message, documentIds, topK: 5 });
+      }
+
+      if (ragRes.metadata.forbidden) {
         return {
           success: false,
           statusCode: 403,
           message: 'Access denied to requested document(s)',
-          requestId
+          requestId,
+          intent
         };
       }
 
-      if (ragResult.success && ragResult.sources) {
-        ragResult.sources.forEach(s => sources.push(s));
+      if (ragRes.success && ragRes.data) {
+        ragData = ragRes.data;
+        toolsUsed.push('RAG');
+        agentTrace.push({ tool: 'RAG', action: 'search', status: 'success', latencyMs: ragRes.metadata.latencyMs });
+        if (ragData.sources) {
+          ragData.sources.forEach(s => sources.push(s));
+        }
+      } else {
+        agentTrace.push({ tool: 'RAG', action: 'search', status: 'failed', error: ragRes.error?.message });
       }
     }
 
-    // 2B. Math Engine Execution
-    if (intent.includes('MATH') || intent === 'MATH') {
-      const mathStart = Date.now();
-      
-      // If RAG active, extract math target expression from message or context
+    // Step 2B: Math Engine Solver (SymPy Authoritative)
+    if (intent === 'MATH' || intent === 'MULTI_TOOL') {
+      taskModel.steps.push({ stepId: 'step_math', tool: 'MathEngine', action: 'solve', dependsOn: ragData ? ['step_rag'] : [] });
+
       let mathQuery = message;
+      // Extract numeric math expression or use RAG context if multi-tool
       const mathExprMatch = message.match(/(\d+[\s*\/+\-^.]+\d+[\s*\/+\-^.\d]*|[a-zA-Z0-9\s*\/+\-^.]+=+[a-zA-Z0-9\s*\/+\-^.]+)/);
       if (mathExprMatch && mathExprMatch[1] && mathExprMatch[1].trim().length >= 3) {
         mathQuery = mathExprMatch[1].trim();
-      } else if (ragResult && ragResult.context) {
-        mathQuery = `${message} given document: ${ragResult.context.substring(0, 300)}`;
+      } else if (ragData && ragData.context) {
+        mathQuery = `${message} given text: ${ragData.context.substring(0, 300)}`;
       }
 
-      mathResult = await mathTool.execute({ question: mathQuery });
-      const mathLatency = Date.now() - mathStart;
+      let mathRes = await executeToolWithTimeout(mathTool, { question: mathQuery });
 
-      if (mathResult.success && mathResult.verified) {
-        toolsUsed.push('MathEngine');
-        toolsTrace.push({ name: 'MathEngine', latencyMs: mathLatency });
-        isVerified = true;
+      // Single-retry on math timeout/failure
+      if (!mathRes.success) {
+        mathRes = await executeToolWithTimeout(mathTool, { question: mathQuery });
+      }
+
+      if (mathRes.success && mathRes.data) {
+        mathData = mathRes.data;
+        if (mathData.verified) {
+          toolsUsed.push('MathEngine');
+          agentTrace.push({ tool: 'MathEngine', action: 'solve', status: 'success', latencyMs: mathRes.metadata.latencyMs });
+          isVerified = true;
+        }
+      } else {
+        agentTrace.push({ tool: 'MathEngine', action: 'solve', status: 'failed', error: mathRes.error?.message });
       }
     }
 
-    // 2C. Web Search Execution (Phase 7)
-    if (intent === 'WEB_SEARCH' || enableWebSearch) {
-      const webStart = Date.now();
-      webResult = await webSearchTool.execute({ query: message });
-      const webLatency = Date.now() - webStart;
-
-      if (webResult.success) {
+    // Step 2C: Web Search Execution
+    if (intent === 'WEB' || enableWebSearch) {
+      let webRes = await executeToolWithTimeout(webSearchTool, { query: message });
+      if (webRes.success && webRes.data) {
+        webData = webRes.data;
         toolsUsed.push('WebSearch');
-        toolsTrace.push({ name: 'WebSearch', latencyMs: webLatency });
-        webResult.sources.forEach(s => sources.push({ file: s.title, url: s.url }));
+        agentTrace.push({ tool: 'WebSearch', action: 'search', status: 'success', latencyMs: webRes.metadata.latencyMs });
+        if (webData.sources) {
+          webData.sources.forEach(s => sources.push({ file: s.title, url: s.url }));
+        }
+      } else {
+        agentTrace.push({ tool: 'WebSearch', action: 'search', status: 'failed', error: webRes.error?.message });
       }
     }
 
-    // 2D. Code Engine Execution
-    if (intent.includes('CODE')) {
-      codeResult = await codeTool.execute({ code: message, query: message });
-      toolsUsed.push('CodeEngine');
-      toolsTrace.push({ name: 'CodeEngine', latencyMs: 2 });
+    // Step 2D: Code Engine Analysis
+    if (intent === 'CODING') {
+      let codeRes = await executeToolWithTimeout(codeTool, { code: message, query: message });
+      if (codeRes.success && codeRes.data) {
+        codeData = codeRes.data;
+        toolsUsed.push('CodeEngine');
+        agentTrace.push({ tool: 'CodeEngine', action: 'analyze', status: 'success', latencyMs: codeRes.metadata.latencyMs });
+      }
     }
 
-    // --- STEP 3: SYNTHESIZE FINAL RESPONSE ---
+    // --- STEP 3: RESPONSE COMPOSER & SLM SYNTHESIS ---
 
-    // Pure Math Query solved deterministically
-    if (intent === 'MATH' && mathResult && mathResult.success && mathResult.verified) {
+    // Deterministic Math Answer (Pure Math Intent)
+    if (intent === 'MATH' && mathData && mathData.verified) {
       toolsUsed.push('SLM');
-      toolsTrace.push({ name: 'SLM', latencyMs: 10 });
+      agentTrace.push({ tool: 'SLM', action: 'format', status: 'success', latencyMs: 5 });
       return {
         success: true,
-        answer: `**Verified Solution:** ${mathResult.result}\n\n${mathResult.explanation}`,
+        answer: `**Verified Solution:** ${mathData.result}\n\n${mathData.explanation}`,
         intent,
         toolsUsed,
         sources: [],
         verified: true,
         requestId,
         totalLatencyMs: Date.now() - startTime,
-        toolsTrace
+        agentTrace,
+        taskModel: { ...taskModel, status: 'completed' }
       };
     }
 
-    // Missing Document Information Protection
-    if (intent.includes('DOCUMENT') && ragResult && !ragResult.found && documentIds.length > 0) {
+    // Missing Document Fact Protection
+    if ((intent === 'DOCUMENT' || intent === 'MULTI_TOOL') && ragData && !ragData.found && documentIds.length > 0) {
       toolsUsed.push('SLM');
       return {
         success: true,
@@ -192,53 +298,54 @@ const processRequest = async ({ userId, message, conversationHistory = [], docum
         verified: false,
         requestId,
         totalLatencyMs: Date.now() - startTime,
-        toolsTrace
+        agentTrace,
+        taskModel: { ...taskModel, status: 'completed' }
       };
     }
 
-    // Build synthesized prompt context for SLM
+    // Synthesize context for SLM
     let systemInstructions = `SYSTEM: You are Mathiyon AI, a powerful, accurate AI intelligence assistant.`;
 
     if (memoryContextStr) {
       systemInstructions += `\nUSER MEMORIES & PREFERENCES:\n${memoryContextStr}\n`;
     }
 
-    if (ragResult && ragResult.context) {
-      systemInstructions += `\nDOCUMENT CONTEXT (Strict Source Truth):\n${ragResult.context}\nRules: Answer based on the document context. If answer is missing, state 'The document does not contain this information.'\n`;
+    if (ragData && ragData.context) {
+      systemInstructions += `\nDOCUMENT CONTEXT (Strict Source Truth):\n${ragData.context}\nRules: Answer based on the document context. If answer is missing, state 'The document does not contain this information.'\n`;
     }
 
-    if (webResult && webResult.contextText) {
-      systemInstructions += `\nWEB SEARCH CONTEXT:\n${webResult.contextText}\n`;
+    if (webData && webData.contextText) {
+      systemInstructions += `\nWEB SEARCH CONTEXT:\n${webData.contextText}\n`;
     }
 
-    if (mathResult && mathResult.success) {
-      systemInstructions += `\nVERIFIED MATH ENGINE RESULT: ${mathResult.result} (${mathResult.explanation})\nUse this verified result in your answer.\n`;
+    if (mathData && mathData.result) {
+      systemInstructions += `\nVERIFIED MATH ENGINE RESULT: ${mathData.result} (${mathData.explanation})\nUse this verified result in your answer.\n`;
     }
 
     const slmPrompt = `${systemInstructions}\nUSER PROMPT: ${message}`;
+    let slmRes = await executeToolWithTimeout(slmTool, { message: slmPrompt, conversation: conversationHistory, model });
 
-    const slmStart = Date.now();
-    const slmRes = await slmTool.execute({ message: slmPrompt, conversation: conversationHistory, model });
-    const slmLatency = Date.now() - slmStart;
+    // Single-retry for SLM tool
+    if (!slmRes.success) {
+      slmRes = await executeToolWithTimeout(slmTool, { message: slmPrompt, conversation: conversationHistory, model });
+    }
 
     toolsUsed.push('SLM');
-    toolsTrace.push({ name: 'SLM', latencyMs: slmLatency });
+    agentTrace.push({ tool: 'SLM', action: 'generate', status: slmRes.success ? 'success' : 'failed', latencyMs: slmRes.metadata.latencyMs });
 
-    if (slmRes.success) {
-      finalAnswer = slmRes.response;
+    if (slmRes.success && slmRes.data) {
+      finalAnswer = slmRes.data.response;
 
-      // Append Math Engine verified footer if combined
-      if (mathResult && mathResult.success && !finalAnswer.includes(mathResult.result)) {
-        finalAnswer += `\n\n🧮 **Verified Math Computation:** ${mathResult.result}`;
+      if (mathData && mathData.result && !finalAnswer.includes(mathData.result)) {
+        finalAnswer += `\n\n🧮 **Verified Math Computation:** ${mathData.result}`;
       }
 
-      // Append Citation metadata if present
       if (sources.length > 0 && !finalAnswer.includes('Source Citation') && !finalAnswer.includes('Sources:')) {
         const citStr = sources.map(s => s.page ? `- ${s.file} — Page ${s.page}` : `- ${s.file} (${s.url || 'Web'})`).join('\n');
         finalAnswer += `\n\n📍 **Source Citations:**\n${citStr}`;
       }
     } else {
-      finalAnswer = `Mathiyon AI response: Service standard fallback response for user query '${message}'.`;
+      finalAnswer = `Mathiyon AI response: Standard fallback response for user query '${message}'.`;
     }
 
     const totalLatencyMs = Date.now() - startTime;
@@ -249,15 +356,16 @@ const processRequest = async ({ userId, message, conversationHistory = [], docum
       intent,
       toolsUsed,
       sources,
-      verified: isVerified || (mathResult ? mathResult.verified : false),
+      verified: isVerified || Boolean(mathData && mathData.verified),
       requestId,
       totalLatencyMs,
-      toolsTrace,
-      model: slmRes ? (slmRes.model || model) : model
+      agentTrace,
+      taskModel: { ...taskModel, status: 'completed' },
+      model: slmRes.data ? (slmRes.data.model || model) : model
     };
 
   } catch (err) {
-    console.error('AI Orchestrator Error:', err);
+    console.error('AI Orchestrator Execution Error:', err);
     return {
       success: false,
       error: `AI Orchestration failure: ${err.message}`,
@@ -270,5 +378,6 @@ const processRequest = async ({ userId, message, conversationHistory = [], docum
 module.exports = {
   processRequest,
   detectIntent,
-  TOOL_REGISTRY
+  TOOL_REGISTRY,
+  executeToolWithTimeout
 };

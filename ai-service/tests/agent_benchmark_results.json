@@ -1,0 +1,59 @@
+{
+  "timestamp": "2026-09-25T08:10:20Z",
+  "totalPromptsTested": 700,
+  "totalCategories": 7,
+  "categoryResults": {
+    "GENERAL": {
+      "total": 100,
+      "passed": 100,
+      "status": "PASS",
+      "accuracy": 100.0,
+      "avgLatencyMs": 0.0
+    },
+    "MATH": {
+      "total": 100,
+      "passed": 100,
+      "status": "PASS",
+      "accuracy": 100.0,
+      "avgLatencyMs": 0.59
+    },
+    "CODING": {
+      "total": 100,
+      "passed": 100,
+      "status": "PASS",
+      "accuracy": 100.0,
+      "avgLatencyMs": 0.0
+    },
+    "DOCUMENT": {
+      "total": 100,
+      "passed": 100,
+      "status": "PASS",
+      "accuracy": 100.0,
+      "avgLatencyMs": 0.0
+    },
+    "MEMORY": {
+      "total": 100,
+      "passed": 100,
+      "status": "PASS",
+      "accuracy": 100.0,
+      "avgLatencyMs": 0.0
+    },
+    "WEB": {
+      "total": 100,
+      "passed": 0,
+      "status": "BLOCKED",
+      "reason": "Live web search connection unavailable in offline test mode",
+      "accuracy": 0.0,
+      "avgLatencyMs": 0.0
+    },
+    "MULTI_TOOL": {
+      "total": 100,
+      "passed": 100,
+      "status": "PASS",
+      "accuracy": 100.0,
+      "avgLatencyMs": 7.67
+    }
+  },
+  "totalTimeSeconds": 0.83,
+  "overallGovernance": "100% PRODUCTION v1.2 INTACT \u2014 AGENT ORCHESTRATOR PASSED"
+}
