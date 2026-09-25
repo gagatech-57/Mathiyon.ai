@@ -1,0 +1,69 @@
+{
+  "promotion_criteria": {
+    "title": "Mathiyon SLM v1.3 Future Production Promotion Governance Gate Criteria",
+    "description": "Explicit technical criteria that must be satisfied before Mathiyon SLM v1.3 could be considered for production promotion.",
+    "criteria_list": [
+      {
+        "id": "GATE_01",
+        "name": "Stable Benchmark Behavior",
+        "required_threshold": "300/300 successful benchmark prompt executions with 0 runtime exceptions.",
+        "current_status": "SATISFIED (300/300 passed in Phase 11.9)"
+      },
+      {
+        "id": "GATE_02",
+        "name": "Zero Regression in Platform Test Suite",
+        "required_threshold": "100% pass rate across PyTest suite, Master E2E suite, PDF extraction, RAG security checks, and npm build.",
+        "current_status": "SATISFIED (27/27 PyTest, 10/10 E2E, PDF, RAG, Build passed in Phase 11.9)"
+      },
+      {
+        "id": "GATE_03",
+        "name": "Reliable Tool Routing",
+        "required_threshold": "100% correct intent classification and tool dispatch across General, Math, Code, Document, and Web Search.",
+        "current_status": "SATISFIED (Verified via orchestrator integration tests)"
+      },
+      {
+        "id": "GATE_04",
+        "name": "Reliable SymPy Math Engine Routing",
+        "required_threshold": "100% of exact math queries routed to SymPy engine; SLM never used as sole authoritative calculator.",
+        "current_status": "SATISFIED (Enforced by architecture and verified in Phase 11.9)"
+      },
+      {
+        "id": "GATE_05",
+        "name": "Acceptable Generation Throughput",
+        "required_threshold": "Minimum >30 tok/s mean autoregressive throughput on target CPU host.",
+        "current_status": "SATISFIED (Achieved ~46-59 tok/s with FP32 + KV cache)"
+      },
+      {
+        "id": "GATE_06",
+        "name": "Acceptable Memory Footprint",
+        "required_threshold": "KV cache memory overhead <=30MB per active sequence at 1024 context window.",
+        "current_status": "SATISFIED (Measured ~23.86MB at 1024 sequence length)"
+      },
+      {
+        "id": "GATE_07",
+        "name": "Low Repetition Rate",
+        "required_threshold": "Repetition rate <= 2.0% across benchmark evaluation suite.",
+        "current_status": "SATISFIED (Measured 1.67% repetition rate in Phase 11.9)"
+      },
+      {
+        "id": "GATE_08",
+        "name": "Robust Instruction & Format Following",
+        "required_threshold": "Valid structural formatting for JSON, bullet lists, code blocks, and step-by-step responses.",
+        "current_status": "SATISFIED (Structural format checks passed in Phase 11.9)"
+      },
+      {
+        "id": "GATE_09",
+        "name": "Successful Shadow Evaluation",
+        "required_threshold": "Minimum 1,000 requests processed via isolated shadow traffic without user impact or errors.",
+        "current_status": "NOT SATISFIED (Shadow evaluation designed in Phase 11.10, pending execution in Phase 11.11)"
+      },
+      {
+        "id": "GATE_10",
+        "name": "Instant Rollback Capability",
+        "required_threshold": "Ability to revert 100% of traffic to v1.2 within <1 second via feature flag / endpoint routing.",
+        "current_status": "SATISFIED (Production endpoint POST /generate is isolated to v1.2)"
+      }
+    ],
+    "overall_gate_status": "PENDING SHADOW EVALUATION (Phase 11.11 Required Before Promotion Sign-Off)"
+  }
+}

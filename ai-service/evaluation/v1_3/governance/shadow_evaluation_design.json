@@ -1,0 +1,42 @@
+{
+  "shadow_evaluation_design": {
+    "title": "Mathiyon SLM v1.3 Isolated Controlled Shadow Evaluation Architecture",
+    "status": "DESIGNED (Phase 11.10) — NOT DEPLOYED TO PRODUCTION",
+    "architecture_flow": {
+      "step_1": "User submits API request to POST /api/chat or POST /generate.",
+      "step_2": "Production backend routes request to Mathiyon SLM v1.2 (Production Model).",
+      "step_3": "Mathiyon SLM v1.2 processes request & returns response to User immediately (100% User Experience).",
+      "step_4": "In background (asynchronous non-blocking worker), request payload is copied to Shadow Evaluation Pipeline.",
+      "step_5": "Shadow Pipeline executes Mathiyon SLM v1.3 + KV Cache in isolated memory context.",
+      "step_6": "Shadow Pipeline logs comparison metrics to shadow_evaluation_logs DB table without modifying user response or database state."
+    },
+    "security_and_privacy_controls": [
+      "User Isolation: Shadow pipeline respects JWT authentication context and user permission scopes.",
+      "Data Privacy: PII, secret keys, and credentials scrubbed before shadow logging.",
+      "Non-Blocking: Asynchronous event loop execution ensures 0 ms added latency to production user response.",
+      "Zero Production Exposure: Shadow output NEVER returned to user or saved to user conversation history."
+    ],
+    "logged_shadow_metrics": [
+      "request_id",
+      "timestamp",
+      "prompt_length_tokens",
+      "v1_2_latency_ms",
+      "v1_3_latency_ms",
+      "v1_3_ttft_ms",
+      "v1_3_tokens_generated",
+      "v1_3_throughput_tps",
+      "intent_category",
+      "tool_route_executed",
+      "sympy_math_bypassed",
+      "rag_citations_count",
+      "v1_3_error_status",
+      "similarity_score_v1_2_vs_v1_3"
+    ],
+    "shadow_evaluation_success_criteria": {
+      "minimum_shadow_requests": 1000,
+      "max_shadow_error_rate": 0.0,
+      "min_v1_3_throughput_tps": 35.0,
+      "user_impact": "Zero (0 ms added latency, 0 UI changes)"
+    }
+  }
+}
