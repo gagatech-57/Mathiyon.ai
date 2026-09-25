@@ -172,29 +172,36 @@ export const MessageBubble: React.FC<MessageBubbleProps> = ({ message, userIniti
           {renderMessageContent(message.text)}
         </div>
 
-        {/* Web Source Citations Cards */}
+        {/* Source Citations Cards (Document & Web) */}
         {!isUser && message.citations && message.citations.length > 0 && (
           <div className="mt-2.5 w-full flex flex-col gap-1.5">
             <span className="text-[11px] font-semibold text-cyan-400 flex items-center gap-1">
-              🌐 Verified Web Sources ({message.citations.length})
+              📍 Verified Knowledge Sources ({message.citations.length})
             </span>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
-              {message.citations.map((cit, cIdx) => (
-                <a
-                  key={cIdx}
-                  href={cit.url}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="p-2 rounded-xl bg-slate-900/80 border border-cyan-500/20 hover:border-cyan-400/50 transition-all flex flex-col text-left group/card"
-                >
-                  <span className="text-xs font-semibold text-slate-200 group-hover/card:text-cyan-300 truncate">
-                    [{cIdx + 1}] {cit.title}
-                  </span>
-                  <span className="text-[10px] font-mono text-cyan-400/80 truncate">
-                    {cit.domain || cit.url}
-                  </span>
-                </a>
-              ))}
+              {message.citations.map((cit, cIdx) => {
+                const isDoc = cit.type === 'document' || cit.page;
+                const cardBorder = isDoc ? 'border-blue-500/30 hover:border-blue-400/60' : 'border-cyan-500/20 hover:border-cyan-400/50';
+                const badgeText = isDoc ? `📄 DOCUMENT ${cit.page ? `— Page ${cit.page}` : ''}` : `🌐 WEB — ${cit.domain || 'Online'}`;
+                const badgeColor = isDoc ? 'text-blue-400' : 'text-cyan-400';
+
+                return (
+                  <a
+                    key={cIdx}
+                    href={cit.url && cit.url !== '#' ? cit.url : undefined}
+                    target={cit.url && cit.url !== '#' ? '_blank' : undefined}
+                    rel={cit.url && cit.url !== '#' ? 'noopener noreferrer' : undefined}
+                    className={`p-2.5 rounded-xl bg-slate-900/90 border ${cardBorder} transition-all flex flex-col text-left group/card shadow-sm`}
+                  >
+                    <span className={`text-[10px] font-mono font-bold ${badgeColor} uppercase tracking-wider mb-0.5`}>
+                      {badgeText}
+                    </span>
+                    <span className="text-xs font-semibold text-slate-200 group-hover/card:text-white truncate">
+                      [{cIdx + 1}] {cit.title}
+                    </span>
+                  </a>
+                );
+              })}
             </div>
           </div>
         )}

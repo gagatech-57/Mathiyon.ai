@@ -20,6 +20,7 @@ const webSearchTool = require('./tools/webSearchTool');
 const visionTool = require('./tools/visionTool');
 const voiceTool = require('./tools/voiceTool');
 const memoryService = require('./memoryService');
+const contextFusionEngine = require('./contextFusionEngine');
 
 // Tool Registry Map
 const TOOL_REGISTRY = {
@@ -137,7 +138,11 @@ const processRequest = async ({
   const startTime = Date.now();
   const requestId = `req_${Math.random().toString(36).substring(2, 10)}`;
 
-  const intent = detectIntent(message, documentIds.length > 0, enableWebSearch);
+  // Multi-Turn Reference Resolution (pronouns: this, that, previous result, second point)
+  const { resolvedQuery } = contextFusionEngine.resolveMultiTurnContext(message, conversationHistory);
+  const activeMessage = resolvedQuery;
+
+  const intent = detectIntent(activeMessage, documentIds.length > 0, enableWebSearch);
   const toolsUsed = [];
   const agentTrace = [];
   const sources = [];
@@ -156,16 +161,18 @@ const processRequest = async ({
   try {
     // --- STEP 1: MEMORY RETRIEVAL / DIRECTIVES ---
     let memoryContextStr = '';
-    if (/remember that|remember my|store fact/i.test(message)) {
-      const memSave = await executeToolWithTimeout(memoryTool, { userId, action: 'remember', content: message });
+    let retrievedMemories = [];
+    if (/remember that|remember my|store fact/i.test(activeMessage)) {
+      const memSave = await executeToolWithTimeout(memoryTool, { userId, action: 'remember', content: activeMessage });
       if (memSave.success) {
         toolsUsed.push('Memory');
         agentTrace.push({ stage: 'tool_success', tool: 'Memory', action: 'remember', status: 'success', latencyMs: memSave.metadata.latencyMs });
       }
     }
 
-    const userMemories = await memoryService.getRelevantMemories(userId, message);
+    const userMemories = await memoryService.getRelevantMemories(userId, activeMessage);
     if (userMemories && userMemories.length > 0) {
+      retrievedMemories = userMemories;
       memoryContextStr = userMemories.map(m => `- ${m.content}`).join('\n');
       if (!toolsUsed.includes('Memory')) toolsUsed.push('Memory');
       agentTrace.push({ stage: 'tool_success', tool: 'Memory', action: 'retrieve', status: 'success', count: userMemories.length });
@@ -176,17 +183,19 @@ const processRequest = async ({
     let mathData = null;
     let webData = null;
     let codeData = null;
+    let retrievedDocs = [];
+    let retrievedWeb = [];
 
     // Step 2A: RAG Document Search
     if (intent === 'DOCUMENT' || intent === 'MULTI_TOOL' || documentIds.length > 0) {
       taskModel.steps.push({ stepId: 'step_rag', tool: 'RAG', action: 'search', status: 'running' });
       agentTrace.push({ stage: 'tool_running', tool: 'RAG', label: 'Searching documents...' });
 
-      let ragRes = await executeToolWithTimeout(ragTool, { userId, query: message, documentIds, topK: 5 });
+      let ragRes = await executeToolWithTimeout(ragTool, { userId, query: activeMessage, documentIds, topK: 5 });
 
       // Single-retry on non-fatal timeout
       if (!ragRes.success && !ragRes.metadata.forbidden && ragRes.error?.code === 'TOOL_TIMEOUT') {
-        ragRes = await executeToolWithTimeout(ragTool, { userId, query: message, documentIds, topK: 5 });
+        ragRes = await executeToolWithTimeout(ragTool, { userId, query: activeMessage, documentIds, topK: 5 });
       }
 
       if (ragRes.metadata.forbidden) {
@@ -204,7 +213,10 @@ const processRequest = async ({
         toolsUsed.push('RAG');
         agentTrace.push({ stage: 'tool_success', tool: 'RAG', action: 'search', status: 'success', latencyMs: ragRes.metadata.latencyMs });
         if (ragData.sources) {
-          ragData.sources.forEach(s => sources.push(s));
+          ragData.sources.forEach(s => {
+            sources.push({ ...s, sourceType: 'DOCUMENT' });
+            retrievedDocs.push(s);
+          });
         }
       } else {
         agentTrace.push({ stage: 'tool_error', tool: 'RAG', action: 'search', status: 'failed', error: ragRes.error?.message });
@@ -216,11 +228,11 @@ const processRequest = async ({
       taskModel.steps.push({ stepId: 'step_web', tool: 'WebSearch', action: 'search', status: 'running' });
       agentTrace.push({ stage: 'tool_running', tool: 'WebSearch', label: 'Searching live web...' });
 
-      let webRes = await executeToolWithTimeout(webSearchTool, { query: message });
+      let webRes = await executeToolWithTimeout(webSearchTool, { query: activeMessage });
 
       // Single-retry on web timeout
       if (!webRes.success && webRes.error?.code === 'TOOL_TIMEOUT') {
-        webRes = await executeToolWithTimeout(webSearchTool, { query: message });
+        webRes = await executeToolWithTimeout(webSearchTool, { query: activeMessage });
       }
 
       if (webRes.success && webRes.data) {
@@ -228,10 +240,13 @@ const processRequest = async ({
         toolsUsed.push('WebSearch');
         agentTrace.push({ stage: 'tool_success', tool: 'WebSearch', action: 'search', status: 'success', latencyMs: webRes.metadata.latencyMs });
         if (webData.citations) {
-          webData.citations.forEach(c => citations.push(c));
+          webData.citations.forEach(c => citations.push({ ...c, type: 'web' }));
         }
         if (webData.sources) {
-          webData.sources.forEach(s => sources.push({ file: s.title, url: s.url, domain: s.domain }));
+          webData.sources.forEach(s => {
+            sources.push({ file: s.title, url: s.url, domain: s.domain, sourceType: 'WEB' });
+            retrievedWeb.push(s);
+          });
         }
       } else {
         agentTrace.push({ stage: 'tool_error', tool: 'WebSearch', action: 'search', status: 'failed', error: webRes.error?.message });
@@ -243,15 +258,15 @@ const processRequest = async ({
       taskModel.steps.push({ stepId: 'step_math', tool: 'MathEngine', action: 'solve', dependsOn: ragData ? ['step_rag'] : (webData ? ['step_web'] : []) });
       agentTrace.push({ stage: 'tool_running', tool: 'MathEngine', label: 'Calculating with SymPy...' });
 
-      let mathQuery = message;
+      let mathQuery = activeMessage;
       // Extract numeric math expression or use Web / RAG context if multi-tool
-      const mathExprMatch = message.match(/(\d+[\s*\/+\-^.]+\d+[\s*\/+\-^.\d]*|[a-zA-Z0-9\s*\/+\-^.]+=+[a-zA-Z0-9\s*\/+\-^.]+)/);
+      const mathExprMatch = activeMessage.match(/(\d+[\s*\/+\-^.]+\d+[\s*\/+\-^.\d]*|[a-zA-Z0-9\s*\/+\-^.]+=+[a-zA-Z0-9\s*\/+\-^.]+)/);
       if (mathExprMatch && mathExprMatch[1] && mathExprMatch[1].trim().length >= 3) {
         mathQuery = mathExprMatch[1].trim();
       } else if (webData && webData.contextText) {
-        mathQuery = `${message} given web context: ${webData.contextText.substring(0, 300)}`;
+        mathQuery = `${activeMessage} given web context: ${webData.contextText.substring(0, 300)}`;
       } else if (ragData && ragData.context) {
-        mathQuery = `${message} given text: ${ragData.context.substring(0, 300)}`;
+        mathQuery = `${activeMessage} given text: ${ragData.context.substring(0, 300)}`;
       }
 
       let mathRes = await executeToolWithTimeout(mathTool, { question: mathQuery });
@@ -276,7 +291,7 @@ const processRequest = async ({
     // Step 2D: Code Engine Analysis
     if (intent === 'CODING') {
       agentTrace.push({ stage: 'tool_running', tool: 'CodeEngine', label: 'Analyzing code...' });
-      let codeRes = await executeToolWithTimeout(codeTool, { code: message, query: message });
+      let codeRes = await executeToolWithTimeout(codeTool, { code: activeMessage, query: activeMessage });
       if (codeRes.success && codeRes.data) {
         codeData = codeRes.data;
         toolsUsed.push('CodeEngine');
@@ -284,9 +299,29 @@ const processRequest = async ({
       }
     }
 
+    // --- CONTEXT FUSION & NORMALIZATION ---
+    const normalizedContext = contextFusionEngine.createNormalizedContext({
+      requestId,
+      query: activeMessage,
+      intent,
+      conversation: conversationHistory,
+      memory: retrievedMemories,
+      documents: retrievedDocs,
+      web: retrievedWeb,
+      toolResults: codeData ? [codeData] : [],
+      mathResults: mathData ? [mathData] : []
+    });
+
+    // Populate structured document citations into normalized citations list
+    normalizedContext.documents.forEach(d => {
+      if (d.citation && !citations.some(c => c.id === d.citation.id)) {
+        citations.push(d.citation);
+      }
+    });
+
     // --- STEP 3: RESPONSE COMPOSER & SLM SYNTHESIS ---
 
-    // Deterministic Math Answer (Pure Math Intent)
+    // Pure Math Intent (SymPy Authoritative Win)
     if (intent === 'MATH' && mathData && mathData.verified) {
       toolsUsed.push('SLM');
       agentTrace.push({ stage: 'composing', tool: 'SLM', action: 'format', status: 'success', latencyMs: 5 });
@@ -301,16 +336,17 @@ const processRequest = async ({
         requestId,
         totalLatencyMs: Date.now() - startTime,
         agentTrace,
-        taskModel: { ...taskModel, status: 'completed' }
+        taskModel: { ...taskModel, status: 'completed' },
+        normalizedContext
       };
     }
 
-    // Missing Document Fact Protection
-    if ((intent === 'DOCUMENT' || intent === 'MULTI_TOOL') && ragData && !ragData.found && documentIds.length > 0) {
+    // Missing Document Fact Protection (If document query, no facts found, and Web search not requested)
+    if ((intent === 'DOCUMENT' || intent === 'MULTI_TOOL') && ragData && !ragData.found && documentIds.length > 0 && !enableWebSearch && !webData) {
       toolsUsed.push('SLM');
       return {
         success: true,
-        answer: "The document does not contain this information.",
+        answer: "The information was not found in the provided documents.",
         intent,
         toolsUsed,
         sources: [],
@@ -319,7 +355,8 @@ const processRequest = async ({
         requestId,
         totalLatencyMs: Date.now() - startTime,
         agentTrace,
-        taskModel: { ...taskModel, status: 'completed' }
+        taskModel: { ...taskModel, status: 'completed' },
+        normalizedContext
       };
     }
 
@@ -331,7 +368,7 @@ const processRequest = async ({
     }
 
     if (ragData && ragData.context) {
-      systemInstructions += `\nDOCUMENT CONTEXT (Strict Source Truth):\n${ragData.context}\nRules: Answer based on the document context. If answer is missing, state 'The document does not contain this information.'\n`;
+      systemInstructions += `\nDOCUMENT CONTEXT (Strict Source Truth):\n${ragData.context}\nRules: Answer based on the document context. If answer is missing, state 'The information was not found in the provided documents.'\n`;
     }
 
     if (webData && webData.contextText) {
@@ -342,7 +379,7 @@ const processRequest = async ({
       systemInstructions += `\nVERIFIED MATH ENGINE RESULT: ${mathData.result} (${mathData.explanation})\nUse this verified result in your answer.\n`;
     }
 
-    const slmPrompt = `${systemInstructions}\nUSER PROMPT: ${message}`;
+    const slmPrompt = `${systemInstructions}\nUSER PROMPT: ${activeMessage}`;
     agentTrace.push({ stage: 'composing', tool: 'SLM', label: 'Preparing final response...' });
 
     let slmRes = await executeToolWithTimeout(slmTool, { message: slmPrompt, conversation: conversationHistory, model });
@@ -358,12 +395,20 @@ const processRequest = async ({
     if (slmRes.success && slmRes.data) {
       finalAnswer = slmRes.data.response;
 
+      // Authoritative Math Result Injection
       if (mathData && mathData.result && !finalAnswer.includes(mathData.result)) {
         finalAnswer += `\n\n🧮 **Verified Math Computation:** ${mathData.result}`;
       }
 
+      // Conflict Notice Formatting
+      if (normalizedContext.conflicts && normalizedContext.conflicts.length > 0) {
+        const conflictMsgs = normalizedContext.conflicts.map(c => `- ⚠️ ${c.description}`).join('\n');
+        finalAnswer += `\n\n⚠️ **Source Conflict Notice:**\n${conflictMsgs}`;
+      }
+
+      // Inline Citation References if applicable
       if (sources.length > 0 && !finalAnswer.includes('Source Citation') && !finalAnswer.includes('Sources:')) {
-        const citStr = sources.map(s => s.page ? `- ${s.file} — Page ${s.page}` : `- [${s.file}](${s.url || '#'})`).join('\n');
+        const citStr = sources.map(s => s.page ? `- ${s.file} — Page ${s.page}` : `- [${s.file || s.title}](${s.url || '#'})`).join('\n');
         finalAnswer += `\n\n📍 **Source Citations:**\n${citStr}`;
       }
     } else {
@@ -371,6 +416,15 @@ const processRequest = async ({
     }
 
     const totalLatencyMs = Date.now() - startTime;
+    const safeTrace = contextFusionEngine.buildSafeContextTrace({
+      intent,
+      toolsUsed,
+      sources,
+      citations,
+      conflicts: normalizedContext.conflicts,
+      latencyMs: totalLatencyMs,
+      model: slmRes.data ? (slmRes.data.model || model) : model
+    });
 
     return {
       success: true,
@@ -383,6 +437,8 @@ const processRequest = async ({
       requestId,
       totalLatencyMs,
       agentTrace,
+      safeTrace,
+      normalizedContext,
       taskModel: { ...taskModel, status: 'completed' },
       model: slmRes.data ? (slmRes.data.model || model) : model
     };
