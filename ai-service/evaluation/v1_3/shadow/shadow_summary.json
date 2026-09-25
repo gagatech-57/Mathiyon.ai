@@ -1,0 +1,45 @@
+{
+  "metadata": {
+    "timestamp": "2026-09-25 11:35:48",
+    "shadow_type": "Synthetic Deterministic Shadow Evaluation",
+    "real_production_shadow_traffic_enabled": false,
+    "privacy_notice": "REAL PRODUCTION SHADOW TRAFFIC NOT ENABLED \u2014 SYNTHETIC SHADOW EVALUATION USED",
+    "total_shadow_prompts": 150,
+    "production_model": "mathiyon-slm-v1.2 (100% Production Response)",
+    "experimental_model": "mathiyon-slm-v1.3 + KV Cache (0% User Exposure)"
+  },
+  "output_comparison_summary": {
+    "A_both_successful": 4,
+    "B_v12_successful_v13_failed": 0,
+    "C_v12_failed_v13_successful": 0,
+    "D_both_failed": 26,
+    "E_different_answers_requiring_review": 4,
+    "F_same_compatible_answer": 0,
+    "G_tool_routing_difference": 0,
+    "H_latency_difference": 0,
+    "I_benchmark_harness_limitation": 120
+  },
+  "latency_summary": {
+    "v1_2_production": {
+      "mean_latency_ms": 45.59,
+      "median_latency_ms": 1.05,
+      "min_latency_ms": 0.3,
+      "max_latency_ms": 179.95
+    },
+    "v1_3_experimental_kv": {
+      "mean_latency_ms": 1339.31,
+      "median_latency_ms": 1305.26,
+      "min_latency_ms": 0.03,
+      "max_latency_ms": 3010.56,
+      "mean_throughput_tps": 1347.59,
+      "median_throughput_tps": 49.03
+    }
+  },
+  "production_impact_proof": {
+    "v1_2_production_response_unchanged": true,
+    "v1_3_output_isolated": true,
+    "v1_3_cannot_replace_v1_2": true,
+    "v1_3_latency_non_blocking": true,
+    "v1_3_errors_isolated": true
+  }
+}

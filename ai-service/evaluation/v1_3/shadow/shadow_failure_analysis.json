@@ -1,0 +1,17 @@
+{
+  "failure_classification": {
+    "1_timeout": 0,
+    "2_exception": 0,
+    "3_empty_response": 142,
+    "4_repetition": 1,
+    "5_prompt_echo": 0,
+    "6_incorrect_deterministic_result": 0,
+    "7_tool_routing_failure": 0,
+    "8_rag_failure": 0,
+    "9_context_failure": 0,
+    "10_security_failure": 0,
+    "11_infrastructure_failure": 0,
+    "12_benchmark_limitation": 120,
+    "13_other": 0
+  }
+}

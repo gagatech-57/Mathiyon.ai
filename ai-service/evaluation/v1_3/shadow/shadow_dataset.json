@@ -1,0 +1,1502 @@
+[
+  {
+    "id": "SHADOW_ENG_001",
+    "category": "general_english",
+    "sub_category": "definition",
+    "prompt": "What is artificial intelligence?",
+    "reference_answer": "AI is the simulation of human intelligence by machines.",
+    "deterministic_eval": true,
+    "eval_type": "contains",
+    "eval_pattern": "intelligence"
+  },
+  {
+    "id": "SHADOW_ENG_002",
+    "category": "general_english",
+    "sub_category": "definition",
+    "prompt": "What is machine learning?",
+    "reference_answer": "Machine learning enables computers to learn from data.",
+    "deterministic_eval": true,
+    "eval_type": "contains",
+    "eval_pattern": "data"
+  },
+  {
+    "id": "SHADOW_ENG_003",
+    "category": "general_english",
+    "sub_category": "definition",
+    "prompt": "What is deep learning?",
+    "reference_answer": "Deep learning uses multi-layer neural networks.",
+    "deterministic_eval": true,
+    "eval_type": "contains",
+    "eval_pattern": "neural network"
+  },
+  {
+    "id": "SHADOW_ENG_004",
+    "category": "general_english",
+    "sub_category": "definition",
+    "prompt": "What is an operating system?",
+    "reference_answer": "An OS manages hardware and software resources.",
+    "deterministic_eval": true,
+    "eval_type": "contains",
+    "eval_pattern": "hardware"
+  },
+  {
+    "id": "SHADOW_ENG_005",
+    "category": "general_english",
+    "sub_category": "definition",
+    "prompt": "What is a database?",
+    "reference_answer": "A database is an organized collection of structured data.",
+    "deterministic_eval": true,
+    "eval_type": "contains",
+    "eval_pattern": "data"
+  },
+  {
+    "id": "SHADOW_ENG_006",
+    "category": "general_english",
+    "sub_category": "technical",
+    "prompt": "Explain what an API is in simple terms.",
+    "reference_answer": "An API enables applications to communicate with each other.",
+    "deterministic_eval": true,
+    "eval_type": "contains",
+    "eval_pattern": "communicate"
+  },
+  {
+    "id": "SHADOW_ENG_007",
+    "category": "general_english",
+    "sub_category": "technical",
+    "prompt": "Explain how the internet works.",
+    "reference_answer": "The internet connects global networks using standard protocols.",
+    "deterministic_eval": true,
+    "eval_type": "contains",
+    "eval_pattern": "network"
+  },
+  {
+    "id": "SHADOW_ENG_008",
+    "category": "general_english",
+    "sub_category": "technical",
+    "prompt": "What is cloud computing?",
+    "reference_answer": "Cloud computing delivers computing services over the internet.",
+    "deterministic_eval": true,
+    "eval_type": "contains",
+    "eval_pattern": "internet"
+  },
+  {
+    "id": "SHADOW_ENG_009",
+    "category": "general_english",
+    "sub_category": "technical",
+    "prompt": "What is cybersecurity?",
+    "reference_answer": "Cybersecurity protects digital systems and networks.",
+    "deterministic_eval": true,
+    "eval_type": "contains",
+    "eval_pattern": "protect"
+  },
+  {
+    "id": "SHADOW_ENG_010",
+    "category": "general_english",
+    "sub_category": "technical",
+    "prompt": "What is cryptography?",
+    "reference_answer": "Cryptography secures communication using data encryption.",
+    "deterministic_eval": true,
+    "eval_type": "contains",
+    "eval_pattern": "encryption"
+  },
+  {
+    "id": "SHADOW_ENG_011",
+    "category": "general_english",
+    "sub_category": "factual",
+    "prompt": "What is the capital of France?",
+    "reference_answer": "Paris",
+    "deterministic_eval": true,
+    "eval_type": "contains",
+    "eval_pattern": "paris"
+  },
+  {
+    "id": "SHADOW_ENG_012",
+    "category": "general_english",
+    "sub_category": "factual",
+    "prompt": "How many continents are there on Earth?",
+    "reference_answer": "7 continents",
+    "deterministic_eval": true,
+    "eval_type": "contains",
+    "eval_pattern": "7"
+  },
+  {
+    "id": "SHADOW_ENG_013",
+    "category": "general_english",
+    "sub_category": "factual",
+    "prompt": "What is photosynthesis?",
+    "reference_answer": "Process plants use to convert sunlight into food.",
+    "deterministic_eval": true,
+    "eval_type": "contains",
+    "eval_pattern": "plants"
+  },
+  {
+    "id": "SHADOW_ENG_014",
+    "category": "general_english",
+    "sub_category": "factual",
+    "prompt": "What is gravity?",
+    "reference_answer": "Gravity is a fundamental force pulling objects together.",
+    "deterministic_eval": true,
+    "eval_type": "contains",
+    "eval_pattern": "force"
+  },
+  {
+    "id": "SHADOW_ENG_015",
+    "category": "general_english",
+    "sub_category": "factual",
+    "prompt": "What is the speed of light?",
+    "reference_answer": "Approximately 299,792,458 m/s.",
+    "deterministic_eval": true,
+    "eval_type": "contains",
+    "eval_pattern": "299"
+  },
+  {
+    "id": "SHADOW_ENG_016",
+    "category": "general_english",
+    "sub_category": "short_answer",
+    "prompt": "Rewrite in active voice: 'The code was written by Alice.'",
+    "reference_answer": "Alice wrote the code.",
+    "deterministic_eval": true,
+    "eval_type": "contains",
+    "eval_pattern": "wrote"
+  },
+  {
+    "id": "SHADOW_ENG_017",
+    "category": "general_english",
+    "sub_category": "short_answer",
+    "prompt": "Rewrite politely: 'Give me the report now.'",
+    "reference_answer": "Could you please provide the report?",
+    "deterministic_eval": true,
+    "eval_type": "contains",
+    "eval_pattern": "please"
+  },
+  {
+    "id": "SHADOW_ENG_018",
+    "category": "general_english",
+    "sub_category": "short_answer",
+    "prompt": "What does HTML stand for?",
+    "reference_answer": "HyperText Markup Language",
+    "deterministic_eval": true,
+    "eval_type": "contains",
+    "eval_pattern": "hypertext"
+  },
+  {
+    "id": "SHADOW_ENG_019",
+    "category": "general_english",
+    "sub_category": "short_answer",
+    "prompt": "What does CSS stand for?",
+    "reference_answer": "Cascading Style Sheets",
+    "deterministic_eval": true,
+    "eval_type": "contains",
+    "eval_pattern": "cascading"
+  },
+  {
+    "id": "SHADOW_ENG_020",
+    "category": "general_english",
+    "sub_category": "short_answer",
+    "prompt": "What does SQL stand for?",
+    "reference_answer": "Structured Query Language",
+    "deterministic_eval": true,
+    "eval_type": "contains",
+    "eval_pattern": "structured"
+  },
+  {
+    "id": "SHADOW_ENG_021",
+    "category": "general_english",
+    "sub_category": "conversation",
+    "prompt": "Hello! How can you help me today?",
+    "reference_answer": "Hello! I am Mathiyon AI, ready to assist.",
+    "deterministic_eval": true,
+    "eval_type": "contains",
+    "eval_pattern": "hello"
+  },
+  {
+    "id": "SHADOW_ENG_022",
+    "category": "general_english",
+    "sub_category": "conversation",
+    "prompt": "What features do you support?",
+    "reference_answer": "I support text, code generation, math solving, and document RAG.",
+    "deterministic_eval": true,
+    "eval_type": "contains",
+    "eval_pattern": "math"
+  },
+  {
+    "id": "SHADOW_ENG_023",
+    "category": "general_english",
+    "sub_category": "conversation",
+    "prompt": "Hi there! What is your name?",
+    "reference_answer": "My name is Mathiyon AI.",
+    "deterministic_eval": true,
+    "eval_type": "contains",
+    "eval_pattern": "mathiyon"
+  },
+  {
+    "id": "SHADOW_ENG_024",
+    "category": "general_english",
+    "sub_category": "technical",
+    "prompt": "What is cache memory?",
+    "reference_answer": "Cache is small fast memory storing frequent data.",
+    "deterministic_eval": true,
+    "eval_type": "contains",
+    "eval_pattern": "fast"
+  },
+  {
+    "id": "SHADOW_ENG_025",
+    "category": "general_english",
+    "sub_category": "technical",
+    "prompt": "What is microservice architecture?",
+    "reference_answer": "Splitting apps into small independent services.",
+    "deterministic_eval": true,
+    "eval_type": "contains",
+    "eval_pattern": "independent"
+  },
+  {
+    "id": "SHADOW_ENG_026",
+    "category": "general_english",
+    "sub_category": "technical",
+    "prompt": "What is a load balancer?",
+    "reference_answer": "Distributes network traffic across servers.",
+    "deterministic_eval": true,
+    "eval_type": "contains",
+    "eval_pattern": "traffic"
+  },
+  {
+    "id": "SHADOW_ENG_027",
+    "category": "general_english",
+    "sub_category": "technical",
+    "prompt": "What is containerization?",
+    "reference_answer": "Packages code into isolated containers.",
+    "deterministic_eval": true,
+    "eval_type": "contains",
+    "eval_pattern": "container"
+  },
+  {
+    "id": "SHADOW_ENG_028",
+    "category": "general_english",
+    "sub_category": "technical",
+    "prompt": "What is version control?",
+    "reference_answer": "Tracks software code changes over time.",
+    "deterministic_eval": true,
+    "eval_type": "contains",
+    "eval_pattern": "track"
+  },
+  {
+    "id": "SHADOW_ENG_029",
+    "category": "general_english",
+    "sub_category": "short_answer",
+    "prompt": "Summarize clean code importance.",
+    "reference_answer": "Improves readability and reduces bugs.",
+    "deterministic_eval": true,
+    "eval_type": "contains",
+    "eval_pattern": "readability"
+  },
+  {
+    "id": "SHADOW_ENG_030",
+    "category": "general_english",
+    "sub_category": "short_answer",
+    "prompt": "What is a URL?",
+    "reference_answer": "Addresses web resources.",
+    "deterministic_eval": true,
+    "eval_type": "contains",
+    "eval_pattern": "locator"
+  },
+  {
+    "id": "SHADOW_COD_001",
+    "category": "coding",
+    "sub_category": "javascript",
+    "prompt": "Write a JavaScript function to reverse a string.",
+    "reference_answer": "function reverseString(str) { return str.split('').reverse().join(''); }",
+    "deterministic_eval": true,
+    "eval_type": "contains",
+    "eval_pattern": "split"
+  },
+  {
+    "id": "SHADOW_COD_002",
+    "category": "coding",
+    "sub_category": "javascript",
+    "prompt": "Explain difference between let and const in JS.",
+    "reference_answer": "let allows re-assignment; const creates constant binding.",
+    "deterministic_eval": true,
+    "eval_type": "contains",
+    "eval_pattern": "let"
+  },
+  {
+    "id": "SHADOW_COD_003",
+    "category": "coding",
+    "sub_category": "javascript",
+    "prompt": "Write JS function to check if number is even.",
+    "reference_answer": "function isEven(n) { return n % 2 === 0; }",
+    "deterministic_eval": true,
+    "eval_type": "contains",
+    "eval_pattern": "%"
+  },
+  {
+    "id": "SHADOW_COD_004",
+    "category": "coding",
+    "sub_category": "javascript",
+    "prompt": "Write JS arrow function to square a number.",
+    "reference_answer": "const square = x => x * x;",
+    "deterministic_eval": true,
+    "eval_type": "contains",
+    "eval_pattern": "=>"
+  },
+  {
+    "id": "SHADOW_COD_005",
+    "category": "coding",
+    "sub_category": "javascript",
+    "prompt": "What is a Promise in JavaScript?",
+    "reference_answer": "Represents eventual completion of async operation.",
+    "deterministic_eval": true,
+    "eval_type": "contains",
+    "eval_pattern": "async"
+  },
+  {
+    "id": "SHADOW_COD_006",
+    "category": "coding",
+    "sub_category": "typescript",
+    "prompt": "Define TypeScript interface for User with name and age.",
+    "reference_answer": "interface User { name: string; age: number; }",
+    "deterministic_eval": true,
+    "eval_type": "contains",
+    "eval_pattern": "interface"
+  },
+  {
+    "id": "SHADOW_COD_007",
+    "category": "coding",
+    "sub_category": "react",
+    "prompt": "What is useState hook in React?",
+    "reference_answer": "Declares state variables in functional components.",
+    "deterministic_eval": true,
+    "eval_type": "contains",
+    "eval_pattern": "state"
+  },
+  {
+    "id": "SHADOW_COD_008",
+    "category": "coding",
+    "sub_category": "react",
+    "prompt": "What is useEffect hook in React?",
+    "reference_answer": "Performs side effects in functional components.",
+    "deterministic_eval": true,
+    "eval_type": "contains",
+    "eval_pattern": "effect"
+  },
+  {
+    "id": "SHADOW_COD_009",
+    "category": "coding",
+    "sub_category": "nodejs",
+    "prompt": "Write Express route for GET /api/health returning ok.",
+    "reference_answer": "app.get('/api/health', (req, res) => res.json({ status: 'ok' }));",
+    "deterministic_eval": true,
+    "eval_type": "contains",
+    "eval_pattern": "get"
+  },
+  {
+    "id": "SHADOW_COD_010",
+    "category": "coding",
+    "sub_category": "nodejs",
+    "prompt": "What is event loop in Node.js?",
+    "reference_answer": "Handles async non-blocking I/O operations.",
+    "deterministic_eval": true,
+    "eval_type": "contains",
+    "eval_pattern": "event loop"
+  },
+  {
+    "id": "SHADOW_COD_011",
+    "category": "coding",
+    "sub_category": "python",
+    "prompt": "Write Python function to check palindrome.",
+    "reference_answer": "def is_palindrome(s): return s == s[::-1]",
+    "deterministic_eval": true,
+    "eval_type": "contains",
+    "eval_pattern": "::-1"
+  },
+  {
+    "id": "SHADOW_COD_012",
+    "category": "coding",
+    "sub_category": "python",
+    "prompt": "Write Python list comprehension for positive numbers.",
+    "reference_answer": "[x for x in nums if x > 0]",
+    "deterministic_eval": true,
+    "eval_type": "contains",
+    "eval_pattern": "for"
+  },
+  {
+    "id": "SHADOW_COD_013",
+    "category": "coding",
+    "sub_category": "python",
+    "prompt": "Write Python function for factorial.",
+    "reference_answer": "def factorial(n): return 1 if n <= 1 else n * factorial(n-1)",
+    "deterministic_eval": true,
+    "eval_type": "contains",
+    "eval_pattern": "factorial"
+  },
+  {
+    "id": "SHADOW_COD_014",
+    "category": "coding",
+    "sub_category": "python",
+    "prompt": "Difference between list and tuple in Python?",
+    "reference_answer": "Lists are mutable; tuples are immutable.",
+    "deterministic_eval": true,
+    "eval_type": "contains",
+    "eval_pattern": "mutable"
+  },
+  {
+    "id": "SHADOW_COD_015",
+    "category": "coding",
+    "sub_category": "python",
+    "prompt": "Write Python code to open file safely.",
+    "reference_answer": "with open('file.txt', 'r') as f: content = f.read()",
+    "deterministic_eval": true,
+    "eval_type": "contains",
+    "eval_pattern": "open"
+  },
+  {
+    "id": "SHADOW_COD_016",
+    "category": "coding",
+    "sub_category": "sql",
+    "prompt": "Write SQL query to select all users where age > 18.",
+    "reference_answer": "SELECT * FROM users WHERE age > 18;",
+    "deterministic_eval": true,
+    "eval_type": "contains",
+    "eval_pattern": "SELECT"
+  },
+  {
+    "id": "SHADOW_COD_017",
+    "category": "coding",
+    "sub_category": "sql",
+    "prompt": "Write SQL query to count orders per customer.",
+    "reference_answer": "SELECT customer_id, COUNT(*) FROM orders GROUP BY customer_id;",
+    "deterministic_eval": true,
+    "eval_type": "contains",
+    "eval_pattern": "GROUP BY"
+  },
+  {
+    "id": "SHADOW_COD_018",
+    "category": "coding",
+    "sub_category": "sql",
+    "prompt": "Difference between INNER JOIN and LEFT JOIN in SQL?",
+    "reference_answer": "INNER JOIN returns matching rows; LEFT JOIN returns all left rows.",
+    "deterministic_eval": true,
+    "eval_type": "contains",
+    "eval_pattern": "join"
+  },
+  {
+    "id": "SHADOW_COD_019",
+    "category": "coding",
+    "sub_category": "sql",
+    "prompt": "Write SQL query to delete user with id = 5.",
+    "reference_answer": "DELETE FROM users WHERE id = 5;",
+    "deterministic_eval": true,
+    "eval_type": "contains",
+    "eval_pattern": "DELETE"
+  },
+  {
+    "id": "SHADOW_COD_020",
+    "category": "coding",
+    "sub_category": "sql",
+    "prompt": "Write SQL query to insert new user.",
+    "reference_answer": "INSERT INTO users (name, email) VALUES ('Alice', 'alice@test.com');",
+    "deterministic_eval": true,
+    "eval_type": "contains",
+    "eval_pattern": "INSERT"
+  },
+  {
+    "id": "SHADOW_COD_021",
+    "category": "coding",
+    "sub_category": "debugging",
+    "prompt": "Debug JS error: Cannot read property 'map' of undefined.",
+    "reference_answer": "Ensure variable is initialized as an array before calling map.",
+    "deterministic_eval": true,
+    "eval_type": "contains",
+    "eval_pattern": "array"
+  },
+  {
+    "id": "SHADOW_COD_022",
+    "category": "coding",
+    "sub_category": "debugging",
+    "prompt": "Debug Python IndentationError: unexpected indent.",
+    "reference_answer": "Fix misaligned spaces or tabs in Python indentation.",
+    "deterministic_eval": true,
+    "eval_type": "contains",
+    "eval_pattern": "indent"
+  },
+  {
+    "id": "SHADOW_COD_023",
+    "category": "coding",
+    "sub_category": "debugging",
+    "prompt": "Debug React error: Too many re-renders.",
+    "reference_answer": "Avoid calling setState directly inside component body.",
+    "deterministic_eval": true,
+    "eval_type": "contains",
+    "eval_pattern": "setState"
+  },
+  {
+    "id": "SHADOW_COD_024",
+    "category": "coding",
+    "sub_category": "code_explanation",
+    "prompt": "Explain JS reduce: arr.reduce((a, b) => a + b, 0)",
+    "reference_answer": "Calculates sum of all array elements.",
+    "deterministic_eval": true,
+    "eval_type": "contains",
+    "eval_pattern": "sum"
+  },
+  {
+    "id": "SHADOW_COD_025",
+    "category": "coding",
+    "sub_category": "code_explanation",
+    "prompt": "Explain Python list(set(items)).",
+    "reference_answer": "Removes duplicate items from list.",
+    "deterministic_eval": true,
+    "eval_type": "contains",
+    "eval_pattern": "duplicate"
+  },
+  {
+    "id": "SHADOW_COD_026",
+    "category": "coding",
+    "sub_category": "code_explanation",
+    "prompt": "Explain SQL SELECT DISTINCT country FROM users;",
+    "reference_answer": "Returns list of unique countries.",
+    "deterministic_eval": true,
+    "eval_type": "contains",
+    "eval_pattern": "unique"
+  },
+  {
+    "id": "SHADOW_COD_027",
+    "category": "coding",
+    "sub_category": "transformation",
+    "prompt": "Convert Python loop to comprehension: res=[]; for x in nums: res.append(x*2)",
+    "reference_answer": "[x*2 for x in nums]",
+    "deterministic_eval": true,
+    "eval_type": "contains",
+    "eval_pattern": "for"
+  },
+  {
+    "id": "SHADOW_COD_028",
+    "category": "coding",
+    "sub_category": "transformation",
+    "prompt": "Convert ES5 function to arrow function.",
+    "reference_answer": "const add = (a, b) => a + b;",
+    "deterministic_eval": true,
+    "eval_type": "contains",
+    "eval_pattern": "=>"
+  },
+  {
+    "id": "SHADOW_COD_029",
+    "category": "coding",
+    "sub_category": "debugging",
+    "prompt": "Debug Python KeyError: 'user_id'",
+    "reference_answer": "Use dict.get('user_id') or check key existence.",
+    "deterministic_eval": true,
+    "eval_type": "contains",
+    "eval_pattern": "get"
+  },
+  {
+    "id": "SHADOW_COD_030",
+    "category": "coding",
+    "sub_category": "transformation",
+    "prompt": "Convert string concat to template literal in JS.",
+    "reference_answer": "Use `` `${a} ${b}` `` instead of `a + ' ' + b`",
+    "deterministic_eval": true,
+    "eval_type": "contains",
+    "eval_pattern": "${"
+  },
+  {
+    "id": "SHADOW_MATH_001",
+    "category": "mathematics",
+    "sub_category": "arithmetic",
+    "prompt": "Solve: 15 + 27",
+    "reference_answer": "42",
+    "deterministic_eval": true,
+    "eval_type": "sympy_math",
+    "eval_pattern": "42"
+  },
+  {
+    "id": "SHADOW_MATH_002",
+    "category": "mathematics",
+    "sub_category": "arithmetic",
+    "prompt": "Calculate: 144 / 12",
+    "reference_answer": "12",
+    "deterministic_eval": true,
+    "eval_type": "sympy_math",
+    "eval_pattern": "12"
+  },
+  {
+    "id": "SHADOW_MATH_003",
+    "category": "mathematics",
+    "sub_category": "fractions",
+    "prompt": "Calculate: 1/3 + 1/6",
+    "reference_answer": "1/2",
+    "deterministic_eval": true,
+    "eval_type": "sympy_math",
+    "eval_pattern": "1/2"
+  },
+  {
+    "id": "SHADOW_MATH_004",
+    "category": "mathematics",
+    "sub_category": "fractions",
+    "prompt": "Solve: 3/4 - 1/2",
+    "reference_answer": "1/4",
+    "deterministic_eval": true,
+    "eval_type": "sympy_math",
+    "eval_pattern": "1/4"
+  },
+  {
+    "id": "SHADOW_MATH_005",
+    "category": "mathematics",
+    "sub_category": "arithmetic",
+    "prompt": "Solve: 25 * 4",
+    "reference_answer": "100",
+    "deterministic_eval": true,
+    "eval_type": "sympy_math",
+    "eval_pattern": "100"
+  },
+  {
+    "id": "SHADOW_MATH_006",
+    "category": "mathematics",
+    "sub_category": "percentages",
+    "prompt": "What is 20% of 150?",
+    "reference_answer": "30",
+    "deterministic_eval": true,
+    "eval_type": "sympy_math",
+    "eval_pattern": "30"
+  },
+  {
+    "id": "SHADOW_MATH_007",
+    "category": "mathematics",
+    "sub_category": "algebra",
+    "prompt": "Solve for x: 2x = 10",
+    "reference_answer": "x = 5",
+    "deterministic_eval": true,
+    "eval_type": "sympy_math",
+    "eval_pattern": "5"
+  },
+  {
+    "id": "SHADOW_MATH_008",
+    "category": "mathematics",
+    "sub_category": "algebra",
+    "prompt": "Solve for x: 2x + 5 = 15",
+    "reference_answer": "x = 5",
+    "deterministic_eval": true,
+    "eval_type": "sympy_math",
+    "eval_pattern": "5"
+  },
+  {
+    "id": "SHADOW_MATH_009",
+    "category": "mathematics",
+    "sub_category": "algebra",
+    "prompt": "Solve for x: 3x - 9 = 0",
+    "reference_answer": "x = 3",
+    "deterministic_eval": true,
+    "eval_type": "sympy_math",
+    "eval_pattern": "3"
+  },
+  {
+    "id": "SHADOW_MATH_010",
+    "category": "mathematics",
+    "sub_category": "algebra",
+    "prompt": "Solve quadratic equation: x^2 - 4 = 0",
+    "reference_answer": "x = -2, 2",
+    "deterministic_eval": true,
+    "eval_type": "sympy_math",
+    "eval_pattern": "2"
+  },
+  {
+    "id": "SHADOW_MATH_011",
+    "category": "mathematics",
+    "sub_category": "algebra",
+    "prompt": "Solve quadratic equation: x^2 - 5x + 6 = 0",
+    "reference_answer": "x = 2, 3",
+    "deterministic_eval": true,
+    "eval_type": "sympy_math",
+    "eval_pattern": "2"
+  },
+  {
+    "id": "SHADOW_MATH_012",
+    "category": "mathematics",
+    "sub_category": "derivatives",
+    "prompt": "Find derivative of x^2 with respect to x.",
+    "reference_answer": "2*x",
+    "deterministic_eval": true,
+    "eval_type": "sympy_math",
+    "eval_pattern": "2*x"
+  },
+  {
+    "id": "SHADOW_MATH_013",
+    "category": "mathematics",
+    "sub_category": "derivatives",
+    "prompt": "Find derivative of sin(x) with respect to x.",
+    "reference_answer": "cos(x)",
+    "deterministic_eval": true,
+    "eval_type": "sympy_math",
+    "eval_pattern": "cos"
+  },
+  {
+    "id": "SHADOW_MATH_014",
+    "category": "mathematics",
+    "sub_category": "integrals",
+    "prompt": "Find indefinite integral of 2x dx.",
+    "reference_answer": "x^2",
+    "deterministic_eval": true,
+    "eval_type": "sympy_math",
+    "eval_pattern": "x^2"
+  },
+  {
+    "id": "SHADOW_MATH_015",
+    "category": "mathematics",
+    "sub_category": "integrals",
+    "prompt": "Calculate definite integral of x from 0 to 2.",
+    "reference_answer": "2",
+    "deterministic_eval": true,
+    "eval_type": "sympy_math",
+    "eval_pattern": "2"
+  },
+  {
+    "id": "SHADOW_MATH_016",
+    "category": "mathematics",
+    "sub_category": "matrices",
+    "prompt": "Find determinant of 2x2 matrix [[1, 2], [3, 4]]",
+    "reference_answer": "-2",
+    "deterministic_eval": true,
+    "eval_type": "sympy_math",
+    "eval_pattern": "-2"
+  },
+  {
+    "id": "SHADOW_MATH_017",
+    "category": "mathematics",
+    "sub_category": "units",
+    "prompt": "Convert 5 kilometers to meters.",
+    "reference_answer": "5000 meters",
+    "deterministic_eval": true,
+    "eval_type": "sympy_math",
+    "eval_pattern": "5000"
+  },
+  {
+    "id": "SHADOW_MATH_018",
+    "category": "mathematics",
+    "sub_category": "probability",
+    "prompt": "Probability of flipping heads on fair coin?",
+    "reference_answer": "0.5 or 1/2",
+    "deterministic_eval": true,
+    "eval_type": "sympy_math",
+    "eval_pattern": "1/2"
+  },
+  {
+    "id": "SHADOW_MATH_019",
+    "category": "mathematics",
+    "sub_category": "statistics",
+    "prompt": "Find mean of numbers: 2, 4, 6, 8, 10",
+    "reference_answer": "6",
+    "deterministic_eval": true,
+    "eval_type": "sympy_math",
+    "eval_pattern": "6"
+  },
+  {
+    "id": "SHADOW_MATH_020",
+    "category": "mathematics",
+    "sub_category": "word_problem",
+    "prompt": "If a car travels 60 mph, distance in 3 hours?",
+    "reference_answer": "180 miles",
+    "deterministic_eval": true,
+    "eval_type": "sympy_math",
+    "eval_pattern": "180"
+  },
+  {
+    "id": "SHADOW_MATH_021",
+    "category": "mathematics",
+    "sub_category": "word_problem",
+    "prompt": "20% discount on $50 item. Final price?",
+    "reference_answer": "$40",
+    "deterministic_eval": true,
+    "eval_type": "sympy_math",
+    "eval_pattern": "40"
+  },
+  {
+    "id": "SHADOW_MATH_022",
+    "category": "mathematics",
+    "sub_category": "arithmetic",
+    "prompt": "Solve: 7 * 8",
+    "reference_answer": "56",
+    "deterministic_eval": true,
+    "eval_type": "sympy_math",
+    "eval_pattern": "56"
+  },
+  {
+    "id": "SHADOW_MATH_023",
+    "category": "mathematics",
+    "sub_category": "arithmetic",
+    "prompt": "Solve: 81 / 9",
+    "reference_answer": "9",
+    "deterministic_eval": true,
+    "eval_type": "sympy_math",
+    "eval_pattern": "9"
+  },
+  {
+    "id": "SHADOW_MATH_024",
+    "category": "mathematics",
+    "sub_category": "algebra",
+    "prompt": "Solve for x: x/2 = 8",
+    "reference_answer": "x = 16",
+    "deterministic_eval": true,
+    "eval_type": "sympy_math",
+    "eval_pattern": "16"
+  },
+  {
+    "id": "SHADOW_MATH_025",
+    "category": "mathematics",
+    "sub_category": "derivatives",
+    "prompt": "Find derivative of 4x^2 - 3x + 7.",
+    "reference_answer": "8*x - 3",
+    "deterministic_eval": true,
+    "eval_type": "sympy_math",
+    "eval_pattern": "8*x"
+  },
+  {
+    "id": "SHADOW_MATH_026",
+    "category": "mathematics",
+    "sub_category": "integrals",
+    "prompt": "Find integral of (2x + 5) dx.",
+    "reference_answer": "x^2 + 5*x",
+    "deterministic_eval": true,
+    "eval_type": "sympy_math",
+    "eval_pattern": "x^2"
+  },
+  {
+    "id": "SHADOW_MATH_027",
+    "category": "mathematics",
+    "sub_category": "units",
+    "prompt": "Convert 1000 grams to kg.",
+    "reference_answer": "1 kg",
+    "deterministic_eval": true,
+    "eval_type": "sympy_math",
+    "eval_pattern": "1"
+  },
+  {
+    "id": "SHADOW_MATH_028",
+    "category": "mathematics",
+    "sub_category": "statistics",
+    "prompt": "Find median of numbers: 1, 3, 5, 7, 9",
+    "reference_answer": "5",
+    "deterministic_eval": true,
+    "eval_type": "sympy_math",
+    "eval_pattern": "5"
+  },
+  {
+    "id": "SHADOW_MATH_029",
+    "category": "mathematics",
+    "sub_category": "word_problem",
+    "prompt": "Rectangle length 8, width 5. Area?",
+    "reference_answer": "40",
+    "deterministic_eval": true,
+    "eval_type": "sympy_math",
+    "eval_pattern": "40"
+  },
+  {
+    "id": "SHADOW_MATH_030",
+    "category": "mathematics",
+    "sub_category": "arithmetic",
+    "prompt": "Solve: 12 * 12",
+    "reference_answer": "144",
+    "deterministic_eval": true,
+    "eval_type": "sympy_math",
+    "eval_pattern": "144"
+  },
+  {
+    "id": "SHADOW_INST_001",
+    "category": "instruction_following",
+    "sub_category": "one_sentence",
+    "prompt": "Explain Python in exactly one sentence.",
+    "reference_answer": "Python is a high-level interpreted programming language.",
+    "deterministic_eval": true,
+    "eval_type": "structure",
+    "eval_pattern": "one_sentence"
+  },
+  {
+    "id": "SHADOW_INST_002",
+    "category": "instruction_following",
+    "sub_category": "bullet_list",
+    "prompt": "List 3 advantages of React in bullet points.",
+    "reference_answer": "\u2022 Component reusability\n\u2022 Virtual DOM\n\u2022 Community",
+    "deterministic_eval": true,
+    "eval_type": "structure",
+    "eval_pattern": "bullet_points"
+  },
+  {
+    "id": "SHADOW_INST_003",
+    "category": "instruction_following",
+    "sub_category": "json_format",
+    "prompt": "Respond in JSON object format with keys 'status' and 'message'.",
+    "reference_answer": "{\"status\": \"success\", \"message\": \"OK\"}",
+    "deterministic_eval": true,
+    "eval_type": "structure",
+    "eval_pattern": "json_object"
+  },
+  {
+    "id": "SHADOW_INST_004",
+    "category": "instruction_following",
+    "sub_category": "code_only",
+    "prompt": "Write JS function to add two numbers. Code only.",
+    "reference_answer": "function add(a, b) { return a + b; }",
+    "deterministic_eval": true,
+    "eval_type": "structure",
+    "eval_pattern": "code_only"
+  },
+  {
+    "id": "SHADOW_INST_005",
+    "category": "instruction_following",
+    "sub_category": "concise",
+    "prompt": "Answer in 5 words or less: Primary function of RAM?",
+    "reference_answer": "Temporary high-speed memory storage.",
+    "deterministic_eval": true,
+    "eval_type": "structure",
+    "eval_pattern": "concise_5_words"
+  },
+  {
+    "id": "SHADOW_INST_006",
+    "category": "instruction_following",
+    "sub_category": "step_by_step",
+    "prompt": "Explain how to boil water step by step.",
+    "reference_answer": "Step 1: Fill pot.\nStep 2: Heat on stove.",
+    "deterministic_eval": true,
+    "eval_type": "structure",
+    "eval_pattern": "step_by_step"
+  },
+  {
+    "id": "SHADOW_INST_007",
+    "category": "instruction_following",
+    "sub_category": "explain_example",
+    "prompt": "Explain what a variable is, then provide a code example.",
+    "reference_answer": "A variable stores data. Example: let x = 10;",
+    "deterministic_eval": true,
+    "eval_type": "structure",
+    "eval_pattern": "explain_then_example"
+  },
+  {
+    "id": "SHADOW_INST_008",
+    "category": "instruction_following",
+    "sub_category": "multi_constraint",
+    "prompt": "List 2 programming languages. Start each line with 'Language: '.",
+    "reference_answer": "Language: Python\nLanguage: JS",
+    "deterministic_eval": true,
+    "eval_type": "contains",
+    "eval_pattern": "Language:"
+  },
+  {
+    "id": "SHADOW_INST_009",
+    "category": "instruction_following",
+    "sub_category": "multi_constraint",
+    "prompt": "Write 'CONFIRMED' in all uppercase as your entire response.",
+    "reference_answer": "CONFIRMED",
+    "deterministic_eval": true,
+    "eval_type": "contains",
+    "eval_pattern": "CONFIRMED"
+  },
+  {
+    "id": "SHADOW_INST_010",
+    "category": "instruction_following",
+    "sub_category": "multi_constraint",
+    "prompt": "Write the number '100' without letters.",
+    "reference_answer": "100",
+    "deterministic_eval": true,
+    "eval_type": "contains",
+    "eval_pattern": "100"
+  },
+  {
+    "id": "SHADOW_INST_011",
+    "category": "instruction_following",
+    "sub_category": "multi_constraint",
+    "prompt": "List 3 colors in bullet points with hyphens.",
+    "reference_answer": "- Red\n- Blue\n- Green",
+    "deterministic_eval": true,
+    "eval_type": "contains",
+    "eval_pattern": "-"
+  },
+  {
+    "id": "SHADOW_INST_012",
+    "category": "instruction_following",
+    "sub_category": "multi_constraint",
+    "prompt": "Write 3-step guide using 'Step 1:', 'Step 2:', 'Step 3:'.",
+    "reference_answer": "Step 1: Read\nStep 2: Fix\nStep 3: Test",
+    "deterministic_eval": true,
+    "eval_type": "contains",
+    "eval_pattern": "Step 1:"
+  },
+  {
+    "id": "SHADOW_INST_013",
+    "category": "instruction_following",
+    "sub_category": "multi_constraint",
+    "prompt": "Respond with JSON array ['apple', 'banana'].",
+    "reference_answer": "[\"apple\", \"banana\"]",
+    "deterministic_eval": true,
+    "eval_type": "structure",
+    "eval_pattern": "json_object"
+  },
+  {
+    "id": "SHADOW_INST_014",
+    "category": "instruction_following",
+    "sub_category": "multi_constraint",
+    "prompt": "Write 'PASSED' in square brackets: [PASSED].",
+    "reference_answer": "[PASSED]",
+    "deterministic_eval": true,
+    "eval_type": "contains",
+    "eval_pattern": "[PASSED]"
+  },
+  {
+    "id": "SHADOW_INST_015",
+    "category": "instruction_following",
+    "sub_category": "multi_constraint",
+    "prompt": "Define recursion in two sentences.",
+    "reference_answer": "Function calls itself. Has base case.",
+    "deterministic_eval": true,
+    "eval_type": "contains",
+    "eval_pattern": "calls itself"
+  },
+  {
+    "id": "SHADOW_INST_016",
+    "category": "instruction_following",
+    "sub_category": "multi_constraint",
+    "prompt": "Write Python function `def greet():` returning 'Hello'. Code only.",
+    "reference_answer": "def greet(): return 'Hello'",
+    "deterministic_eval": true,
+    "eval_type": "contains",
+    "eval_pattern": "def greet"
+  },
+  {
+    "id": "SHADOW_INST_017",
+    "category": "instruction_following",
+    "sub_category": "multi_constraint",
+    "prompt": "Chemical symbol for Gold in a single word.",
+    "reference_answer": "Au",
+    "deterministic_eval": true,
+    "eval_type": "contains",
+    "eval_pattern": "Au"
+  },
+  {
+    "id": "SHADOW_INST_018",
+    "category": "instruction_following",
+    "sub_category": "multi_constraint",
+    "prompt": "Numbered list 1., 2., 3. of databases.",
+    "reference_answer": "1. Postgres\n2. Mongo\n3. MySQL",
+    "deterministic_eval": true,
+    "eval_type": "contains",
+    "eval_pattern": "1."
+  },
+  {
+    "id": "SHADOW_INST_019",
+    "category": "instruction_following",
+    "sub_category": "multi_constraint",
+    "prompt": "Translate 'Hello World' to Spanish in double quotes.",
+    "reference_answer": "\"Hola Mundo\"",
+    "deterministic_eval": true,
+    "eval_type": "contains",
+    "eval_pattern": "Hola"
+  },
+  {
+    "id": "SHADOW_INST_020",
+    "category": "instruction_following",
+    "sub_category": "multi_constraint",
+    "prompt": "Headline for tech launch starting with 'Introducing'.",
+    "reference_answer": "Introducing Mathiyon AI SLM v1.3",
+    "deterministic_eval": true,
+    "eval_type": "contains",
+    "eval_pattern": "Introducing"
+  },
+  {
+    "id": "SHADOW_INST_021",
+    "category": "instruction_following",
+    "sub_category": "multi_constraint",
+    "prompt": "Answer Yes or No: Is 7 a prime number?",
+    "reference_answer": "Yes",
+    "deterministic_eval": true,
+    "eval_type": "contains",
+    "eval_pattern": "Yes"
+  },
+  {
+    "id": "SHADOW_INST_022",
+    "category": "instruction_following",
+    "sub_category": "multi_constraint",
+    "prompt": "Markdown h1 header '# Tech Overview'.",
+    "reference_answer": "# Tech Overview",
+    "deterministic_eval": true,
+    "eval_type": "contains",
+    "eval_pattern": "#"
+  },
+  {
+    "id": "SHADOW_INST_023",
+    "category": "instruction_following",
+    "sub_category": "multi_constraint",
+    "prompt": "Output number of bits in a byte.",
+    "reference_answer": "8",
+    "deterministic_eval": true,
+    "eval_type": "contains",
+    "eval_pattern": "8"
+  },
+  {
+    "id": "SHADOW_INST_024",
+    "category": "instruction_following",
+    "sub_category": "multi_constraint",
+    "prompt": "Write JS 1-line comment starting with '//'.",
+    "reference_answer": "// Comment",
+    "deterministic_eval": true,
+    "eval_type": "contains",
+    "eval_pattern": "//"
+  },
+  {
+    "id": "SHADOW_INST_025",
+    "category": "instruction_following",
+    "sub_category": "multi_constraint",
+    "prompt": "Write 'READY' in angle brackets: <READY>.",
+    "reference_answer": "<READY>",
+    "deterministic_eval": true,
+    "eval_type": "contains",
+    "eval_pattern": "<READY>"
+  },
+  {
+    "id": "SHADOW_INST_026",
+    "category": "instruction_following",
+    "sub_category": "multi_constraint",
+    "prompt": "List 3 frontend frameworks in bullet points.",
+    "reference_answer": "\u2022 React\n\u2022 Vue\n\u2022 Angular",
+    "deterministic_eval": true,
+    "eval_type": "structure",
+    "eval_pattern": "bullet_points"
+  },
+  {
+    "id": "SHADOW_INST_027",
+    "category": "instruction_following",
+    "sub_category": "multi_constraint",
+    "prompt": "Define API in one sentence.",
+    "reference_answer": "An API connects two systems.",
+    "deterministic_eval": true,
+    "eval_type": "structure",
+    "eval_pattern": "one_sentence"
+  },
+  {
+    "id": "SHADOW_INST_028",
+    "category": "instruction_following",
+    "sub_category": "multi_constraint",
+    "prompt": "HTML button tag code only.",
+    "reference_answer": "<button>Click</button>",
+    "deterministic_eval": true,
+    "eval_type": "contains",
+    "eval_pattern": "<button>"
+  },
+  {
+    "id": "SHADOW_INST_029",
+    "category": "instruction_following",
+    "sub_category": "multi_constraint",
+    "prompt": "JSON with key 'valid' set to true.",
+    "reference_answer": "{\"valid\": true}",
+    "deterministic_eval": true,
+    "eval_type": "structure",
+    "eval_pattern": "json_object"
+  },
+  {
+    "id": "SHADOW_INST_030",
+    "category": "instruction_following",
+    "sub_category": "multi_constraint",
+    "prompt": "Write 'APPROVED' as your entire output.",
+    "reference_answer": "APPROVED",
+    "deterministic_eval": true,
+    "eval_type": "contains",
+    "eval_pattern": "APPROVED"
+  },
+  {
+    "id": "SHADOW_REAS_001",
+    "category": "reasoning",
+    "sub_category": "logic",
+    "prompt": "If all humans are mortal and Socrates is human, is Socrates mortal?",
+    "reference_answer": "Yes, Socrates is mortal.",
+    "deterministic_eval": true,
+    "eval_type": "contains",
+    "eval_pattern": "yes"
+  },
+  {
+    "id": "SHADOW_REAS_002",
+    "category": "reasoning",
+    "sub_category": "logic",
+    "prompt": "If A > B and B > C, who is tallest?",
+    "reference_answer": "A is tallest.",
+    "deterministic_eval": true,
+    "eval_type": "contains",
+    "eval_pattern": "a"
+  },
+  {
+    "id": "SHADOW_REAS_003",
+    "category": "reasoning",
+    "sub_category": "logic",
+    "prompt": "Red box inside blue box, blue inside green. Outermost box?",
+    "reference_answer": "Green box.",
+    "deterministic_eval": true,
+    "eval_type": "contains",
+    "eval_pattern": "green"
+  },
+  {
+    "id": "SHADOW_REAS_004",
+    "category": "reasoning",
+    "sub_category": "word_problem",
+    "prompt": "If Alice has 5 apples and gives 2 to Bob, how many left?",
+    "reference_answer": "3 apples.",
+    "deterministic_eval": true,
+    "eval_type": "contains",
+    "eval_pattern": "3"
+  },
+  {
+    "id": "SHADOW_REAS_005",
+    "category": "reasoning",
+    "sub_category": "word_problem",
+    "prompt": "Train travels at 60 mph. Distance in 2.5 hours?",
+    "reference_answer": "150 miles.",
+    "deterministic_eval": true,
+    "eval_type": "contains",
+    "eval_pattern": "150"
+  },
+  {
+    "id": "SHADOW_REAS_006",
+    "category": "reasoning",
+    "sub_category": "word_problem",
+    "prompt": "Shirt costs $20 after 50% discount. Original price?",
+    "reference_answer": "$40",
+    "deterministic_eval": true,
+    "eval_type": "contains",
+    "eval_pattern": "40"
+  },
+  {
+    "id": "SHADOW_REAS_007",
+    "category": "reasoning",
+    "sub_category": "word_problem",
+    "prompt": "Farmer has 15 sheep, all but 8 die. How many remain?",
+    "reference_answer": "8 sheep.",
+    "deterministic_eval": true,
+    "eval_type": "contains",
+    "eval_pattern": "8"
+  },
+  {
+    "id": "SHADOW_REAS_008",
+    "category": "reasoning",
+    "sub_category": "logic",
+    "prompt": "If X implies Y, and Y is false, what about X?",
+    "reference_answer": "X is false.",
+    "deterministic_eval": true,
+    "eval_type": "contains",
+    "eval_pattern": "false"
+  },
+  {
+    "id": "SHADOW_REAS_009",
+    "category": "reasoning",
+    "sub_category": "logic",
+    "prompt": "In a race, pass person in 2nd place. What place are you?",
+    "reference_answer": "2nd place.",
+    "deterministic_eval": true,
+    "eval_type": "contains",
+    "eval_pattern": "2nd"
+  },
+  {
+    "id": "SHADOW_REAS_010",
+    "category": "reasoning",
+    "sub_category": "sequence",
+    "prompt": "Next in sequence: 2, 4, 8, 16, __?",
+    "reference_answer": "32",
+    "deterministic_eval": true,
+    "eval_type": "contains",
+    "eval_pattern": "32"
+  },
+  {
+    "id": "SHADOW_REAS_011",
+    "category": "reasoning",
+    "sub_category": "word_problem",
+    "prompt": "Book 200 pages, read 20 pages/day. Days to finish?",
+    "reference_answer": "10 days.",
+    "deterministic_eval": true,
+    "eval_type": "contains",
+    "eval_pattern": "10"
+  },
+  {
+    "id": "SHADOW_REAS_012",
+    "category": "reasoning",
+    "sub_category": "word_problem",
+    "prompt": "Buy 3 items for $5 each, pay with $20 bill. Change?",
+    "reference_answer": "$5 change.",
+    "deterministic_eval": true,
+    "eval_type": "contains",
+    "eval_pattern": "5"
+  },
+  {
+    "id": "SHADOW_REAS_013",
+    "category": "reasoning",
+    "sub_category": "puzzle",
+    "prompt": "What has keys but no locks, space but no room?",
+    "reference_answer": "A keyboard.",
+    "deterministic_eval": true,
+    "eval_type": "contains",
+    "eval_pattern": "keyboard"
+  },
+  {
+    "id": "SHADOW_REAS_014",
+    "category": "reasoning",
+    "sub_category": "puzzle",
+    "prompt": "What gets wetter the more it dries?",
+    "reference_answer": "A towel.",
+    "deterministic_eval": true,
+    "eval_type": "contains",
+    "eval_pattern": "towel"
+  },
+  {
+    "id": "SHADOW_REAS_015",
+    "category": "reasoning",
+    "sub_category": "puzzle",
+    "prompt": "What has head and tail but no body?",
+    "reference_answer": "A coin.",
+    "deterministic_eval": true,
+    "eval_type": "contains",
+    "eval_pattern": "coin"
+  },
+  {
+    "id": "SHADOW_REAS_016",
+    "category": "reasoning",
+    "sub_category": "step_reasoning",
+    "prompt": "Solve step by step: (5 + 3) * (10 - 4)",
+    "reference_answer": "8 * 6 = 48",
+    "deterministic_eval": true,
+    "eval_type": "contains",
+    "eval_pattern": "48"
+  },
+  {
+    "id": "SHADOW_REAS_017",
+    "category": "reasoning",
+    "sub_category": "step_reasoning",
+    "prompt": "If 3x + 2 = 14, solve step by step for x.",
+    "reference_answer": "3x = 12 => x = 4",
+    "deterministic_eval": true,
+    "eval_type": "contains",
+    "eval_pattern": "4"
+  },
+  {
+    "id": "SHADOW_REAS_018",
+    "category": "reasoning",
+    "sub_category": "step_reasoning",
+    "prompt": "Car 30 mpg, miles 120. Gallons needed?",
+    "reference_answer": "4 gallons.",
+    "deterministic_eval": true,
+    "eval_type": "contains",
+    "eval_pattern": "4"
+  },
+  {
+    "id": "SHADOW_REAS_019",
+    "category": "reasoning",
+    "sub_category": "logic",
+    "prompt": "If all squares are rectangles, is square S a rectangle?",
+    "reference_answer": "Yes.",
+    "deterministic_eval": true,
+    "eval_type": "contains",
+    "eval_pattern": "yes"
+  },
+  {
+    "id": "SHADOW_REAS_020",
+    "category": "reasoning",
+    "sub_category": "sequence",
+    "prompt": "Next in Fibonacci: 1, 1, 2, 3, 5, 8, __?",
+    "reference_answer": "13",
+    "deterministic_eval": true,
+    "eval_type": "contains",
+    "eval_pattern": "13"
+  },
+  {
+    "id": "SHADOW_REAS_021",
+    "category": "reasoning",
+    "sub_category": "sequence",
+    "prompt": "Next in sequence: 1, 4, 9, 16, 25, __?",
+    "reference_answer": "36",
+    "deterministic_eval": true,
+    "eval_type": "contains",
+    "eval_pattern": "36"
+  },
+  {
+    "id": "SHADOW_REAS_022",
+    "category": "reasoning",
+    "sub_category": "word_problem",
+    "prompt": "2 cats catch 2 mice in 2 minutes. Time for 1 cat to catch 1 mouse?",
+    "reference_answer": "2 minutes.",
+    "deterministic_eval": true,
+    "eval_type": "contains",
+    "eval_pattern": "2"
+  },
+  {
+    "id": "SHADOW_REAS_023",
+    "category": "reasoning",
+    "sub_category": "puzzle",
+    "prompt": "What has hands but cannot clap?",
+    "reference_answer": "A clock.",
+    "deterministic_eval": true,
+    "eval_type": "contains",
+    "eval_pattern": "clock"
+  },
+  {
+    "id": "SHADOW_REAS_024",
+    "category": "reasoning",
+    "sub_category": "step_reasoning",
+    "prompt": "Solve step by step: 10 + 2 * 5",
+    "reference_answer": "10 + 10 = 20",
+    "deterministic_eval": true,
+    "eval_type": "contains",
+    "eval_pattern": "20"
+  },
+  {
+    "id": "SHADOW_REAS_025",
+    "category": "reasoning",
+    "sub_category": "word_problem",
+    "prompt": "Baker makes 60 cookies/hour. Cookies in 4 hours?",
+    "reference_answer": "240 cookies.",
+    "deterministic_eval": true,
+    "eval_type": "contains",
+    "eval_pattern": "240"
+  },
+  {
+    "id": "SHADOW_REAS_026",
+    "category": "reasoning",
+    "sub_category": "logic",
+    "prompt": "If all dogs bark and Buddy is a dog, does Buddy bark?",
+    "reference_answer": "Yes.",
+    "deterministic_eval": true,
+    "eval_type": "contains",
+    "eval_pattern": "yes"
+  },
+  {
+    "id": "SHADOW_REAS_027",
+    "category": "reasoning",
+    "sub_category": "sequence",
+    "prompt": "Next number: 3, 6, 12, 24, __?",
+    "reference_answer": "48",
+    "deterministic_eval": true,
+    "eval_type": "contains",
+    "eval_pattern": "48"
+  },
+  {
+    "id": "SHADOW_REAS_028",
+    "category": "reasoning",
+    "sub_category": "word_problem",
+    "prompt": "5 pens cost $10. Cost per pen?",
+    "reference_answer": "$2",
+    "deterministic_eval": true,
+    "eval_type": "contains",
+    "eval_pattern": "2"
+  },
+  {
+    "id": "SHADOW_REAS_029",
+    "category": "reasoning",
+    "sub_category": "logic",
+    "prompt": "Is 0 an even number?",
+    "reference_answer": "Yes, 0 is an even integer.",
+    "deterministic_eval": true,
+    "eval_type": "contains",
+    "eval_pattern": "yes"
+  },
+  {
+    "id": "SHADOW_REAS_030",
+    "category": "reasoning",
+    "sub_category": "puzzle",
+    "prompt": "What has teeth but cannot bite?",
+    "reference_answer": "A comb.",
+    "deterministic_eval": true,
+    "eval_type": "contains",
+    "eval_pattern": "comb"
+  }
+]
