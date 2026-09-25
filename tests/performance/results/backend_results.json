@@ -1,0 +1,10 @@
+{
+  "mathLatency": {
+    "p50Ms": 1,
+    "p95Ms": 56
+  },
+  "agentLatency": {
+    "p50Ms": 6,
+    "p95Ms": 17
+  }
+}

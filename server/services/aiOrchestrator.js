@@ -36,6 +36,7 @@ const TOOL_REGISTRY = {
 };
 
 const TOOL_TIMEOUT_MS = 10000;
+const MAX_AGENT_STEPS = 10;
 
 /**
  * Classifies user message intent into normalized agent categories

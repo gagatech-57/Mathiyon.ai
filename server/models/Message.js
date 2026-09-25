@@ -29,4 +29,7 @@ const messageSchema = new mongoose.Schema({
   },
 });
 
+// Compound index for fast authorized history query
+messageSchema.index({ conversationId: 1, userId: 1, createdAt: -1 });
+
 module.exports = mongoose.model('Message', messageSchema);

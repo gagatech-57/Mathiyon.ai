@@ -1,5 +1,5 @@
 {
-  "timestamp": "2026-09-25T09:02:52.231Z",
+  "timestamp": "2026-09-25T09:59:18.838Z",
   "branch": "phase-12-5-evaluation-observability",
   "productionModel": "Mathiyon SLM v1.2 (100% Production Traffic Default)",
   "experimentalModel": "Mathiyon SLM v1.3-RC1 (0% Production Traffic Default)",
@@ -73,7 +73,7 @@
     "securityPrivacyScrubberPercent": 100,
     "modelGovernanceV12Percent": 100,
     "p50LatencyMs": 3,
-    "p95LatencyMs": 11
+    "p95LatencyMs": 8
   },
   "regression": {
     "detected": false,
@@ -81,7 +81,7 @@
   },
   "latency": {
     "p50Ms": 3,
-    "p95Ms": 11,
+    "p95Ms": 8,
     "sampleSize": 23
   },
   "results": [
@@ -113,7 +113,7 @@
       "expected": "CODING",
       "actual": "CODING",
       "status": "PASS",
-      "latencyMs": 3
+      "latencyMs": 2
     },
     {
       "testId": "EVAL_ROUTE_R04",
@@ -173,7 +173,7 @@
       "expected": "WEB",
       "actual": "WEB",
       "status": "PASS",
-      "latencyMs": 2
+      "latencyMs": 3
     },
     {
       "testId": "EVAL_ROUTE_R10",
@@ -193,7 +193,7 @@
       "expected": "500",
       "actual": "500",
       "status": "PASS",
-      "latencyMs": 66
+      "latencyMs": 39
     },
     {
       "testId": "EVAL_MATH_M02",
@@ -233,7 +233,7 @@
       "expected": "2*x",
       "actual": "2*x",
       "status": "PASS",
-      "latencyMs": 4
+      "latencyMs": 2
     },
     {
       "testId": "EVAL_MATH_M06",
@@ -243,7 +243,7 @@
       "expected": "25*pi",
       "actual": "25*pi",
       "status": "PASS",
-      "latencyMs": 2
+      "latencyMs": 6
     },
     {
       "testId": "EVAL_MATH_M07",
@@ -253,7 +253,7 @@
       "expected": "20",
       "actual": "20",
       "status": "PASS",
-      "latencyMs": 3
+      "latencyMs": 4
     },
     {
       "testId": "EVAL_MATH_M08",
@@ -283,7 +283,7 @@
       "expected": "x = 4",
       "actual": "x = 4",
       "status": "PASS",
-      "latencyMs": 2
+      "latencyMs": 3
     },
     {
       "testId": "EVAL_CTX_001",
@@ -293,7 +293,7 @@
       "expected": "DOCUMENT_VS_WEB",
       "actual": "DOCUMENT_VS_WEB",
       "status": "PASS",
-      "latencyMs": 3
+      "latencyMs": 1
     },
     {
       "testId": "EVAL_RAG_MISSING_001",
@@ -303,7 +303,7 @@
       "expected": "irrelevant or discarded",
       "actual": "HANDLED",
       "status": "PASS",
-      "latencyMs": 11
+      "latencyMs": 5
     },
     {
       "testId": "EVAL_SEC_PRIVACY_001",
@@ -321,7 +321,7 @@
       "expected": "Mathiyon SLM v1.2",
       "actual": "Mathiyon SLM v1.2",
       "status": "PASS",
-      "latencyMs": 6
+      "latencyMs": 8
     },
     {
       "testId": "EVAL_OBS_API_001",

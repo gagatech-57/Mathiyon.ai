@@ -1,0 +1,32 @@
+{
+  "concurrent_10": {
+    "concurrency": 10,
+    "totalRequests": 10,
+    "successCount": 10,
+    "errorCount": 0,
+    "totalDurationMs": 82,
+    "throughputReqPerSec": 122,
+    "p50Ms": 80,
+    "p95Ms": 82
+  },
+  "concurrent_25": {
+    "concurrency": 25,
+    "totalRequests": 25,
+    "successCount": 25,
+    "errorCount": 0,
+    "totalDurationMs": 192,
+    "throughputReqPerSec": 130.2,
+    "p50Ms": 185,
+    "p95Ms": 192
+  },
+  "concurrent_50": {
+    "concurrency": 50,
+    "totalRequests": 50,
+    "successCount": 50,
+    "errorCount": 0,
+    "totalDurationMs": 315,
+    "throughputReqPerSec": 158.7,
+    "p50Ms": 309,
+    "p95Ms": 315
+  }
+}
