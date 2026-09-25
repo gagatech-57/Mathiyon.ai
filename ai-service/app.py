@@ -64,10 +64,12 @@ class Generatev13Request(BaseModel):
     max_new_tokens: Optional[int] = Field(default=64, description="Max new tokens to generate")
     temperature: Optional[float] = Field(default=0.7, description="Sampling temperature")
     deterministic: Optional[bool] = Field(default=False, description="Use greedy decoding")
+    use_kv_cache: Optional[bool] = Field(default=True, description="Use KV cache acceleration")
 
 class Generatev13Response(BaseModel):
     model: str = "mathiyon-slm-v1.3"
     experimental: bool = True
+    use_kv_cache: Optional[bool] = True
     response: str
     generation_time_ms: float
     tokens_generated: int
@@ -148,13 +150,14 @@ def generate_ai_response(payload: GenerateRequest):
             res_v13 = v13_gen.generate(
                 prompt=payload.message,
                 max_new_tokens=payload.max_new_tokens or 64,
-                temperature=payload.temperature if payload.temperature is not None else 0.7
+                temperature=payload.temperature if payload.temperature is not None else 0.7,
+                use_kv_cache=True
             )
             return {
                 "response": res_v13["response"],
                 "model": "mathiyon-slm-v1.3",
                 "version": "1.3",
-                "engine": "PyTorch Causal SLM v1.3 (RoPE + RMSNorm + SwiGLU)",
+                "engine": "PyTorch Causal SLM v1.3 (RoPE + RMSNorm + SwiGLU + KV Cache)",
                 "tokens_processed": len(payload.message.split()),
                 "tokens_generated": res_v13["tokens_generated"],
                 "generation_time_ms": res_v13["generation_time_ms"],
@@ -214,7 +217,8 @@ def generate_v13_experimental_response(payload: Generatev13Request):
             prompt=user_prompt,
             max_new_tokens=payload.max_new_tokens or 64,
             temperature=payload.temperature if payload.temperature is not None else 0.7,
-            deterministic=payload.deterministic or False
+            deterministic=payload.deterministic or False,
+            use_kv_cache=payload.use_kv_cache if payload.use_kv_cache is not None else True
         )
         return result
     except Exception as e:
