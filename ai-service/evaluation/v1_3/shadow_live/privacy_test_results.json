@@ -1,0 +1,113 @@
+{
+  "timestamp": "2026-09-25T07:32:20.035Z",
+  "totalTests": 12,
+  "passCount": 12,
+  "failCount": 0,
+  "privacyScrubberStatus": "PASSED",
+  "productionIsolationStatus": "VERIFIED",
+  "testDetails": [
+    {
+      "testName": "1. JWT Token Redaction",
+      "passed": true,
+      "redactionCount": 1,
+      "redactionDetails": [
+        "JWT Token"
+      ],
+      "originalUnchanged": true,
+      "syntheticUserId": "shadow_user_anon"
+    },
+    {
+      "testName": "2. Bearer Token Redaction",
+      "passed": true,
+      "redactionCount": 1,
+      "redactionDetails": [
+        "Bearer Token"
+      ],
+      "originalUnchanged": true,
+      "syntheticUserId": "shadow_user_anon"
+    },
+    {
+      "testName": "3. API Key Redaction",
+      "passed": true,
+      "redactionCount": 1,
+      "redactionDetails": [
+        "API Key"
+      ],
+      "originalUnchanged": true,
+      "syntheticUserId": "shadow_user_anon"
+    },
+    {
+      "testName": "4. Password Redaction",
+      "passed": true,
+      "redactionCount": 1,
+      "redactionDetails": [
+        "Password"
+      ],
+      "originalUnchanged": true,
+      "syntheticUserId": "shadow_user_anon"
+    },
+    {
+      "testName": "5. Email Address Scrubbing",
+      "passed": true,
+      "redactionCount": 1,
+      "redactionDetails": [
+        "Email Address"
+      ],
+      "originalUnchanged": true,
+      "syntheticUserId": "shadow_user_anon"
+    },
+    {
+      "testName": "6. Phone Number Scrubbing",
+      "passed": true,
+      "redactionCount": 1,
+      "redactionDetails": [
+        "Phone Number"
+      ],
+      "originalUnchanged": true,
+      "syntheticUserId": "shadow_user_anon"
+    },
+    {
+      "testName": "7. Database Connection URI Redaction",
+      "passed": true,
+      "redactionCount": 1,
+      "redactionDetails": [
+        "MongoDB URI"
+      ],
+      "originalUnchanged": true,
+      "syntheticUserId": "shadow_user_anon"
+    },
+    {
+      "testName": "8. Cookie Redaction",
+      "passed": true,
+      "redactionCount": 1,
+      "redactionDetails": [
+        "Cookie"
+      ],
+      "originalUnchanged": true,
+      "syntheticUserId": "shadow_user_anon"
+    },
+    {
+      "testName": "9. Private Document Content Redaction",
+      "passed": true,
+      "redactionCount": 1,
+      "redactionDetails": [
+        "Private Document Content"
+      ],
+      "originalUnchanged": true,
+      "syntheticUserId": "shadow_user_anon"
+    },
+    {
+      "testName": "10. Mixed Sensitive + Normal Request",
+      "passed": true,
+      "redactionCount": 4,
+      "redactionDetails": [
+        "API Key",
+        "Email Address",
+        "Authorization Header",
+        "Auth Field: jwt"
+      ],
+      "originalUnchanged": true,
+      "syntheticUserId": "shadow_user_anon"
+    }
+  ]
+}
