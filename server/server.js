@@ -8,6 +8,7 @@ const chatRoutes = require('./routes/chatRoutes');
 const mathRoutes = require('./routes/mathRoutes');
 const fileRoutes = require('./routes/fileRoutes');
 const memoryRoutes = require('./routes/memoryRoutes');
+const observabilityRoutes = require('./routes/observabilityRoutes');
 
 // Load env variables
 dotenv.config();
@@ -31,6 +32,7 @@ app.use('/api/chat', chatRoutes);
 app.use('/api/math', mathRoutes);
 app.use('/api/files', fileRoutes);
 app.use('/api/memory', memoryRoutes);
+app.use('/api/observability', observabilityRoutes);
 
 
 

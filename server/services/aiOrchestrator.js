@@ -21,6 +21,7 @@ const visionTool = require('./tools/visionTool');
 const voiceTool = require('./tools/voiceTool');
 const memoryService = require('./memoryService');
 const contextFusionEngine = require('./contextFusionEngine');
+const observabilityService = require('./observabilityService');
 
 // Tool Registry Map
 const TOOL_REGISTRY = {
@@ -48,7 +49,7 @@ const detectIntent = (message, hasDocSelected = false, hasWebEnabled = false) =>
     return 'GENERAL';
   }
 
-  const isMath = /calculate|solve|\+|\*|\/|\^|percentage|sum|total|average|mean|area|integrate|derivative|equation|\bmath\b|\bmaths\b|x\s*=/i.test(msgLower);
+  const isMath = /calculate|solve|\+|\*|\/|\^|percentage|sum|total|average|\bmean\b|area|integrate|derivative|equation|\bmath\b|\bmaths\b|x\s*=/i.test(msgLower);
   const isDoc = hasDocSelected || /pdf|doc|document|file|chapter|page|according to|uploaded/i.test(msgLower);
   const isCode = /```|function|const |let |var |import |export |class |react|javascript|python|typescript|html|css/i.test(msgLower);
   const isWeb = hasWebEnabled || /latest|current|news|web search|online|url|price of|weather|rate|exchange/i.test(msgLower);
@@ -61,9 +62,9 @@ const detectIntent = (message, hasDocSelected = false, hasWebEnabled = false) =>
 
   if (isDoc) return 'DOCUMENT';
   if (isMath) return 'MATH';
+  if (isMemory) return 'MEMORY';
   if (isCode) return 'CODING';
   if (isWeb) return 'WEB';
-  if (isMemory) return 'MEMORY';
 
   return 'GENERAL';
 };
@@ -426,7 +427,7 @@ const processRequest = async ({
       model: slmRes.data ? (slmRes.data.model || model) : model
     });
 
-    return {
+    const resultPayload = {
       success: true,
       answer: finalAnswer,
       intent,
@@ -443,8 +444,37 @@ const processRequest = async ({
       model: slmRes.data ? (slmRes.data.model || model) : model
     };
 
+    // Non-blocking telemetry event recording
+    observabilityService.recordEvent({
+      requestId,
+      taskId: taskModel.taskId,
+      userId,
+      intent,
+      toolsUsed,
+      model: resultPayload.model,
+      success: true,
+      totalLatencyMs,
+      citations,
+      sources,
+      conflictsCount: normalizedContext.conflicts ? normalizedContext.conflicts.length : 0
+    });
+
+    return resultPayload;
+
   } catch (err) {
     console.error('AI Orchestrator Execution Error:', err);
+
+    observabilityService.recordEvent({
+      requestId,
+      userId,
+      intent: intent || 'UNKNOWN',
+      toolsUsed: toolsUsed || [],
+      model: model || 'Mathiyon SLM v1.2',
+      success: false,
+      totalLatencyMs: Date.now() - startTime,
+      error: err.message
+    });
+
     return {
       success: false,
       error: `AI Orchestration failure: ${err.message}`,

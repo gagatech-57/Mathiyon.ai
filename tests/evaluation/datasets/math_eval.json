@@ -1,0 +1,12 @@
+[
+  { "id": "M01", "category": "arithmetic", "query": "125 + 375", "expected": "500" },
+  { "id": "M02", "category": "fractions", "query": "1/4 + 2/4", "expected": "3/4" },
+  { "id": "M03", "category": "percentages", "query": "25% of 200", "expected": "50" },
+  { "id": "M04", "category": "algebra", "query": "solve x + 5 = 15", "expected": "x = 10" },
+  { "id": "M05", "category": "calculus", "query": "derivative of x^2", "expected": "2*x" },
+  { "id": "M06", "category": "geometry", "query": "area of circle radius 5", "expected": "25*pi" },
+  { "id": "M07", "category": "statistics", "query": "mean of 10, 20, 30", "expected": "20" },
+  { "id": "M08", "category": "unit_conversion", "query": "convert 1 km to meters", "expected": "1000" },
+  { "id": "M09", "category": "matrices", "query": "determinant of [[1, 2], [3, 4]]", "expected": "-2" },
+  { "id": "M10", "category": "equations", "query": "solve 2*x - 8 = 0", "expected": "x = 4" }
+]
