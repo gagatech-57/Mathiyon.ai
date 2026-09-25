@@ -71,6 +71,19 @@ export const DashboardPreview: React.FC<DashboardPreviewProps> = ({ user, onSign
     }
   }, []);
 
+  // Load past message history for a selected conversation
+  const loadConversationMessages = async (convId: string) => {
+    setIsGenerating(true);
+    const res = await apiGetConversationMessages(convId);
+    setIsGenerating(false);
+
+    if (res.success && res.messages) {
+      setMessages(res.messages);
+    } else {
+      setMessages([]);
+    }
+  };
+
   // Fetch real user-specific conversations from MongoDB via Chat API
   useEffect(() => {
     const fetchUserChatHistory = async () => {
@@ -93,19 +106,6 @@ export const DashboardPreview: React.FC<DashboardPreviewProps> = ({ user, onSign
 
     fetchUserChatHistory();
   }, [user.id]);
-
-  // Load past message history for a selected conversation
-  const loadConversationMessages = async (convId: string) => {
-    setIsGenerating(true);
-    const res = await apiGetConversationMessages(convId);
-    setIsGenerating(false);
-
-    if (res.success && res.messages) {
-      setMessages(res.messages);
-    } else {
-      setMessages([]);
-    }
-  };
 
   // Select conversation from sidebar
   const handleSelectConversation = (convId: string) => {
