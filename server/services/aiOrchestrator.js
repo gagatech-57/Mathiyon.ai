@@ -1,14 +1,14 @@
 /**
- * Mathiyon AI - Production AI Agent & Multi-Tool Orchestrator (Phase 12.3)
+ * Mathiyon AI - Production AI Agent & Multi-Tool Orchestrator (Universal Intelligence Upgrade)
  *
- * Real-Time Web Intelligence + Multi-Tool Chaining + Citations + Live Events
- * - Intent System: GENERAL, MATH, CODING, DOCUMENT, MEMORY, WEB, MULTI_TOOL, UNKNOWN
- * - Multi-Tool Chaining: WEB->MATH->SLM, RAG->WEB->SLM, MEMORY->WEB->SLM, WEB->CODE/SLM
- * - Standardized Citations & Sources formatting ({ id, title, url, domain })
- * - SSRF Protection & Safe Web Query Sanitization
- * - Single-retry tool fault recovery & controlled fallbacks
- * - Strict User Isolation & Authorization (HTTP 403 enforcement)
- * - Production Model Integrity: Mathiyon SLM v1.2 = 100% Production Default
+ * Universal Query Pipeline:
+ * USER QUESTION -> Intent Detection -> Context Detection -> Capability Selection ->
+ * Tool/Knowledge/Memory Retrieval -> Execution -> Result Verification -> Response Generation -> FINAL ANSWER
+ *
+ * Supported Intents:
+ * GENERAL, MATH, CODING, DOCUMENT, MEMORY, WEB, MULTI_TOOL, TIME_DATE, CALCULATOR,
+ * CURRENCY, UNIT_CONVERSION, WEATHER, DATE_CALCULATION, WRITING, TRANSLATION, SUMMARIZATION,
+ * KNOWLEDGE_RETRIEVAL, UNKNOWN
  */
 
 const mathTool = require('./tools/mathTool');
@@ -19,6 +19,12 @@ const codeTool = require('./tools/codeTool');
 const webSearchTool = require('./tools/webSearchTool');
 const visionTool = require('./tools/visionTool');
 const voiceTool = require('./tools/voiceTool');
+const timeDateTool = require('./tools/timeDateTool');
+const currencyTool = require('./tools/currencyTool');
+const unitConversionTool = require('./tools/unitConversionTool');
+const weatherTool = require('./tools/weatherTool');
+const calculatorTool = require('./tools/calculatorTool');
+
 const memoryService = require('./memoryService');
 const contextFusionEngine = require('./contextFusionEngine');
 const observabilityService = require('./observabilityService');
@@ -33,6 +39,11 @@ const TOOL_REGISTRY = {
   WebSearch: webSearchTool,
   VisionEngine: visionTool,
   VoiceEngine: voiceTool,
+  TimeDateEngine: timeDateTool,
+  CurrencyEngine: currencyTool,
+  UnitConversionEngine: unitConversionTool,
+  WeatherEngine: weatherTool,
+  CalculatorEngine: calculatorTool
 };
 
 const TOOL_TIMEOUT_MS = 10000;
@@ -45,26 +56,77 @@ const detectIntent = (message, hasDocSelected = false, hasWebEnabled = false) =>
   if (!message || typeof message !== 'string') return 'UNKNOWN';
   const msgLower = message.toLowerCase().trim();
 
-  // Greeting check first
-  if (/^(hi|hello|hey|greetings|good morning|good evening|howdy)/i.test(msgLower)) {
+  // 1. Greeting / Basic General Conversation
+  if (/^(hi|hello|hey|greetings|good morning|good afternoon|good evening|howdy|how are you|who are you)/i.test(msgLower)) {
     return 'GENERAL';
   }
 
-  const isMath = /calculate|solve|\+|\*|\/|\^|percentage|sum|total|average|\bmean\b|area|integrate|derivative|equation|\bmath\b|\bmaths\b|x\s*=/i.test(msgLower);
+  // 2. Document Selection / RAG
   const isDoc = hasDocSelected || /pdf|doc|document|file|chapter|page|according to|uploaded/i.test(msgLower);
-  const isCode = /```|function|const |let |var |import |export |class |react|javascript|python|typescript|html|css/i.test(msgLower);
-  const isWeb = hasWebEnabled || /latest|current|news|web search|online|url|price of|weather|rate|exchange/i.test(msgLower);
-  const isMemory = /remember that|my project is|i use|my name is|what do you remember/i.test(msgLower);
+
+  // 3. Time / Date & Date Calculation
+  const isDateCalc = /how many days (until|between|from)|what date is \d+ days|days between/i.test(msgLower);
+  const isTimeDate = !isDateCalc && /\b(what('?s| is)? (today'?s|current|the) (date|time|day|year|month))\b|what time is it|what day is today|current year|what month is it|time in \w+|date in \w+/i.test(msgLower);
+
+  // 4. Currency
+  const isCurrency = /convert \d+ \w+ to \w+|how much is \d+ \w+ in \w+|usd to inr|eur to inr|inr to usd|\b(exchange rate|currency conversion)\b/i.test(msgLower);
+
+  // 5. Unit Conversion
+  const isUnit = /\b(\d+(\.\d+)?\s*(kg|lb|lbs|km|miles|celsius|fahrenheit|liters|gallons|meters|feet)\s*(in|to|into)\s*(kg|lb|lbs|km|miles|celsius|fahrenheit|liters|gallons|meters|feet))\b|unit conversion/i.test(msgLower);
+
+  // 6. Weather
+  const isWeather = /\b(weather|temperature|rain|rainy|cloudy|sunny|forecast)\b|will it rain/i.test(msgLower);
+
+  // 7. Simple Calculator (e.g., "25 * 30", "154 / 7")
+  const isSimpleCalc = /^(\d+(\.\d+)?\s*[\+\-\*\/]\s*\d+(\.\d+)?)$/.test(msgLower.replace(/\s+/g, '')) || /^\s*calculate\s+\d+\s*[\+\-\*\/]\s*\d+\s*$/i.test(msgLower);
+
+  // 8. Math Engine (SymPy - Algebra, Calculus, Equations, Word problems)
+  const isMath = /solve|\bderivative\b|\bintegrate\b|percentage|equation|x\s*=|differentiate|matrix|matrices|trigonometry|algebra|fraction|\bmath\b|\bmaths\b/i.test(msgLower) || (/[\+\-\*\/\^\=]/.test(msgLower) && !isSimpleCalc && !isDateCalc && !isCurrency && !isUnit);
+
+  // 9. Coding
+  const isCode = /```|function|const |let |var |import |export |class |react|javascript|python|typescript|html|css|sql|mongodb|postgresql|api|express|node\.js|node|create a react|write code|debug/i.test(msgLower);
+
+  // 10. Memory
+  const isMemory = /remember that|my project is|i use|my name is|what is my name|what do you remember/i.test(msgLower);
+
+  // 11. Translation
+  const isTranslation = /translate|in tamil|into tamil|tamil sentence|tanglish/i.test(msgLower);
+
+  // 12. Writing / Editing
+  const isWriting = /write (a|an)? (email|letter|resume|cover letter|essay|story|poem)|proofread|rewrite|draft/i.test(msgLower);
+
+  // 13. Summarization
+  const isSummarize = /summarize|summary of|brief outline/i.test(msgLower);
+
+  // 14. Web Intelligence
+  const isWeb = hasWebEnabled || /latest news|current price|today's event|latest react version|current weather|latest version|who is the current/i.test(msgLower);
 
   // Multi-Tool Detection Rules
-  if ((isDoc && isMath) || (isDoc && isCode) || (isMemory && isMath) || (isWeb && isMath) || (isDoc && isWeb)) {
+  let activeToolCount = 0;
+  if (isDoc) activeToolCount++;
+  if (isWeb) activeToolCount++;
+  if (isMath || isSimpleCalc) activeToolCount++;
+  if (isCurrency) activeToolCount++;
+  if (isTimeDate || isDateCalc) activeToolCount++;
+  if (isMemory) activeToolCount++;
+
+  if (activeToolCount >= 2 || (isWeb && (isCurrency || isSimpleCalc || isCode)) || (isDoc && (isMath || isCode))) {
     return 'MULTI_TOOL';
   }
 
+  if (isTimeDate) return 'TIME_DATE';
+  if (isDateCalc) return 'DATE_CALCULATION';
+  if (isCurrency) return 'CURRENCY';
+  if (isUnit) return 'UNIT_CONVERSION';
+  if (isWeather) return 'WEATHER';
+  if (isSimpleCalc) return 'CALCULATOR';
   if (isDoc) return 'DOCUMENT';
   if (isMath) return 'MATH';
   if (isMemory) return 'MEMORY';
   if (isCode) return 'CODING';
+  if (isTranslation) return 'TRANSLATION';
+  if (isWriting) return 'WRITING';
+  if (isSummarize) return 'SUMMARIZATION';
   if (isWeb) return 'WEB';
 
   return 'GENERAL';
@@ -127,7 +189,7 @@ async function executeToolWithTimeout(tool, params, timeoutMs = TOOL_TIMEOUT_MS)
 }
 
 /**
- * AI Orchestrator Main Entrypoint (Phase 12.3 Real-Time Web Agent)
+ * AI Orchestrator Main Entrypoint (Universal Intelligence Upgrade)
  */
 const processRequest = async ({
   userId,
@@ -140,7 +202,7 @@ const processRequest = async ({
   const startTime = Date.now();
   const requestId = `req_${Math.random().toString(36).substring(2, 10)}`;
 
-  // Multi-Turn Reference Resolution (pronouns: this, that, previous result, second point)
+  // Multi-Turn Reference Resolution
   const { resolvedQuery } = contextFusionEngine.resolveMultiTurnContext(message, conversationHistory);
   const activeMessage = resolvedQuery;
 
@@ -161,7 +223,7 @@ const processRequest = async ({
   };
 
   try {
-    // --- STEP 1: MEMORY RETRIEVAL / DIRECTIVES ---
+    // --- STEP 1: MEMORY RETRIEVAL & RETENTION ---
     let memoryContextStr = '';
     let retrievedMemories = [];
     if (/remember that|remember my|store fact/i.test(activeMessage)) {
@@ -180,7 +242,134 @@ const processRequest = async ({
       agentTrace.push({ stage: 'tool_success', tool: 'Memory', action: 'retrieve', status: 'success', count: userMemories.length });
     }
 
-    // --- STEP 2: MULTI-TOOL & SINGLE-TOOL EXECUTION PIPELINE ---
+    // --- STEP 2: DETERMINISTIC DIRECT CAPABILITY SHORT-CIRCUITS ---
+
+    // 2A. Time / Date Queries (Real-Time System Clock)
+    if (intent === 'TIME_DATE' || intent === 'DATE_CALCULATION') {
+      agentTrace.push({ stage: 'tool_running', tool: 'TimeDateEngine', label: 'Querying system clock...' });
+      const timeRes = await executeToolWithTimeout(timeDateTool, { query: activeMessage });
+      if (timeRes.success && timeRes.data) {
+        toolsUsed.push('TimeDateEngine');
+        agentTrace.push({ stage: 'tool_success', tool: 'TimeDateEngine', action: 'clock', status: 'success', latencyMs: timeRes.metadata.latencyMs });
+
+        return {
+          success: true,
+          answer: timeRes.data.formatted,
+          intent,
+          toolsUsed,
+          sources: [],
+          citations: [],
+          verified: true,
+          requestId,
+          totalLatencyMs: Date.now() - startTime,
+          agentTrace,
+          taskModel: { ...taskModel, status: 'completed' },
+          model
+        };
+      }
+    }
+
+    // 2B. Simple Calculator Queries
+    if (intent === 'CALCULATOR') {
+      agentTrace.push({ stage: 'tool_running', tool: 'CalculatorEngine', label: 'Calculating...' });
+      const calcRes = await executeToolWithTimeout(calculatorTool, { expression: activeMessage });
+      if (calcRes.success && calcRes.data) {
+        toolsUsed.push('CalculatorEngine');
+        agentTrace.push({ stage: 'tool_success', tool: 'CalculatorEngine', action: 'compute', status: 'success', latencyMs: calcRes.metadata.latencyMs });
+
+        return {
+          success: true,
+          answer: calcRes.data.formatted,
+          intent,
+          toolsUsed,
+          sources: [],
+          citations: [],
+          verified: true,
+          requestId,
+          totalLatencyMs: Date.now() - startTime,
+          agentTrace,
+          taskModel: { ...taskModel, status: 'completed' },
+          model
+        };
+      }
+    }
+
+    // 2C. Currency Conversion Queries
+    if (intent === 'CURRENCY') {
+      agentTrace.push({ stage: 'tool_running', tool: 'CurrencyEngine', label: 'Checking exchange rates...' });
+      const currRes = await executeToolWithTimeout(currencyTool, { query: activeMessage });
+      if (currRes.success && currRes.data) {
+        toolsUsed.push('CurrencyEngine');
+        agentTrace.push({ stage: 'tool_success', tool: 'CurrencyEngine', action: 'convert', status: 'success', latencyMs: currRes.metadata.latencyMs });
+
+        return {
+          success: true,
+          answer: currRes.data.formatted,
+          intent,
+          toolsUsed,
+          sources: [],
+          citations: [],
+          verified: true,
+          requestId,
+          totalLatencyMs: Date.now() - startTime,
+          agentTrace,
+          taskModel: { ...taskModel, status: 'completed' },
+          model
+        };
+      }
+    }
+
+    // 2D. Unit Conversion Queries
+    if (intent === 'UNIT_CONVERSION') {
+      agentTrace.push({ stage: 'tool_running', tool: 'UnitConversionEngine', label: 'Converting units...' });
+      const unitRes = await executeToolWithTimeout(unitConversionTool, { query: activeMessage });
+      if (unitRes.success && unitRes.data) {
+        toolsUsed.push('UnitConversionEngine');
+        agentTrace.push({ stage: 'tool_success', tool: 'UnitConversionEngine', action: 'convert', status: 'success', latencyMs: unitRes.metadata.latencyMs });
+
+        return {
+          success: true,
+          answer: unitRes.data.formatted,
+          intent,
+          toolsUsed,
+          sources: [],
+          citations: [],
+          verified: true,
+          requestId,
+          totalLatencyMs: Date.now() - startTime,
+          agentTrace,
+          taskModel: { ...taskModel, status: 'completed' },
+          model
+        };
+      }
+    }
+
+    // 2E. Real-Time Weather Queries
+    if (intent === 'WEATHER') {
+      agentTrace.push({ stage: 'tool_running', tool: 'WeatherEngine', label: 'Fetching weather...' });
+      const wxRes = await executeToolWithTimeout(weatherTool, { query: activeMessage });
+      if (wxRes.success && wxRes.data) {
+        toolsUsed.push('WeatherEngine');
+        agentTrace.push({ stage: 'tool_success', tool: 'WeatherEngine', action: 'fetch', status: 'success', latencyMs: wxRes.metadata.latencyMs });
+
+        return {
+          success: true,
+          answer: wxRes.data.formatted,
+          intent,
+          toolsUsed,
+          sources: [],
+          citations: [],
+          verified: true,
+          requestId,
+          totalLatencyMs: Date.now() - startTime,
+          agentTrace,
+          taskModel: { ...taskModel, status: 'completed' },
+          model
+        };
+      }
+    }
+
+    // --- STEP 3: ADVANCED TOOL EXECUTION & CHAINING ---
     let ragData = null;
     let mathData = null;
     let webData = null;
@@ -188,14 +377,12 @@ const processRequest = async ({
     let retrievedDocs = [];
     let retrievedWeb = [];
 
-    // Step 2A: RAG Document Search
+    // Step 3A: RAG Document Search
     if (intent === 'DOCUMENT' || intent === 'MULTI_TOOL' || documentIds.length > 0) {
       taskModel.steps.push({ stepId: 'step_rag', tool: 'RAG', action: 'search', status: 'running' });
       agentTrace.push({ stage: 'tool_running', tool: 'RAG', label: 'Searching documents...' });
 
       let ragRes = await executeToolWithTimeout(ragTool, { userId, query: activeMessage, documentIds, topK: 5 });
-
-      // Single-retry on non-fatal timeout
       if (!ragRes.success && !ragRes.metadata.forbidden && ragRes.error?.code === 'TOOL_TIMEOUT') {
         ragRes = await executeToolWithTimeout(ragTool, { userId, query: activeMessage, documentIds, topK: 5 });
       }
@@ -225,14 +412,12 @@ const processRequest = async ({
       }
     }
 
-    // Step 2B: Web Intelligence Search
+    // Step 3B: Web Intelligence Search
     if (intent === 'WEB' || intent === 'MULTI_TOOL' || enableWebSearch) {
       taskModel.steps.push({ stepId: 'step_web', tool: 'WebSearch', action: 'search', status: 'running' });
       agentTrace.push({ stage: 'tool_running', tool: 'WebSearch', label: 'Searching live web...' });
 
       let webRes = await executeToolWithTimeout(webSearchTool, { query: activeMessage });
-
-      // Single-retry on web timeout
       if (!webRes.success && webRes.error?.code === 'TOOL_TIMEOUT') {
         webRes = await executeToolWithTimeout(webSearchTool, { query: activeMessage });
       }
@@ -255,13 +440,12 @@ const processRequest = async ({
       }
     }
 
-    // Step 2C: Math Engine Solver (SymPy Authoritative)
+    // Step 3C: Math Engine Solver (SymPy Authoritative)
     if (intent === 'MATH' || intent === 'MULTI_TOOL') {
       taskModel.steps.push({ stepId: 'step_math', tool: 'MathEngine', action: 'solve', dependsOn: ragData ? ['step_rag'] : (webData ? ['step_web'] : []) });
       agentTrace.push({ stage: 'tool_running', tool: 'MathEngine', label: 'Calculating with SymPy...' });
 
       let mathQuery = activeMessage;
-      // Extract numeric math expression or use Web / RAG context if multi-tool
       const mathExprMatch = activeMessage.match(/(\d+[\s*\/+\-^.]+\d+[\s*\/+\-^.\d]*|[a-zA-Z0-9\s*\/+\-^.]+=+[a-zA-Z0-9\s*\/+\-^.]+)/);
       if (mathExprMatch && mathExprMatch[1] && mathExprMatch[1].trim().length >= 3) {
         mathQuery = mathExprMatch[1].trim();
@@ -272,8 +456,6 @@ const processRequest = async ({
       }
 
       let mathRes = await executeToolWithTimeout(mathTool, { question: mathQuery });
-
-      // Single-retry on math failure
       if (!mathRes.success) {
         mathRes = await executeToolWithTimeout(mathTool, { question: mathQuery });
       }
@@ -290,7 +472,7 @@ const processRequest = async ({
       }
     }
 
-    // Step 2D: Code Engine Analysis
+    // Step 3D: Code Engine Analysis
     if (intent === 'CODING') {
       agentTrace.push({ stage: 'tool_running', tool: 'CodeEngine', label: 'Analyzing code...' });
       let codeRes = await executeToolWithTimeout(codeTool, { code: activeMessage, query: activeMessage });
@@ -314,14 +496,13 @@ const processRequest = async ({
       mathResults: mathData ? [mathData] : []
     });
 
-    // Populate structured document citations into normalized citations list
     normalizedContext.documents.forEach(d => {
       if (d.citation && !citations.some(c => c.id === d.citation.id)) {
         citations.push(d.citation);
       }
     });
 
-    // --- STEP 3: RESPONSE COMPOSER & SLM SYNTHESIS ---
+    // --- STEP 4: RESPONSE COMPOSITION & SLM SYNTHESIS ---
 
     // Pure Math Intent (SymPy Authoritative Win)
     if (intent === 'MATH' && mathData && mathData.verified) {
@@ -339,11 +520,12 @@ const processRequest = async ({
         totalLatencyMs: Date.now() - startTime,
         agentTrace,
         taskModel: { ...taskModel, status: 'completed' },
-        normalizedContext
+        normalizedContext,
+        model
       };
     }
 
-    // Missing Document Fact Protection (If document query, no facts found, and Web search not requested)
+    // Missing Document Fact Protection
     if ((intent === 'DOCUMENT' || intent === 'MULTI_TOOL') && ragData && !ragData.found && documentIds.length > 0 && !enableWebSearch && !webData) {
       toolsUsed.push('SLM');
       return {
@@ -358,12 +540,13 @@ const processRequest = async ({
         totalLatencyMs: Date.now() - startTime,
         agentTrace,
         taskModel: { ...taskModel, status: 'completed' },
-        normalizedContext
+        normalizedContext,
+        model
       };
     }
 
-    // Synthesize context for SLM
-    let systemInstructions = `SYSTEM: You are Mathiyon AI, a powerful, accurate AI intelligence assistant.`;
+    // System instruction prompt synthesis
+    let systemInstructions = `SYSTEM: You are Mathiyon AI, an intelligent production AI assistant. Answer accurately based on verified tool contexts and general intelligence.`;
 
     if (memoryContextStr) {
       systemInstructions += `\nUSER MEMORIES & PREFERENCES:\n${memoryContextStr}\n`;
@@ -381,12 +564,18 @@ const processRequest = async ({
       systemInstructions += `\nVERIFIED MATH ENGINE RESULT: ${mathData.result} (${mathData.explanation})\nUse this verified result in your answer.\n`;
     }
 
+    if (intent === 'TRANSLATION') {
+      systemInstructions += `\nTASK: Translate the user prompt cleanly while preserving tone and meaning. Supported languages include Tamil, English, and Tanglish.\n`;
+    }
+
+    if (intent === 'WRITING') {
+      systemInstructions += `\nTASK: Write or edit clear, well-structured, professional output (e.g. email, resume, summary, proofread text).\n`;
+    }
+
     const slmPrompt = `${systemInstructions}\nUSER PROMPT: ${activeMessage}`;
     agentTrace.push({ stage: 'composing', tool: 'SLM', label: 'Preparing final response...' });
 
     let slmRes = await executeToolWithTimeout(slmTool, { message: slmPrompt, conversation: conversationHistory, model });
-
-    // Single-retry for SLM tool
     if (!slmRes.success) {
       slmRes = await executeToolWithTimeout(slmTool, { message: slmPrompt, conversation: conversationHistory, model });
     }
@@ -397,24 +586,21 @@ const processRequest = async ({
     if (slmRes.success && slmRes.data) {
       finalAnswer = slmRes.data.response;
 
-      // Authoritative Math Result Injection
       if (mathData && mathData.result && !finalAnswer.includes(mathData.result)) {
         finalAnswer += `\n\n🧮 **Verified Math Computation:** ${mathData.result}`;
       }
 
-      // Conflict Notice Formatting
       if (normalizedContext.conflicts && normalizedContext.conflicts.length > 0) {
         const conflictMsgs = normalizedContext.conflicts.map(c => `- ⚠️ ${c.description}`).join('\n');
         finalAnswer += `\n\n⚠️ **Source Conflict Notice:**\n${conflictMsgs}`;
       }
 
-      // Inline Citation References if applicable
       if (sources.length > 0 && !finalAnswer.includes('Source Citation') && !finalAnswer.includes('Sources:')) {
         const citStr = sources.map(s => s.page ? `- ${s.file} — Page ${s.page}` : `- [${s.file || s.title}](${s.url || '#'})`).join('\n');
         finalAnswer += `\n\n📍 **Source Citations:**\n${citStr}`;
       }
     } else {
-      finalAnswer = `Mathiyon AI response: Standard fallback response for user query '${message}'.`;
+      finalAnswer = slmRes.error?.message || 'Mathiyon AI is temporarily unable to process your request. Please try again.';
     }
 
     const totalLatencyMs = Date.now() - startTime;
@@ -445,7 +631,6 @@ const processRequest = async ({
       model: slmRes.data ? (slmRes.data.model || model) : model
     };
 
-    // Non-blocking telemetry event recording
     observabilityService.recordEvent({
       requestId,
       taskId: taskModel.taskId,

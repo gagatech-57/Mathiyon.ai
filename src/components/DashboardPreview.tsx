@@ -30,7 +30,7 @@ export const DashboardPreview: React.FC<DashboardPreviewProps> = ({ user, onSign
   const [messages, setMessages] = useState<ChatMessage[]>([]);
   const [isGenerating, setIsGenerating] = useState(false);
   const [isLoadingHistory, setIsLoadingHistory] = useState(true);
-  const [activeModel, setActiveModel] = useState('Mathiyon Neural v4.0');
+  const [activeModel, setActiveModel] = useState('Mathiyon SLM v1.2');
   const [activeNav, setActiveNav] = useState('explore');
 
   // Sidebar & Panel state

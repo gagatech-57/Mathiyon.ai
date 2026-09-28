@@ -19,7 +19,7 @@ export const Navbar: React.FC<NavbarProps> = ({
   user,
   onSignOut,
   onOpenMobileSidebar,
-  activeModel = 'Mathiyon Neural v4.0',
+  activeModel = 'Mathiyon SLM v1.2',
   isDarkTheme,
   onToggleTheme,
   onToggleRightPanel,
@@ -44,7 +44,7 @@ export const Navbar: React.FC<NavbarProps> = ({
             MATHIYON AI
           </span>
           <span className="px-2 py-0.5 text-[9px] font-bold uppercase tracking-wider bg-rose-500/15 text-rose-300 border border-rose-500/25 rounded-md">
-            v4.0
+            v1.2
           </span>
         </div>
 

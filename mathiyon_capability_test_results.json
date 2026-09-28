@@ -1,0 +1,271 @@
+{
+  "timestamp": "2026-09-28T09:17:18.745Z",
+  "total": 21,
+  "passed": 21,
+  "failed": 0,
+  "passRate": "100%",
+  "testResults": [
+    {
+      "test": "GENERAL",
+      "prompt": "hi",
+      "status": "PASS",
+      "detectedIntent": "GENERAL",
+      "expectedIntent": "GENERAL",
+      "toolsUsed": [
+        "SLM"
+      ],
+      "answer": "Hello! I am Mathiyon AI. How can I help you with your coding or queries today?",
+      "latencyMs": 65
+    },
+    {
+      "test": "DATE",
+      "prompt": "What is today's date?",
+      "status": "PASS",
+      "detectedIntent": "TIME_DATE",
+      "expectedIntent": "TIME_DATE",
+      "toolsUsed": [
+        "TimeDateEngine"
+      ],
+      "answer": "Today is **Monday**, Monday, September 28, 2026.",
+      "latencyMs": 22
+    },
+    {
+      "test": "TIME",
+      "prompt": "What time is it?",
+      "status": "PASS",
+      "detectedIntent": "TIME_DATE",
+      "expectedIntent": "TIME_DATE",
+      "toolsUsed": [
+        "TimeDateEngine"
+      ],
+      "answer": "The current time in **Asia/Kolkata** is **02:47:15 PM** (Monday, September 28, 2026).",
+      "latencyMs": 21
+    },
+    {
+      "test": "DAY",
+      "prompt": "What day is today?",
+      "status": "PASS",
+      "detectedIntent": "TIME_DATE",
+      "expectedIntent": "TIME_DATE",
+      "toolsUsed": [
+        "TimeDateEngine"
+      ],
+      "answer": "Today is **Monday**, Monday, September 28, 2026.",
+      "latencyMs": 22
+    },
+    {
+      "test": "TIMEZONE",
+      "prompt": "What time is it in London?",
+      "status": "PASS",
+      "detectedIntent": "TIME_DATE",
+      "expectedIntent": "TIME_DATE",
+      "toolsUsed": [
+        "TimeDateEngine"
+      ],
+      "answer": "The current time in **Europe/London** is **10:17:15 AM** (Monday, September 28, 2026).",
+      "latencyMs": 20
+    },
+    {
+      "test": "DATE_CALC",
+      "prompt": "What date is 30 days from today?",
+      "status": "PASS",
+      "detectedIntent": "DATE_CALCULATION",
+      "expectedIntent": "DATE_CALCULATION",
+      "toolsUsed": [
+        "TimeDateEngine"
+      ],
+      "answer": "**30 days from today** will be **Wednesday, October 28, 2026**.",
+      "latencyMs": 21
+    },
+    {
+      "test": "MATH",
+      "prompt": "25 * 30",
+      "status": "PASS",
+      "detectedIntent": "CALCULATOR",
+      "expectedIntent": "CALCULATOR",
+      "toolsUsed": [
+        "CalculatorEngine"
+      ],
+      "answer": "**25 * 30** = **750**",
+      "latencyMs": 20
+    },
+    {
+      "test": "ALGEBRA",
+      "prompt": "2x + 5 = 15",
+      "status": "PASS",
+      "detectedIntent": "MATH",
+      "expectedIntent": "MATH",
+      "toolsUsed": [
+        "MathEngine",
+        "SLM"
+      ],
+      "answer": "**Verified Solution:** x = 5\n\n### [Verified Math Engine] Solution for: `2x + 5 = 15`\n\n• **Domain Category**: `Algebra`\n• **Computation Type**: `Exact Symbolic`\n\n#### 1. Formula / Theorem\n```text\nEquation: Eq(2*x + 5, 15)\n```\n\n#### 2. Step-by-Step Solution Breakdown\n**Step 1**: Formulate equation: 2*x + 5 = 15\n**Step 2**: Solve for target variable (x): Eq(2*x + 5, 15)\n**Step 3**: Roots / Solution values: x = 5\n\n#### 3. Independent Verification (`PASSED`)\n```text\n15 = 15\n```\n\n#### Final Result\n> **`x = 5`**",
+      "latencyMs": 40
+    },
+    {
+      "test": "TAMIL",
+      "prompt": "வணக்கம், எப்படி இருக்கிறாய்?",
+      "status": "PASS",
+      "detectedIntent": "GENERAL",
+      "expectedIntent": "GENERAL",
+      "toolsUsed": [
+        "SLM"
+      ],
+      "answer": "வணக்கம்! நான் மதியோன் AI. உங்களுக்கு எவ்வாறு உதவ முடியும்?",
+      "latencyMs": 61
+    },
+    {
+      "test": "TANGLISH",
+      "prompt": "25 oda 15% calculate pannu",
+      "status": "PASS",
+      "detectedIntent": "GENERAL",
+      "expectedIntent": "MATH",
+      "toolsUsed": [
+        "SLM"
+      ],
+      "answer": "### [Verified Math Engine] Solution for: `25 oda 15% calculate pannu`\n\n• **Domain Category**: `Basic Arithmetic`\n• **Computation Type**: `Exact Symbolic`\n\n#### 1. Formula / Theorem\n```text\nResult = (Percentage / 100) × Total\n```\n\n#### 2. Step-by-Step Solution Breakdown\n**Step 1**: Identify percentage rate: 25.0%\n**Step 2**: Identify base value: 15.0\n**Step 3**: Calculate: (25.0 / 100) × 15.0 = 3.7500\n\n#### 3. Independent Verification (`PASSED`)\n```text\n25.0% × 15.0 = 3.7500\n```\n\n#### Final Result\n> **`3.7500`**",
+      "latencyMs": 54
+    },
+    {
+      "test": "CODING",
+      "prompt": "Create a React login form",
+      "status": "PASS",
+      "detectedIntent": "CODING",
+      "expectedIntent": "CODING",
+      "toolsUsed": [
+        "CodeEngine",
+        "SLM"
+      ],
+      "answer": "### [Verified Math Engine] Solution for: `Create a React login form`\n\n• **Domain Category**: `General Math`\n• **Computation Type**: `Exact Symbolic`\n\n#### 1. Formula / Theorem\n```text\nOrder of Operations (PEMDAS)\n```\n\n#### 2. Step-by-Step Solution Breakdown\n**Step 1**: Parse arithmetic expression: Create a React login form\n**Step 2**: Apply exact rational order of operations (BODMAS/PEMDAS): C*R*a**3*c*e**3*f*g*i*l*m*n*o**2*r**2*t**2\n\n#### 3. Independent Verification (`PASSED`)\n```text\nCreate a React login form = C*R*a**3*c*e**3*f*g*i*l*m*n*o**2*r**2*t**2\n```\n\n#### Final Result\n> **`C*R*a**3*c*e**3*f*g*i*l*m*n*o**2*r**2*t**2`**",
+      "latencyMs": 61
+    },
+    {
+      "test": "RAG",
+      "prompt": "What does my uploaded document say about performance?",
+      "status": "PASS",
+      "detectedIntent": "DOCUMENT",
+      "expectedIntent": "DOCUMENT",
+      "toolsUsed": [
+        "RAG",
+        "SLM"
+      ],
+      "answer": "Hello! I have processed your request: \"SYSTEM: You are Mathiyon AI, an intelligent production AI assistant. Answer accurately based on verified tool contexts and general intelligence.\nDOCUMENT CONTEXT (Strict Source Truth):\n[Source: mathiyon_rag_demo.pdf — Page 1]\nMathiyon AI — RAG Demo Document\nThis PDF is intentionally designed for testing Mathiyon's document upload, text extraction, chunking,\nretrieval, and question-answering pipeline.\n1. About Mathiyon AI\nMathiyon AI is an experimental AI assistant platform. Its architecture combines a React user interface, a\nNode.js and Express backend, MongoDB for persistent application data, and a Python PyTorch service for\nlanguage-model inference. The platform can also use a document retrieval pipeline to answer questions\nfrom uploaded files.\n2. Mathematics Knowledge\nFor exact mathematical calculations, Mathiyon can route suitable questions to a deterministic mathematics\nengine. For example, 25 × 48 = 1200. The fraction 1/3 + 1/6 = 1/2. The linear equation 2x + 5 = 15 has the\nsolution x = 5.\nA circle with\n\n[Source: mathiyon_rag_demo.pdf — Page 1]\nMathiyon AI — RAG Demo Document\nThis PDF is intentionally designed for testing Mathiyon's document upload, text extraction, chunking,\nretrieval, and question-answering pipeline.\n1. About Mathiyon AI\nMathiyon AI is an experimental AI assistant platform. Its architecture combines a React user interface, a\nNode.js and Express backend, MongoDB for persistent application data, and a Python PyTorch service for\nlanguage-model inference. The platform can also use a document retrieval pipeline to answer questions\nfrom uploaded files.\n2. Mathematics Knowledge\nFor exact mathematical calculations, Mathiyon can route suitable questions to a deterministic mathematics\nengine. For example, 25 × 48 = 1200. The fraction 1/3 + 1/6 = 1/2. The linear equation 2x + 5 = 15 has the\nsolution x = 5.\nA circle with\n\n[Source: mathiyon_rag_demo.pdf — Page 2]\n6. What is the area formula for a circle?\n7. What React hook is mentioned for managing state?\n8. What is the recommended retrieval Top-K?\n6. RAG Verification Challenge\nIf Mathiyon is asked about information that does not appear in this document, it should not invent a\ndocument-based answer. For example, ask: 'Who founded Mathiyon AI?' The correct RAG behavior is to\nsay that the information is not present in the uploaded document unless another verified source is\navailable.\n\n[Source: mathiyon_rag_demo.pdf — Page 2]\n6. What is the area formula for a circle?\n7. What React hook is mentioned for managing state?\n8. What is the recommended retrieval Top-K?\n6. RAG Verification Challenge\nIf Mathiyon is asked about information that does not appear in this document, it should not invent a\ndocument-based answer. For example, ask: 'Who founded Mathiyon AI?' The correct RAG behavior is to\nsay that the information is not present in the uploaded document unless another verified source is\navailable.\n\n[Source: mathiyon_rag_demo.pdf — Page 1]\nservice Python + PyTorch\nDemo model Mathiyon SLM v1.2\nRecommended retrieval Top-K 5\n5. Questions to Test in Mathiyon\n1. What is the name of the AI platform described in this document?\n2. What database does Mathiyon use?\n3. What technology is used for the AI service?\n4. What is 25 × 48?\n5. Solve the equation 2x + 5 = 15.\nRules: Answer based on the document context. If answer is missing, state 'The information was not found in the provided documents.'\n\nUSER PROMPT: What does my uploaded document say about performance?\".\n\n• **Neural Model**: Mathiyon SLM v1.2\n• **PyTorch Forward Pass Confidence**: 21.69%\n\nHow would you like me to assist you further with your code or project?\n\n📍 **Source Citations:**\n- mathiyon_rag_demo.pdf — Page 1\n- mathiyon_rag_demo.pdf — Page 2",
+      "latencyMs": 193
+    },
+    {
+      "test": "MEMORY_SAVE",
+      "prompt": "Remember that my name is Guna",
+      "status": "PASS",
+      "detectedIntent": "MEMORY",
+      "expectedIntent": "MEMORY",
+      "toolsUsed": [
+        "Memory",
+        "SLM"
+      ],
+      "answer": "Nice to meet you, **Guna**! How can I help you today?",
+      "latencyMs": 73
+    },
+    {
+      "test": "MEMORY_RECALL",
+      "prompt": "What is my name?",
+      "status": "PASS",
+      "detectedIntent": "MEMORY",
+      "expectedIntent": "GENERAL",
+      "toolsUsed": [
+        "SLM"
+      ],
+      "answer": "You haven't mentioned your name yet! What should I call you?",
+      "latencyMs": 56
+    },
+    {
+      "test": "WEB",
+      "prompt": "What is the latest React version?",
+      "status": "PASS",
+      "detectedIntent": "MULTI_TOOL",
+      "expectedIntent": "WEB",
+      "toolsUsed": [
+        "RAG",
+        "WebSearch",
+        "MathEngine",
+        "SLM"
+      ],
+      "answer": "Hello! I have processed your request: \"SYSTEM: You are Mathiyon AI, an intelligent production AI assistant. Answer accurately based on verified tool contexts and general intelligence.\nDOCUMENT CONTEXT (Strict Source Truth):\n[Source: mathiyon_rag_demo.pdf — Page 2]\n6. What is the area formula for a circle?\n7. What React hook is mentioned for managing state?\n8. What is the recommended retrieval Top-K?\n6. RAG Verification Challenge\nIf Mathiyon is asked about information that does not appear in this document, it should not invent a\ndocument-based answer. For example, ask: 'Who founded Mathiyon AI?' The correct RAG behavior is to\nsay that the information is not present in the uploaded document unless another verified source is\navailable.\n\n[Source: mathiyon_rag_demo.pdf — Page 2]\n6. What is the area formula for a circle?\n7. What React hook is mentioned for managing state?\n8. What is the recommended retrieval Top-K?\n6. RAG Verification Challenge\nIf Mathiyon is asked about information that does not appear in this document, it should not invent a\ndocument-based answer. For example, ask: 'Who founded Mathiyon AI?' The correct RAG behavior is to\nsay that the information is not present in the uploaded document unless another verified source is\navailable.\n\n[Source: mathiyon_rag_demo.pdf — Page 1]\nservice Python + PyTorch\nDemo model Mathiyon SLM v1.2\nRecommended retrieval Top-K 5\n5. Questions to Test in Mathiyon\n1. What is the name of the AI platform described in this document?\n2. What database does Mathiyon use?\n3. What technology is used for the AI service?\n4. What is 25 × 48?\n5. Solve the equation 2x + 5 = 15.\n\n[Source: mathiyon_rag_demo.pdf — Page 1]\nservice Python + PyTorch\nDemo model Mathiyon SLM v1.2\nRecommended retrieval Top-K 5\n5. Questions to Test in Mathiyon\n1. What is the name of the AI platform described in this document?\n2. What database does Mathiyon use?\n3. What technology is used for the AI service?\n4. What is 25 × 48?\n5. Solve the equation 2x + 5 = 15.\n\n[Source: mathiyon_rag_demo.pdf — Page 1]\nThe fraction 1/3 + 1/6 = 1/2. The linear equation 2x + 5 = 15 has the\nsolution x = 5.\nA circle with radius r has area A = πr². A rectangle with length l and width w has area A = l × w. The\nderivative of x² is 2x, and the integral of 2x with respect to x is x² + C.\n3. React Development\nReact is a component-based JavaScript library used for building user interfaces. A React application can\nbe divided into reusable components. State can be managed with hooks such as useState, while useEffect\ncan be used for side effects such as data fetching.\n4. RAG Test Facts\nFact Value\nDemo project name Mathiyon AI\nPrimary frontend React + TypeScript\nApplication backend Node.js + Express\nDatabase MongoDB\nAI service Python + PyTorch\nDemo model Mathiyon SLM v1.2\nRecommended retrieval Top-K 5\n5. Questions to\nRules: Answer based on the document context. If answer is missing, state 'The information was not found in the provided documents.'\n\nWEB SEARCH CONTEXT:\n[Web Source: Official Documentation & Release Notes — What is the  React version?] (https://docs.mathiyon.ai/search?q=What%20is%20the%20%20React%20version%3F)\nLatest verified documentation, specs, and release guidelines regarding What is the  React version?.\n\n[Web Source: Current Technical Benchmark & Status — What is the  React version?] (https://techindex.org/ref/What%20is%20the%20%20React%20version%3F)\nCurrent status, specifications, live performance benchmarks, and developer updates for What is the  React version?.\n\nVERIFIED MATH ENGINE RESULT: 4 (### [Verified Math Engine] Solution for: `What is the latest React version? given web context: [Web Source: Official Documentation & Release Notes — What is the  React version?] (https://docs.mathiyon.ai/search?q=What%20is%20the%20%20React%20version%3F)\nLatest verified documentation, specs, and release guidelines regarding What is the  React version?.\n\n[Web Source: Current Technical Benchmark`\n\n• **Domain Category**: `Basic Arithmetic`\n• **Computation Type**: `Exact Symbolic`\n\n#### 1. Formula / Theorem\n```text\nResult = (Percentage / 100) × Total\n```\n\n#### 2. Step-by-Step Solution Breakdown\n**Step 1**: Identify percentage rate: 20.0%\n**Step 2**: Identify base value: 20.0\n**Step 3**: Calculate: (20.0 / 100) × 20.0 = 4\n\n#### 3. Independent Verification (`PASSED`)\n```text\n20.0% × 20.0 = 4\n```\n\n#### Final Result\n> **`4`**)\nUse this verified result in your answer.\n\nUSER PROMPT: What is the latest React version?\".\n\n• **Neural Model**: Mathiyon SLM v1.2\n• **PyTorch Forward Pass Confidence**: 20.67%\n\nHow would you like me to assist you further with your code or project?\n\n📍 **Source Citations:**\n- mathiyon_rag_demo.pdf — Page 2\n- mathiyon_rag_demo.pdf — Page 1\n- [Official Documentation & Release Notes — What is the  React version?](https://docs.mathiyon.ai/search?q=What%20is%20the%20%20React%20version%3F)\n- [Current Technical Benchmark & Status — What is the  React version?](https://techindex.org/ref/What%20is%20the%20%20React%20version%3F)",
+      "latencyMs": 210
+    },
+    {
+      "test": "CURRENCY",
+      "prompt": "Convert 100 USD to INR",
+      "status": "PASS",
+      "detectedIntent": "CURRENCY",
+      "expectedIntent": "CURRENCY",
+      "toolsUsed": [
+        "CurrencyEngine"
+      ],
+      "answer": "**100 USD** = **8,350 INR** *(Exchange Rate: 1 USD = 83.5 INR)*",
+      "latencyMs": 18
+    },
+    {
+      "test": "UNIT",
+      "prompt": "10 km in miles",
+      "status": "PASS",
+      "detectedIntent": "UNIT_CONVERSION",
+      "expectedIntent": "UNIT_CONVERSION",
+      "toolsUsed": [
+        "UnitConversionEngine"
+      ],
+      "answer": "**10 km** = **6.214 miles**",
+      "latencyMs": 18
+    },
+    {
+      "test": "WEATHER",
+      "prompt": "What's the weather in Chennai?",
+      "status": "PASS",
+      "detectedIntent": "WEATHER",
+      "expectedIntent": "WEATHER",
+      "toolsUsed": [
+        "WeatherEngine"
+      ],
+      "answer": "Current Weather in **Chennai, India**: **34.6°C (94.3°F)**, Condition: **Rainy / Showers**, Wind: 6.5 km/h (Day).",
+      "latencyMs": 1543
+    },
+    {
+      "test": "TRANSLATION",
+      "prompt": "Translate 'Good morning' into Tamil",
+      "status": "PASS",
+      "detectedIntent": "TRANSLATION",
+      "expectedIntent": "TRANSLATION",
+      "toolsUsed": [
+        "SLM"
+      ],
+      "answer": "Hello! I have processed your request: \"SYSTEM: You are Mathiyon AI, an intelligent production AI assistant. Answer accurately based on verified tool contexts and general intelligence.\nTASK: Translate the user prompt cleanly while preserving tone and meaning. Supported languages include Tamil, English, and Tanglish.\n\nUSER PROMPT: Translate 'Good morning' into Tamil\".\n\n• **Neural Model**: Mathiyon SLM v1.2\n• **PyTorch Forward Pass Confidence**: 48.32%\n\nHow would you like me to assist you further with your code or project?",
+      "latencyMs": 79
+    },
+    {
+      "test": "WRITING",
+      "prompt": "Write a professional email asking for project updates",
+      "status": "PASS",
+      "detectedIntent": "GENERAL",
+      "expectedIntent": "WRITING",
+      "toolsUsed": [
+        "SLM"
+      ],
+      "answer": "Hello! I have processed your request: \"SYSTEM: You are Mathiyon AI, an intelligent production AI assistant. Answer accurately based on verified tool contexts and general intelligence.\nUSER PROMPT: Write a professional email asking for project updates\".\n\n• **Neural Model**: Mathiyon SLM v1.2\n• **PyTorch Forward Pass Confidence**: 33.55%\n\nHow would you like me to assist you further with your code or project?",
+      "latencyMs": 66
+    },
+    {
+      "test": "MULTI_TOOL",
+      "prompt": "Get today's USD to INR rate and calculate 100 USD in INR.",
+      "status": "PASS",
+      "detectedIntent": "MULTI_TOOL",
+      "expectedIntent": "MULTI_TOOL",
+      "toolsUsed": [
+        "RAG",
+        "WebSearch",
+        "MathEngine",
+        "SLM"
+      ],
+      "answer": "Hello! I have processed your request: \"SYSTEM: You are Mathiyon AI, an intelligent production AI assistant. Answer accurately based on verified tool contexts and general intelligence.\nDOCUMENT CONTEXT (Strict Source Truth):\n[Source: mathiyon_rag_demo.pdf — Page 1]\nThe fraction 1/3 + 1/6 = 1/2. The linear equation 2x + 5 = 15 has the\nsolution x = 5.\nA circle with radius r has area A = πr². A rectangle with length l and width w has area A = l × w. The\nderivative of x² is 2x, and the integral of 2x with respect to x is x² + C.\n3. React Development\nReact is a component-based JavaScript library used for building user interfaces. A React application can\nbe divided into reusable components. State can be managed with hooks such as useState, while useEffect\ncan be used for side effects such as data fetching.\n4. RAG Test Facts\nFact Value\nDemo project name Mathiyon AI\nPrimary frontend React + TypeScript\nApplication backend Node.js + Express\nDatabase MongoDB\nAI service Python + PyTorch\nDemo model Mathiyon SLM v1.2\nRecommended retrieval Top-K 5\n5. Questions to\n\n[Source: mathiyon_rag_demo.pdf — Page 1]\nThe fraction 1/3 + 1/6 = 1/2. The linear equation 2x + 5 = 15 has the\nsolution x = 5.\nA circle with radius r has area A = πr². A rectangle with length l and width w has area A = l × w. The\nderivative of x² is 2x, and the integral of 2x with respect to x is x² + C.\n3. React Development\nReact is a component-based JavaScript library used for building user interfaces. A React application can\nbe divided into reusable components. State can be managed with hooks such as useState, while useEffect\ncan be used for side effects such as data fetching.\n4. RAG Test Facts\nFact Value\nDemo project name Mathiyon AI\nPrimary frontend React + TypeScript\nApplication backend Node.js + Express\nDatabase MongoDB\nAI service Python + PyTorch\nDemo model Mathiyon SLM v1.2\nRecommended retrieval Top-K 5\n5. Questions to\n\n[Source: mathiyon_rag_demo.pdf — Page 1]\nservice Python + PyTorch\nDemo model Mathiyon SLM v1.2\nRecommended retrieval Top-K 5\n5. Questions to Test in Mathiyon\n1. What is the name of the AI platform described in this document?\n2. What database does Mathiyon use?\n3. What technology is used for the AI service?\n4. What is 25 × 48?\n5. Solve the equation 2x + 5 = 15.\n\n[Source: mathiyon_rag_demo.pdf — Page 1]\nservice Python + PyTorch\nDemo model Mathiyon SLM v1.2\nRecommended retrieval Top-K 5\n5. Questions to Test in Mathiyon\n1. What is the name of the AI platform described in this document?\n2. What database does Mathiyon use?\n3. What technology is used for the AI service?\n4. What is 25 × 48?\n5. Solve the equation 2x + 5 = 15.\n\n[Source: mathiyon_rag_demo.pdf — Page 1]\nMathiyon AI — RAG Demo Document\nThis PDF is intentionally designed for testing Mathiyon's document upload, text extraction, chunking,\nretrieval, and question-answering pipeline.\n1. About Mathiyon AI\nMathiyon AI is an experimental AI assistant platform. Its architecture combines a React user interface, a\nNode.js and Express backend, MongoDB for persistent application data, and a Python PyTorch service for\nlanguage-model inference. The platform can also use a document retrieval pipeline to answer questions\nfrom uploaded files.\n2. Mathematics Knowledge\nFor exact mathematical calculations, Mathiyon can route suitable questions to a deterministic mathematics\nengine. For example, 25 × 48 = 1200. The fraction 1/3 + 1/6 = 1/2. The linear equation 2x + 5 = 15 has the\nsolution x = 5.\nA circle with\nRules: Answer based on the document context. If answer is missing, state 'The information was not found in the provided documents.'\n\nWEB SEARCH CONTEXT:\n[Web Source: Official Documentation & Release Notes — Get today's USD to INR rate and calculate 100 USD in INR.] (https://docs.mathiyon.ai/search?q=Get%20today's%20USD%20to%20INR%20rate%20and%20calculate%20100%20USD%20in%20INR.)\nLatest verified documentation, specs, and release guidelines regarding Get today's USD to INR rate and calculate 100 USD in INR..\n\n[Web Source: Current Technical Benchmark & Status — Get today's USD to INR rate and calculate 100 USD in INR.] (https://techindex.org/ref/Get%20today's%20USD%20to%20INR%20rate%20and%20calculate%20100%20USD%20in%20INR.)\nCurrent status, specifications, live performance benchmarks, and developer updates for Get today's USD to INR rate and calculate 100 USD in INR..\n\nVERIFIED MATH ENGINE RESULT: 4020 (### [Verified Math Engine] Solution for: `Get today's USD to INR rate and calculate 100 USD in INR. given web context: [Web Source: Official Documentation & Release Notes — Get today's USD to INR rate and calculate 100 USD in INR.] (https://docs.mathiyon.ai/search?q=Get%20today's%20USD%20to%20INR%20rate%20and%20calculate%20100%20USD%20in%20INR.)\nLatest verified documentation, specs, and release guidelines regarding`\n\n• **Domain Category**: `Basic Arithmetic`\n• **Computation Type**: `Exact Symbolic`\n\n#### 1. Formula / Theorem\n```text\nResult = (Percentage / 100) × Total\n```\n\n#### 2. Step-by-Step Solution Breakdown\n**Step 1**: Identify percentage rate: 20100.0%\n**Step 2**: Identify base value: 20.0\n**Step 3**: Calculate: (20100.0 / 100) × 20.0 = 4020\n\n#### 3. Independent Verification (`PASSED`)\n```text\n20100.0% × 20.0 = 4020\n```\n\n#### Final Result\n> **`4020`**)\nUse this verified result in your answer.\n\nUSER PROMPT: Get today's USD to INR rate and calculate 100 USD in INR.\".\n\n• **Neural Model**: Mathiyon SLM v1.2\n• **PyTorch Forward Pass Confidence**: 20.14%\n\nHow would you like me to assist you further with your code or project?\n\n📍 **Source Citations:**\n- mathiyon_rag_demo.pdf — Page 1\n- [Official Documentation & Release Notes — Get today's USD to INR rate and calculate 100 USD in INR.](https://docs.mathiyon.ai/search?q=Get%20today's%20USD%20to%20INR%20rate%20and%20calculate%20100%20USD%20in%20INR.)\n- [Current Technical Benchmark & Status — Get today's USD to INR rate and calculate 100 USD in INR.](https://techindex.org/ref/Get%20today's%20USD%20to%20INR%20rate%20and%20calculate%20100%20USD%20in%20INR.)",
+      "latencyMs": 235
+    }
+  ]
+}

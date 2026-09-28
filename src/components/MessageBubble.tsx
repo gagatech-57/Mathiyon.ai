@@ -148,6 +148,11 @@ export const MessageBubble: React.FC<MessageBubbleProps> = ({ message, userIniti
                 if (tool === 'SLM') { badgeLabel = '🧠 Mathiyon SLM'; badgeColor = 'bg-rose-500/10 text-rose-300 border-rose-500/30'; }
                 if (tool === 'WebSearch') { badgeLabel = '🌐 Web Search'; badgeColor = 'bg-cyan-500/10 text-cyan-300 border-cyan-500/30'; }
                 if (tool === 'Memory') { badgeLabel = '💾 Memory'; badgeColor = 'bg-purple-500/10 text-purple-300 border-purple-500/30'; }
+                if (tool === 'TimeDateEngine') { badgeLabel = '⏰ Time & Date'; badgeColor = 'bg-amber-500/10 text-amber-300 border-amber-500/30'; }
+                if (tool === 'CalculatorEngine') { badgeLabel = '🧮 Calculator'; badgeColor = 'bg-emerald-500/10 text-emerald-300 border-emerald-500/30'; }
+                if (tool === 'CurrencyEngine') { badgeLabel = '💱 Currency'; badgeColor = 'bg-green-500/10 text-green-300 border-green-500/30'; }
+                if (tool === 'UnitConversionEngine') { badgeLabel = '📐 Unit Conv'; badgeColor = 'bg-teal-500/10 text-teal-300 border-teal-500/30'; }
+                if (tool === 'WeatherEngine') { badgeLabel = '🌤️ Weather'; badgeColor = 'bg-sky-500/10 text-sky-300 border-sky-500/30'; }
 
                 return (
                   <span key={idx} className={`text-[10px] px-1.5 py-0.2 rounded border font-mono ${badgeColor}`}>

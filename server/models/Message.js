@@ -21,7 +21,7 @@ const messageSchema = new mongoose.Schema({
   },
   model: {
     type: String,
-    default: 'Mathiyon Neural v4.0',
+    default: 'Mathiyon SLM v1.2',
   },
   createdAt: {
     type: Date,

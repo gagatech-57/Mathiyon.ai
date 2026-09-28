@@ -13,8 +13,8 @@ router.post('/generate', protect, async (req, res) => {
       return res.status(400).json({ success: false, message: 'Prompt is required' });
     }
 
-    // AI Model Execution / Neural Reasoner v4.0 PyTorch Hook
-    const selectedModel = model || 'Mathiyon Neural v4.0';
+    // AI Model Execution / Neural Reasoner v1.2 PyTorch Hook
+    const selectedModel = model || 'Mathiyon SLM v1.2';
 
     let responseText = `[Mathiyon ${selectedModel}] Processed prompt: "${prompt}". Generated neural reasoning graph with high confidence score.`;
 

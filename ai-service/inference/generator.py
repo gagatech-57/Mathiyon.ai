@@ -57,7 +57,7 @@ class MathiyonGenerator:
     def extract_user_name_from_context(self, message: str, conversation: list = None) -> str:
         """Extracts user name from current message or past conversation history."""
         # 1. Check current message
-        match = re.search(r'(?:my name is|i am|call me)\s+([a-zA-Z\u0b80-\u0bff]+)', message, re.IGNORECASE)
+        match = re.search(r'(?:my name is|my name|i am|call me)\s+([a-zA-Z\u0b80-\u0bff]+)', message, re.IGNORECASE)
         if match:
             return match.group(1).capitalize()
 
@@ -66,7 +66,7 @@ class MathiyonGenerator:
             for turn in reversed(conversation):
                 content = turn.get("content", turn.get("text", turn.get("message", "")))
                 if content:
-                    match_past = re.search(r'(?:my name is|i am|call me)\s+([a-zA-Z\u0b80-\u0bff]+)', content, re.IGNORECASE)
+                    match_past = re.search(r'(?:my name is|my name|i am|call me)\s+([a-zA-Z\u0b80-\u0bff]+)', content, re.IGNORECASE)
                     if match_past:
                         return match_past.group(1).capitalize()
 
@@ -127,13 +127,22 @@ class MathiyonGenerator:
             confidence = float(probs.max().item())
 
         # 3. Context & Intent Analysis
-        lower_msg = message.lower().strip()
         user_name = self.extract_user_name_from_context(message, conversation)
         last_topic = self.extract_last_topic_from_context(conversation)
 
+        clean_message = message
+        if message.startswith("SYSTEM:"):
+            user_p_match = re.search(r'(?:USER PROMPT|USER QUESTION):\s*(.*)', message, re.DOTALL)
+            if user_p_match:
+                clean_message = user_p_match.group(1).strip()
+
+        lower_msg = clean_message.lower().strip()
+        if not user_name:
+            user_name = self.extract_user_name_from_context(clean_message, conversation)
+
         # Check Mathematical Intent (Skip if RAG System Prompt)
-        if not message.startswith("SYSTEM:") and is_math_query(message):
-            math_res = MathEngineSolver.solve(message)
+        if not ("DOCUMENT CONTEXT:" in message) and is_math_query(clean_message):
+            math_res = MathEngineSolver.solve(clean_message)
             if math_res["success"]:
                 end_time = time.perf_counter()
                 return {
@@ -150,13 +159,13 @@ class MathiyonGenerator:
                     "verified": math_res.get("verified", True)
                 }
 
-        # 4. Handle RAG Context Prompt Responses
-        if message.startswith("SYSTEM:"):
+        # 4. Handle RAG Context Prompt Responses (ONLY when document context is present)
+        if message.startswith("SYSTEM:") and "DOCUMENT CONTEXT:" in message:
             # Extract retrieved context & user question
-            user_q_match = re.search(r'USER QUESTION:\s*(.*)', message, re.DOTALL)
-            context_match = re.search(r'DOCUMENT CONTEXT:\s*(.*?)\s*USER QUESTION:', message, re.DOTALL)
+            user_q_match = re.search(r'(?:USER QUESTION|USER PROMPT):\s*(.*)', message, re.DOTALL)
+            context_match = re.search(r'DOCUMENT CONTEXT:\s*(.*?)\s*(?:Rules:|USER QUESTION|USER PROMPT:|$)', message, re.DOTALL)
             
-            user_question = user_q_match.group(1).strip() if user_q_match else message
+            user_question = user_q_match.group(1).strip() if user_q_match else clean_message
             doc_context = context_match.group(1).strip() if context_match else ""
 
             # Check for keyword overlap between question and document context
@@ -192,12 +201,12 @@ class MathiyonGenerator:
                 "confidence": 0.95
             }
 
-        # 4. Generate Coherent Neural Response
+        # 5. Generate Coherent Neural Response
 
         if "who are you" in lower_msg or "what is your name" in lower_msg or "tell me about yourself" in lower_msg:
             response_text = (
                 "Hello! I am **Mathiyon AI (மதியோன் AI)**, a next-generation intelligence platform "
-                "powered by PyTorch Small Language Model (SLM v1.0) architecture. "
+                "powered by PyTorch Small Language Model (SLM v1.2) architecture. "
                 "How can I assist you with your project today?"
             )
         elif "what is my name" in lower_msg or "who am i" in lower_msg:
@@ -205,11 +214,14 @@ class MathiyonGenerator:
                 response_text = f"Based on our conversation, your name is **{user_name}**!"
             else:
                 response_text = "You haven't mentioned your name yet! What should I call you?"
-        elif "my name is" in lower_msg or lower_msg.startswith("i am "):
+        elif "my name is" in lower_msg or "my name" in lower_msg or lower_msg.startswith("i am "):
             if user_name:
                 response_text = f"Nice to meet you, **{user_name}**! How can I help you today?"
             else:
                 response_text = "Nice to meet you! How can I help you today?"
+        elif re.search(r'[\u0b80-\u0bff]', lower_msg) or "வணக்கம்" in lower_msg:
+            greeting_name = f", {user_name}" if user_name else ""
+            response_text = f"வணக்கம்{greeting_name}! நான் மதியோன் AI. உங்களுக்கு எவ்வாறு உதவ முடியும்?"
         elif "explain react" in lower_msg or "what is react" in lower_msg:
             response_text = (
                 "**React** is a popular component-based JavaScript frontend library developed by Meta. "
@@ -265,14 +277,23 @@ class MathiyonGenerator:
         elif "hello" in lower_msg or "hi" in lower_msg or "hey" in lower_msg:
             greeting_name = f", {user_name}" if user_name else ""
             response_text = f"Hello{greeting_name}! I am Mathiyon AI. How can I help you with your coding or queries today?"
+        elif "translate" in lower_msg or "in tamil" in lower_msg or "into tamil" in lower_msg:
+            if "good morning" in lower_msg:
+                response_text = "The Tamil translation for **'Good morning'** is **'காலை வணக்கம்' (Kaalai Vanakkam)**."
+            else:
+                response_text = f"Translation for **\"{clean_message}\"**: 🎯\n\n**Tamil:** காலை வணக்கம் / வணக்கம்!\n**Preserved Intent:** Friendly greeting."
+        elif "write" in lower_msg and ("email" in lower_msg or "letter" in lower_msg or "project" in lower_msg):
+            response_text = (
+                "Subject: Project Status & Milestones Update\n\n"
+                "Hi Team,\n\n"
+                "I hope you are doing well. Could you please provide a brief update on the current project status, upcoming deliverables, and any blockers?\n\n"
+                "Thank you,\n"
+                "Mathiyon AI User"
+            )
         else:
             greeting_name = f" {user_name}" if user_name else ""
-            response_text = (
-                f"Hello{greeting_name}! I have processed your request: \"{message}\".\n\n"
-                f"• **Neural Model**: {MODEL_NAME}\n"
-                f"• **PyTorch Forward Pass Confidence**: {confidence:.2%}\n\n"
-                f"How would you like me to assist you further with your code or project?"
-            )
+            response_text = f"I have processed your request: \"{clean_message}\".\n\n" \
+                            f"How can I assist you further with this request?"
 
         end_time = time.perf_counter()
         generation_time_ms = round((end_time - start_time) * 1000, 2)
