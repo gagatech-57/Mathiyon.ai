@@ -1,14 +1,10 @@
 /**
- * Mathiyon AI - Production AI Agent & Multi-Tool Orchestrator (Universal Intelligence Upgrade)
+ * Mathiyon AI - Production AI Agent & Multi-Tool Orchestrator (Automatic Web Intelligence Upgrade)
  *
- * Universal Query Pipeline:
- * USER QUESTION -> Intent Detection -> Context Detection -> Capability Selection ->
- * Tool/Knowledge/Memory Retrieval -> Execution -> Result Verification -> Response Generation -> FINAL ANSWER
- *
- * Supported Intents:
- * GENERAL, MATH, CODING, DOCUMENT, MEMORY, WEB, MULTI_TOOL, TIME_DATE, CALCULATOR,
- * CURRENCY, UNIT_CONVERSION, WEATHER, DATE_CALCULATION, WRITING, TRANSLATION, SUMMARIZATION,
- * KNOWLEDGE_RETRIEVAL, UNKNOWN
+ * Universal Knowledge Fallback Pipeline:
+ * USER QUESTION -> Intent Detection -> Conversation/Memory Check -> RAG Check ->
+ * Deterministic Tool Check -> Internal Knowledge Check -> Real-Time / Web Decision ->
+ * Web Search (if required) -> Source Collection -> Context Fusion -> Tool Execution -> Verification -> SLM -> FINAL ANSWER + SOURCES
  */
 
 const mathTool = require('./tools/mathTool');
@@ -37,6 +33,7 @@ const TOOL_REGISTRY = {
   Memory: memoryTool,
   CodeEngine: codeTool,
   WebSearch: webSearchTool,
+  web_search: webSearchTool, // Alias mapping
   VisionEngine: visionTool,
   VoiceEngine: voiceTool,
   TimeDateEngine: timeDateTool,
@@ -98,8 +95,12 @@ const detectIntent = (message, hasDocSelected = false, hasWebEnabled = false) =>
   // 13. Summarization
   const isSummarize = /summarize|summary of|brief outline/i.test(msgLower);
 
-  // 14. Web Intelligence
-  const isWeb = hasWebEnabled || /latest news|current price|today's event|latest react version|current weather|latest version|who is the current/i.test(msgLower);
+  // 14. Automatic Web Intelligence Trigger Rules
+  const isExplicitWebSearch = /search (online|the web|the internet|for)|look (this|it) up|find (this|it) online|web search/i.test(msgLower);
+  const isCurrentInformation = /\b(latest|current|now|today'?s|recent|this week|this month|version|price|pricing|ceo of|who is the|news|event|events|release notes|changelog)\b/i.test(msgLower);
+  const isVolatileTopic = /\b(react version|node version|node\.js version|bitcoin|crypto|stock|company|market|leadership)\b/i.test(msgLower);
+
+  const isWeb = (hasWebEnabled || isExplicitWebSearch || isCurrentInformation || isVolatileTopic) && !isTimeDate && !isDateCalc && !isSimpleCalc && !isUnit && !isWeather;
 
   // Multi-Tool Detection Rules
   let activeToolCount = 0;
@@ -110,10 +111,11 @@ const detectIntent = (message, hasDocSelected = false, hasWebEnabled = false) =>
   if (isTimeDate || isDateCalc) activeToolCount++;
   if (isMemory) activeToolCount++;
 
-  if (activeToolCount >= 2 || (isWeb && (isCurrency || isSimpleCalc || isCode)) || (isDoc && (isMath || isCode))) {
+  if (activeToolCount >= 2 || (isWeb && (isCurrency || isSimpleCalc || isCode)) || (isDoc && (isMath || isCode || isWeb))) {
     return 'MULTI_TOOL';
   }
 
+  if (isWeb) return 'WEB';
   if (isTimeDate) return 'TIME_DATE';
   if (isDateCalc) return 'DATE_CALCULATION';
   if (isCurrency) return 'CURRENCY';
@@ -127,7 +129,6 @@ const detectIntent = (message, hasDocSelected = false, hasWebEnabled = false) =>
   if (isTranslation) return 'TRANSLATION';
   if (isWriting) return 'WRITING';
   if (isSummarize) return 'SUMMARIZATION';
-  if (isWeb) return 'WEB';
 
   return 'GENERAL';
 };
@@ -189,7 +190,7 @@ async function executeToolWithTimeout(tool, params, timeoutMs = TOOL_TIMEOUT_MS)
 }
 
 /**
- * AI Orchestrator Main Entrypoint (Universal Intelligence Upgrade)
+ * AI Orchestrator Main Entrypoint (Automatic Web Intelligence Upgrade)
  */
 const processRequest = async ({
   userId,
@@ -412,8 +413,11 @@ const processRequest = async ({
       }
     }
 
-    // Step 3B: Web Intelligence Search
-    if (intent === 'WEB' || intent === 'MULTI_TOOL' || enableWebSearch) {
+    // Step 3B: Web Intelligence Search & Automatic Fallback
+    const shouldPerformWebSearch = intent === 'WEB' || intent === 'MULTI_TOOL' || enableWebSearch ||
+      (ragData && (!ragData.found || /compare|online|web|latest/i.test(activeMessage)));
+
+    if (shouldPerformWebSearch) {
       taskModel.steps.push({ stepId: 'step_web', tool: 'WebSearch', action: 'search', status: 'running' });
       agentTrace.push({ stage: 'tool_running', tool: 'WebSearch', label: 'Searching live web...' });
 
@@ -525,8 +529,8 @@ const processRequest = async ({
       };
     }
 
-    // Missing Document Fact Protection
-    if ((intent === 'DOCUMENT' || intent === 'MULTI_TOOL') && ragData && !ragData.found && documentIds.length > 0 && !enableWebSearch && !webData) {
+    // Grounded RAG Document Query (Without web search request)
+    if ((intent === 'DOCUMENT') && ragData && !ragData.found && documentIds.length > 0 && !enableWebSearch && !webData) {
       toolsUsed.push('SLM');
       return {
         success: true,
@@ -564,14 +568,6 @@ const processRequest = async ({
       systemInstructions += `\nVERIFIED MATH ENGINE RESULT: ${mathData.result} (${mathData.explanation})\nUse this verified result in your answer.\n`;
     }
 
-    if (intent === 'TRANSLATION') {
-      systemInstructions += `\nTASK: Translate the user prompt cleanly while preserving tone and meaning. Supported languages include Tamil, English, and Tanglish.\n`;
-    }
-
-    if (intent === 'WRITING') {
-      systemInstructions += `\nTASK: Write or edit clear, well-structured, professional output (e.g. email, resume, summary, proofread text).\n`;
-    }
-
     const slmPrompt = `${systemInstructions}\nUSER PROMPT: ${activeMessage}`;
     agentTrace.push({ stage: 'composing', tool: 'SLM', label: 'Preparing final response...' });
 
@@ -600,7 +596,7 @@ const processRequest = async ({
         finalAnswer += `\n\n📍 **Source Citations:**\n${citStr}`;
       }
     } else {
-      finalAnswer = slmRes.error?.message || 'Mathiyon AI is temporarily unable to process your request. Please try again.';
+      finalAnswer = slmRes.error?.message || "I couldn't access reliable web sources right now, so I can't verify the current information.";
     }
 
     const totalLatencyMs = Date.now() - startTime;
