@@ -14,8 +14,15 @@ const observabilityRoutes = require('./routes/observabilityRoutes');
 dotenv.config();
 
 const PORT = Number(process.env.PORT || 5000);
-const allowedOrigins = (process.env.CORS_ORIGINS || 'http://localhost:8645,http://localhost:5173').split(',').map((origin) => origin.trim()).filter(Boolean);
-const isOriginAllowed = (origin) => !origin || allowedOrigins.includes(origin);
+const defaultOrigins = [
+  'http://localhost:8645',
+  'http://localhost:5173',
+  'http://localhost:3000',
+  'https://mathiyon-ai.vercel.app',
+  'https://mathiyon-ai.onrender.com'
+];
+const allowedOrigins = (process.env.CORS_ORIGINS || defaultOrigins.join(',')).split(',').map((origin) => origin.trim()).filter(Boolean);
+const isOriginAllowed = (origin) => !origin || allowedOrigins.includes(origin) || defaultOrigins.includes(origin);
 
 // Connect MongoDB Database
 connectDB();

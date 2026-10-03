@@ -1,6 +1,7 @@
 // Environment-aware API base URL.
-// Prefer a configured deployment URL; otherwise use a relative path so the app works behind a reverse proxy.
-const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || '/api';
+// Prefer a configured deployment URL, but keep local development and direct Render deployment working.
+const API_BASE_URL = import.meta.env.VITE_API_BASE_URL ||
+  (import.meta.env.DEV ? 'http://localhost:5000/api' : 'https://mathiyon-ai.onrender.com/api');
 
 export interface UserProfile {
   id: string;
