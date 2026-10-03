@@ -171,13 +171,13 @@ const timeDateTool = {
       const currentYear = now.toLocaleDateString('en-US', { year: 'numeric', timeZone: targetTz });
 
       let formattedOutput = '';
-      if (qLower.includes('time')) {
+      if (qLower.includes('time') || qLower.includes('நேரம்') || qLower.includes('clock') || targetTz !== userTimezone || /^(in\s+[a-zA-Z\s]+|[a-zA-Z\s]+\s*\?)$/i.test(qLower.trim())) {
         formattedOutput = `The current time in **${targetTz}** is **${currentTimeStr}** (${currentDateStr}).`;
-      } else if (qLower.includes('day')) {
+      } else if (qLower.includes('day') || qLower.includes('நாள்')) {
         formattedOutput = `Today is **${dayOfWeek}**, ${currentDateStr}.`;
-      } else if (qLower.includes('year')) {
+      } else if (qLower.includes('year') || qLower.includes('வருடம்')) {
         formattedOutput = `The current year is **${currentYear}**.`;
-      } else if (qLower.includes('month')) {
+      } else if (qLower.includes('month') || qLower.includes('மாதம்')) {
         formattedOutput = `The current month is **${monthName}**.`;
       } else {
         formattedOutput = `Today's date in **${targetTz}** is **${currentDateStr}** (Time: ${currentTimeStr}).`;

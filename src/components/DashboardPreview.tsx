@@ -7,15 +7,19 @@ import { ChatComposer } from './ChatComposer';
 import { RightPanel } from './RightPanel';
 import { DocumentLibrary } from './DocumentLibrary';
 import { MemoryManager } from './MemoryManager';
+import { ThinkingIndicator } from './ThinkingIndicator';
 import { RefreshCw } from 'lucide-react';
 import confetti from 'canvas-confetti';
-import { 
-  apiSendChatMessage, 
-  apiGetConversations, 
-  apiGetConversationMessages, 
-  apiCreateConversation,
+import {
+  apiSendChatMessage,
+  apiGetConversations,
+  apiGetConversationMessages,
+  apiRenameConversation,
+  apiTogglePinConversation,
+  apiDeleteConversation,
   getToken
 } from '../api';
+import { formatAssistantAnswer } from '../utils/responseFormatter';
 import type { UserProfile, DocumentItem } from '../api';
 import type { ChatMessage } from './MessageBubble';
 import type { ConversationItem } from './Sidebar';
@@ -45,6 +49,9 @@ export const DashboardPreview: React.FC<DashboardPreviewProps> = ({ user, onSign
   // Conversations history from MongoDB
   const [conversations, setConversations] = useState<ConversationItem[]>([]);
   const [activeConversationId, setActiveConversationId] = useState<string>('');
+  
+  // Guard against race conditions when creating first conversation
+  const isCreatingConversationRef = useRef(false);
 
   // Auto scroll reference for chat stream
   const messagesEndRef = useRef<HTMLDivElement>(null);
@@ -61,7 +68,7 @@ export const DashboardPreview: React.FC<DashboardPreviewProps> = ({ user, onSign
   useEffect(() => {
     try {
       confetti({
-        particleCount: 60,
+        particleCount: 50,
         spread: 60,
         origin: { y: 0.6 },
         colors: ['#e11d48', '#be123c', '#fb7185', '#ffffff']
@@ -73,6 +80,10 @@ export const DashboardPreview: React.FC<DashboardPreviewProps> = ({ user, onSign
 
   // Load past message history for a selected conversation
   const loadConversationMessages = async (convId: string) => {
+    if (!convId) {
+      setMessages([]);
+      return;
+    }
     setIsGenerating(true);
     const res = await apiGetConversationMessages(convId);
     setIsGenerating(false);
@@ -93,10 +104,10 @@ export const DashboardPreview: React.FC<DashboardPreviewProps> = ({ user, onSign
 
       if (res.success && res.conversations && res.conversations.length > 0) {
         setConversations(res.conversations);
-        // Load messages for the most recent conversation
-        const initialConvId = res.conversations[0].id;
-        setActiveConversationId(initialConvId);
-        loadConversationMessages(initialConvId);
+        // Start in New Chat empty state rather than automatically locking into an old chat
+        // (unless user specifically selects one from Recent Chats)
+        setActiveConversationId('');
+        setMessages([]);
       } else {
         setConversations([]);
         setActiveConversationId('');
@@ -111,6 +122,7 @@ export const DashboardPreview: React.FC<DashboardPreviewProps> = ({ user, onSign
   const handleSelectConversation = (convId: string) => {
     setActiveConversationId(convId);
     loadConversationMessages(convId);
+    setActiveNav('explore');
   };
 
   const userInitial = user.name ? user.name.charAt(0).toUpperCase() : 'U';
@@ -125,39 +137,48 @@ export const DashboardPreview: React.FC<DashboardPreviewProps> = ({ user, onSign
     }
   };
 
-  // Start New Chat session in MongoDB
-  const handleNewChat = async () => {
-    setIsGenerating(true);
-    const res = await apiCreateConversation('New Mathiyon Chat', activeModel);
-    setIsGenerating(false);
+  // Start New Chat — ONLY sets temporary empty client-side state
+  // Does NOT call createConversation API or create any MongoDB record
+  const handleNewChat = () => {
+    setActiveConversationId('');
+    setMessages([]);
+    setPrompt('');
+    setAttachedDoc(null);
+    setActiveNav('explore');
+  };
 
-    if (res.success && res.conversation) {
-      const newConv: ConversationItem = res.conversation;
-      setConversations((prev) => [newConv, ...prev]);
-      setActiveConversationId(newConv.id);
-      setMessages([]);
-      setPrompt('');
-    } else {
-      // Fallback local conversation creation if network issue
-      const localId = `conv_${Date.now()}`;
-      const localConv: ConversationItem = {
-        id: localId,
-        title: 'New Mathiyon Chat',
-        timestamp: 'Just now'
-      };
-      setConversations((prev) => [localConv, ...prev]);
-      setActiveConversationId(localId);
-      setMessages([]);
-      setPrompt('');
+  // Rename a conversation title
+  const handleRenameConversation = async (id: string, newTitle: string) => {
+    setConversations((prev) =>
+      prev.map((c) => (c.id === id ? { ...c, title: newTitle } : c))
+    );
+    await apiRenameConversation(id, newTitle);
+  };
+
+  // Toggle pin status of a conversation
+  const handleTogglePinConversation = async (id: string) => {
+    setConversations((prev) =>
+      prev.map((c) => (c.id === id ? { ...c, isPinned: !c.isPinned } : c))
+    );
+    await apiTogglePinConversation(id);
+  };
+
+  // Delete a conversation and reset chat if active
+  const handleDeleteConversation = async (id: string) => {
+    setConversations((prev) => prev.filter((c) => c.id !== id));
+    if (activeConversationId === id) {
+      handleNewChat();
     }
+    await apiDeleteConversation(id);
   };
 
   // Send Prompt to Express Chat API Endpoint (Protected by JWT)
   const handleSendPrompt = async (textToSend?: string, docIdToSend?: string, enableWebSearch?: boolean) => {
     const input = textToSend || prompt;
-    if (!input.trim() || isGenerating) return;
+    if (!input.trim() || isGenerating || isCreatingConversationRef.current) return;
 
     const targetDocId = docIdToSend || attachedDoc?.id;
+    const isNewChatSession = !activeConversationId;
 
     const userMessage: ChatMessage = {
       id: `usr_${Date.now()}`,
@@ -169,61 +190,74 @@ export const DashboardPreview: React.FC<DashboardPreviewProps> = ({ user, onSign
     setMessages((prev) => [...prev, userMessage]);
     setPrompt('');
     setIsGenerating(true);
+    if (isNewChatSession) {
+      isCreatingConversationRef.current = true;
+    }
 
-    // Call POST /api/chat protected endpoint with documentId & enableWebSearch
-    const res = await apiSendChatMessage(input, activeModel, activeConversationId, targetDocId, enableWebSearch);
-    setIsGenerating(false);
+    try {
+      // Call POST /api/chat protected endpoint with documentId & enableWebSearch
+      const res = await apiSendChatMessage(input, activeModel, activeConversationId || undefined, targetDocId, enableWebSearch);
 
-    if (res.success && (res.response || res.answer)) {
-      // Set active conversation ID if newly created by backend
-      if (res.conversationId) {
-        setActiveConversationId(res.conversationId);
+      if (res.success && (res.response || res.answer)) {
+        // Set active conversation ID if newly created by backend
+        if (res.conversationId) {
+          setActiveConversationId(res.conversationId);
+        }
+
+        // Update conversations list in sidebar with new title
+        if (res.conversationId && res.conversationTitle) {
+          setConversations((prev) => {
+            const exists = prev.some((c) => c.id === res.conversationId);
+            if (exists) {
+              return prev.map((c) =>
+                c.id === res.conversationId ? { ...c, title: res.conversationTitle! } : c
+              );
+            } else {
+              return [
+                {
+                  id: res.conversationId!,
+                  title: res.conversationTitle!,
+                  timestamp: res.timestamp || 'Just now',
+                },
+                ...prev,
+              ];
+            }
+          });
+        }
+
+        // Format and sanitize the assistant response
+        const rawAnswer = res.answer || res.response || '';
+        const cleanAnswer = formatAssistantAnswer(rawAnswer, res.intent, res.toolsUsed);
+
+        const assistantMessage: ChatMessage = {
+          id: `ai_${Date.now()}`,
+          role: 'assistant',
+          text: cleanAnswer,
+          timestamp: res.timestamp || new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
+          model: res.model || activeModel,
+          toolsUsed: res.toolsUsed,
+          sources: res.sources,
+          citations: res.citations,
+          verified: res.verified,
+          isNew: true,
+        };
+        setMessages((prev) => [...prev, assistantMessage]);
+      } else {
+        const isUnavailable = res.offline || res.message === 'Mathiyon AI is temporarily unavailable.';
+        const errorMessage: ChatMessage = {
+          id: `err_${Date.now()}`,
+          role: 'assistant',
+          text: isUnavailable
+            ? 'Mathiyon AI is temporarily unavailable.'
+            : `⚠️ Express Chat API Error: ${res.messageText || res.message || 'Could not process prompt. Check server logs.'}`,
+          timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
+          model: activeModel,
+        };
+        setMessages((prev) => [...prev, errorMessage]);
       }
-
-      // Update conversations list in sidebar with new title
-      if (res.conversationId && res.conversationTitle) {
-        setConversations((prev) => {
-          const exists = prev.some((c) => c.id === res.conversationId);
-          if (exists) {
-            return prev.map((c) =>
-              c.id === res.conversationId ? { ...c, title: res.conversationTitle! } : c
-            );
-          } else {
-            return [
-              {
-                id: res.conversationId!,
-                title: res.conversationTitle!,
-                timestamp: res.timestamp || 'Just now',
-              },
-              ...prev,
-            ];
-          }
-        });
-      }
-
-      const assistantMessage: ChatMessage = {
-        id: `ai_${Date.now()}`,
-        role: 'assistant',
-        text: res.answer || res.response || '',
-        timestamp: res.timestamp || new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
-        model: res.model || activeModel,
-        toolsUsed: res.toolsUsed,
-        sources: res.sources,
-        verified: res.verified
-      };
-      setMessages((prev) => [...prev, assistantMessage]);
-    } else {
-      const isUnavailable = res.offline || res.message === 'Mathiyon AI is temporarily unavailable.';
-      const errorMessage: ChatMessage = {
-        id: `err_${Date.now()}`,
-        role: 'assistant',
-        text: isUnavailable
-          ? 'Mathiyon AI is temporarily unavailable.'
-          : `⚠️ Express Chat API Error: ${res.messageText || res.message || 'Could not process prompt. Check server logs.'}`,
-        timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
-        model: activeModel,
-      };
-      setMessages((prev) => [...prev, errorMessage]);
+    } finally {
+      setIsGenerating(false);
+      isCreatingConversationRef.current = false;
     }
   };
 
@@ -239,6 +273,9 @@ export const DashboardPreview: React.FC<DashboardPreviewProps> = ({ user, onSign
           conversations={conversations}
           activeConversationId={activeConversationId}
           onSelectConversation={handleSelectConversation}
+          onRenameConversation={handleRenameConversation}
+          onTogglePinConversation={handleTogglePinConversation}
+          onDeleteConversation={handleDeleteConversation}
           isCollapsed={isSidebarCollapsed}
           onToggleCollapse={() => setIsSidebarCollapsed(!isSidebarCollapsed)}
           isMobileOpen={isMobileSidebarOpen}
@@ -289,7 +326,7 @@ export const DashboardPreview: React.FC<DashboardPreviewProps> = ({ user, onSign
                 </span>
               </div>
             ) : messages.length === 0 ? (
-              /* Welcome Screen when no messages exist in current conversation */
+              /* Clean New Chat Welcome Screen with Quick Tap mini-game */
               <WelcomeScreen
                 userName={user.name}
                 onSelectPrompt={(text) => handleSendPrompt(text)}
@@ -309,13 +346,8 @@ export const DashboardPreview: React.FC<DashboardPreviewProps> = ({ user, onSign
                   />
                 ))}
 
-                {/* AI Generating Spinner */}
-                {isGenerating && (
-                  <div className="flex items-center gap-3 p-3.5 rounded-2xl glass-panel border border-rose-500/20 max-w-xs text-xs text-rose-300 font-medium animate-pulse my-4">
-                    <RefreshCw className="w-4 h-4 animate-spin text-rose-400" />
-                    <span>Mathiyon PyTorch AI is thinking...</span>
-                  </div>
-                )}
+                {/* Thinking indicator — shown while backend is processing */}
+                {isGenerating && <ThinkingIndicator />}
 
                 <div ref={messagesEndRef} />
               </div>

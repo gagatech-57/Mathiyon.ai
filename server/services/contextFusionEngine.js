@@ -238,14 +238,154 @@ function classifyKnowledge({ query, mathResults = [], documents = [], web = [], 
 }
 
 /**
- * Resolves multi-turn pronoun references (e.g., "that", "this", "previous result", "second point")
+ * Helper to extract primary topic/noun from recent conversation turns
+ */
+function extractPrimaryTopicFromHistory(conversationHistory = []) {
+  if (!conversationHistory || !Array.isArray(conversationHistory) || conversationHistory.length === 0) {
+    return null;
+  }
+
+  // Scan user turns backwards
+  for (let i = conversationHistory.length - 1; i >= 0; i--) {
+    const turn = conversationHistory[i];
+    const role = turn.role || turn.sender || 'user';
+    if (role === 'user' || role === 'human') {
+      const text = typeof turn === 'string' ? turn : (turn.content || turn.text || turn.message || '');
+      if (!text || typeof text !== 'string') continue;
+
+      const textTrim = text.trim();
+      const textLower = textTrim.toLowerCase();
+
+      // Skip if this turn was itself a short follow-up phrase
+      if (isFollowUpQuery(textLower)) continue;
+
+      // Clean leading question words & punctuation
+      let cleanText = textTrim
+        .replace(/^(what is|what are|what do you know about|tell me about|explain|how does|how to|who is|define|meaning of|overview of|details of|information about|more about)\s+/gi, '')
+        .replace(/[?!.,;:'"()]/g, ' ')
+        .replace(/\s+/g, ' ')
+        .trim();
+
+      if (cleanText.length >= 2) {
+        return cleanText;
+      }
+    }
+  }
+
+  // Fallback to assistant turns: check for bolded headings/terms
+  for (let i = conversationHistory.length - 1; i >= 0; i--) {
+    const turn = conversationHistory[i];
+    const role = turn.role || turn.sender || 'assistant';
+    if (role === 'assistant' || role === 'bot') {
+      const text = typeof turn === 'string' ? turn : (turn.content || turn.text || turn.message || '');
+      if (!text || typeof text !== 'string') continue;
+
+      const boldMatch = text.match(/\*\*([^*]{2,40})\*\*/);
+      if (boldMatch && boldMatch[1]) {
+        const term = boldMatch[1].replace(/Definition|Overview|Overview of|Introduction|Features|Key|Summary/gi, '').trim();
+        if (term.length >= 2) return term;
+      }
+    }
+  }
+
+  return null;
+}
+
+/**
+ * Checks if query is a short follow-up query requiring topic resolution
+ */
+function isFollowUpQuery(queryText) {
+  if (!queryText) return false;
+  const clean = queryText.trim().toLowerCase().replace(/[?!.,;:'"()]/g, ' ').replace(/\s+/g, ' ').trim();
+
+  // If query contains 'about <something>' or 'on <something>' with a specific topic noun, it is NOT a generic follow-up
+  if (/^(more about|tell me about|explain about|details about|info about)\s+[a-z0-9_#-]{2,}/i.test(clean)) {
+    return false;
+  }
+
+  const FOLLOW_UP_EXACT_PATTERNS = [
+    'more', 'more details', 'tell me more', 'explain more', 'more about it', 'more info', 'details', 'explain',
+    'can you explain', 'elaborate', 'deep dive', 'what about examples', 'give examples', 'give me example',
+    'give example', 'code example', 'examples', 'sample code', 'code samples', 'syntax', 'code syntax',
+    'advantages', 'disadvantages', 'features', 'benefits', 'pros and cons', 'pros', 'cons', 'key features',
+    'how to use', 'how do i use it', 'usage', 'how it works', 'what else', 'continue', 'keep going', 'go on',
+    'anything else', 'tell me more about it', 'give me more', 'show more', 'give me details', 'explain further'
+  ];
+
+  if (FOLLOW_UP_EXACT_PATTERNS.includes(clean)) return true;
+
+  const words = clean.split(' ');
+  // Check if all words are meta/follow-up words without a specific topic noun
+  const metaWords = new Set([
+    'more', 'details', 'tell', 'me', 'explain', 'give', 'about', 'it', 'info', 'can', 'you',
+    'example', 'examples', 'sample', 'syntax', 'code', 'advantages', 'disadvantages', 'features',
+    'benefits', 'pros', 'cons', 'how', 'to', 'use', 'usage', 'works', 'what', 'else', 'continue',
+    'keep', 'going', 'go', 'on', 'further', 'please', 'show'
+  ]);
+
+  if (words.length <= 4 && words.every(w => metaWords.has(w))) {
+    return true;
+  }
+
+  return false;
+}
+
+/**
+ * Resolves multi-turn pronoun references and short follow-up queries (e.g. "more", "give examples", "syntax")
  */
 function resolveMultiTurnContext(query, conversationHistory = []) {
   if (!conversationHistory || conversationHistory.length === 0) {
     return { resolvedQuery: query, referencedSource: null };
   }
 
-  const qLower = query.toLowerCase();
+  const qTrim = (query || '').trim();
+  const qLower = qTrim.toLowerCase();
+
+  // 1. Multi-Turn Temporal Follow-Up (e.g., previous turn asked for time/date, now asks "in London?" or "London?")
+  const lastUserMsg = [...conversationHistory].reverse().find(m => (m.role || m.sender) === 'user');
+  const lastUserText = typeof lastUserMsg === 'string' ? lastUserMsg : (lastUserMsg?.content || lastUserMsg?.text || lastUserMsg?.message || '');
+  const lastIsTimeQuery = /time|clock|date|today|hour/i.test(lastUserText);
+
+  const knownCities = ['london', 'tokyo', 'new york', 'ny', 'paris', 'sydney', 'singapore', 'berlin', 'delhi', 'mumbai', 'california', 'india', 'uk', 'us', 'japan'];
+  const mentionsCity = knownCities.some(c => qLower.includes(c));
+  const isLocationFollowUp = /^(in\s+[a-zA-Z\s]+|what\s+about\s+(?:in\s+)?[a-zA-Z\s]+|[a-zA-Z\s]+)\??$/i.test(qTrim);
+
+  if (lastIsTimeQuery && (mentionsCity || isLocationFollowUp) && !qLower.includes('time') && !qLower.includes('code') && !qLower.includes('math') && !qLower.includes('react')) {
+    const locMatch = qTrim.replace(/^(what about (?:in )?|in |\?)/gi, '').replace(/\?/g, '').trim();
+    if (locMatch.length >= 2) {
+      return {
+        resolvedQuery: `time in ${locMatch}`,
+        referencedSource: 'temporal_follow_up'
+      };
+    }
+  }
+
+  // 2. Short Conversational Follow-Up Query Resolution ("more", "give examples", "syntax", "advantages", etc.)
+  if (isFollowUpQuery(qLower)) {
+    const lastTopic = extractPrimaryTopicFromHistory(conversationHistory);
+    if (lastTopic) {
+      let expandedQuery = `Tell me more details about ${lastTopic}.`;
+
+      if (/example|code/i.test(qLower)) {
+        expandedQuery = `Give detailed code examples and snippets for ${lastTopic}.`;
+      } else if (/syntax/i.test(qLower)) {
+        expandedQuery = `What is the syntax and code structure for ${lastTopic}?`;
+      } else if (/advantage|disadvantage|feature|benefit|pro|con/i.test(qLower)) {
+        expandedQuery = `What are the key features, advantages, and disadvantages of ${lastTopic}?`;
+      } else if (/how to use|usage|how it works/i.test(qLower)) {
+        expandedQuery = `How to use ${lastTopic}? Provide step-by-step instructions and practical usage.`;
+      } else if (/what else|continue|keep going|go on|anything else/i.test(qLower)) {
+        expandedQuery = `Continue explaining more concepts and information about ${lastTopic}.`;
+      }
+
+      return {
+        resolvedQuery: expandedQuery,
+        referencedSource: lastTopic
+      };
+    }
+  }
+
+  // 3. Pronoun reference resolution ("that", "this", "previous result", "the above")
   const pronouns = ['that', 'this', 'previous result', 'same document', 'second point', 'the above', 'continue', 'explain more'];
   const hasPronoun = pronouns.some(p => qLower.includes(p));
 
@@ -254,9 +394,9 @@ function resolveMultiTurnContext(query, conversationHistory = []) {
   }
 
   // Find last assistant response
-  const lastAssistantMsg = [...conversationHistory].reverse().find(m => m.role === 'assistant' || m.role === 'bot');
+  const lastAssistantMsg = [...conversationHistory].reverse().find(m => (m.role || m.sender) === 'assistant' || (m.role || m.sender) === 'bot');
   if (lastAssistantMsg) {
-    const contextSnippet = typeof lastAssistantMsg === 'string' ? lastAssistantMsg : (lastAssistantMsg.text || lastAssistantMsg.content || '');
+    const contextSnippet = typeof lastAssistantMsg === 'string' ? lastAssistantMsg : (lastAssistantMsg.text || lastAssistantMsg.content || lastAssistantMsg.message || '');
     return {
       resolvedQuery: `${query} (Context reference: "${contextSnippet.substring(0, 150)}")`,
       referencedSource: contextSnippet

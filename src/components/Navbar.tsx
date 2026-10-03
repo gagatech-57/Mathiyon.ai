@@ -1,6 +1,5 @@
 import React from 'react';
-import { Menu, Bell, Layers, Sparkles } from 'lucide-react';
-import { UserProfileDropdown } from './UserProfileDropdown';
+import { Menu, Bell, Layers } from 'lucide-react';
 import type { UserProfile } from '../api';
 
 interface NavbarProps {
@@ -16,18 +15,13 @@ interface NavbarProps {
 }
 
 export const Navbar: React.FC<NavbarProps> = ({
-  user,
-  onSignOut,
   onOpenMobileSidebar,
-  activeModel = 'Mathiyon SLM v1.2',
-  isDarkTheme,
-  onToggleTheme,
   onToggleRightPanel,
   isRightPanelOpen,
 }) => {
   return (
-    <header className="h-16 px-4 sm:px-6 glass-panel border-b border-rose-950/40 flex items-center justify-between z-20 sticky top-0 backdrop-blur-xl">
-      {/* Left section: Mobile menu toggle on mobile, Workspace Session Title on desktop */}
+    <header className="h-14 px-4 sm:px-6 glass-panel border-b border-rose-950/40 flex items-center justify-between z-20 sticky top-0 backdrop-blur-xl">
+      {/* Left section */}
       <div className="flex items-center gap-3">
         {/* Mobile menu drawer button */}
         <button
@@ -38,33 +32,31 @@ export const Navbar: React.FC<NavbarProps> = ({
           <Menu className="w-5 h-5" />
         </button>
 
-        {/* Mobile Brand Title */}
+        {/* Mobile Brand Title — clean */}
         <div className="md:hidden flex items-center gap-2">
+          <img
+            src="/mathiyon.png"
+            alt="Mathiyon AI"
+            className="w-6 h-6 object-contain rounded-md"
+          />
           <span className="font-extrabold text-base tracking-tight text-white font-['Outfit']">
             MATHIYON AI
           </span>
-          <span className="px-2 py-0.5 text-[9px] font-bold uppercase tracking-wider bg-rose-500/15 text-rose-300 border border-rose-500/25 rounded-md">
-            v1.2
-          </span>
         </div>
 
-        {/* Desktop Workspace Session Title (Eliminates sidebar duplication & border collision) */}
+        {/* Desktop breadcrumb — clean, no model version */}
         <div className="hidden md:flex items-center gap-2.5">
-          <span className="text-xs font-semibold text-slate-400">Workspace</span>
+          <span className="text-xs font-semibold text-slate-400">Mathiyon AI</span>
           <span className="text-slate-600 text-xs">/</span>
-          <span className="font-bold text-sm text-slate-100 font-['Outfit']">Chat Session</span>
-          <span className="px-2 py-0.5 text-[10px] font-semibold text-rose-300 bg-rose-500/10 border border-rose-500/20 rounded-full flex items-center gap-1">
-            <Sparkles className="w-3 h-3 text-rose-400" />
-            <span>{activeModel}</span>
-          </span>
+          <span className="font-bold text-sm text-slate-100 font-['Outfit']">Chat</span>
         </div>
       </div>
 
-      {/* Right section: Notifications + Tools Panel Toggle + User Profile */}
-      <div className="flex items-center gap-2 sm:gap-4">
+      {/* Right section: Notifications + Tools Panel Toggle */}
+      <div className="flex items-center gap-2 sm:gap-3">
         {/* Notifications */}
         <button
-          onClick={() => alert('Mathiyon AI Notifications: All backend services operating at peak performance.')}
+          onClick={() => alert('Mathiyon AI: All systems operational.')}
           className="p-2 rounded-xl text-slate-400 hover:text-white hover:bg-slate-800/80 transition-colors cursor-pointer relative"
           title="Notifications"
         >
@@ -84,16 +76,6 @@ export const Navbar: React.FC<NavbarProps> = ({
             <Layers className="w-4 h-4" />
           </button>
         )}
-
-        {/* User profile dropdown */}
-        <div className="pl-2 border-l border-slate-800">
-          <UserProfileDropdown
-            user={user}
-            onSignOut={onSignOut}
-            isDarkTheme={isDarkTheme}
-            onToggleTheme={onToggleTheme}
-          />
-        </div>
       </div>
     </header>
   );

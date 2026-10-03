@@ -1,0 +1,533 @@
+{
+  "totalTests": 40,
+  "passed": 39,
+  "failed": 1,
+  "timestamp": "2026-09-30T03:17:02.980Z",
+  "results": [
+    {
+      "id": 1,
+      "group": "GENERAL",
+      "query": "hi",
+      "status": "PASS",
+      "intent": "GENERAL",
+      "model": "Mathiyon SLM v1.2",
+      "tools": [
+        "SLM"
+      ],
+      "latencyMs": 41,
+      "answerSnippet": "Hi! 👋 I'm Mathiyon AI. How can I help you today?"
+    },
+    {
+      "id": 2,
+      "group": "GENERAL",
+      "query": "hello",
+      "status": "PASS",
+      "intent": "GENERAL",
+      "model": "Mathiyon SLM v1.2",
+      "tools": [
+        "SLM"
+      ],
+      "latencyMs": 25,
+      "answerSnippet": "Hello! 👋 How can I help you today?"
+    },
+    {
+      "id": 3,
+      "group": "GENERAL",
+      "query": "hey",
+      "status": "PASS",
+      "intent": "GENERAL",
+      "model": "Mathiyon SLM v1.2",
+      "tools": [
+        "SLM"
+      ],
+      "latencyMs": 28,
+      "answerSnippet": "Hey! 👋 What can I help you with?"
+    },
+    {
+      "id": 4,
+      "group": "GENERAL",
+      "query": "hay",
+      "status": "PASS",
+      "intent": "GENERAL",
+      "model": "Mathiyon SLM v1.2",
+      "tools": [
+        "SLM"
+      ],
+      "latencyMs": 32,
+      "answerSnippet": "Hey! 👋 What can I help you with?"
+    },
+    {
+      "id": 5,
+      "group": "GENERAL",
+      "query": "hlo",
+      "status": "PASS",
+      "intent": "GENERAL",
+      "model": "Mathiyon SLM v1.2",
+      "tools": [
+        "SLM"
+      ],
+      "latencyMs": 22,
+      "answerSnippet": "Hello! 👋 How can I help you today?"
+    },
+    {
+      "id": 6,
+      "group": "GENERAL",
+      "query": "hai",
+      "status": "PASS",
+      "intent": "GENERAL",
+      "model": "Mathiyon SLM v1.2",
+      "tools": [
+        "SLM"
+      ],
+      "latencyMs": 22,
+      "answerSnippet": "Hi! 👋 I'm Mathiyon AI. How can I help you today?"
+    },
+    {
+      "id": 7,
+      "group": "GENERAL",
+      "query": "how are you",
+      "status": "PASS",
+      "intent": "GENERAL",
+      "model": "Mathiyon SLM v1.2",
+      "tools": [
+        "SLM"
+      ],
+      "latencyMs": 20,
+      "answerSnippet": "I'm doing well and ready to help! 😊 What would you like to work on?"
+    },
+    {
+      "id": 8,
+      "group": "GENERAL",
+      "query": "thanks",
+      "status": "PASS",
+      "intent": "GENERAL",
+      "model": "Mathiyon SLM v1.2",
+      "tools": [
+        "SLM"
+      ],
+      "latencyMs": 15,
+      "answerSnippet": "You're very welcome! Let me know if you need anything else."
+    },
+    {
+      "id": 9,
+      "group": "GENERAL",
+      "query": "good morning",
+      "status": "PASS",
+      "intent": "GENERAL",
+      "model": "Mathiyon SLM v1.2",
+      "tools": [
+        "SLM"
+      ],
+      "latencyMs": 16,
+      "answerSnippet": "Good morning! ☀️ How can I help you today?"
+    },
+    {
+      "id": 10,
+      "group": "IDENTITY",
+      "query": "who are you",
+      "status": "PASS",
+      "intent": "ASSISTANT_IDENTITY",
+      "model": "Mathiyon SLM v1.2",
+      "tools": [
+        "SLM"
+      ],
+      "latencyMs": 4,
+      "answerSnippet": "I am **Mathiyon AI**, an intelligent hybrid AI assistant powered by Mathiyon SLM v1.2, LLM reasoning"
+    },
+    {
+      "id": 11,
+      "group": "IDENTITY",
+      "query": "what is Mathiyon",
+      "status": "PASS",
+      "intent": "ASSISTANT_IDENTITY",
+      "model": "Mathiyon SLM v1.2",
+      "tools": [
+        "SLM"
+      ],
+      "latencyMs": 3,
+      "answerSnippet": "I am **Mathiyon AI**, an intelligent hybrid AI assistant powered by Mathiyon SLM v1.2, LLM reasoning"
+    },
+    {
+      "id": 12,
+      "group": "IDENTITY",
+      "query": "what can you do",
+      "status": "PASS",
+      "intent": "ASSISTANT_IDENTITY",
+      "model": "Mathiyon SLM v1.2",
+      "tools": [
+        "SLM"
+      ],
+      "latencyMs": 3,
+      "answerSnippet": "I am **Mathiyon AI**, an intelligent hybrid AI assistant powered by Mathiyon SLM v1.2, LLM reasoning"
+    },
+    {
+      "id": 13,
+      "group": "TIME",
+      "query": "time",
+      "status": "PASS",
+      "intent": "TIME_DATE",
+      "model": "Mathiyon System Clock",
+      "tools": [
+        "TimeDateEngine"
+      ],
+      "latencyMs": 8,
+      "answerSnippet": "The current time in **Asia/Kolkata** is **08:47:02 AM** (Wednesday, September 30, 2026)."
+    },
+    {
+      "id": 14,
+      "group": "TIME",
+      "query": "what time",
+      "status": "PASS",
+      "intent": "TIME_DATE",
+      "model": "Mathiyon System Clock",
+      "tools": [
+        "TimeDateEngine"
+      ],
+      "latencyMs": 4,
+      "answerSnippet": "The current time in **Asia/Kolkata** is **08:47:02 AM** (Wednesday, September 30, 2026)."
+    },
+    {
+      "id": 15,
+      "group": "TIME",
+      "query": "what time is it",
+      "status": "PASS",
+      "intent": "TIME_DATE",
+      "model": "Mathiyon System Clock",
+      "tools": [
+        "TimeDateEngine"
+      ],
+      "latencyMs": 4,
+      "answerSnippet": "The current time in **Asia/Kolkata** is **08:47:02 AM** (Wednesday, September 30, 2026)."
+    },
+    {
+      "id": 16,
+      "group": "TIME",
+      "query": "current time",
+      "status": "PASS",
+      "intent": "TIME_DATE",
+      "model": "Mathiyon System Clock",
+      "tools": [
+        "TimeDateEngine"
+      ],
+      "latencyMs": 4,
+      "answerSnippet": "The current time in **Asia/Kolkata** is **08:47:02 AM** (Wednesday, September 30, 2026)."
+    },
+    {
+      "id": 17,
+      "group": "TIME",
+      "query": "time now",
+      "status": "PASS",
+      "intent": "TIME_DATE",
+      "model": "Mathiyon System Clock",
+      "tools": [
+        "TimeDateEngine"
+      ],
+      "latencyMs": 3,
+      "answerSnippet": "The current time in **Asia/Kolkata** is **08:47:02 AM** (Wednesday, September 30, 2026)."
+    },
+    {
+      "id": 18,
+      "group": "DATE",
+      "query": "today",
+      "status": "PASS",
+      "intent": "TIME_DATE",
+      "model": "Mathiyon System Clock",
+      "tools": [
+        "TimeDateEngine"
+      ],
+      "latencyMs": 3,
+      "answerSnippet": "Today is **Wednesday**, Wednesday, September 30, 2026."
+    },
+    {
+      "id": 19,
+      "group": "DATE",
+      "query": "today date",
+      "status": "PASS",
+      "intent": "TIME_DATE",
+      "model": "Mathiyon System Clock",
+      "tools": [
+        "TimeDateEngine"
+      ],
+      "latencyMs": 5,
+      "answerSnippet": "Today is **Wednesday**, Wednesday, September 30, 2026."
+    },
+    {
+      "id": 20,
+      "group": "DATE",
+      "query": "what is today's date",
+      "status": "PASS",
+      "intent": "TIME_DATE",
+      "model": "Mathiyon System Clock",
+      "tools": [
+        "TimeDateEngine"
+      ],
+      "latencyMs": 5,
+      "answerSnippet": "Today is **Wednesday**, Wednesday, September 30, 2026."
+    },
+    {
+      "id": 21,
+      "group": "DATE",
+      "query": "what day is today",
+      "status": "PASS",
+      "intent": "TIME_DATE",
+      "model": "Mathiyon System Clock",
+      "tools": [
+        "TimeDateEngine"
+      ],
+      "latencyMs": 5,
+      "answerSnippet": "Today is **Wednesday**, Wednesday, September 30, 2026."
+    },
+    {
+      "id": 22,
+      "group": "MATH",
+      "query": "25 + 30",
+      "status": "PASS",
+      "intent": "CALCULATOR",
+      "model": "Mathiyon Calculator Engine",
+      "tools": [
+        "CalculatorEngine"
+      ],
+      "latencyMs": 4,
+      "answerSnippet": "55"
+    },
+    {
+      "id": 23,
+      "group": "MATH",
+      "query": "234 - 2342",
+      "status": "PASS",
+      "intent": "CALCULATOR",
+      "model": "Mathiyon Calculator Engine",
+      "tools": [
+        "CalculatorEngine"
+      ],
+      "latencyMs": 3,
+      "answerSnippet": "-2108"
+    },
+    {
+      "id": 24,
+      "group": "MATH",
+      "query": "2x + 5 = 15",
+      "status": "PASS",
+      "intent": "MATH",
+      "model": "Mathiyon SymPy Engine",
+      "tools": [
+        "MathEngine",
+        "SLM"
+      ],
+      "latencyMs": 94,
+      "answerSnippet": "x = 5"
+    },
+    {
+      "id": 25,
+      "group": "MATH",
+      "query": "what is 25 plus 30",
+      "status": "PASS",
+      "intent": "CALCULATOR",
+      "model": "Mathiyon Calculator Engine",
+      "tools": [
+        "CalculatorEngine"
+      ],
+      "latencyMs": 4,
+      "answerSnippet": "55"
+    },
+    {
+      "id": 26,
+      "group": "MATH",
+      "query": "25 oda 15%",
+      "status": "PASS",
+      "intent": "CALCULATOR",
+      "model": "Mathiyon Calculator Engine",
+      "tools": [
+        "CalculatorEngine"
+      ],
+      "latencyMs": 3,
+      "answerSnippet": "3.75"
+    },
+    {
+      "id": 27,
+      "group": "CODING",
+      "query": "what is React",
+      "status": "PASS",
+      "intent": "CODING",
+      "model": "Mathiyon SLM v1.2",
+      "tools": [
+        "CodeEngine",
+        "SLM"
+      ],
+      "latencyMs": 17,
+      "answerSnippet": "**React** is a popular component-based JavaScript frontend library developed by Meta. Key concepts i"
+    },
+    {
+      "id": 28,
+      "group": "CODING",
+      "query": "create a React login form",
+      "status": "FAIL",
+      "intent": "CODING",
+      "model": "Mathiyon SLM v1.2",
+      "tools": [
+        "CodeEngine",
+        "SLM"
+      ],
+      "latencyMs": 51,
+      "answerSnippet": "R*a**3*c**2*e**3*f*g*i*l*m*n*o**2*r**2*t**2",
+      "reason": "Answer content failed custom validator. "
+    },
+    {
+      "id": 29,
+      "group": "WEB",
+      "query": "search online about quantum computing",
+      "status": "PASS",
+      "intent": "WEB",
+      "model": "Mathiyon SLM v1.2 + Web Intelligence",
+      "tools": [
+        "WebSearch",
+        "SLM"
+      ],
+      "latencyMs": 24,
+      "answerSnippet": "I understand your question regarding **search online about quantum computing**. I can help explain c"
+    },
+    {
+      "id": 30,
+      "group": "WEB",
+      "query": "latest React version",
+      "status": "PASS",
+      "intent": "MULTI_TOOL",
+      "model": "Mathiyon SLM v1.2 + Web Intelligence",
+      "tools": [
+        "RAG",
+        "WebSearch",
+        "LLM"
+      ],
+      "latencyMs": 27,
+      "answerSnippet": "Based on verified real-time web intelligence:  [Web Source: React v19 Release Notes & Documentation]"
+    },
+    {
+      "id": 31,
+      "group": "RAG",
+      "query": "What does my uploaded PDF say about authentication?",
+      "status": "PASS",
+      "intent": "DOCUMENT",
+      "model": "Mathiyon SLM v1.2",
+      "tools": [
+        "RAG",
+        "SLM"
+      ],
+      "latencyMs": 45,
+      "answerSnippet": "I understand your question regarding **What does my uploaded PDF say about authentication?**. I can "
+    },
+    {
+      "id": 32,
+      "group": "MEMORY",
+      "query": "remember that my project name is SuperApp",
+      "status": "PASS",
+      "intent": "MEMORY",
+      "model": "Mathiyon SLM v1.2",
+      "tools": [
+        "Memory",
+        "SLM"
+      ],
+      "latencyMs": 48,
+      "answerSnippet": "I understand your question regarding **remember that my project name is SuperApp**. I can help expla"
+    },
+    {
+      "id": 33,
+      "group": "MULTILINGUAL",
+      "query": "வணக்கம்",
+      "status": "PASS",
+      "intent": "GENERAL",
+      "model": "Mathiyon SLM v1.2",
+      "tools": [
+        "SLM"
+      ],
+      "latencyMs": 28,
+      "answerSnippet": "வணக்கம்! நான் மதியோன் AI. உங்களுக்கு எவ்வாறு உதவ முடியும்?"
+    },
+    {
+      "id": 34,
+      "group": "MULTILINGUAL",
+      "query": "ஹாய்",
+      "status": "PASS",
+      "intent": "GENERAL",
+      "model": "Mathiyon SLM v1.2",
+      "tools": [
+        "SLM"
+      ],
+      "latencyMs": 21,
+      "answerSnippet": "வணக்கம்! நான் மதியோன் AI. உங்களுக்கு எவ்வாறு உதவ முடியும்?"
+    },
+    {
+      "id": 35,
+      "group": "MULTILINGUAL",
+      "query": "எப்படி இருக்க?",
+      "status": "PASS",
+      "intent": "GENERAL",
+      "model": "Mathiyon SLM v1.2",
+      "tools": [
+        "SLM"
+      ],
+      "latencyMs": 25,
+      "answerSnippet": "நான் நன்றாக இருக்கிறேன்! 😊 உங்களுக்கு என்ன உதவி வேண்டும்?"
+    },
+    {
+      "id": 36,
+      "group": "MULTILINGUAL",
+      "query": "இன்னைக்கு என்ன தேதி?",
+      "status": "PASS",
+      "intent": "TIME_DATE",
+      "model": "Mathiyon System Clock",
+      "tools": [
+        "TimeDateEngine"
+      ],
+      "latencyMs": 6,
+      "answerSnippet": "Today's date in **Asia/Kolkata** is **Wednesday, September 30, 2026** (Time: 08:47:02 AM)."
+    },
+    {
+      "id": 37,
+      "group": "MULTILINGUAL",
+      "query": "இப்போ என்ன time?",
+      "status": "PASS",
+      "intent": "TIME_DATE",
+      "model": "Mathiyon System Clock",
+      "tools": [
+        "TimeDateEngine"
+      ],
+      "latencyMs": 5,
+      "answerSnippet": "The current time in **Asia/Kolkata** is **08:47:02 AM** (Wednesday, September 30, 2026)."
+    },
+    {
+      "id": 38,
+      "group": "MULTILINGUAL",
+      "query": "epdi iruka",
+      "status": "PASS",
+      "intent": "GENERAL",
+      "model": "Mathiyon SLM v1.2",
+      "tools": [
+        "SLM"
+      ],
+      "latencyMs": 21,
+      "answerSnippet": "நான் நன்றாக இருக்கிறேன்! 😊 உங்களுக்கு என்ன உதவி வேண்டும்?"
+    },
+    {
+      "id": 39,
+      "group": "MULTILINGUAL",
+      "query": "innaiku enna date",
+      "status": "PASS",
+      "intent": "TIME_DATE",
+      "model": "Mathiyon System Clock",
+      "tools": [
+        "TimeDateEngine"
+      ],
+      "latencyMs": 5,
+      "answerSnippet": "Today's date in **Asia/Kolkata** is **Wednesday, September 30, 2026** (Time: 08:47:02 AM)."
+    },
+    {
+      "id": 38,
+      "group": "MULTI_TURN",
+      "query": "in London? (follow up to what time is it)",
+      "status": "PASS",
+      "intent": "TIME_DATE",
+      "model": "Mathiyon System Clock",
+      "answerSnippet": "The current time in **Europe/London** is **04:17:02 AM** (Wednesday, September 30, 2026)."
+    }
+  ]
+}

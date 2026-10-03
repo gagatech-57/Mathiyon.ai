@@ -6,10 +6,15 @@ const User = require('../models/User');
 // Fallback in-memory user store for instant testing if MongoDB server is offline
 const memoryUsers = [];
 
+const getJwtSecret = () => {
+  const secret = process.env.JWT_SECRET || 'development-jwt-secret-change-me';
+  return secret;
+};
+
 const generateToken = (id, email, name) => {
   return jwt.sign(
     { id, email, name },
-    process.env.JWT_SECRET || 'mathiyon_secret_jwt_key_2026_super_secure_987654321',
+    getJwtSecret(),
     { expiresIn: '30d' }
   );
 };

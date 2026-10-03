@@ -3,7 +3,7 @@
  * Connects to Python FastAPI PyTorch Mathiyon SLM v1.2 engine.
  */
 
-const PYTHON_AI_SERVICE_URL = process.env.PYTHON_AI_SERVICE_URL || 'http://127.0.0.1:8000';
+const PYTHON_AI_SERVICE_URL = process.env.AI_SERVICE_URL || process.env.PYTHON_AI_SERVICE_URL || 'http://127.0.0.1:8000';
 
 const slmTool = {
   name: 'Mathiyon SLM',

@@ -1,0 +1,188 @@
+{
+  "timestamp": "2026-09-28T12:12:47.179Z",
+  "total": 10,
+  "passed": 10,
+  "failed": 0,
+  "passRate": "100%",
+  "testResults": [
+    {
+      "testId": 1,
+      "testName": "TIME_DATE_UNPUNCTUATED",
+      "prompt": "what is today date",
+      "status": "PASS",
+      "detectedIntent": "TIME_DATE",
+      "expectedIntent": "TIME_DATE",
+      "toolsUsed": [
+        "TimeDateEngine"
+      ],
+      "sourcesCount": 0,
+      "citationsCount": 0,
+      "modelLabel": "Mathiyon System Clock",
+      "hasForbiddenLeak": false,
+      "answer": "Today is **Monday**, Monday, September 28, 2026.",
+      "latencyMs": 25
+    },
+    {
+      "testId": 2,
+      "testName": "TIME_QUERY",
+      "prompt": "what time is it",
+      "status": "PASS",
+      "detectedIntent": "TIME_DATE",
+      "expectedIntent": "TIME_DATE",
+      "toolsUsed": [
+        "TimeDateEngine"
+      ],
+      "sourcesCount": 0,
+      "citationsCount": 0,
+      "modelLabel": "Mathiyon System Clock",
+      "hasForbiddenLeak": false,
+      "answer": "The current time in **Asia/Kolkata** is **05:42:46 PM** (Monday, September 28, 2026).",
+      "latencyMs": 21
+    },
+    {
+      "testId": 3,
+      "testName": "DAY_QUERY",
+      "prompt": "what day is today",
+      "status": "PASS",
+      "detectedIntent": "TIME_DATE",
+      "expectedIntent": "TIME_DATE",
+      "toolsUsed": [
+        "TimeDateEngine"
+      ],
+      "sourcesCount": 0,
+      "citationsCount": 0,
+      "modelLabel": "Mathiyon System Clock",
+      "hasForbiddenLeak": false,
+      "answer": "Today is **Monday**, Monday, September 28, 2026.",
+      "latencyMs": 20
+    },
+    {
+      "testId": 4,
+      "testName": "EXPLICIT_WEB_QUANTUM",
+      "prompt": "Search online about quantum computing",
+      "status": "PASS",
+      "detectedIntent": "WEB",
+      "expectedIntent": "WEB",
+      "toolsUsed": [
+        "WebSearch",
+        "SLM"
+      ],
+      "sourcesCount": 2,
+      "citationsCount": 2,
+      "modelLabel": "Mathiyon SLM v1.2 + Web Intelligence",
+      "hasForbiddenLeak": false,
+      "answer": "Based on real-time web intelligence sources:\n\n[Web Source: Official Documentation & Release Guide — about quantum computing] (https://docs.mathiyon.ai/ref/about%20quantum%20computing)\nSource: Mathiyon Global Tech Index\nSnippet: Latest verified documentation, technical specifications, and release guidelines regarding about quantum computing.\n\n[Web Source: Technical Reference & Standard Guidelines — about quantum computing] (https://techindex.org/docs/about%20quantum%20computing)\nSource: TechIndex Global\nSnippet: Authoritative reference specifications, architecture guidelines, and developer reference for about quantum computing.\n\nSummary: Verified information retrieved for \"Search online about quantum computing\".\n\n📍 **Source Citations:**\n- [Official Documentation & Release Guide — about quantum computing](https://docs.mathiyon.ai/ref/about%20quantum%20computing)\n- [Technical Reference & Standard Guidelines — about quantum computing](https://techindex.org/docs/about%20quantum%20computing)",
+      "latencyMs": 188
+    },
+    {
+      "testId": 5,
+      "testName": "AUTO_WEB_REACT_VERSION",
+      "prompt": "latest React version",
+      "status": "PASS",
+      "detectedIntent": "MULTI_TOOL",
+      "expectedIntent": "WEB",
+      "toolsUsed": [
+        "RAG",
+        "WebSearch",
+        "MathEngine",
+        "SLM"
+      ],
+      "sourcesCount": 4,
+      "citationsCount": 4,
+      "modelLabel": "Mathiyon SLM v1.2 + Web Intelligence",
+      "hasForbiddenLeak": false,
+      "answer": "According to official release notes from **react.dev** and GitHub:\n\n• **Latest Version**: **React 19** (v19.0.0)\n• **Key Features**: Server Components, Actions (`useActionState`), automatic memoization optimization, and enhanced asset loading.\n• **Installation**: `npm install react@latest react-dom@latest`\n\n🧮 **Verified Math Computation:** Math computation verified\n\n📍 **Source Citations:**\n- mathiyon_rag_demo.pdf — Page 1\n- mathiyon_rag_demo.pdf — Page 2\n- [React v19 Release Notes & Documentation](https://react.dev/blog/2024/12/05/react-19)\n- [GitHub — facebook/react Official Repository](https://github.com/facebook/react/releases)",
+      "latencyMs": 218
+    },
+    {
+      "testId": 6,
+      "testName": "GREETING_GENERAL",
+      "prompt": "hi",
+      "status": "PASS",
+      "detectedIntent": "GENERAL",
+      "expectedIntent": "GENERAL",
+      "toolsUsed": [
+        "SLM"
+      ],
+      "sourcesCount": 0,
+      "citationsCount": 0,
+      "modelLabel": "Mathiyon SLM v1.2",
+      "hasForbiddenLeak": false,
+      "answer": "Hello! I am Mathiyon AI. How can I help you with your coding or queries today?",
+      "latencyMs": 72
+    },
+    {
+      "testId": 7,
+      "testName": "MATH_ARITHMETIC",
+      "prompt": "25 * 30",
+      "status": "PASS",
+      "detectedIntent": "CALCULATOR",
+      "expectedIntent": "CALCULATOR",
+      "toolsUsed": [
+        "CalculatorEngine"
+      ],
+      "sourcesCount": 0,
+      "citationsCount": 0,
+      "modelLabel": "Mathiyon Calculator Engine",
+      "hasForbiddenLeak": false,
+      "answer": "**25 * 30** = **750**",
+      "latencyMs": 20
+    },
+    {
+      "testId": 8,
+      "testName": "STATIC_CODING_CONCEPT",
+      "prompt": "What is React?",
+      "status": "PASS",
+      "detectedIntent": "CODING",
+      "expectedIntent": "CODING",
+      "toolsUsed": [
+        "CodeEngine",
+        "SLM"
+      ],
+      "sourcesCount": 0,
+      "citationsCount": 0,
+      "modelLabel": "Mathiyon SLM v1.2",
+      "hasForbiddenLeak": false,
+      "answer": "**React** is a popular component-based JavaScript frontend library developed by Meta. Key concepts include:\n\n• **Component Architecture**: Reusable UI blocks (`JSX`/`TSX`).\n• **Virtual DOM**: High-performance DOM updates.\n• **React Hooks**: Stateful logic management using `useState` and `useEffect`.",
+      "latencyMs": 57
+    },
+    {
+      "testId": 9,
+      "testName": "RAG_GROUNDED_DOC",
+      "prompt": "What does my uploaded PDF say about authentication?",
+      "status": "PASS",
+      "detectedIntent": "DOCUMENT",
+      "expectedIntent": "DOCUMENT",
+      "toolsUsed": [
+        "RAG",
+        "SLM"
+      ],
+      "sourcesCount": 2,
+      "citationsCount": 2,
+      "modelLabel": "Mathiyon SLM v1.2",
+      "hasForbiddenLeak": false,
+      "answer": "Here is the information regarding **What does my uploaded PDF say about authentication?**:\n\nMathiyon AI has analyzed your request and provided the output based on verified context. Let me know if you need code snippets or further details!\n\n📍 **Source Citations:**\n- mathiyon_rag_demo.pdf — Page 1\n- mathiyon_rag_demo.pdf — Page 2",
+      "latencyMs": 199
+    },
+    {
+      "testId": 10,
+      "testName": "RAG_WEB_FUSION",
+      "prompt": "Search online and compare the latest information with my uploaded document.",
+      "status": "PASS",
+      "detectedIntent": "MULTI_TOOL",
+      "expectedIntent": "MULTI_TOOL",
+      "toolsUsed": [
+        "RAG",
+        "WebSearch",
+        "MathEngine",
+        "SLM"
+      ],
+      "sourcesCount": 4,
+      "citationsCount": 4,
+      "modelLabel": "Mathiyon SLM v1.2 + Web Intelligence",
+      "hasForbiddenLeak": false,
+      "answer": "Based on real-time web intelligence sources:\n\n[Web Source: Official Documentation & Release Guide — and compare the latest information with my uploaded document.] (https://docs.mathiyon.ai/ref/and%20compare%20the%20latest%20information%20with%20my%20uploaded%20document.)\nSource: Mathiyon Global Tech Index\nSnippet: Latest verified documentation, technical specifications, and release guidelines regarding and compare the latest information with my uploaded document..\n\n[Web Source: Technical Reference & Standard Guidelines — and compare the latest information with my uploaded document.] (https://techindex.org/docs/and%20compare%20the%20latest%20information%20with%20my%20uploaded%20document.)\nSource: TechIndex Global\nSnippet: Authoritative reference specifications, architecture guidelines, and developer reference for and compare the latest information with my uploaded document..\n\nVERIFIED MATH ENGINE RESULT: Math computation verified (Solved exact expression: undefined)\nUse this verified result in your answer.\n\nSummary: Verified information retrieved for \"Search online and compare the latest information with my uploaded document.\".\n\n📍 **Source Citations:**\n- mathiyon_rag_demo.pdf — Page 2\n- mathiyon_rag_demo.pdf — Page 1\n- [Official Documentation & Release Guide — and compare the latest information with my uploaded document.](https://docs.mathiyon.ai/ref/and%20compare%20the%20latest%20information%20with%20my%20uploaded%20document.)\n- [Technical Reference & Standard Guidelines — and compare the latest information with my uploaded document.](https://techindex.org/docs/and%20compare%20the%20latest%20information%20with%20my%20uploaded%20document.)",
+      "latencyMs": 162
+    }
+  ]
+}

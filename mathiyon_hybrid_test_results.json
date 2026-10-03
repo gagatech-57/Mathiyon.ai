@@ -1,0 +1,218 @@
+{
+  "timestamp": "2026-09-29T03:27:45.880Z",
+  "totalTests": 23,
+  "passed": 23,
+  "failed": 0,
+  "categories": {
+    "GENERAL_GREETING": {
+      "category": "General Conversation",
+      "query": "hi",
+      "passed": true,
+      "model": "Mathiyon SLM v1.2",
+      "intent": "GENERAL",
+      "toolsUsed": [
+        "SLM"
+      ],
+      "latencyMs": 85
+    },
+    "ASSISTANT_IDENTITY": {
+      "category": "Assistant Identity",
+      "query": "who are you",
+      "passed": true,
+      "model": "Mathiyon SLM v1.2",
+      "intent": "ASSISTANT_IDENTITY",
+      "toolsUsed": [
+        "SLM"
+      ],
+      "latencyMs": 0
+    },
+    "TIME_CLOCK": {
+      "category": "Time & Date",
+      "query": "what time is it?",
+      "passed": true,
+      "model": "Mathiyon System Clock",
+      "intent": "TIME_DATE",
+      "toolsUsed": [
+        "TimeDateEngine"
+      ],
+      "latencyMs": 67
+    },
+    "DATE_CLOCK": {
+      "category": "Time & Date",
+      "query": "what is today's date?",
+      "passed": true,
+      "model": "Mathiyon System Clock",
+      "intent": "TIME_DATE",
+      "toolsUsed": [
+        "TimeDateEngine"
+      ],
+      "latencyMs": 4
+    },
+    "MATH_ALGEBRA_EXACT": {
+      "category": "Mathematics",
+      "query": "10x - 45 = 40",
+      "passed": true,
+      "model": "Mathiyon SymPy Math Engine",
+      "intent": "MATH",
+      "toolsUsed": [
+        "MathEngine",
+        "SLM"
+      ],
+      "latencyMs": 16
+    },
+    "CODING_SIMPLE": {
+      "category": "Coding",
+      "query": "Explain React hooks",
+      "passed": true,
+      "model": "Mathiyon SLM v1.2",
+      "intent": "CODING",
+      "toolsUsed": [
+        "CodeEngine",
+        "SLM"
+      ],
+      "latencyMs": 17
+    },
+    "COMPLEX_CODING_ARCHITECTURE": {
+      "category": "Complex Reasoning (LLM)",
+      "query": "Design a production authentication architecture for React, Express, PostgreSQL and JWT.",
+      "passed": true,
+      "model": "Mathiyon LLM (Hybrid)",
+      "intent": "CODING",
+      "toolsUsed": [
+        "CodeEngine",
+        "LLM"
+      ],
+      "latencyMs": 2
+    },
+    "RAG_GROUNDED": {
+      "category": "Document RAG",
+      "query": "What does my uploaded document say?",
+      "passed": true,
+      "model": "Mathiyon SLM v1.2",
+      "intent": "DOCUMENT",
+      "toolsUsed": [
+        "RAG",
+        "WebSearch",
+        "SLM"
+      ],
+      "latencyMs": 32
+    },
+    "WEB_INTELLIGENCE": {
+      "category": "Web Intelligence",
+      "query": "Search online for the latest React information.",
+      "passed": true,
+      "model": "Mathiyon LLM (Hybrid Agent)",
+      "intent": "MULTI_TOOL",
+      "toolsUsed": [
+        "RAG",
+        "WebSearch",
+        "LLM"
+      ],
+      "latencyMs": 9
+    },
+    "MULTI_TOOL_WEB_RAG": {
+      "category": "Multi-Tool Agent",
+      "query": "Search the latest React version and compare it with my uploaded project.",
+      "passed": true,
+      "model": "Mathiyon LLM (Hybrid Agent)",
+      "intent": "MULTI_TOOL",
+      "toolsUsed": [
+        "RAG",
+        "WebSearch",
+        "LLM"
+      ],
+      "latencyMs": 7
+    },
+    "MULTI_TOOL_CURRENCY_MATH": {
+      "category": "Multi-Tool Agent",
+      "query": "Get the current USD to INR rate and calculate ₹50,000 in USD.",
+      "passed": true,
+      "model": "Mathiyon LLM (Hybrid Agent)",
+      "intent": "MULTI_TOOL",
+      "toolsUsed": [
+        "RAG",
+        "WebSearch",
+        "LLM"
+      ],
+      "latencyMs": 31
+    },
+    "MATH_10x - 45 = 40": {
+      "category": "Math Verification",
+      "query": "10x - 45 = 40",
+      "passed": true,
+      "verified": true,
+      "latencyMs": 12
+    },
+    "MATH_2x + 5 = 15": {
+      "category": "Math Verification",
+      "query": "2x + 5 = 15",
+      "passed": true,
+      "verified": true,
+      "latencyMs": 13
+    },
+    "MATH_x^2 - 5x + 6 = 0": {
+      "category": "Math Verification",
+      "query": "x^2 - 5x + 6 = 0",
+      "passed": true,
+      "verified": true,
+      "latencyMs": 15
+    },
+    "MATH_x + y = 10, 2x - y = 5": {
+      "category": "Math Verification",
+      "query": "x + y = 10, 2x - y = 5",
+      "passed": true,
+      "verified": true,
+      "latencyMs": 12
+    },
+    "MATH_sqrt(144)": {
+      "category": "Math Verification",
+      "query": "sqrt(144)",
+      "passed": true,
+      "verified": true,
+      "latencyMs": 7
+    },
+    "MATH_25% of 200": {
+      "category": "Math Verification",
+      "query": "25% of 200",
+      "passed": true,
+      "verified": true,
+      "latencyMs": 1
+    },
+    "MATH_2/3 + 1/3": {
+      "category": "Math Verification",
+      "query": "2/3 + 1/3",
+      "passed": true,
+      "verified": true,
+      "latencyMs": 6
+    },
+    "MATH_derivative of x^2": {
+      "category": "Math Verification",
+      "query": "derivative of x^2",
+      "passed": true,
+      "verified": true,
+      "latencyMs": 8
+    },
+    "MATH_integral of x^2": {
+      "category": "Math Verification",
+      "query": "integral of x^2",
+      "passed": true,
+      "verified": true,
+      "latencyMs": 7
+    },
+    "MATH_determinant of [[1, 2], [3, 4]]": {
+      "category": "Math Verification",
+      "query": "determinant of [[1, 2], [3, 4]]",
+      "passed": true,
+      "verified": true,
+      "latencyMs": 5
+    },
+    "SAFETY_MATH_IMMUTABILITY": {
+      "passed": true,
+      "query": "2 + 2"
+    },
+    "SAFETY_CLOCK_IMMUTABILITY": {
+      "passed": true,
+      "query": "what is the current time?"
+    }
+  }
+}

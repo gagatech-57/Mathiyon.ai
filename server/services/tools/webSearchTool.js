@@ -52,10 +52,52 @@ function generateOptimizedSearchQuery(userQuestion) {
   if (qLower.includes('prisma postgresql')) {
     return 'Prisma PostgreSQL connection configuration official documentation';
   }
+  if (qLower.includes('css') && !qLower.includes('react')) {
+    return 'CSS Cascading Style Sheets MDN Web Docs reference';
+  }
+  if (qLower.includes('html') && !qLower.includes('react')) {
+    return 'HTML HyperText Markup Language MDN Web Docs reference';
+  }
+  if (qLower.includes('python') && !qLower.includes('pytorch') && !qLower.includes('tensorflow')) {
+    return 'Python programming language official documentation python.org';
+  }
+  if (qLower.includes('typescript')) {
+    return 'TypeScript official documentation typescriptlang.org';
+  }
+  if (qLower.includes('docker')) {
+    return 'Docker container platform official documentation docs.docker.com';
+  }
+  if (qLower.includes('kubernetes') || qLower.includes('k8s')) {
+    return 'Kubernetes container orchestration official documentation kubernetes.io';
+  }
+  if (qLower.includes('machine learning') || qLower.includes('deep learning')) {
+    return 'machine learning overview Wikipedia scikit-learn';
+  }
+  if (qLower.includes('mongodb')) {
+    return 'MongoDB NoSQL database official documentation mongodb.com';
+  }
+  if (qLower.includes('postgresql') || qLower.includes('postgres')) {
+    return 'PostgreSQL relational database official documentation postgresql.org';
+  }
+  if (qLower.includes('sql')) {
+    return 'SQL Structured Query Language reference MDN W3Schools';
+  }
+  if (qLower.includes('git') || qLower.includes('github')) {
+    return 'Git version control system official documentation git-scm.com';
+  }
+  if (qLower.includes('aws') || qLower.includes('amazon web services')) {
+    return 'Amazon Web Services cloud platform official documentation aws.amazon.com';
+  }
+  if (qLower.includes('graphql')) {
+    return 'GraphQL query language official documentation graphql.org';
+  }
+  if (qLower.includes('blockchain') || qLower.includes('ethereum')) {
+    return 'blockchain technology Wikipedia Ethereum documentation';
+  }
 
   // Strip conversational fill words
   const searchTerms = clean.replace(/search|online|web|look up|find this|tell me|what is|who is|please/gi, '').trim();
-  return searchTerms.length > 0 ? `${searchTerms} official documentation` : clean;
+  return searchTerms.length > 0 ? `${searchTerms}` : clean;
 }
 
 const webSearchTool = {
@@ -163,26 +205,137 @@ const webSearchTool = {
           }
         ];
       } else {
-        // General authoritative search fallback
+        // General authoritative search fallback — expanded topic library
         const topicName = query.replace(/search|online|web|look up|find this/gi, '').trim() || query;
-        rawResults = [
-          {
-            title: `Official Documentation & Release Guide — ${topicName}`,
-            url: `https://docs.mathiyon.ai/ref/${encodeURIComponent(topicName)}`,
-            snippet: `Latest verified documentation, technical specifications, and release guidelines regarding ${topicName}.`,
-            source: 'Mathiyon Global Tech Index',
-            published_at: new Date().toISOString().split('T')[0],
-            domain: 'docs.mathiyon.ai'
-          },
-          {
-            title: `Technical Reference & Standard Guidelines — ${topicName}`,
-            url: `https://techindex.org/docs/${encodeURIComponent(topicName)}`,
-            snippet: `Authoritative reference specifications, architecture guidelines, and developer reference for ${topicName}.`,
-            source: 'TechIndex Global',
-            published_at: new Date().toISOString().split('T')[0],
-            domain: 'techindex.org'
-          }
-        ];
+        const topicLowerFull = topicName.toLowerCase();
+
+        let generalResults = [];
+
+        if (topicLowerFull.includes('css')) {
+          generalResults = [{
+            title: 'CSS: Cascading Style Sheets — MDN Web Docs',
+            url: 'https://developer.mozilla.org/en-US/docs/Web/CSS',
+            snippet: 'CSS is a style sheet language used to describe the presentation of a document written in HTML. MDN Web Docs provides comprehensive CSS reference and guides.',
+            source: 'MDN Web Docs (developer.mozilla.org)', published_at: new Date().toISOString().split('T')[0], domain: 'developer.mozilla.org'
+          }, {
+            title: 'Learn CSS — web.dev by Google',
+            url: 'https://web.dev/learn/css/',
+            snippet: 'A complete course on CSS, covering selectors, the box model, Flexbox, Grid, animations, and responsive design fundamentals.',
+            source: 'web.dev (Google)', published_at: new Date().toISOString().split('T')[0], domain: 'web.dev'
+          }];
+        } else if (topicLowerFull.includes('html')) {
+          generalResults = [{
+            title: 'HTML: HyperText Markup Language — MDN Web Docs',
+            url: 'https://developer.mozilla.org/en-US/docs/Web/HTML',
+            snippet: 'HTML is the standard markup language for Web pages, defining the structure and meaning of web content.',
+            source: 'MDN Web Docs (developer.mozilla.org)', published_at: new Date().toISOString().split('T')[0], domain: 'developer.mozilla.org'
+          }];
+        } else if (topicLowerFull.includes('python')) {
+          generalResults = [{
+            title: 'Python Official Documentation — python.org',
+            url: 'https://docs.python.org/3/',
+            snippet: 'The official Python 3 documentation covering the language reference, standard library, and getting started tutorials.',
+            source: 'Python.org', published_at: new Date().toISOString().split('T')[0], domain: 'python.org'
+          }];
+        } else if (topicLowerFull.includes('typescript')) {
+          generalResults = [{
+            title: 'TypeScript Official Documentation — typescriptlang.org',
+            url: 'https://www.typescriptlang.org/docs/',
+            snippet: 'TypeScript is JavaScript with syntax for types. Official handbook covering types, interfaces, generics, and advanced patterns.',
+            source: 'TypeScript Lang (typescriptlang.org)', published_at: new Date().toISOString().split('T')[0], domain: 'typescriptlang.org'
+          }];
+        } else if (topicLowerFull.includes('docker')) {
+          generalResults = [{
+            title: 'Docker Official Documentation — docs.docker.com',
+            url: 'https://docs.docker.com/',
+            snippet: 'Docker is a platform for building, running, and shipping applications in containers. Official docs cover Dockerfile, Compose, and orchestration.',
+            source: 'Docker Docs (docs.docker.com)', published_at: new Date().toISOString().split('T')[0], domain: 'docs.docker.com'
+          }];
+        } else if (topicLowerFull.includes('mongodb')) {
+          generalResults = [{
+            title: 'MongoDB Official Documentation — mongodb.com',
+            url: 'https://www.mongodb.com/docs/',
+            snippet: 'MongoDB is a source-available cross-platform document-oriented database program. Official docs cover CRUD, aggregation, and Atlas.',
+            source: 'MongoDB (mongodb.com)', published_at: new Date().toISOString().split('T')[0], domain: 'mongodb.com'
+          }];
+        } else if (topicLowerFull.includes('postgresql') || topicLowerFull.includes('postgres')) {
+          generalResults = [{
+            title: 'PostgreSQL Official Documentation — postgresql.org',
+            url: 'https://www.postgresql.org/docs/',
+            snippet: 'PostgreSQL is a powerful, open-source object-relational database system with over 35 years of active development.',
+            source: 'PostgreSQL (postgresql.org)', published_at: new Date().toISOString().split('T')[0], domain: 'postgresql.org'
+          }];
+        } else if (topicLowerFull.includes('sql')) {
+          generalResults = [{
+            title: 'SQL Reference — MDN Web Docs',
+            url: 'https://developer.mozilla.org/en-US/docs/Glossary/SQL',
+            snippet: 'SQL (Structured Query Language) is used to manage and query relational databases. Covers SELECT, INSERT, UPDATE, DELETE and JOINs.',
+            source: 'MDN Web Docs', published_at: new Date().toISOString().split('T')[0], domain: 'developer.mozilla.org'
+          }];
+        } else if (topicLowerFull.includes('git')) {
+          generalResults = [{
+            title: 'Git Documentation — git-scm.com',
+            url: 'https://git-scm.com/doc',
+            snippet: 'Git is a free and open source distributed version control system. Official docs cover all commands, workflows, and branching strategies.',
+            source: 'Git SCM (git-scm.com)', published_at: new Date().toISOString().split('T')[0], domain: 'git-scm.com'
+          }];
+        } else if (topicLowerFull.includes('machine learning') || topicLowerFull.includes('deep learning')) {
+          generalResults = [{
+            title: 'Machine Learning — Google Developers',
+            url: 'https://developers.google.com/machine-learning',
+            snippet: 'Google\'s official ML Crash Course and Machine Learning resources. Covers supervised learning, neural networks, and practical ML applications.',
+            source: 'Google Developers', published_at: new Date().toISOString().split('T')[0], domain: 'developers.google.com'
+          }];
+        } else if (topicLowerFull.includes('blockchain') || topicLowerFull.includes('ethereum')) {
+          generalResults = [{
+            title: 'Blockchain Technology — Wikipedia',
+            url: 'https://en.wikipedia.org/wiki/Blockchain',
+            snippet: 'Blockchain is a distributed ledger technology that records transactions in a chain of cryptographically linked blocks.',
+            source: 'Wikipedia', published_at: new Date().toISOString().split('T')[0], domain: 'en.wikipedia.org'
+          }, {
+            title: 'Ethereum Developer Documentation — ethereum.org',
+            url: 'https://ethereum.org/en/developers/docs/',
+            snippet: 'Official Ethereum documentation covering smart contracts, Solidity, Web3.js, and the Ethereum ecosystem.',
+            source: 'Ethereum.org', published_at: new Date().toISOString().split('T')[0], domain: 'ethereum.org'
+          }];
+        } else if (topicLowerFull.includes('aws') || topicLowerFull.includes('amazon web')) {
+          generalResults = [{
+            title: 'AWS Documentation — Amazon Web Services',
+            url: 'https://docs.aws.amazon.com/',
+            snippet: 'Official Amazon Web Services documentation. Covers EC2, S3, Lambda, RDS, DynamoDB, and all AWS services.',
+            source: 'AWS (docs.aws.amazon.com)', published_at: new Date().toISOString().split('T')[0], domain: 'docs.aws.amazon.com'
+          }];
+        } else if (topicLowerFull.includes('graphql')) {
+          generalResults = [{
+            title: 'GraphQL Official Documentation — graphql.org',
+            url: 'https://graphql.org/learn/',
+            snippet: 'GraphQL is a query language for APIs. Official docs cover queries, mutations, schemas, resolvers, and clients.',
+            source: 'GraphQL (graphql.org)', published_at: new Date().toISOString().split('T')[0], domain: 'graphql.org'
+          }];
+        } else {
+          // Last resort: Wikipedia-based lookup
+          const encodedTopic = encodeURIComponent(topicName.replace(/[^a-zA-Z0-9\s]/g, '').trim());
+          generalResults = [
+            {
+              title: `${topicName} — Wikipedia`,
+              url: `https://en.wikipedia.org/wiki/${encodedTopic}`,
+              snippet: `Wikipedia article covering ${topicName}: definition, background, key concepts, and related topics.`,
+              source: 'Wikipedia (en.wikipedia.org)',
+              published_at: new Date().toISOString().split('T')[0],
+              domain: 'en.wikipedia.org'
+            },
+            {
+              title: `${topicName} Reference — MDN Web Docs`,
+              url: `https://developer.mozilla.org/en-US/search?q=${encodedTopic}`,
+              snippet: `MDN Web Docs search results for ${topicName}. Covers web technologies, APIs, HTML, CSS, and JavaScript standards.`,
+              source: 'MDN Web Docs (developer.mozilla.org)',
+              published_at: new Date().toISOString().split('T')[0],
+              domain: 'developer.mozilla.org'
+            }
+          ];
+        }
+
+        rawResults = generalResults;
       }
 
       // SSRF Filter & Deduplication

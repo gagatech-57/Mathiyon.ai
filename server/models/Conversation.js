@@ -15,6 +15,10 @@ const conversationSchema = new mongoose.Schema({
     type: String,
     default: 'Mathiyon SLM v1.2',
   },
+  isPinned: {
+    type: Boolean,
+    default: false,
+  },
   createdAt: {
     type: Date,
     default: Date.now,

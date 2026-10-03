@@ -27,6 +27,14 @@ server/uploads/*
 !server/uploads/.gitkeep
 temp_rag_files
 
+# Environment Variables & Secrets
+.env
+.env.local
+.env.*.local
+server/.env
+server/.env.local
+ai-service/.env
+
 # Editor & System Files
 .vscode/*
 !.vscode/extensions.json
