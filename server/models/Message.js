@@ -21,12 +21,15 @@ const messageSchema = new mongoose.Schema({
   },
   model: {
     type: String,
-    default: 'Mathiyon Neural v4.0',
+    default: 'Mathiyon SLM v1.2',
   },
   createdAt: {
     type: Date,
     default: Date.now,
   },
 });
+
+// Compound index for fast authorized history query
+messageSchema.index({ conversationId: 1, userId: 1, createdAt: -1 });
 
 module.exports = mongoose.model('Message', messageSchema);

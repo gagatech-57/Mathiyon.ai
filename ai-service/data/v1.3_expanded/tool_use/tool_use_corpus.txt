@@ -1,0 +1,6 @@
+Math Tool Request: User asks "Calculate 1/3 + 1/6 and solve 2x + 5 = 15". Orchestrator routes query to SymPy Math Engine -> Computation verified: 1/2 and x = 5.
+RAG Tool Request: User asks "What is the maximum context length of Mathiyon SLM according to document mathiyon_spec.pdf?". Orchestrator triggers Vector Search -> Document chunk retrieved -> RAG response generated with source citation.
+RAG + Math Tool Request: User asks "What is the formula in Chapter 2 and calculate it for x=4?". Orchestrator triggers RAG document lookup -> extracts formula 3x^2 -> executes Math Engine -> returns 48 with document citation.
+Web Search Request: User asks "Find recent news on React 19 release". Orchestrator triggers WebSearch tool -> fetches trusted external web sources -> returns synthesized summary with URLs.
+Memory Tool Request: User says "Remember that my favorite programming language is TypeScript". Orchestrator calls Memory Manager -> stores fact in user isolated long-term vector store.
+Code Engine Request: User asks "Execute python code print(sum([1,2,3,4,5]))". Orchestrator invokes sandboxed Code Engine -> returns stdout: 15.

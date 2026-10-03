@@ -1,5 +1,5 @@
 import React, { useRef, useEffect, useState } from 'react';
-import { Send, Paperclip, Square, Sparkles, FileText, X, RefreshCw, Upload, Check, FolderOpen } from 'lucide-react';
+import { Send, Paperclip, Square, FileText, X, RefreshCw, Upload, Check, FolderOpen } from 'lucide-react';
 import { apiUploadDocument, apiGetDocuments } from '../api';
 import type { DocumentItem } from '../api';
 
@@ -9,7 +9,7 @@ interface ChatComposerProps {
   onSend: (text?: string, attachedDocId?: string, enableWebSearch?: boolean) => void;
   isGenerating: boolean;
   onStopGenerating?: () => void;
-  activeModel: string;
+  activeModel?: string;
   attachedDoc?: DocumentItem | null;
   onClearAttachedDoc?: () => void;
   onDocUploaded?: (doc: DocumentItem) => void;
@@ -21,7 +21,7 @@ export const ChatComposer: React.FC<ChatComposerProps> = ({
   onSend,
   isGenerating,
   onStopGenerating,
-  activeModel,
+  activeModel: _activeModel,
   attachedDoc,
   onClearAttachedDoc,
   onDocUploaded,
@@ -35,7 +35,7 @@ export const ChatComposer: React.FC<ChatComposerProps> = ({
   const [showDocPicker, setShowDocPicker] = useState(false);
   const [userDocs, setUserDocs] = useState<DocumentItem[]>([]);
   const [isLoadingDocs, setIsLoadingDocs] = useState(false);
-  const [enableWebSearch, setEnableWebSearch] = useState(false);
+  const [enableWebSearch] = useState(false);
 
   useEffect(() => {
     if (attachedDoc !== undefined) {
@@ -197,51 +197,32 @@ export const ChatComposer: React.FC<ChatComposerProps> = ({
 
       {/* Outer Composer Wrapper */}
       <div className="relative rounded-2xl glass-input p-2 sm:p-2.5 border border-rose-500/25 shadow-2xl backdrop-blur-xl transition-all">
-        {/* Model & Attached Document Header inside Composer */}
-        <div className="flex flex-wrap items-center justify-between px-3 pb-2 text-[10px] text-slate-400 font-semibold border-b border-slate-800/60 mb-2 gap-2">
-          <div className="flex items-center gap-2">
-            <div className="flex items-center gap-1.5 text-rose-300">
-              <Sparkles className="w-3 h-3 text-rose-400" />
-              <span>Active Engine: <strong className="text-white">{activeModel}</strong></span>
-            </div>
+        {/* Attached Document or Upload Status — shown only when relevant */}
+        {(currentDoc || isUploading) && (
+          <div className="flex flex-wrap items-center px-3 pb-2 text-[10px] text-slate-400 font-semibold border-b border-slate-800/60 mb-2 gap-2">
+            {currentDoc && (
+              <div className="flex items-center gap-2 px-2.5 py-1 rounded-lg bg-rose-500/15 border border-rose-500/40 text-rose-200 text-xs font-semibold shadow-sm">
+                <FileText className="w-3.5 h-3.5 text-rose-400" />
+                <span className="truncate max-w-[200px]">📄 {currentDoc.originalName}</span>
+                <button
+                  type="button"
+                  onClick={handleRemoveDoc}
+                  className="text-slate-400 hover:text-white ml-1 cursor-pointer"
+                  title="Remove attached document"
+                >
+                  <X className="w-3.5 h-3.5" />
+                </button>
+              </div>
+            )}
 
-            {/* Web Search Toggle */}
-            <button
-              type="button"
-              onClick={() => setEnableWebSearch(!enableWebSearch)}
-              className={`px-2 py-0.5 rounded-full border text-[10px] font-medium transition cursor-pointer flex items-center gap-1 ${
-                enableWebSearch
-                  ? 'bg-cyan-500/20 border-cyan-500/50 text-cyan-300 font-semibold'
-                  : 'bg-slate-800/60 border-slate-700 text-slate-400 hover:text-slate-200'
-              }`}
-            >
-              <span>🌐 Web Search</span>
-              <span className={`w-1.5 h-1.5 rounded-full ${enableWebSearch ? 'bg-cyan-400 animate-pulse' : 'bg-slate-500'}`} />
-            </button>
+            {isUploading && (
+              <div className="flex items-center gap-1.5 text-amber-300 text-xs animate-pulse">
+                <RefreshCw className="w-3.5 h-3.5 animate-spin text-amber-400" />
+                <span>Indexing Document...</span>
+              </div>
+            )}
           </div>
-
-          {currentDoc && (
-            <div className="flex items-center gap-2 px-2.5 py-1 rounded-lg bg-rose-500/15 border border-rose-500/40 text-rose-200 text-xs font-semibold shadow-sm">
-              <FileText className="w-3.5 h-3.5 text-rose-400" />
-              <span className="truncate max-w-[200px]">📄 {currentDoc.originalName}</span>
-              <button
-                type="button"
-                onClick={handleRemoveDoc}
-                className="text-slate-400 hover:text-white ml-1 cursor-pointer"
-                title="Remove attached document"
-              >
-                <X className="w-3.5 h-3.5" />
-              </button>
-            </div>
-          )}
-
-          {isUploading && (
-            <div className="flex items-center gap-1.5 text-amber-300 text-xs animate-pulse">
-              <RefreshCw className="w-3.5 h-3.5 animate-spin text-amber-400" />
-              <span>Indexing Document Vectors...</span>
-            </div>
-          )}
-        </div>
+        )}
 
         {/* Single Flex Container for Inputs & Controls */}
         <div className="flex items-center gap-2 sm:gap-3 w-full">

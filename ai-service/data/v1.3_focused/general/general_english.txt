@@ -1,0 +1,20 @@
+Artificial Intelligence represents computer systems performing tasks requiring human cognitive capabilities such as visual perception, speech recognition, decision-making, and language translation.
+Quantum computing leverages quantum mechanical phenomena like superposition and entanglement to solve computational problems beyond classical supercomputers.
+Cloud computing provides on-demand availability of computer system resources, especially data storage and computing power, without direct active management by the user.
+Deep learning uses artificial neural networks with multiple layers to extract progressively higher-level features from raw input data.
+Cybersecurity involves protecting systems, networks, and programs from digital attacks aimed at accessing, changing, or destroying sensitive information.
+Web development spans frontend user experience, backend server logic, database management, and cloud infrastructure deployment.
+Natural Language Processing enables algorithms to analyze, understand, format, and generate human language text and speech.
+Software architecture defines the fundamental organization of a system, its components, relationships to each other and the environment, and principles guiding design and evolution.
+Data science integrates domain expertise, programming skills, and math/stat knowledge to extract meaningful insights from structured and unstructured data.
+API integration allows distinct software applications to communicate and exchange data efficiently over standard protocols.
+Transformer architecture introduced self-attention mechanisms, eliminating recurrent loops and enabling massive parallel training of language models.
+Open-source software fosters collaborative development, transparency, peer review, and rapid technological innovation across global developer communities.
+Technical communication requires clarity, precision, audience awareness, and structured organization to effectively convey complex technical concepts.
+System design principles focus on scalability, fault tolerance, high availability, low latency, maintainability, and security across distributed environments.
+Agile software development emphasizes iterative development, team collaboration, continuous feedback, adaptive planning, and rapid delivery of working software.
+Microservice architecture decomposes monolithic applications into small, independent, loosely coupled services communicating over lightweight network protocols.
+Operating systems manage computer hardware resources, provide common services for computer programs, and isolate processes for security and stability.
+Distributed databases partition and replicate data across multiple physical servers to ensure fault tolerance and horizontal scalability under high workloads.
+User experience design optimizes product interfaces to be intuitive, accessible, responsive, and efficient for human interaction.
+Version control systems track changes to source code files over time, facilitating multi-developer collaboration, branching, merging, and revision history audits.

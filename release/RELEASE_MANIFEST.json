@@ -1,0 +1,45 @@
+{
+  "name": "Mathiyon AI Production Agent Release Candidate",
+  "version": "1.2.0-rc.12.7",
+  "phase": "12.7",
+  "branch": "phase-12-7-production-agent-rc",
+  "baseline_commit": "5e05a7151bca0e25c00253a4b93eb11598d4831a",
+  "release_date": "2026-09-25",
+  "models": {
+    "production_model": "mathiyon-slm-v1.2",
+    "production_traffic_percent": 100,
+    "experimental_model": "mathiyon-slm-v1.3-RC1",
+    "experimental_traffic_percent": 0
+  },
+  "agent_limits": {
+    "max_agent_steps": 10,
+    "tool_timeout_ms": 10000,
+    "request_timeout_ms": 30000,
+    "max_retries": 2
+  },
+  "security_controls": {
+    "jwt_authentication": true,
+    "rbac_authorization": true,
+    "ssrf_protection": true,
+    "telemetry_log_scrubbing": true,
+    "prompt_injection_guard": true
+  },
+  "release_artifacts": [
+    "release/RELEASE_MANIFEST.json",
+    "release/RC_CHECKLIST.md",
+    "release/CHANGELOG.md",
+    "release/RELEASE_NOTES.md",
+    "release/ROLLBACK.md",
+    "release/environment.json",
+    "release/validate_release.py",
+    "docs/PHASE_12_7_ARCHITECTURE_FREEZE.md",
+    "docs/PHASE_12_7_API_CONTRACT.md",
+    "docs/PHASE_12_7_PRODUCTION_AGENT_RC_REPORT.md",
+    "tests/release_candidate/results/rc_summary.json"
+  ],
+  "known_limitations": [
+    "PyTorch execution running in CPU fallback mode (CUDA host hardware not present)",
+    "External live web search relies on public HTTP query sandbox; high frequency tests use mock web provider",
+    "Formal zero-defect software claims not mathematically applicable under bounded empirical testing"
+  ]
+}

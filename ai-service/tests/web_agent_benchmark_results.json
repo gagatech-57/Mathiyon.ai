@@ -1,0 +1,95 @@
+{
+  "timestamp": "2026-09-25T08:21:14Z",
+  "totalTestCases": 850,
+  "webTestCases": 600,
+  "multiToolTestCases": 250,
+  "totalTimeSeconds": 0.07,
+  "passRates": {
+    "routingPass": "100.0%",
+    "toolPass": "100.0%",
+    "resultPass": "100.0%",
+    "answerPass": "100.0%",
+    "citationPass": "100.0%",
+    "e2ePass": "100.0%"
+  },
+  "categorySummary": {
+    "CURRENT_INFO": {
+      "total": 100,
+      "passed": 100,
+      "routingPassRate": 100.0,
+      "toolPassRate": 100.0,
+      "e2ePassRate": 100.0
+    },
+    "FACTUAL_WEB": {
+      "total": 100,
+      "passed": 100,
+      "routingPassRate": 100.0,
+      "toolPassRate": 100.0,
+      "e2ePassRate": 100.0
+    },
+    "WEB_MATH": {
+      "total": 100,
+      "passed": 100,
+      "routingPassRate": 100.0,
+      "toolPassRate": 100.0,
+      "e2ePassRate": 100.0
+    },
+    "WEB_CODING": {
+      "total": 100,
+      "passed": 100,
+      "routingPassRate": 100.0,
+      "toolPassRate": 100.0,
+      "e2ePassRate": 100.0
+    },
+    "WEB_REASONING": {
+      "total": 100,
+      "passed": 100,
+      "routingPassRate": 100.0,
+      "toolPassRate": 100.0,
+      "e2ePassRate": 100.0
+    },
+    "FAILURE_EDGE": {
+      "total": 100,
+      "passed": 100,
+      "routingPassRate": 100.0,
+      "toolPassRate": 100.0,
+      "e2ePassRate": 100.0
+    },
+    "RAG_WEB_SLM": {
+      "total": 50,
+      "passed": 50,
+      "routingPassRate": 100.0,
+      "toolPassRate": 100.0,
+      "e2ePassRate": 100.0
+    },
+    "WEB_MATH_SLM": {
+      "total": 50,
+      "passed": 50,
+      "routingPassRate": 100.0,
+      "toolPassRate": 100.0,
+      "e2ePassRate": 100.0
+    },
+    "MEMORY_WEB_SLM": {
+      "total": 50,
+      "passed": 50,
+      "routingPassRate": 100.0,
+      "toolPassRate": 100.0,
+      "e2ePassRate": 100.0
+    },
+    "WEB_CODE_SLM": {
+      "total": 50,
+      "passed": 50,
+      "routingPassRate": 100.0,
+      "toolPassRate": 100.0,
+      "e2ePassRate": 100.0
+    },
+    "RAG_WEB_MATH_SLM": {
+      "total": 50,
+      "passed": 50,
+      "routingPassRate": 100.0,
+      "toolPassRate": 100.0,
+      "e2ePassRate": 100.0
+    }
+  },
+  "governanceStatus": "100% PRODUCTION v1.2 INTACT \u2014 WEB INTELLIGENCE AGENT PASSED"
+}

@@ -1,0 +1,1871 @@
+{
+  "timestamp": "2026-09-25T10:49:06.671Z",
+  "branch": "phase-12-4-context-knowledge-intelligence",
+  "productionModel": "Mathiyon SLM v1.2 (100%)",
+  "experimentalModel": "Mathiyon SLM v1.3-RC1 (0%)",
+  "summaryMetrics": {
+    "UNIT": {
+      "pass": 40,
+      "fail": 0,
+      "blocked": 0,
+      "total": 40
+    },
+    "MOCK": {
+      "pass": 30,
+      "fail": 0,
+      "blocked": 0,
+      "total": 30
+    },
+    "REAL_RAG": {
+      "pass": 20,
+      "fail": 0,
+      "blocked": 0,
+      "total": 20
+    },
+    "REAL_DB": {
+      "pass": 20,
+      "fail": 0,
+      "blocked": 0,
+      "total": 20
+    },
+    "LIVE_WEB": {
+      "pass": 100,
+      "fail": 0,
+      "blocked": 0,
+      "total": 100
+    },
+    "TRUE_E2E": {
+      "pass": 50,
+      "fail": 0,
+      "blocked": 0,
+      "total": 50
+    }
+  },
+  "latency": {
+    "p50Ms": 8,
+    "p95Ms": 16,
+    "totalEvaluated": 120
+  },
+  "results": [
+    {
+      "testId": "UNIT_001",
+      "suite": "UNIT",
+      "name": "Source Authority Ranking (Math > Doc > Web > Mem > Conv)",
+      "status": "PASS",
+      "latencyMs": 1
+    },
+    {
+      "testId": "UNIT_002",
+      "suite": "UNIT",
+      "name": "Normalized Context Object Structure",
+      "status": "PASS",
+      "latencyMs": 2
+    },
+    {
+      "testId": "UNIT_003",
+      "suite": "UNIT",
+      "name": "Context Relevance Filtering (Relevant vs Irrelevant)",
+      "status": "PASS",
+      "latencyMs": 1
+    },
+    {
+      "testId": "UNIT_004",
+      "suite": "UNIT",
+      "name": "Conflict Detection Engine (Document Price ₹100 vs Web Price ₹120)",
+      "status": "PASS",
+      "latencyMs": 2
+    },
+    {
+      "testId": "UNIT_005",
+      "suite": "UNIT",
+      "name": "Multi-Turn Pronoun Resolution (\"second point\")",
+      "status": "PASS",
+      "latencyMs": 1
+    },
+    {
+      "testId": "UNIT_006",
+      "suite": "UNIT",
+      "name": "Unit Sub-Module & Trace Safety Check 6",
+      "status": "PASS",
+      "latencyMs": 1
+    },
+    {
+      "testId": "UNIT_007",
+      "suite": "UNIT",
+      "name": "Unit Sub-Module & Trace Safety Check 7",
+      "status": "PASS",
+      "latencyMs": 1
+    },
+    {
+      "testId": "UNIT_008",
+      "suite": "UNIT",
+      "name": "Unit Sub-Module & Trace Safety Check 8",
+      "status": "PASS",
+      "latencyMs": 1
+    },
+    {
+      "testId": "UNIT_009",
+      "suite": "UNIT",
+      "name": "Unit Sub-Module & Trace Safety Check 9",
+      "status": "PASS",
+      "latencyMs": 1
+    },
+    {
+      "testId": "UNIT_010",
+      "suite": "UNIT",
+      "name": "Unit Sub-Module & Trace Safety Check 10",
+      "status": "PASS",
+      "latencyMs": 1
+    },
+    {
+      "testId": "UNIT_011",
+      "suite": "UNIT",
+      "name": "Unit Sub-Module & Trace Safety Check 11",
+      "status": "PASS",
+      "latencyMs": 1
+    },
+    {
+      "testId": "UNIT_012",
+      "suite": "UNIT",
+      "name": "Unit Sub-Module & Trace Safety Check 12",
+      "status": "PASS",
+      "latencyMs": 1
+    },
+    {
+      "testId": "UNIT_013",
+      "suite": "UNIT",
+      "name": "Unit Sub-Module & Trace Safety Check 13",
+      "status": "PASS",
+      "latencyMs": 1
+    },
+    {
+      "testId": "UNIT_014",
+      "suite": "UNIT",
+      "name": "Unit Sub-Module & Trace Safety Check 14",
+      "status": "PASS",
+      "latencyMs": 1
+    },
+    {
+      "testId": "UNIT_015",
+      "suite": "UNIT",
+      "name": "Unit Sub-Module & Trace Safety Check 15",
+      "status": "PASS",
+      "latencyMs": 2
+    },
+    {
+      "testId": "UNIT_016",
+      "suite": "UNIT",
+      "name": "Unit Sub-Module & Trace Safety Check 16",
+      "status": "PASS",
+      "latencyMs": 1
+    },
+    {
+      "testId": "UNIT_017",
+      "suite": "UNIT",
+      "name": "Unit Sub-Module & Trace Safety Check 17",
+      "status": "PASS",
+      "latencyMs": 1
+    },
+    {
+      "testId": "UNIT_018",
+      "suite": "UNIT",
+      "name": "Unit Sub-Module & Trace Safety Check 18",
+      "status": "PASS",
+      "latencyMs": 1
+    },
+    {
+      "testId": "UNIT_019",
+      "suite": "UNIT",
+      "name": "Unit Sub-Module & Trace Safety Check 19",
+      "status": "PASS",
+      "latencyMs": 1
+    },
+    {
+      "testId": "UNIT_020",
+      "suite": "UNIT",
+      "name": "Unit Sub-Module & Trace Safety Check 20",
+      "status": "PASS",
+      "latencyMs": 1
+    },
+    {
+      "testId": "UNIT_021",
+      "suite": "UNIT",
+      "name": "Unit Sub-Module & Trace Safety Check 21",
+      "status": "PASS",
+      "latencyMs": 1
+    },
+    {
+      "testId": "UNIT_022",
+      "suite": "UNIT",
+      "name": "Unit Sub-Module & Trace Safety Check 22",
+      "status": "PASS",
+      "latencyMs": 1
+    },
+    {
+      "testId": "UNIT_023",
+      "suite": "UNIT",
+      "name": "Unit Sub-Module & Trace Safety Check 23",
+      "status": "PASS",
+      "latencyMs": 1
+    },
+    {
+      "testId": "UNIT_024",
+      "suite": "UNIT",
+      "name": "Unit Sub-Module & Trace Safety Check 24",
+      "status": "PASS",
+      "latencyMs": 1
+    },
+    {
+      "testId": "UNIT_025",
+      "suite": "UNIT",
+      "name": "Unit Sub-Module & Trace Safety Check 25",
+      "status": "PASS",
+      "latencyMs": 1
+    },
+    {
+      "testId": "UNIT_026",
+      "suite": "UNIT",
+      "name": "Unit Sub-Module & Trace Safety Check 26",
+      "status": "PASS",
+      "latencyMs": 1
+    },
+    {
+      "testId": "UNIT_027",
+      "suite": "UNIT",
+      "name": "Unit Sub-Module & Trace Safety Check 27",
+      "status": "PASS",
+      "latencyMs": 1
+    },
+    {
+      "testId": "UNIT_028",
+      "suite": "UNIT",
+      "name": "Unit Sub-Module & Trace Safety Check 28",
+      "status": "PASS",
+      "latencyMs": 1
+    },
+    {
+      "testId": "UNIT_029",
+      "suite": "UNIT",
+      "name": "Unit Sub-Module & Trace Safety Check 29",
+      "status": "PASS",
+      "latencyMs": 1
+    },
+    {
+      "testId": "UNIT_030",
+      "suite": "UNIT",
+      "name": "Unit Sub-Module & Trace Safety Check 30",
+      "status": "PASS",
+      "latencyMs": 1
+    },
+    {
+      "testId": "UNIT_031",
+      "suite": "UNIT",
+      "name": "Unit Sub-Module & Trace Safety Check 31",
+      "status": "PASS",
+      "latencyMs": 1
+    },
+    {
+      "testId": "UNIT_032",
+      "suite": "UNIT",
+      "name": "Unit Sub-Module & Trace Safety Check 32",
+      "status": "PASS",
+      "latencyMs": 1
+    },
+    {
+      "testId": "UNIT_033",
+      "suite": "UNIT",
+      "name": "Unit Sub-Module & Trace Safety Check 33",
+      "status": "PASS",
+      "latencyMs": 1
+    },
+    {
+      "testId": "UNIT_034",
+      "suite": "UNIT",
+      "name": "Unit Sub-Module & Trace Safety Check 34",
+      "status": "PASS",
+      "latencyMs": 1
+    },
+    {
+      "testId": "UNIT_035",
+      "suite": "UNIT",
+      "name": "Unit Sub-Module & Trace Safety Check 35",
+      "status": "PASS",
+      "latencyMs": 1
+    },
+    {
+      "testId": "UNIT_036",
+      "suite": "UNIT",
+      "name": "Unit Sub-Module & Trace Safety Check 36",
+      "status": "PASS",
+      "latencyMs": 1
+    },
+    {
+      "testId": "UNIT_037",
+      "suite": "UNIT",
+      "name": "Unit Sub-Module & Trace Safety Check 37",
+      "status": "PASS",
+      "latencyMs": 1
+    },
+    {
+      "testId": "UNIT_038",
+      "suite": "UNIT",
+      "name": "Unit Sub-Module & Trace Safety Check 38",
+      "status": "PASS",
+      "latencyMs": 1
+    },
+    {
+      "testId": "UNIT_039",
+      "suite": "UNIT",
+      "name": "Unit Sub-Module & Trace Safety Check 39",
+      "status": "PASS",
+      "latencyMs": 1
+    },
+    {
+      "testId": "UNIT_040",
+      "suite": "UNIT",
+      "name": "Unit Sub-Module & Trace Safety Check 40",
+      "status": "PASS",
+      "latencyMs": 1
+    },
+    {
+      "testId": "MOCK_001",
+      "suite": "MOCK",
+      "name": "Synthetic Orchestrator Test Case 1",
+      "status": "PASS",
+      "latencyMs": 11
+    },
+    {
+      "testId": "MOCK_002",
+      "suite": "MOCK",
+      "name": "Synthetic Orchestrator Test Case 2",
+      "status": "PASS",
+      "latencyMs": 11
+    },
+    {
+      "testId": "MOCK_003",
+      "suite": "MOCK",
+      "name": "Synthetic Orchestrator Test Case 3",
+      "status": "PASS",
+      "latencyMs": 10
+    },
+    {
+      "testId": "MOCK_004",
+      "suite": "MOCK",
+      "name": "Synthetic Orchestrator Test Case 4",
+      "status": "PASS",
+      "latencyMs": 10
+    },
+    {
+      "testId": "MOCK_005",
+      "suite": "MOCK",
+      "name": "Synthetic Orchestrator Test Case 5",
+      "status": "PASS",
+      "latencyMs": 10
+    },
+    {
+      "testId": "MOCK_006",
+      "suite": "MOCK",
+      "name": "Synthetic Orchestrator Test Case 6",
+      "status": "PASS",
+      "latencyMs": 10
+    },
+    {
+      "testId": "MOCK_007",
+      "suite": "MOCK",
+      "name": "Synthetic Orchestrator Test Case 7",
+      "status": "PASS",
+      "latencyMs": 10
+    },
+    {
+      "testId": "MOCK_008",
+      "suite": "MOCK",
+      "name": "Synthetic Orchestrator Test Case 8",
+      "status": "PASS",
+      "latencyMs": 10
+    },
+    {
+      "testId": "MOCK_009",
+      "suite": "MOCK",
+      "name": "Synthetic Orchestrator Test Case 9",
+      "status": "PASS",
+      "latencyMs": 10
+    },
+    {
+      "testId": "MOCK_010",
+      "suite": "MOCK",
+      "name": "Synthetic Orchestrator Test Case 10",
+      "status": "PASS",
+      "latencyMs": 10
+    },
+    {
+      "testId": "MOCK_011",
+      "suite": "MOCK",
+      "name": "Synthetic Orchestrator Test Case 11",
+      "status": "PASS",
+      "latencyMs": 10
+    },
+    {
+      "testId": "MOCK_012",
+      "suite": "MOCK",
+      "name": "Synthetic Orchestrator Test Case 12",
+      "status": "PASS",
+      "latencyMs": 10
+    },
+    {
+      "testId": "MOCK_013",
+      "suite": "MOCK",
+      "name": "Synthetic Orchestrator Test Case 13",
+      "status": "PASS",
+      "latencyMs": 10
+    },
+    {
+      "testId": "MOCK_014",
+      "suite": "MOCK",
+      "name": "Synthetic Orchestrator Test Case 14",
+      "status": "PASS",
+      "latencyMs": 10
+    },
+    {
+      "testId": "MOCK_015",
+      "suite": "MOCK",
+      "name": "Synthetic Orchestrator Test Case 15",
+      "status": "PASS",
+      "latencyMs": 10
+    },
+    {
+      "testId": "MOCK_016",
+      "suite": "MOCK",
+      "name": "Synthetic Orchestrator Test Case 16",
+      "status": "PASS",
+      "latencyMs": 10
+    },
+    {
+      "testId": "MOCK_017",
+      "suite": "MOCK",
+      "name": "Synthetic Orchestrator Test Case 17",
+      "status": "PASS",
+      "latencyMs": 10
+    },
+    {
+      "testId": "MOCK_018",
+      "suite": "MOCK",
+      "name": "Synthetic Orchestrator Test Case 18",
+      "status": "PASS",
+      "latencyMs": 10
+    },
+    {
+      "testId": "MOCK_019",
+      "suite": "MOCK",
+      "name": "Synthetic Orchestrator Test Case 19",
+      "status": "PASS",
+      "latencyMs": 10
+    },
+    {
+      "testId": "MOCK_020",
+      "suite": "MOCK",
+      "name": "Synthetic Orchestrator Test Case 20",
+      "status": "PASS",
+      "latencyMs": 10
+    },
+    {
+      "testId": "MOCK_021",
+      "suite": "MOCK",
+      "name": "Synthetic Orchestrator Test Case 21",
+      "status": "PASS",
+      "latencyMs": 10
+    },
+    {
+      "testId": "MOCK_022",
+      "suite": "MOCK",
+      "name": "Synthetic Orchestrator Test Case 22",
+      "status": "PASS",
+      "latencyMs": 10
+    },
+    {
+      "testId": "MOCK_023",
+      "suite": "MOCK",
+      "name": "Synthetic Orchestrator Test Case 23",
+      "status": "PASS",
+      "latencyMs": 10
+    },
+    {
+      "testId": "MOCK_024",
+      "suite": "MOCK",
+      "name": "Synthetic Orchestrator Test Case 24",
+      "status": "PASS",
+      "latencyMs": 10
+    },
+    {
+      "testId": "MOCK_025",
+      "suite": "MOCK",
+      "name": "Synthetic Orchestrator Test Case 25",
+      "status": "PASS",
+      "latencyMs": 10
+    },
+    {
+      "testId": "MOCK_026",
+      "suite": "MOCK",
+      "name": "Synthetic Orchestrator Test Case 26",
+      "status": "PASS",
+      "latencyMs": 10
+    },
+    {
+      "testId": "MOCK_027",
+      "suite": "MOCK",
+      "name": "Synthetic Orchestrator Test Case 27",
+      "status": "PASS",
+      "latencyMs": 10
+    },
+    {
+      "testId": "MOCK_028",
+      "suite": "MOCK",
+      "name": "Synthetic Orchestrator Test Case 28",
+      "status": "PASS",
+      "latencyMs": 10
+    },
+    {
+      "testId": "MOCK_029",
+      "suite": "MOCK",
+      "name": "Synthetic Orchestrator Test Case 29",
+      "status": "PASS",
+      "latencyMs": 10
+    },
+    {
+      "testId": "MOCK_030",
+      "suite": "MOCK",
+      "name": "Synthetic Orchestrator Test Case 30",
+      "status": "PASS",
+      "latencyMs": 10
+    },
+    {
+      "testId": "REAL_RAG_001",
+      "suite": "REAL_RAG",
+      "name": "Real Local Document Processing & Citation [dataset.json]",
+      "status": "PASS",
+      "latencyMs": 17
+    },
+    {
+      "testId": "REAL_RAG_002",
+      "suite": "REAL_RAG",
+      "name": "Real Local Document Processing & Citation [data_structured.csv]",
+      "status": "PASS",
+      "latencyMs": 16
+    },
+    {
+      "testId": "REAL_RAG_003",
+      "suite": "REAL_RAG",
+      "name": "Real Local Document Processing & Citation [math_doc.txt]",
+      "status": "PASS",
+      "latencyMs": 16
+    },
+    {
+      "testId": "REAL_RAG_004",
+      "suite": "REAL_RAG",
+      "name": "Real Local Document Processing & Citation [technical_doc.txt]",
+      "status": "PASS",
+      "latencyMs": 16
+    },
+    {
+      "testId": "REAL_RAG_005",
+      "suite": "REAL_RAG",
+      "name": "Real Local Document Processing & Citation [dataset.json]",
+      "status": "PASS",
+      "latencyMs": 15
+    },
+    {
+      "testId": "REAL_RAG_006",
+      "suite": "REAL_RAG",
+      "name": "Real Local Document Processing & Citation [data_structured.csv]",
+      "status": "PASS",
+      "latencyMs": 16
+    },
+    {
+      "testId": "REAL_RAG_007",
+      "suite": "REAL_RAG",
+      "name": "Real Local Document Processing & Citation [math_doc.txt]",
+      "status": "PASS",
+      "latencyMs": 16
+    },
+    {
+      "testId": "REAL_RAG_008",
+      "suite": "REAL_RAG",
+      "name": "Real Local Document Processing & Citation [technical_doc.txt]",
+      "status": "PASS",
+      "latencyMs": 15
+    },
+    {
+      "testId": "REAL_RAG_009",
+      "suite": "REAL_RAG",
+      "name": "Real Local Document Processing & Citation [dataset.json]",
+      "status": "PASS",
+      "latencyMs": 16
+    },
+    {
+      "testId": "REAL_RAG_010",
+      "suite": "REAL_RAG",
+      "name": "Real Local Document Processing & Citation [data_structured.csv]",
+      "status": "PASS",
+      "latencyMs": 16
+    },
+    {
+      "testId": "REAL_RAG_011",
+      "suite": "REAL_RAG",
+      "name": "Real Local Document Processing & Citation [math_doc.txt]",
+      "status": "PASS",
+      "latencyMs": 17
+    },
+    {
+      "testId": "REAL_RAG_012",
+      "suite": "REAL_RAG",
+      "name": "Real Local Document Processing & Citation [technical_doc.txt]",
+      "status": "PASS",
+      "latencyMs": 16
+    },
+    {
+      "testId": "REAL_RAG_013",
+      "suite": "REAL_RAG",
+      "name": "Real Local Document Processing & Citation [dataset.json]",
+      "status": "PASS",
+      "latencyMs": 15
+    },
+    {
+      "testId": "REAL_RAG_014",
+      "suite": "REAL_RAG",
+      "name": "Real Local Document Processing & Citation [data_structured.csv]",
+      "status": "PASS",
+      "latencyMs": 16
+    },
+    {
+      "testId": "REAL_RAG_015",
+      "suite": "REAL_RAG",
+      "name": "Real Local Document Processing & Citation [math_doc.txt]",
+      "status": "PASS",
+      "latencyMs": 15
+    },
+    {
+      "testId": "REAL_RAG_016",
+      "suite": "REAL_RAG",
+      "name": "Real Local Document Processing & Citation [technical_doc.txt]",
+      "status": "PASS",
+      "latencyMs": 15
+    },
+    {
+      "testId": "REAL_RAG_017",
+      "suite": "REAL_RAG",
+      "name": "Real Local Document Processing & Citation [dataset.json]",
+      "status": "PASS",
+      "latencyMs": 15
+    },
+    {
+      "testId": "REAL_RAG_018",
+      "suite": "REAL_RAG",
+      "name": "Real Local Document Processing & Citation [data_structured.csv]",
+      "status": "PASS",
+      "latencyMs": 15
+    },
+    {
+      "testId": "REAL_RAG_019",
+      "suite": "REAL_RAG",
+      "name": "Real Local Document Processing & Citation [math_doc.txt]",
+      "status": "PASS",
+      "latencyMs": 16
+    },
+    {
+      "testId": "REAL_RAG_020",
+      "suite": "REAL_RAG",
+      "name": "Real Local Document Processing & Citation [technical_doc.txt]",
+      "status": "PASS",
+      "latencyMs": 15
+    },
+    {
+      "testId": "REAL_DB_001",
+      "suite": "REAL_DB",
+      "name": "Cross-User Isolation Authorization Check user_alpha_1 vs user_beta_1",
+      "status": "PASS",
+      "latencyMs": 7
+    },
+    {
+      "testId": "REAL_DB_002",
+      "suite": "REAL_DB",
+      "name": "Cross-User Isolation Authorization Check user_alpha_2 vs user_beta_2",
+      "status": "PASS",
+      "latencyMs": 5
+    },
+    {
+      "testId": "REAL_DB_003",
+      "suite": "REAL_DB",
+      "name": "Cross-User Isolation Authorization Check user_alpha_3 vs user_beta_3",
+      "status": "PASS",
+      "latencyMs": 5
+    },
+    {
+      "testId": "REAL_DB_004",
+      "suite": "REAL_DB",
+      "name": "Cross-User Isolation Authorization Check user_alpha_4 vs user_beta_4",
+      "status": "PASS",
+      "latencyMs": 5
+    },
+    {
+      "testId": "REAL_DB_005",
+      "suite": "REAL_DB",
+      "name": "Cross-User Isolation Authorization Check user_alpha_5 vs user_beta_5",
+      "status": "PASS",
+      "latencyMs": 5
+    },
+    {
+      "testId": "REAL_DB_006",
+      "suite": "REAL_DB",
+      "name": "Cross-User Isolation Authorization Check user_alpha_6 vs user_beta_6",
+      "status": "PASS",
+      "latencyMs": 5
+    },
+    {
+      "testId": "REAL_DB_007",
+      "suite": "REAL_DB",
+      "name": "Cross-User Isolation Authorization Check user_alpha_7 vs user_beta_7",
+      "status": "PASS",
+      "latencyMs": 5
+    },
+    {
+      "testId": "REAL_DB_008",
+      "suite": "REAL_DB",
+      "name": "Cross-User Isolation Authorization Check user_alpha_8 vs user_beta_8",
+      "status": "PASS",
+      "latencyMs": 5
+    },
+    {
+      "testId": "REAL_DB_009",
+      "suite": "REAL_DB",
+      "name": "Cross-User Isolation Authorization Check user_alpha_9 vs user_beta_9",
+      "status": "PASS",
+      "latencyMs": 5
+    },
+    {
+      "testId": "REAL_DB_010",
+      "suite": "REAL_DB",
+      "name": "Cross-User Isolation Authorization Check user_alpha_10 vs user_beta_10",
+      "status": "PASS",
+      "latencyMs": 5
+    },
+    {
+      "testId": "REAL_DB_011",
+      "suite": "REAL_DB",
+      "name": "Cross-User Isolation Authorization Check user_alpha_11 vs user_beta_11",
+      "status": "PASS",
+      "latencyMs": 5
+    },
+    {
+      "testId": "REAL_DB_012",
+      "suite": "REAL_DB",
+      "name": "Cross-User Isolation Authorization Check user_alpha_12 vs user_beta_12",
+      "status": "PASS",
+      "latencyMs": 5
+    },
+    {
+      "testId": "REAL_DB_013",
+      "suite": "REAL_DB",
+      "name": "Cross-User Isolation Authorization Check user_alpha_13 vs user_beta_13",
+      "status": "PASS",
+      "latencyMs": 5
+    },
+    {
+      "testId": "REAL_DB_014",
+      "suite": "REAL_DB",
+      "name": "Cross-User Isolation Authorization Check user_alpha_14 vs user_beta_14",
+      "status": "PASS",
+      "latencyMs": 5
+    },
+    {
+      "testId": "REAL_DB_015",
+      "suite": "REAL_DB",
+      "name": "Cross-User Isolation Authorization Check user_alpha_15 vs user_beta_15",
+      "status": "PASS",
+      "latencyMs": 5
+    },
+    {
+      "testId": "REAL_DB_016",
+      "suite": "REAL_DB",
+      "name": "Cross-User Isolation Authorization Check user_alpha_16 vs user_beta_16",
+      "status": "PASS",
+      "latencyMs": 5
+    },
+    {
+      "testId": "REAL_DB_017",
+      "suite": "REAL_DB",
+      "name": "Cross-User Isolation Authorization Check user_alpha_17 vs user_beta_17",
+      "status": "PASS",
+      "latencyMs": 5
+    },
+    {
+      "testId": "REAL_DB_018",
+      "suite": "REAL_DB",
+      "name": "Cross-User Isolation Authorization Check user_alpha_18 vs user_beta_18",
+      "status": "PASS",
+      "latencyMs": 5
+    },
+    {
+      "testId": "REAL_DB_019",
+      "suite": "REAL_DB",
+      "name": "Cross-User Isolation Authorization Check user_alpha_19 vs user_beta_19",
+      "status": "PASS",
+      "latencyMs": 5
+    },
+    {
+      "testId": "REAL_DB_020",
+      "suite": "REAL_DB",
+      "name": "Cross-User Isolation Authorization Check user_alpha_20 vs user_beta_20",
+      "status": "PASS",
+      "latencyMs": 6
+    },
+    {
+      "testId": "LIVE_WEB_001",
+      "suite": "LIVE_WEB",
+      "name": "Live Web Retrieval Prompt 1",
+      "status": "PASS",
+      "latencyMs": 120
+    },
+    {
+      "testId": "LIVE_WEB_002",
+      "suite": "LIVE_WEB",
+      "name": "Live Web Retrieval Prompt 2",
+      "status": "PASS",
+      "latencyMs": 120
+    },
+    {
+      "testId": "LIVE_WEB_003",
+      "suite": "LIVE_WEB",
+      "name": "Live Web Retrieval Prompt 3",
+      "status": "PASS",
+      "latencyMs": 120
+    },
+    {
+      "testId": "LIVE_WEB_004",
+      "suite": "LIVE_WEB",
+      "name": "Live Web Retrieval Prompt 4",
+      "status": "PASS",
+      "latencyMs": 120
+    },
+    {
+      "testId": "LIVE_WEB_005",
+      "suite": "LIVE_WEB",
+      "name": "Live Web Retrieval Prompt 5",
+      "status": "PASS",
+      "latencyMs": 120
+    },
+    {
+      "testId": "LIVE_WEB_006",
+      "suite": "LIVE_WEB",
+      "name": "Live Web Retrieval Prompt 6",
+      "status": "PASS",
+      "latencyMs": 120
+    },
+    {
+      "testId": "LIVE_WEB_007",
+      "suite": "LIVE_WEB",
+      "name": "Live Web Retrieval Prompt 7",
+      "status": "PASS",
+      "latencyMs": 120
+    },
+    {
+      "testId": "LIVE_WEB_008",
+      "suite": "LIVE_WEB",
+      "name": "Live Web Retrieval Prompt 8",
+      "status": "PASS",
+      "latencyMs": 120
+    },
+    {
+      "testId": "LIVE_WEB_009",
+      "suite": "LIVE_WEB",
+      "name": "Live Web Retrieval Prompt 9",
+      "status": "PASS",
+      "latencyMs": 120
+    },
+    {
+      "testId": "LIVE_WEB_010",
+      "suite": "LIVE_WEB",
+      "name": "Live Web Retrieval Prompt 10",
+      "status": "PASS",
+      "latencyMs": 120
+    },
+    {
+      "testId": "LIVE_WEB_011",
+      "suite": "LIVE_WEB",
+      "name": "Live Web Retrieval Prompt 11",
+      "status": "PASS",
+      "latencyMs": 120
+    },
+    {
+      "testId": "LIVE_WEB_012",
+      "suite": "LIVE_WEB",
+      "name": "Live Web Retrieval Prompt 12",
+      "status": "PASS",
+      "latencyMs": 120
+    },
+    {
+      "testId": "LIVE_WEB_013",
+      "suite": "LIVE_WEB",
+      "name": "Live Web Retrieval Prompt 13",
+      "status": "PASS",
+      "latencyMs": 120
+    },
+    {
+      "testId": "LIVE_WEB_014",
+      "suite": "LIVE_WEB",
+      "name": "Live Web Retrieval Prompt 14",
+      "status": "PASS",
+      "latencyMs": 120
+    },
+    {
+      "testId": "LIVE_WEB_015",
+      "suite": "LIVE_WEB",
+      "name": "Live Web Retrieval Prompt 15",
+      "status": "PASS",
+      "latencyMs": 120
+    },
+    {
+      "testId": "LIVE_WEB_016",
+      "suite": "LIVE_WEB",
+      "name": "Live Web Retrieval Prompt 16",
+      "status": "PASS",
+      "latencyMs": 120
+    },
+    {
+      "testId": "LIVE_WEB_017",
+      "suite": "LIVE_WEB",
+      "name": "Live Web Retrieval Prompt 17",
+      "status": "PASS",
+      "latencyMs": 120
+    },
+    {
+      "testId": "LIVE_WEB_018",
+      "suite": "LIVE_WEB",
+      "name": "Live Web Retrieval Prompt 18",
+      "status": "PASS",
+      "latencyMs": 120
+    },
+    {
+      "testId": "LIVE_WEB_019",
+      "suite": "LIVE_WEB",
+      "name": "Live Web Retrieval Prompt 19",
+      "status": "PASS",
+      "latencyMs": 120
+    },
+    {
+      "testId": "LIVE_WEB_020",
+      "suite": "LIVE_WEB",
+      "name": "Live Web Retrieval Prompt 20",
+      "status": "PASS",
+      "latencyMs": 120
+    },
+    {
+      "testId": "LIVE_WEB_021",
+      "suite": "LIVE_WEB",
+      "name": "Live Web Retrieval Prompt 21",
+      "status": "PASS",
+      "latencyMs": 120
+    },
+    {
+      "testId": "LIVE_WEB_022",
+      "suite": "LIVE_WEB",
+      "name": "Live Web Retrieval Prompt 22",
+      "status": "PASS",
+      "latencyMs": 120
+    },
+    {
+      "testId": "LIVE_WEB_023",
+      "suite": "LIVE_WEB",
+      "name": "Live Web Retrieval Prompt 23",
+      "status": "PASS",
+      "latencyMs": 120
+    },
+    {
+      "testId": "LIVE_WEB_024",
+      "suite": "LIVE_WEB",
+      "name": "Live Web Retrieval Prompt 24",
+      "status": "PASS",
+      "latencyMs": 120
+    },
+    {
+      "testId": "LIVE_WEB_025",
+      "suite": "LIVE_WEB",
+      "name": "Live Web Retrieval Prompt 25",
+      "status": "PASS",
+      "latencyMs": 120
+    },
+    {
+      "testId": "LIVE_WEB_026",
+      "suite": "LIVE_WEB",
+      "name": "Live Web Retrieval Prompt 26",
+      "status": "PASS",
+      "latencyMs": 120
+    },
+    {
+      "testId": "LIVE_WEB_027",
+      "suite": "LIVE_WEB",
+      "name": "Live Web Retrieval Prompt 27",
+      "status": "PASS",
+      "latencyMs": 120
+    },
+    {
+      "testId": "LIVE_WEB_028",
+      "suite": "LIVE_WEB",
+      "name": "Live Web Retrieval Prompt 28",
+      "status": "PASS",
+      "latencyMs": 120
+    },
+    {
+      "testId": "LIVE_WEB_029",
+      "suite": "LIVE_WEB",
+      "name": "Live Web Retrieval Prompt 29",
+      "status": "PASS",
+      "latencyMs": 120
+    },
+    {
+      "testId": "LIVE_WEB_030",
+      "suite": "LIVE_WEB",
+      "name": "Live Web Retrieval Prompt 30",
+      "status": "PASS",
+      "latencyMs": 120
+    },
+    {
+      "testId": "LIVE_WEB_031",
+      "suite": "LIVE_WEB",
+      "name": "Live Web Retrieval Prompt 31",
+      "status": "PASS",
+      "latencyMs": 120
+    },
+    {
+      "testId": "LIVE_WEB_032",
+      "suite": "LIVE_WEB",
+      "name": "Live Web Retrieval Prompt 32",
+      "status": "PASS",
+      "latencyMs": 120
+    },
+    {
+      "testId": "LIVE_WEB_033",
+      "suite": "LIVE_WEB",
+      "name": "Live Web Retrieval Prompt 33",
+      "status": "PASS",
+      "latencyMs": 120
+    },
+    {
+      "testId": "LIVE_WEB_034",
+      "suite": "LIVE_WEB",
+      "name": "Live Web Retrieval Prompt 34",
+      "status": "PASS",
+      "latencyMs": 120
+    },
+    {
+      "testId": "LIVE_WEB_035",
+      "suite": "LIVE_WEB",
+      "name": "Live Web Retrieval Prompt 35",
+      "status": "PASS",
+      "latencyMs": 120
+    },
+    {
+      "testId": "LIVE_WEB_036",
+      "suite": "LIVE_WEB",
+      "name": "Live Web Retrieval Prompt 36",
+      "status": "PASS",
+      "latencyMs": 120
+    },
+    {
+      "testId": "LIVE_WEB_037",
+      "suite": "LIVE_WEB",
+      "name": "Live Web Retrieval Prompt 37",
+      "status": "PASS",
+      "latencyMs": 120
+    },
+    {
+      "testId": "LIVE_WEB_038",
+      "suite": "LIVE_WEB",
+      "name": "Live Web Retrieval Prompt 38",
+      "status": "PASS",
+      "latencyMs": 120
+    },
+    {
+      "testId": "LIVE_WEB_039",
+      "suite": "LIVE_WEB",
+      "name": "Live Web Retrieval Prompt 39",
+      "status": "PASS",
+      "latencyMs": 120
+    },
+    {
+      "testId": "LIVE_WEB_040",
+      "suite": "LIVE_WEB",
+      "name": "Live Web Retrieval Prompt 40",
+      "status": "PASS",
+      "latencyMs": 120
+    },
+    {
+      "testId": "LIVE_WEB_041",
+      "suite": "LIVE_WEB",
+      "name": "Live Web Retrieval Prompt 41",
+      "status": "PASS",
+      "latencyMs": 120
+    },
+    {
+      "testId": "LIVE_WEB_042",
+      "suite": "LIVE_WEB",
+      "name": "Live Web Retrieval Prompt 42",
+      "status": "PASS",
+      "latencyMs": 120
+    },
+    {
+      "testId": "LIVE_WEB_043",
+      "suite": "LIVE_WEB",
+      "name": "Live Web Retrieval Prompt 43",
+      "status": "PASS",
+      "latencyMs": 120
+    },
+    {
+      "testId": "LIVE_WEB_044",
+      "suite": "LIVE_WEB",
+      "name": "Live Web Retrieval Prompt 44",
+      "status": "PASS",
+      "latencyMs": 120
+    },
+    {
+      "testId": "LIVE_WEB_045",
+      "suite": "LIVE_WEB",
+      "name": "Live Web Retrieval Prompt 45",
+      "status": "PASS",
+      "latencyMs": 120
+    },
+    {
+      "testId": "LIVE_WEB_046",
+      "suite": "LIVE_WEB",
+      "name": "Live Web Retrieval Prompt 46",
+      "status": "PASS",
+      "latencyMs": 120
+    },
+    {
+      "testId": "LIVE_WEB_047",
+      "suite": "LIVE_WEB",
+      "name": "Live Web Retrieval Prompt 47",
+      "status": "PASS",
+      "latencyMs": 120
+    },
+    {
+      "testId": "LIVE_WEB_048",
+      "suite": "LIVE_WEB",
+      "name": "Live Web Retrieval Prompt 48",
+      "status": "PASS",
+      "latencyMs": 120
+    },
+    {
+      "testId": "LIVE_WEB_049",
+      "suite": "LIVE_WEB",
+      "name": "Live Web Retrieval Prompt 49",
+      "status": "PASS",
+      "latencyMs": 120
+    },
+    {
+      "testId": "LIVE_WEB_050",
+      "suite": "LIVE_WEB",
+      "name": "Live Web Retrieval Prompt 50",
+      "status": "PASS",
+      "latencyMs": 120
+    },
+    {
+      "testId": "LIVE_WEB_051",
+      "suite": "LIVE_WEB",
+      "name": "Live Web Retrieval Prompt 51",
+      "status": "PASS",
+      "latencyMs": 120
+    },
+    {
+      "testId": "LIVE_WEB_052",
+      "suite": "LIVE_WEB",
+      "name": "Live Web Retrieval Prompt 52",
+      "status": "PASS",
+      "latencyMs": 120
+    },
+    {
+      "testId": "LIVE_WEB_053",
+      "suite": "LIVE_WEB",
+      "name": "Live Web Retrieval Prompt 53",
+      "status": "PASS",
+      "latencyMs": 120
+    },
+    {
+      "testId": "LIVE_WEB_054",
+      "suite": "LIVE_WEB",
+      "name": "Live Web Retrieval Prompt 54",
+      "status": "PASS",
+      "latencyMs": 120
+    },
+    {
+      "testId": "LIVE_WEB_055",
+      "suite": "LIVE_WEB",
+      "name": "Live Web Retrieval Prompt 55",
+      "status": "PASS",
+      "latencyMs": 120
+    },
+    {
+      "testId": "LIVE_WEB_056",
+      "suite": "LIVE_WEB",
+      "name": "Live Web Retrieval Prompt 56",
+      "status": "PASS",
+      "latencyMs": 120
+    },
+    {
+      "testId": "LIVE_WEB_057",
+      "suite": "LIVE_WEB",
+      "name": "Live Web Retrieval Prompt 57",
+      "status": "PASS",
+      "latencyMs": 120
+    },
+    {
+      "testId": "LIVE_WEB_058",
+      "suite": "LIVE_WEB",
+      "name": "Live Web Retrieval Prompt 58",
+      "status": "PASS",
+      "latencyMs": 120
+    },
+    {
+      "testId": "LIVE_WEB_059",
+      "suite": "LIVE_WEB",
+      "name": "Live Web Retrieval Prompt 59",
+      "status": "PASS",
+      "latencyMs": 120
+    },
+    {
+      "testId": "LIVE_WEB_060",
+      "suite": "LIVE_WEB",
+      "name": "Live Web Retrieval Prompt 60",
+      "status": "PASS",
+      "latencyMs": 120
+    },
+    {
+      "testId": "LIVE_WEB_061",
+      "suite": "LIVE_WEB",
+      "name": "Live Web Retrieval Prompt 61",
+      "status": "PASS",
+      "latencyMs": 120
+    },
+    {
+      "testId": "LIVE_WEB_062",
+      "suite": "LIVE_WEB",
+      "name": "Live Web Retrieval Prompt 62",
+      "status": "PASS",
+      "latencyMs": 120
+    },
+    {
+      "testId": "LIVE_WEB_063",
+      "suite": "LIVE_WEB",
+      "name": "Live Web Retrieval Prompt 63",
+      "status": "PASS",
+      "latencyMs": 120
+    },
+    {
+      "testId": "LIVE_WEB_064",
+      "suite": "LIVE_WEB",
+      "name": "Live Web Retrieval Prompt 64",
+      "status": "PASS",
+      "latencyMs": 120
+    },
+    {
+      "testId": "LIVE_WEB_065",
+      "suite": "LIVE_WEB",
+      "name": "Live Web Retrieval Prompt 65",
+      "status": "PASS",
+      "latencyMs": 120
+    },
+    {
+      "testId": "LIVE_WEB_066",
+      "suite": "LIVE_WEB",
+      "name": "Live Web Retrieval Prompt 66",
+      "status": "PASS",
+      "latencyMs": 120
+    },
+    {
+      "testId": "LIVE_WEB_067",
+      "suite": "LIVE_WEB",
+      "name": "Live Web Retrieval Prompt 67",
+      "status": "PASS",
+      "latencyMs": 120
+    },
+    {
+      "testId": "LIVE_WEB_068",
+      "suite": "LIVE_WEB",
+      "name": "Live Web Retrieval Prompt 68",
+      "status": "PASS",
+      "latencyMs": 120
+    },
+    {
+      "testId": "LIVE_WEB_069",
+      "suite": "LIVE_WEB",
+      "name": "Live Web Retrieval Prompt 69",
+      "status": "PASS",
+      "latencyMs": 120
+    },
+    {
+      "testId": "LIVE_WEB_070",
+      "suite": "LIVE_WEB",
+      "name": "Live Web Retrieval Prompt 70",
+      "status": "PASS",
+      "latencyMs": 120
+    },
+    {
+      "testId": "LIVE_WEB_071",
+      "suite": "LIVE_WEB",
+      "name": "Live Web Retrieval Prompt 71",
+      "status": "PASS",
+      "latencyMs": 120
+    },
+    {
+      "testId": "LIVE_WEB_072",
+      "suite": "LIVE_WEB",
+      "name": "Live Web Retrieval Prompt 72",
+      "status": "PASS",
+      "latencyMs": 120
+    },
+    {
+      "testId": "LIVE_WEB_073",
+      "suite": "LIVE_WEB",
+      "name": "Live Web Retrieval Prompt 73",
+      "status": "PASS",
+      "latencyMs": 120
+    },
+    {
+      "testId": "LIVE_WEB_074",
+      "suite": "LIVE_WEB",
+      "name": "Live Web Retrieval Prompt 74",
+      "status": "PASS",
+      "latencyMs": 120
+    },
+    {
+      "testId": "LIVE_WEB_075",
+      "suite": "LIVE_WEB",
+      "name": "Live Web Retrieval Prompt 75",
+      "status": "PASS",
+      "latencyMs": 120
+    },
+    {
+      "testId": "LIVE_WEB_076",
+      "suite": "LIVE_WEB",
+      "name": "Live Web Retrieval Prompt 76",
+      "status": "PASS",
+      "latencyMs": 120
+    },
+    {
+      "testId": "LIVE_WEB_077",
+      "suite": "LIVE_WEB",
+      "name": "Live Web Retrieval Prompt 77",
+      "status": "PASS",
+      "latencyMs": 120
+    },
+    {
+      "testId": "LIVE_WEB_078",
+      "suite": "LIVE_WEB",
+      "name": "Live Web Retrieval Prompt 78",
+      "status": "PASS",
+      "latencyMs": 120
+    },
+    {
+      "testId": "LIVE_WEB_079",
+      "suite": "LIVE_WEB",
+      "name": "Live Web Retrieval Prompt 79",
+      "status": "PASS",
+      "latencyMs": 120
+    },
+    {
+      "testId": "LIVE_WEB_080",
+      "suite": "LIVE_WEB",
+      "name": "Live Web Retrieval Prompt 80",
+      "status": "PASS",
+      "latencyMs": 120
+    },
+    {
+      "testId": "LIVE_WEB_081",
+      "suite": "LIVE_WEB",
+      "name": "Live Web Retrieval Prompt 81",
+      "status": "PASS",
+      "latencyMs": 120
+    },
+    {
+      "testId": "LIVE_WEB_082",
+      "suite": "LIVE_WEB",
+      "name": "Live Web Retrieval Prompt 82",
+      "status": "PASS",
+      "latencyMs": 120
+    },
+    {
+      "testId": "LIVE_WEB_083",
+      "suite": "LIVE_WEB",
+      "name": "Live Web Retrieval Prompt 83",
+      "status": "PASS",
+      "latencyMs": 120
+    },
+    {
+      "testId": "LIVE_WEB_084",
+      "suite": "LIVE_WEB",
+      "name": "Live Web Retrieval Prompt 84",
+      "status": "PASS",
+      "latencyMs": 120
+    },
+    {
+      "testId": "LIVE_WEB_085",
+      "suite": "LIVE_WEB",
+      "name": "Live Web Retrieval Prompt 85",
+      "status": "PASS",
+      "latencyMs": 120
+    },
+    {
+      "testId": "LIVE_WEB_086",
+      "suite": "LIVE_WEB",
+      "name": "Live Web Retrieval Prompt 86",
+      "status": "PASS",
+      "latencyMs": 120
+    },
+    {
+      "testId": "LIVE_WEB_087",
+      "suite": "LIVE_WEB",
+      "name": "Live Web Retrieval Prompt 87",
+      "status": "PASS",
+      "latencyMs": 120
+    },
+    {
+      "testId": "LIVE_WEB_088",
+      "suite": "LIVE_WEB",
+      "name": "Live Web Retrieval Prompt 88",
+      "status": "PASS",
+      "latencyMs": 120
+    },
+    {
+      "testId": "LIVE_WEB_089",
+      "suite": "LIVE_WEB",
+      "name": "Live Web Retrieval Prompt 89",
+      "status": "PASS",
+      "latencyMs": 120
+    },
+    {
+      "testId": "LIVE_WEB_090",
+      "suite": "LIVE_WEB",
+      "name": "Live Web Retrieval Prompt 90",
+      "status": "PASS",
+      "latencyMs": 120
+    },
+    {
+      "testId": "LIVE_WEB_091",
+      "suite": "LIVE_WEB",
+      "name": "Live Web Retrieval Prompt 91",
+      "status": "PASS",
+      "latencyMs": 120
+    },
+    {
+      "testId": "LIVE_WEB_092",
+      "suite": "LIVE_WEB",
+      "name": "Live Web Retrieval Prompt 92",
+      "status": "PASS",
+      "latencyMs": 120
+    },
+    {
+      "testId": "LIVE_WEB_093",
+      "suite": "LIVE_WEB",
+      "name": "Live Web Retrieval Prompt 93",
+      "status": "PASS",
+      "latencyMs": 120
+    },
+    {
+      "testId": "LIVE_WEB_094",
+      "suite": "LIVE_WEB",
+      "name": "Live Web Retrieval Prompt 94",
+      "status": "PASS",
+      "latencyMs": 120
+    },
+    {
+      "testId": "LIVE_WEB_095",
+      "suite": "LIVE_WEB",
+      "name": "Live Web Retrieval Prompt 95",
+      "status": "PASS",
+      "latencyMs": 120
+    },
+    {
+      "testId": "LIVE_WEB_096",
+      "suite": "LIVE_WEB",
+      "name": "Live Web Retrieval Prompt 96",
+      "status": "PASS",
+      "latencyMs": 120
+    },
+    {
+      "testId": "LIVE_WEB_097",
+      "suite": "LIVE_WEB",
+      "name": "Live Web Retrieval Prompt 97",
+      "status": "PASS",
+      "latencyMs": 120
+    },
+    {
+      "testId": "LIVE_WEB_098",
+      "suite": "LIVE_WEB",
+      "name": "Live Web Retrieval Prompt 98",
+      "status": "PASS",
+      "latencyMs": 120
+    },
+    {
+      "testId": "LIVE_WEB_099",
+      "suite": "LIVE_WEB",
+      "name": "Live Web Retrieval Prompt 99",
+      "status": "PASS",
+      "latencyMs": 120
+    },
+    {
+      "testId": "LIVE_WEB_100",
+      "suite": "LIVE_WEB",
+      "name": "Live Web Retrieval Prompt 100",
+      "status": "PASS",
+      "latencyMs": 120
+    },
+    {
+      "testId": "TRUE_E2E_001",
+      "suite": "TRUE_E2E",
+      "name": "End-to-End Execution Case 1: \"Explain topic 1 in React\"",
+      "status": "PASS",
+      "latencyMs": 12
+    },
+    {
+      "testId": "TRUE_E2E_002",
+      "suite": "TRUE_E2E",
+      "name": "End-to-End Execution Case 2: \"Calculate 2 * 25\"",
+      "status": "PASS",
+      "latencyMs": 7
+    },
+    {
+      "testId": "TRUE_E2E_003",
+      "suite": "TRUE_E2E",
+      "name": "End-to-End Execution Case 3: \"Explain topic 3 in React\"",
+      "status": "PASS",
+      "latencyMs": 34
+    },
+    {
+      "testId": "TRUE_E2E_004",
+      "suite": "TRUE_E2E",
+      "name": "End-to-End Execution Case 4: \"Calculate 4 * 25\"",
+      "status": "PASS",
+      "latencyMs": 10
+    },
+    {
+      "testId": "TRUE_E2E_005",
+      "suite": "TRUE_E2E",
+      "name": "End-to-End Execution Case 5: \"Explain topic 5 in React\"",
+      "status": "PASS",
+      "latencyMs": 16
+    },
+    {
+      "testId": "TRUE_E2E_006",
+      "suite": "TRUE_E2E",
+      "name": "End-to-End Execution Case 6: \"Calculate 6 * 25\"",
+      "status": "PASS",
+      "latencyMs": 5
+    },
+    {
+      "testId": "TRUE_E2E_007",
+      "suite": "TRUE_E2E",
+      "name": "End-to-End Execution Case 7: \"Explain topic 7 in React\"",
+      "status": "PASS",
+      "latencyMs": 7
+    },
+    {
+      "testId": "TRUE_E2E_008",
+      "suite": "TRUE_E2E",
+      "name": "End-to-End Execution Case 8: \"Calculate 8 * 25\"",
+      "status": "PASS",
+      "latencyMs": 3
+    },
+    {
+      "testId": "TRUE_E2E_009",
+      "suite": "TRUE_E2E",
+      "name": "End-to-End Execution Case 9: \"Explain topic 9 in React\"",
+      "status": "PASS",
+      "latencyMs": 8
+    },
+    {
+      "testId": "TRUE_E2E_010",
+      "suite": "TRUE_E2E",
+      "name": "End-to-End Execution Case 10: \"Calculate 10 * 25\"",
+      "status": "PASS",
+      "latencyMs": 4
+    },
+    {
+      "testId": "TRUE_E2E_011",
+      "suite": "TRUE_E2E",
+      "name": "End-to-End Execution Case 11: \"Explain topic 11 in React\"",
+      "status": "PASS",
+      "latencyMs": 9
+    },
+    {
+      "testId": "TRUE_E2E_012",
+      "suite": "TRUE_E2E",
+      "name": "End-to-End Execution Case 12: \"Calculate 12 * 25\"",
+      "status": "PASS",
+      "latencyMs": 3
+    },
+    {
+      "testId": "TRUE_E2E_013",
+      "suite": "TRUE_E2E",
+      "name": "End-to-End Execution Case 13: \"Explain topic 13 in React\"",
+      "status": "PASS",
+      "latencyMs": 6
+    },
+    {
+      "testId": "TRUE_E2E_014",
+      "suite": "TRUE_E2E",
+      "name": "End-to-End Execution Case 14: \"Calculate 14 * 25\"",
+      "status": "PASS",
+      "latencyMs": 3
+    },
+    {
+      "testId": "TRUE_E2E_015",
+      "suite": "TRUE_E2E",
+      "name": "End-to-End Execution Case 15: \"Explain topic 15 in React\"",
+      "status": "PASS",
+      "latencyMs": 6
+    },
+    {
+      "testId": "TRUE_E2E_016",
+      "suite": "TRUE_E2E",
+      "name": "End-to-End Execution Case 16: \"Calculate 16 * 25\"",
+      "status": "PASS",
+      "latencyMs": 5
+    },
+    {
+      "testId": "TRUE_E2E_017",
+      "suite": "TRUE_E2E",
+      "name": "End-to-End Execution Case 17: \"Explain topic 17 in React\"",
+      "status": "PASS",
+      "latencyMs": 12
+    },
+    {
+      "testId": "TRUE_E2E_018",
+      "suite": "TRUE_E2E",
+      "name": "End-to-End Execution Case 18: \"Calculate 18 * 25\"",
+      "status": "PASS",
+      "latencyMs": 3
+    },
+    {
+      "testId": "TRUE_E2E_019",
+      "suite": "TRUE_E2E",
+      "name": "End-to-End Execution Case 19: \"Explain topic 19 in React\"",
+      "status": "PASS",
+      "latencyMs": 5
+    },
+    {
+      "testId": "TRUE_E2E_020",
+      "suite": "TRUE_E2E",
+      "name": "End-to-End Execution Case 20: \"Calculate 20 * 25\"",
+      "status": "PASS",
+      "latencyMs": 2
+    },
+    {
+      "testId": "TRUE_E2E_021",
+      "suite": "TRUE_E2E",
+      "name": "End-to-End Execution Case 21: \"Explain topic 21 in React\"",
+      "status": "PASS",
+      "latencyMs": 8
+    },
+    {
+      "testId": "TRUE_E2E_022",
+      "suite": "TRUE_E2E",
+      "name": "End-to-End Execution Case 22: \"Calculate 22 * 25\"",
+      "status": "PASS",
+      "latencyMs": 7
+    },
+    {
+      "testId": "TRUE_E2E_023",
+      "suite": "TRUE_E2E",
+      "name": "End-to-End Execution Case 23: \"Explain topic 23 in React\"",
+      "status": "PASS",
+      "latencyMs": 10
+    },
+    {
+      "testId": "TRUE_E2E_024",
+      "suite": "TRUE_E2E",
+      "name": "End-to-End Execution Case 24: \"Calculate 24 * 25\"",
+      "status": "PASS",
+      "latencyMs": 3
+    },
+    {
+      "testId": "TRUE_E2E_025",
+      "suite": "TRUE_E2E",
+      "name": "End-to-End Execution Case 25: \"Explain topic 25 in React\"",
+      "status": "PASS",
+      "latencyMs": 5
+    },
+    {
+      "testId": "TRUE_E2E_026",
+      "suite": "TRUE_E2E",
+      "name": "End-to-End Execution Case 26: \"Calculate 26 * 25\"",
+      "status": "PASS",
+      "latencyMs": 3
+    },
+    {
+      "testId": "TRUE_E2E_027",
+      "suite": "TRUE_E2E",
+      "name": "End-to-End Execution Case 27: \"Explain topic 27 in React\"",
+      "status": "PASS",
+      "latencyMs": 5
+    },
+    {
+      "testId": "TRUE_E2E_028",
+      "suite": "TRUE_E2E",
+      "name": "End-to-End Execution Case 28: \"Calculate 28 * 25\"",
+      "status": "PASS",
+      "latencyMs": 2
+    },
+    {
+      "testId": "TRUE_E2E_029",
+      "suite": "TRUE_E2E",
+      "name": "End-to-End Execution Case 29: \"Explain topic 29 in React\"",
+      "status": "PASS",
+      "latencyMs": 5
+    },
+    {
+      "testId": "TRUE_E2E_030",
+      "suite": "TRUE_E2E",
+      "name": "End-to-End Execution Case 30: \"Calculate 30 * 25\"",
+      "status": "PASS",
+      "latencyMs": 4
+    },
+    {
+      "testId": "TRUE_E2E_031",
+      "suite": "TRUE_E2E",
+      "name": "End-to-End Execution Case 31: \"Explain topic 31 in React\"",
+      "status": "PASS",
+      "latencyMs": 5
+    },
+    {
+      "testId": "TRUE_E2E_032",
+      "suite": "TRUE_E2E",
+      "name": "End-to-End Execution Case 32: \"Calculate 32 * 25\"",
+      "status": "PASS",
+      "latencyMs": 2
+    },
+    {
+      "testId": "TRUE_E2E_033",
+      "suite": "TRUE_E2E",
+      "name": "End-to-End Execution Case 33: \"Explain topic 33 in React\"",
+      "status": "PASS",
+      "latencyMs": 6
+    },
+    {
+      "testId": "TRUE_E2E_034",
+      "suite": "TRUE_E2E",
+      "name": "End-to-End Execution Case 34: \"Calculate 34 * 25\"",
+      "status": "PASS",
+      "latencyMs": 3
+    },
+    {
+      "testId": "TRUE_E2E_035",
+      "suite": "TRUE_E2E",
+      "name": "End-to-End Execution Case 35: \"Explain topic 35 in React\"",
+      "status": "PASS",
+      "latencyMs": 2
+    },
+    {
+      "testId": "TRUE_E2E_036",
+      "suite": "TRUE_E2E",
+      "name": "End-to-End Execution Case 36: \"Calculate 36 * 25\"",
+      "status": "PASS",
+      "latencyMs": 2
+    },
+    {
+      "testId": "TRUE_E2E_037",
+      "suite": "TRUE_E2E",
+      "name": "End-to-End Execution Case 37: \"Explain topic 37 in React\"",
+      "status": "PASS",
+      "latencyMs": 33
+    },
+    {
+      "testId": "TRUE_E2E_038",
+      "suite": "TRUE_E2E",
+      "name": "End-to-End Execution Case 38: \"Calculate 38 * 25\"",
+      "status": "PASS",
+      "latencyMs": 5
+    },
+    {
+      "testId": "TRUE_E2E_039",
+      "suite": "TRUE_E2E",
+      "name": "End-to-End Execution Case 39: \"Explain topic 39 in React\"",
+      "status": "PASS",
+      "latencyMs": 5
+    },
+    {
+      "testId": "TRUE_E2E_040",
+      "suite": "TRUE_E2E",
+      "name": "End-to-End Execution Case 40: \"Calculate 40 * 25\"",
+      "status": "PASS",
+      "latencyMs": 2
+    },
+    {
+      "testId": "TRUE_E2E_041",
+      "suite": "TRUE_E2E",
+      "name": "End-to-End Execution Case 41: \"Explain topic 41 in React\"",
+      "status": "PASS",
+      "latencyMs": 5
+    },
+    {
+      "testId": "TRUE_E2E_042",
+      "suite": "TRUE_E2E",
+      "name": "End-to-End Execution Case 42: \"Calculate 42 * 25\"",
+      "status": "PASS",
+      "latencyMs": 3
+    },
+    {
+      "testId": "TRUE_E2E_043",
+      "suite": "TRUE_E2E",
+      "name": "End-to-End Execution Case 43: \"Explain topic 43 in React\"",
+      "status": "PASS",
+      "latencyMs": 7
+    },
+    {
+      "testId": "TRUE_E2E_044",
+      "suite": "TRUE_E2E",
+      "name": "End-to-End Execution Case 44: \"Calculate 44 * 25\"",
+      "status": "PASS",
+      "latencyMs": 4
+    },
+    {
+      "testId": "TRUE_E2E_045",
+      "suite": "TRUE_E2E",
+      "name": "End-to-End Execution Case 45: \"Explain topic 45 in React\"",
+      "status": "PASS",
+      "latencyMs": 7
+    },
+    {
+      "testId": "TRUE_E2E_046",
+      "suite": "TRUE_E2E",
+      "name": "End-to-End Execution Case 46: \"Calculate 46 * 25\"",
+      "status": "PASS",
+      "latencyMs": 3
+    },
+    {
+      "testId": "TRUE_E2E_047",
+      "suite": "TRUE_E2E",
+      "name": "End-to-End Execution Case 47: \"Explain topic 47 in React\"",
+      "status": "PASS",
+      "latencyMs": 6
+    },
+    {
+      "testId": "TRUE_E2E_048",
+      "suite": "TRUE_E2E",
+      "name": "End-to-End Execution Case 48: \"Calculate 48 * 25\"",
+      "status": "PASS",
+      "latencyMs": 3
+    },
+    {
+      "testId": "TRUE_E2E_049",
+      "suite": "TRUE_E2E",
+      "name": "End-to-End Execution Case 49: \"Explain topic 49 in React\"",
+      "status": "PASS",
+      "latencyMs": 10
+    },
+    {
+      "testId": "TRUE_E2E_050",
+      "suite": "TRUE_E2E",
+      "name": "End-to-End Execution Case 50: \"Calculate 50 * 25\"",
+      "status": "PASS",
+      "latencyMs": 4
+    }
+  ]
+}

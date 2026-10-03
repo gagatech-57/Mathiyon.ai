@@ -1,0 +1,14 @@
+# Mathiyon System Technical Overview
+
+Mathiyon AI is a privacy-first intelligent hybrid agent designed for deterministic mathematical problem solving, document synthesis, and real-time information retrieval.
+
+## Architectural Layers
+1. **Frontend**: Vite + React 19 + TypeScript + Vanilla Tailwind CSS
+2. **Backend Services**: Express.js REST API on port 5000
+3. **AI Core**: Python 3.12 PyTorch inference engine running Mathiyon SLM v1.2 in production and v1.3-RC1 in experimental mode.
+4. **Data Persistence**: MongoDB 7.0 for user accounts, conversation history, vector embeddings, and memory items.
+
+## Security & Compliance
+- JWT authentication with HTTP-only cookies
+- bcrypt password hashing with salt rounds = 10
+- Strict cross-user data isolation on vector embeddings and user memories

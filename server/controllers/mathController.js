@@ -1,4 +1,4 @@
-const PYTHON_AI_SERVICE_URL = process.env.PYTHON_AI_SERVICE_URL || 'http://127.0.0.1:8000';
+const PYTHON_AI_SERVICE_URL = process.env.AI_SERVICE_URL || process.env.PYTHON_AI_SERVICE_URL || 'http://127.0.0.1:8000';
 
 // @desc    Solve mathematical problem using SymPy & MathEngineSolver
 // @route   POST /api/math/solve

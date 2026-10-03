@@ -1,0 +1,72 @@
+Mathiyon AI Coding & Software Engineering Corpus v1.3
+
+// React 19 Custom Hook Example
+import { useState, useEffect } from 'react';
+
+export function useFetchData<T>(url: string) {
+  const [data, setData] = useState<T | null>(null);
+  const [loading, setLoading] = useState<boolean>(true);
+  const [error, setError] = useState<string | null>(null);
+
+  useEffect(() => {
+    let isMounted = true;
+    async function fetchData() {
+      try {
+        const response = await fetch(url);
+        if (!response.ok) throw new Error(`HTTP error ${response.status}`);
+        const result = await response.json();
+        if (isMounted) setData(result);
+      } catch (err: any) {
+        if (isMounted) setError(err.message);
+      } finally {
+        if (isMounted) setLoading(false);
+      }
+    }
+    fetchData();
+    return () => { isMounted = false; };
+  }, [url]);
+
+  return { data, loading, error };
+}
+
+// Express.js JWT Protection Middleware Example
+const jwt = require('jsonwebtoken');
+
+function protectRoute(req, res, next) {
+  let token;
+  if (req.headers.authorization && req.headers.authorization.startsWith('Bearer')) {
+    try {
+      token = req.headers.authorization.split(' ')[1];
+      const decoded = jwt.verify(token, process.env.JWT_SECRET);
+      req.user = decoded;
+      return next();
+    } catch (err) {
+      return res.status(401).json({ success: false, message: 'Unauthorized access' });
+    }
+  }
+  return res.status(401).json({ success: false, message: 'No token provided' });
+}
+
+// Python FastAPI Service Endpoint Example
+from fastapi import FastAPI, HTTPException
+from pydantic import BaseModel
+
+app = FastAPI()
+
+class InferenceRequest(BaseModel):
+    prompt: str
+    max_tokens: int = 64
+
+@app.post("/api/v1/predict")
+async def predict(payload: InferenceRequest):
+    if not payload.prompt.strip():
+        raise HTTPException(status_code=400, detail="Prompt cannot be empty")
+    return {"status": "success", "result": f"Processed: {payload.prompt}"}
+
+// SQL Query Example
+SELECT u.id, u.name, COUNT(m.id) AS total_memories
+FROM users u
+LEFT JOIN memories m ON u.id = m.user_id
+WHERE u.created_at >= '2026-01-01'
+GROUP BY u.id, u.name
+ORDER BY total_memories DESC;

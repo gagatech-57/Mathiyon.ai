@@ -13,7 +13,11 @@ const conversationSchema = new mongoose.Schema({
   },
   model: {
     type: String,
-    default: 'Mathiyon Neural v4.0',
+    default: 'Mathiyon SLM v1.2',
+  },
+  isPinned: {
+    type: Boolean,
+    default: false,
   },
   createdAt: {
     type: Date,

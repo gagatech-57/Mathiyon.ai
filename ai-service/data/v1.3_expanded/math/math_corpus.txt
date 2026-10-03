@@ -1,0 +1,24 @@
+Arithmetic Fraction Addition: 1/3 + 1/6 = 2/6 + 1/6 = 3/6 = 1/2.
+Linear Algebraic Equation: Solve 2x + 5 = 15. Subtract 5 from both sides: 2x = 10. Divide by 2: x = 5.
+Quadratic Equation Formula: For ax^2 + bx + c = 0, x = (-b ± sqrt(b^2 - 4ac)) / (2a). For x^2 - 5x + 6 = 0, solutions are x = 2 and x = 3.
+Pythagorean Theorem: In a right triangle with legs a and b and hypotenuse c, a^2 + b^2 = c^2. If a = 3 and b = 4, c = sqrt(9 + 16) = sqrt(25) = 5.
+Trigonometric Identity: sin^2(x) + cos^2(x) = 1. tan(x) = sin(x) / cos(x).
+Calculus Derivative Power Rule: d/dx (x^n) = n * x^(n-1). For f(x) = 3x^4, f'(x) = 12x^3.
+Calculus Definite Integral: Integral from 0 to 2 of x^2 dx = [x^3 / 3] from 0 to 2 = (8/3) - 0 = 8/3.
+Probability Compound Events: If P(A) = 0.4 and P(B) = 0.5 for independent events, then P(A and B) = P(A) * P(B) = 0.20.
+Statistics Mean Median Mode: For dataset [2, 3, 5, 5, 7, 8, 12], mean = 42/7 = 6, median = 5, mode = 5.
+Matrix Multiplication 2x2: Multiply [[1, 2], [3, 4]] by [[5, 6], [7, 8]] = [[1*5+2*7, 1*6+2*8], [3*5+4*7, 3*6+4*8]] = [[19, 22], [43, 50]].
+Vector Dot Product: For u = (3, 4) and v = (1, 2), u dot v = 3*1 + 4*2 = 3 + 8 = 11.
+Number Theory Prime Factorization: The prime factorization of 360 is 2^3 * 3^2 * 5^1.
+Percentages Calculation: Calculate a 15% discount on $80. Discount = 0.15 * 80 = $12. Final price = 80 - 12 = $68.
+Ratios Proportion Problem: If 4 workers build a wall in 6 hours, how long do 3 workers take? Inverse proportion: 4 * 6 = 3 * h => 24 = 3h => h = 8 hours.
+Unit Conversion Length: Convert 5 kilometers to meters. 1 km = 1000 m, so 5 km = 5 * 1000 = 5000 meters.
+Financial Mathematics Simple Interest: I = P * r * t. For principal $1000 at 5% annual interest for 3 years, Interest = 1000 * 0.05 * 3 = $150.
+Financial Mathematics Compound Interest: A = P(1 + r/n)^(nt). For $1000 at 5% compounded annually for 2 years: A = 1000 * (1.05)^2 = $1102.50.
+System of Linear Equations: 2x + y = 7 and x - y = 2. Adding equations: 3x = 9 => x = 3. Substituting x: 3 - y = 2 => y = 1.
+Vector Magnitude Calculation: The magnitude of 3D vector v = (2, 3, 6) is |v| = sqrt(2^2 + 3^2 + 6^2) = sqrt(4 + 9 + 36) = sqrt(49) = 7.
+Combinatorics Permutations: P(n, k) = n! / (n - k)!. P(5, 2) = 5! / 3! = (5 * 4 * 3 * 2 * 1) / (3 * 2 * 1) = 20.
+Combinatorics Combinations: C(n, k) = n! / (k! * (n - k)!). C(6, 2) = 6! / (2! * 4!) = (6 * 5) / 2 = 15.
+Trigonometry Law of Sines: a / sin(A) = b / sin(B) = c / sin(C). Used to solve non-right triangles given angles and side lengths.
+Calculus Chain Rule: d/dx f(g(x)) = f'(g(x)) * g'(x). For h(x) = (2x + 1)^3, h'(x) = 3(2x + 1)^2 * 2 = 6(2x + 1)^2.
+Statistics Standard Deviation: Variance sigma^2 = sum((x - mean)^2) / N. Standard deviation sigma is the square root of variance.

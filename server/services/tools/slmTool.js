@@ -3,7 +3,7 @@
  * Connects to Python FastAPI PyTorch Mathiyon SLM v1.2 engine.
  */
 
-const PYTHON_AI_SERVICE_URL = process.env.PYTHON_AI_SERVICE_URL || 'http://127.0.0.1:8000';
+const PYTHON_AI_SERVICE_URL = process.env.AI_SERVICE_URL || process.env.PYTHON_AI_SERVICE_URL || 'http://127.0.0.1:8000';
 
 const slmTool = {
   name: 'Mathiyon SLM',
@@ -17,7 +17,7 @@ const slmTool = {
     required: ['message']
   },
 
-  async execute({ message, conversation = [] }) {
+  async execute({ message, conversation = [], model }) {
     if (!message || typeof message !== 'string') {
       return { success: false, error: 'Invalid prompt string' };
     }
@@ -29,7 +29,7 @@ const slmTool = {
       const res = await fetch(`${PYTHON_AI_SERVICE_URL}/generate`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ message, conversation }),
+        body: JSON.stringify({ message, conversation, model }),
         signal: controller.signal
       });
 
@@ -49,7 +49,8 @@ const slmTool = {
           generationTimeMs: data.generation_time_ms || 0
         };
       } else {
-        return { success: false, error: `SLM service HTTP ${res.status}` };
+        const errData = await res.json().catch(() => ({}));
+        return { success: false, error: errData.detail || `SLM service HTTP ${res.status}` };
       }
     } catch (err) {
       return { success: false, error: `SLM service connectivity failure: ${err.message}` };

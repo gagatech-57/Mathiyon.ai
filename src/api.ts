@@ -1,4 +1,7 @@
-const API_BASE_URL = 'http://localhost:5000/api';
+// Environment-aware API base URL.
+// Prefer a configured deployment URL, but keep local development and direct Render deployment working.
+const API_BASE_URL = import.meta.env.VITE_API_BASE_URL ||
+  (import.meta.env.DEV ? 'http://localhost:5000/api' : 'https://mathiyon-ai.onrender.com/api');
 
 export interface UserProfile {
   id: string;
@@ -34,6 +37,7 @@ export interface ConversationItemApi {
   title: string;
   model?: string;
   timestamp: string;
+  isPinned?: boolean;
 }
 
 export interface SendChatResponse {
@@ -50,6 +54,7 @@ export interface SendChatResponse {
   intent?: string;
   toolsUsed?: string[];
   sources?: any[];
+  citations?: any[];
   verified?: boolean;
   requestId?: string;
   totalLatencyMs?: number;
@@ -228,6 +233,73 @@ export const apiCreateConversation = async (
     return await res.json();
   } catch (error) {
     return { success: false, message: 'Error creating new conversation' };
+  }
+};
+
+// API Rename Conversation (JWT Protected)
+export const apiRenameConversation = async (
+  conversationId: string,
+  title: string
+): Promise<{ success: boolean; title?: string; message?: string }> => {
+  const token = getToken();
+  if (!token) return { success: false, message: 'Authentication required' };
+
+  try {
+    const res = await fetch(`${API_BASE_URL}/chat/conversations/${conversationId}/rename`, {
+      method: 'PATCH',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify({ title }),
+    });
+    return await res.json();
+  } catch (error) {
+    return { success: false, message: 'Error renaming conversation' };
+  }
+};
+
+// API Toggle Pin Conversation (JWT Protected)
+export const apiTogglePinConversation = async (
+  conversationId: string,
+  isPinned?: boolean
+): Promise<{ success: boolean; isPinned?: boolean; message?: string }> => {
+  const token = getToken();
+  if (!token) return { success: false, message: 'Authentication required' };
+
+  try {
+    const res = await fetch(`${API_BASE_URL}/chat/conversations/${conversationId}/pin`, {
+      method: 'PATCH',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify({ isPinned }),
+    });
+    return await res.json();
+  } catch (error) {
+    return { success: false, message: 'Error toggling pin status' };
+  }
+};
+
+// API Delete Conversation (JWT Protected)
+export const apiDeleteConversation = async (
+  conversationId: string
+): Promise<{ success: boolean; message?: string }> => {
+  const token = getToken();
+  if (!token) return { success: false, message: 'Authentication required' };
+
+  try {
+    const res = await fetch(`${API_BASE_URL}/chat/conversations/${conversationId}`, {
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    return await res.json();
+  } catch (error) {
+    return { success: false, message: 'Error deleting conversation' };
   }
 };
 

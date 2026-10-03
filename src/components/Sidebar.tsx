@@ -1,17 +1,18 @@
-import React from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { TridentLogo } from './TridentLogo';
 import { UserProfileDropdown } from './UserProfileDropdown';
 import { 
   Plus, 
   MessageSquare, 
-  Compass, 
-  FolderKanban, 
-  Wrench, 
-  Settings, 
   ChevronLeft, 
   ChevronRight, 
   X, 
-  Sparkles
+  Sparkles,
+  MoreVertical,
+  Pin,
+  Pencil,
+  Trash2,
+  Check
 } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import type { UserProfile } from '../api';
@@ -20,6 +21,7 @@ export interface ConversationItem {
   id: string;
   title: string;
   timestamp: string;
+  isPinned?: boolean;
 }
 
 interface SidebarProps {
@@ -29,12 +31,15 @@ interface SidebarProps {
   conversations: ConversationItem[];
   activeConversationId: string;
   onSelectConversation: (id: string) => void;
+  onRenameConversation?: (id: string, newTitle: string) => Promise<void> | void;
+  onTogglePinConversation?: (id: string) => Promise<void> | void;
+  onDeleteConversation?: (id: string) => Promise<void> | void;
   isCollapsed: boolean;
   onToggleCollapse: () => void;
   isMobileOpen: boolean;
   onCloseMobile: () => void;
-  activeNav: string;
-  onSelectNav: (nav: string) => void;
+  activeNav?: string;
+  onSelectNav?: (nav: string) => void;
   isDarkTheme: boolean;
   onToggleTheme: () => void;
 }
@@ -46,22 +51,45 @@ export const Sidebar: React.FC<SidebarProps> = ({
   conversations,
   activeConversationId,
   onSelectConversation,
+  onRenameConversation,
+  onTogglePinConversation,
+  onDeleteConversation,
   isCollapsed,
   onToggleCollapse,
   isMobileOpen,
   onCloseMobile,
-  activeNav,
-  onSelectNav,
   isDarkTheme,
   onToggleTheme,
 }) => {
-  // Home link removed as requested
-  const mainNavItems = [
-    { id: 'explore', label: 'Explore', icon: Compass },
-    { id: 'library', label: 'Library', icon: FolderKanban },
-    { id: 'tools', label: 'AI Tools', icon: Wrench },
-    { id: 'settings', label: 'Settings', icon: Settings },
-  ];
+  const [openMenuId, setOpenMenuId] = useState<string | null>(null);
+  const [editingId, setEditingId] = useState<string | null>(null);
+  const [editTitle, setEditTitle] = useState('');
+  const menuRef = useRef<HTMLDivElement>(null);
+
+  // Close dropdown menu when clicking outside
+  useEffect(() => {
+    const handleClickOutside = (e: MouseEvent) => {
+      if (menuRef.current && !menuRef.current.contains(e.target as Node)) {
+        setOpenMenuId(null);
+      }
+    };
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => document.removeEventListener('mousedown', handleClickOutside);
+  }, []);
+
+  // Sort conversations so that pinned chats always appear at the very top
+  const sortedConversations = [...conversations].sort((a, b) => {
+    if (a.isPinned && !b.isPinned) return -1;
+    if (!a.isPinned && b.isPinned) return 1;
+    return 0;
+  });
+
+  const handleSaveRename = (id: string) => {
+    if (editTitle.trim()) {
+      onRenameConversation?.(id, editTitle.trim());
+    }
+    setEditingId(null);
+  };
 
   const sidebarContent = (
     <div className={`h-full flex flex-col justify-between bg-[#090715]/95 border-r border-rose-950/40 backdrop-blur-xl transition-colors duration-300 ${
@@ -121,41 +149,6 @@ export const Sidebar: React.FC<SidebarProps> = ({
           )}
         </motion.button>
 
-        {/* Primary Navigation Links */}
-        <nav className="mt-4 space-y-1">
-          {mainNavItems.map((item) => {
-            const Icon = item.icon;
-            const isActive = activeNav === item.id;
-            return (
-              <motion.button
-                key={item.id}
-                whileHover={{ x: isCollapsed ? 0 : 2 }}
-                onClick={() => {
-                  onSelectNav(item.id);
-                  if (isMobileOpen) onCloseMobile();
-                }}
-                className={`w-full flex items-center gap-3 px-3 py-2 rounded-xl text-xs font-medium transition-all cursor-pointer ${
-                  isActive
-                    ? 'bg-rose-500/15 text-rose-300 border border-rose-500/30'
-                    : 'text-slate-400 hover:text-slate-200 hover:bg-slate-800/50'
-                } ${isCollapsed ? 'justify-center px-0' : ''}`}
-                title={item.label}
-              >
-                <Icon className={`w-4 h-4 shrink-0 ${isActive ? 'text-rose-400' : 'text-slate-400'}`} />
-                {!isCollapsed && (
-                  <motion.span
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: 1 }}
-                    transition={{ duration: 0.2 }}
-                  >
-                    {item.label}
-                  </motion.span>
-                )}
-              </motion.button>
-            );
-          })}
-        </nav>
-
         {/* Recent Conversations List */}
         {!isCollapsed && (
           <motion.div 
@@ -169,53 +162,161 @@ export const Sidebar: React.FC<SidebarProps> = ({
               <Sparkles className="w-3 h-3 text-rose-400" />
             </div>
 
-            <div className="space-y-1 max-h-[35vh] overflow-y-auto pr-1">
-              {conversations.length === 0 ? (
+            <div className="space-y-1 max-h-[45vh] overflow-y-auto pr-1">
+              {sortedConversations.length === 0 ? (
                 <p className="px-2 text-xs text-slate-400 italic">No recent chats yet.</p>
               ) : (
-                conversations.map((chat) => (
-                  <button
-                    key={chat.id}
-                    onClick={() => {
-                      onSelectConversation(chat.id);
-                      if (isMobileOpen) onCloseMobile();
-                    }}
-                    className={`w-full flex items-center gap-2.5 px-3 py-2 rounded-xl text-xs text-left transition-all cursor-pointer ${
-                      activeConversationId === chat.id
-                        ? 'bg-rose-600/20 text-white font-semibold border border-rose-500/40'
-                        : 'text-slate-400 hover:text-slate-200 hover:bg-slate-800/40'
-                    }`}
-                  >
-                    <MessageSquare className="w-3.5 h-3.5 text-rose-400 shrink-0" />
-                    <span className="truncate flex-1">{chat.title}</span>
-                  </button>
-                ))
+                sortedConversations.map((chat, index) => {
+                  const isMenuOpen = openMenuId === chat.id;
+                  const isEditing = editingId === chat.id;
+                  const isLastFew = index >= sortedConversations.length - 2 && sortedConversations.length > 2;
+
+                  return (
+                    <div
+                      key={chat.id}
+                      className={`relative group w-full flex items-center justify-between gap-1 px-2.5 py-1.5 rounded-xl text-xs transition-all ${
+                        activeConversationId === chat.id
+                          ? 'bg-rose-600/20 text-white font-semibold border border-rose-500/40'
+                          : 'text-slate-400 hover:text-slate-200 hover:bg-slate-800/40'
+                      }`}
+                    >
+                      {isEditing ? (
+                        <div className="flex-1 flex items-center gap-1.5" onClick={(e) => e.stopPropagation()}>
+                          <input
+                            type="text"
+                            value={editTitle}
+                            onChange={(e) => setEditTitle(e.target.value)}
+                            onKeyDown={(e) => {
+                              if (e.key === 'Enter') handleSaveRename(chat.id);
+                              if (e.key === 'Escape') setEditingId(null);
+                            }}
+                            autoFocus
+                            className="w-full px-2 py-1 text-xs bg-slate-900 border border-rose-500/50 rounded-lg text-white focus:outline-none focus:ring-1 focus:ring-rose-500"
+                          />
+                          <button
+                            onClick={() => handleSaveRename(chat.id)}
+                            className="p-1 text-emerald-400 hover:text-emerald-300 hover:bg-emerald-500/10 rounded-lg transition-colors cursor-pointer"
+                            title="Save name"
+                          >
+                            <Check className="w-3.5 h-3.5" />
+                          </button>
+                          <button
+                            onClick={() => setEditingId(null)}
+                            className="p-1 text-slate-400 hover:text-white hover:bg-slate-800 rounded-lg transition-colors cursor-pointer"
+                            title="Cancel"
+                          >
+                            <X className="w-3.5 h-3.5" />
+                          </button>
+                        </div>
+                      ) : (
+                        <>
+                          {/* Main Clickable Area to Select Chat */}
+                          <div
+                            onClick={() => {
+                              onSelectConversation(chat.id);
+                              if (isMobileOpen) onCloseMobile();
+                            }}
+                            className="flex-1 min-w-0 flex items-center gap-2 cursor-pointer py-0.5"
+                          >
+                            <MessageSquare className="w-3.5 h-3.5 text-rose-400 shrink-0" />
+                            <span className="truncate flex-1">{chat.title}</span>
+                            {chat.isPinned && (
+                              <span title="Pinned chat" className="inline-flex shrink-0">
+                                <Pin className="w-3 h-3 text-rose-400 fill-rose-400/40 rotate-45" />
+                              </span>
+                            )}
+                          </div>
+
+                          {/* 3-Dot Meatballs Menu Trigger: Visible on hover or when menu is open */}
+                          <button
+                            onClick={(e) => {
+                              e.stopPropagation();
+                              setOpenMenuId(isMenuOpen ? null : chat.id);
+                            }}
+                            className={`p-1 rounded-lg transition-all shrink-0 cursor-pointer ${
+                              isMenuOpen
+                                ? 'opacity-100 bg-slate-800 text-white'
+                                : 'opacity-0 group-hover:opacity-100 text-slate-400 hover:text-white hover:bg-slate-800/80'
+                            }`}
+                            title="Chat options"
+                            aria-label="Chat options"
+                          >
+                            <MoreVertical className="w-3.5 h-3.5" />
+                          </button>
+
+                          {/* Dropdown Menu (Pin, Rename, Delete) */}
+                          <AnimatePresence>
+                            {isMenuOpen && (
+                              <motion.div
+                                ref={menuRef}
+                                initial={{ opacity: 0, scale: 0.95, y: isLastFew ? 6 : -6 }}
+                                animate={{ opacity: 1, scale: 1, y: 0 }}
+                                exit={{ opacity: 0, scale: 0.95, y: isLastFew ? 6 : -6 }}
+                                transition={{ duration: 0.15 }}
+                                className={`absolute right-1 z-50 min-w-[135px] py-1 px-1 bg-[#120e24] border border-rose-500/30 rounded-xl shadow-2xl shadow-black/90 backdrop-blur-xl ${
+                                  isLastFew ? 'bottom-full mb-1' : 'top-full mt-1'
+                                }`}
+                                onClick={(e) => e.stopPropagation()}
+                              >
+                                {/* 1. Pin / Unpin */}
+                                <button
+                                  onClick={() => {
+                                    setOpenMenuId(null);
+                                    onTogglePinConversation?.(chat.id);
+                                  }}
+                                  className="w-full flex items-center gap-2 px-2.5 py-1.5 text-xs text-slate-300 hover:text-white hover:bg-slate-800/80 rounded-lg transition-colors cursor-pointer"
+                                >
+                                  <Pin className={`w-3.5 h-3.5 ${chat.isPinned ? 'text-rose-400 fill-rose-400' : 'text-slate-400'}`} />
+                                  <span>{chat.isPinned ? 'Unpin chat' : 'Pin chat'}</span>
+                                </button>
+
+                                {/* 2. Rename */}
+                                <button
+                                  onClick={() => {
+                                    setOpenMenuId(null);
+                                    setEditingId(chat.id);
+                                    setEditTitle(chat.title);
+                                  }}
+                                  className="w-full flex items-center gap-2 px-2.5 py-1.5 text-xs text-slate-300 hover:text-white hover:bg-slate-800/80 rounded-lg transition-colors cursor-pointer"
+                                >
+                                  <Pencil className="w-3.5 h-3.5 text-slate-400" />
+                                  <span>Rename</span>
+                                </button>
+
+                                {/* 3. Delete */}
+                                <button
+                                  onClick={() => {
+                                    setOpenMenuId(null);
+                                    onDeleteConversation?.(chat.id);
+                                  }}
+                                  className="w-full flex items-center gap-2 px-2.5 py-1.5 text-xs text-rose-400 hover:text-rose-300 hover:bg-rose-500/10 rounded-lg transition-colors cursor-pointer"
+                                >
+                                  <Trash2 className="w-3.5 h-3.5 text-rose-400" />
+                                  <span>Delete</span>
+                                </button>
+                              </motion.div>
+                            )}
+                          </AnimatePresence>
+                        </>
+                      )}
+                    </div>
+                  );
+                })
               )}
             </div>
           </motion.div>
         )}
       </div>
 
-      {/* Bottom User Profile Section */}
+      {/* Bottom User Profile Section with Single Integrated Dropdown */}
       <div className="pt-3 border-t border-slate-800/80">
-        {!isCollapsed ? (
-          <UserProfileDropdown
-            user={user}
-            onSignOut={onSignOut}
-            isDarkTheme={isDarkTheme}
-            onToggleTheme={onToggleTheme}
-          />
-        ) : (
-          <button
-            onClick={onToggleCollapse}
-            className="w-full flex items-center justify-center p-2 rounded-xl hover:bg-slate-800/60 text-slate-300"
-            title={user.name}
-          >
-            <div className="w-8 h-8 rounded-lg bg-gradient-to-tr from-rose-600 to-rose-900 flex items-center justify-center font-bold text-white text-xs shrink-0">
-              {user.name ? user.name.charAt(0).toUpperCase() : 'U'}
-            </div>
-          </button>
-        )}
+        <UserProfileDropdown
+          user={user}
+          onSignOut={onSignOut}
+          isDarkTheme={isDarkTheme}
+          onToggleTheme={onToggleTheme}
+          isCollapsed={isCollapsed}
+        />
       </div>
     </div>
   );
@@ -227,7 +328,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
         initial={false}
         animate={{ width: isCollapsed ? 76 : 256 }}
         transition={{ type: 'spring', stiffness: 300, damping: 30 }}
-        className="hidden md:block sticky top-0 h-screen z-30 shrink-0 overflow-hidden"
+        className="hidden md:block sticky top-0 h-screen z-30 shrink-0 overflow-visible"
       >
         {sidebarContent}
       </motion.aside>

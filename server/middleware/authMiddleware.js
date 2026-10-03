@@ -1,12 +1,17 @@
 const jwt = require('jsonwebtoken');
 
+const getJwtSecret = () => {
+  const secret = process.env.JWT_SECRET || 'development-jwt-secret-change-me';
+  return secret;
+};
+
 const protect = (req, res, next) => {
   let token;
 
   if (req.headers.authorization && req.headers.authorization.startsWith('Bearer')) {
     try {
       token = req.headers.authorization.split(' ')[1];
-      const decoded = jwt.verify(token, process.env.JWT_SECRET || 'mathiyon_secret_jwt_key_2026_super_secure_987654321');
+      const decoded = jwt.verify(token, getJwtSecret());
       req.user = decoded;
       return next();
     } catch (error) {

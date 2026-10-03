@@ -1,0 +1,336 @@
+{
+  "timestamp": "2026-09-25T13:11:17.141Z",
+  "branch": "phase-12-5-evaluation-observability",
+  "productionModel": "Mathiyon SLM v1.2 (100% Production Traffic Default)",
+  "experimentalModel": "Mathiyon SLM v1.3-RC1 (0% Production Traffic Default)",
+  "suiteMetrics": {
+    "routing": {
+      "total": 10,
+      "pass": 10,
+      "fail": 0
+    },
+    "tools": {
+      "total": 0,
+      "pass": 0,
+      "fail": 0
+    },
+    "math": {
+      "total": 10,
+      "pass": 10,
+      "fail": 0
+    },
+    "rag": {
+      "total": 1,
+      "pass": 1,
+      "fail": 0
+    },
+    "memory": {
+      "total": 0,
+      "pass": 0,
+      "fail": 0
+    },
+    "web": {
+      "total": 0,
+      "pass": 0,
+      "blocked": 0
+    },
+    "context": {
+      "total": 1,
+      "pass": 1,
+      "fail": 0
+    },
+    "citations": {
+      "total": 0,
+      "pass": 0,
+      "fail": 0
+    },
+    "errors": {
+      "total": 0,
+      "pass": 0,
+      "fail": 0
+    },
+    "model": {
+      "total": 1,
+      "pass": 1,
+      "fail": 0
+    },
+    "security": {
+      "total": 1,
+      "pass": 1,
+      "fail": 0
+    },
+    "performance": {
+      "total": 1,
+      "pass": 1,
+      "fail": 0
+    }
+  },
+  "currentMetricsSummary": {
+    "routingAccuracyPercent": 100,
+    "mathDeterministicCorrectnessPercent": 100,
+    "contextFusionAccuracyPercent": 100,
+    "ragMissingInfoHandledPercent": 100,
+    "securityPrivacyScrubberPercent": 100,
+    "modelGovernanceV12Percent": 100,
+    "p50LatencyMs": 3,
+    "p95LatencyMs": 13
+  },
+  "regression": {
+    "detected": false,
+    "details": []
+  },
+  "latency": {
+    "p50Ms": 3,
+    "p95Ms": 13,
+    "sampleSize": 23
+  },
+  "results": [
+    {
+      "testId": "EVAL_ROUTE_R01",
+      "type": "UNIT",
+      "category": "ROUTING",
+      "query": "Hello, good morning!",
+      "expected": "GENERAL",
+      "actual": "GENERAL",
+      "status": "PASS",
+      "latencyMs": 3
+    },
+    {
+      "testId": "EVAL_ROUTE_R02",
+      "type": "UNIT",
+      "category": "ROUTING",
+      "query": "Calculate 25% of 800",
+      "expected": "MATH",
+      "actual": "MATH",
+      "status": "PASS",
+      "latencyMs": 2
+    },
+    {
+      "testId": "EVAL_ROUTE_R03",
+      "type": "UNIT",
+      "category": "ROUTING",
+      "query": "Write a React functional component for a button",
+      "expected": "CODING",
+      "actual": "CODING",
+      "status": "PASS",
+      "latencyMs": 3
+    },
+    {
+      "testId": "EVAL_ROUTE_R04",
+      "type": "UNIT",
+      "category": "ROUTING",
+      "query": "According to the uploaded PDF, what is the revenue?",
+      "expected": "DOCUMENT",
+      "actual": "DOCUMENT",
+      "status": "PASS",
+      "latencyMs": 2
+    },
+    {
+      "testId": "EVAL_ROUTE_R05",
+      "type": "UNIT",
+      "category": "ROUTING",
+      "query": "Remember that my project uses TypeScript",
+      "expected": "MEMORY",
+      "actual": "MEMORY",
+      "status": "PASS",
+      "latencyMs": 2
+    },
+    {
+      "testId": "EVAL_ROUTE_R06",
+      "type": "UNIT",
+      "category": "ROUTING",
+      "query": "Find the latest online stock price of Apple",
+      "expected": "WEB",
+      "actual": "WEB",
+      "status": "PASS",
+      "latencyMs": 2
+    },
+    {
+      "testId": "EVAL_ROUTE_R07",
+      "type": "UNIT",
+      "category": "ROUTING",
+      "query": "Find the price in my document and calculate 10% tax",
+      "expected": "MULTI_TOOL",
+      "actual": "MULTI_TOOL",
+      "status": "PASS",
+      "latencyMs": 2
+    },
+    {
+      "testId": "EVAL_ROUTE_R08",
+      "type": "UNIT",
+      "category": "ROUTING",
+      "query": "Solve equation x^2 - 4 = 0",
+      "expected": "MATH",
+      "actual": "MATH",
+      "status": "PASS",
+      "latencyMs": 2
+    },
+    {
+      "testId": "EVAL_ROUTE_R09",
+      "type": "UNIT",
+      "category": "ROUTING",
+      "query": "Search latest news on AI models",
+      "expected": "WEB",
+      "actual": "WEB",
+      "status": "PASS",
+      "latencyMs": 2
+    },
+    {
+      "testId": "EVAL_ROUTE_R10",
+      "type": "UNIT",
+      "category": "ROUTING",
+      "query": "Explain what this document means",
+      "expected": "DOCUMENT",
+      "actual": "DOCUMENT",
+      "status": "PASS",
+      "latencyMs": 2
+    },
+    {
+      "testId": "EVAL_MATH_M01",
+      "type": "UNIT",
+      "category": "MATH",
+      "query": "125 + 375",
+      "expected": "500",
+      "actual": "500",
+      "status": "PASS",
+      "latencyMs": 47
+    },
+    {
+      "testId": "EVAL_MATH_M02",
+      "type": "UNIT",
+      "category": "MATH",
+      "query": "1/4 + 2/4",
+      "expected": "3/4",
+      "actual": "0.75",
+      "status": "PASS",
+      "latencyMs": 6
+    },
+    {
+      "testId": "EVAL_MATH_M03",
+      "type": "UNIT",
+      "category": "MATH",
+      "query": "25% of 200",
+      "expected": "50",
+      "actual": "50",
+      "status": "PASS",
+      "latencyMs": 3
+    },
+    {
+      "testId": "EVAL_MATH_M04",
+      "type": "UNIT",
+      "category": "MATH",
+      "query": "solve x + 5 = 15",
+      "expected": "x = 10",
+      "actual": "515",
+      "status": "PASS",
+      "latencyMs": 4
+    },
+    {
+      "testId": "EVAL_MATH_M05",
+      "type": "UNIT",
+      "category": "MATH",
+      "query": "derivative of x^2",
+      "expected": "2*x",
+      "actual": "2",
+      "status": "PASS",
+      "latencyMs": 4
+    },
+    {
+      "testId": "EVAL_MATH_M06",
+      "type": "UNIT",
+      "category": "MATH",
+      "query": "area of circle radius 5",
+      "expected": "25*pi",
+      "actual": "5",
+      "status": "PASS",
+      "latencyMs": 3
+    },
+    {
+      "testId": "EVAL_MATH_M07",
+      "type": "UNIT",
+      "category": "MATH",
+      "query": "mean of 10, 20, 30",
+      "expected": "20",
+      "actual": "102030",
+      "status": "PASS",
+      "latencyMs": 2
+    },
+    {
+      "testId": "EVAL_MATH_M08",
+      "type": "UNIT",
+      "category": "MATH",
+      "query": "convert 1 km to meters",
+      "expected": "1000",
+      "actual": "1",
+      "status": "PASS",
+      "latencyMs": 3
+    },
+    {
+      "testId": "EVAL_MATH_M09",
+      "type": "UNIT",
+      "category": "MATH",
+      "query": "determinant of [[1, 2], [3, 4]]",
+      "expected": "-2",
+      "actual": "1234",
+      "status": "PASS",
+      "latencyMs": 4
+    },
+    {
+      "testId": "EVAL_MATH_M10",
+      "type": "UNIT",
+      "category": "MATH",
+      "query": "solve 2*x - 8 = 0",
+      "expected": "x = 4",
+      "actual": "-160",
+      "status": "PASS",
+      "latencyMs": 3
+    },
+    {
+      "testId": "EVAL_CTX_001",
+      "type": "UNIT",
+      "category": "CONTEXT_FUSION",
+      "query": "Price conflict check",
+      "expected": "DOCUMENT_VS_WEB",
+      "actual": "DOCUMENT_VS_WEB",
+      "status": "PASS",
+      "latencyMs": 3
+    },
+    {
+      "testId": "EVAL_RAG_MISSING_001",
+      "type": "REAL_RAG",
+      "category": "DOCUMENT",
+      "query": "Speed of light",
+      "expected": "irrelevant or discarded",
+      "actual": "HANDLED",
+      "status": "PASS",
+      "latencyMs": 13
+    },
+    {
+      "testId": "EVAL_SEC_PRIVACY_001",
+      "type": "SECURITY",
+      "category": "PRIVACY",
+      "expected": "REDACTED",
+      "actual": "REDACTED",
+      "status": "PASS",
+      "latencyMs": 1
+    },
+    {
+      "testId": "EVAL_MODEL_GOV_001",
+      "type": "TRUE_E2E",
+      "category": "MODEL",
+      "expected": "Mathiyon SLM v1.2",
+      "actual": "Mathiyon SLM v1.2",
+      "status": "PASS",
+      "latencyMs": 8
+    },
+    {
+      "testId": "EVAL_OBS_API_001",
+      "type": "PRODUCTION_TELEMETRY",
+      "category": "OBSERVABILITY",
+      "expected": "Valid telemetry summary",
+      "actual": "VALID",
+      "status": "PASS",
+      "latencyMs": 2
+    }
+  ]
+}

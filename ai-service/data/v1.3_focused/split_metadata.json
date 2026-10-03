@@ -1,0 +1,10 @@
+{
+  "seed": 42,
+  "scope": "English + Coding + Mathematics Focused",
+  "train_count": 90,
+  "val_count": 5,
+  "test_count": 5,
+  "train_ratio": 0.9,
+  "val_ratio": 0.05,
+  "test_ratio": 0.05
+}

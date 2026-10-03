@@ -1,0 +1,28 @@
+Mathiyon AI Mathematical & Symbolic Computation Corpus v1.3
+
+Arithmetic Principles:
+1. Addition and Subtraction: Rational number addition maintains exact fractional forms such as 1/3 + 1/6 = 1/2.
+2. Multiplication and Division: Order of operations follows PEMDAS / BODMAS guidelines.
+
+Linear Algebra Equations:
+Solving linear equation 2x + 5 = 15:
+Step 1: Subtract 5 from both sides: 2x = 10
+Step 2: Divide both sides by 2: x = 5
+Verification: 2(5) + 5 = 15 (PASSED)
+
+Calculus Principles:
+The derivative of quadratic function f(x) = x^2 + 3x + 5 is f'(x) = 2x + 3.
+The indefinite integral of f(x) = 2x is integral(2x dx) = x^2 + C.
+
+Quadratic Formula:
+For equation ax^2 + bx + c = 0, the roots are x = (-b ± sqrt(b^2 - 4ac)) / (2a).
+
+Geometry and Trigonometry:
+Area of a circle: A = pi * r^2
+Pythagorean theorem: a^2 + b^2 = c^2 for right triangles.
+Euler's Identity: e^(i * pi) + 1 = 0.
+
+Probability & Statistics:
+Expected value E[X] = sum(x * P(x)).
+Variance Var(X) = E[X^2] - (E[X])^2.
+Normal distribution standard score z = (x - mu) / sigma.

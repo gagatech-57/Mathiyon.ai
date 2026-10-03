@@ -1,0 +1,13 @@
+{
+  "timestamp": "2026-09-25T15:25:00.000Z",
+  "os": "Windows (x64)",
+  "nodeVersion": "v22.20.0",
+  "npmVersion": "10.9.2",
+  "pythonVersion": "3.14.7",
+  "pytorchVersion": "2.6.0+cpu",
+  "cudaAvailable": false,
+  "cpuArchitecture": "x64 Multi-Core Processor",
+  "systemMemoryRam": "16 GB",
+  "databaseDriver": "MongoDB 7.0 / Mongoose 8.x",
+  "buildEnvironment": "Vite 8.3.0 + TypeScript 5.8 + React 19"
+}

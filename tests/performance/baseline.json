@@ -1,0 +1,8 @@
+{
+  "timestamp": "2026-09-25T10:49:38.429Z",
+  "branch": "phase-12-6-performance-reliability",
+  "p50Ms": 71,
+  "p95Ms": 74,
+  "concurrencyThroughputReqSec": 166.7,
+  "rssDeltaMb": 3.9
+}

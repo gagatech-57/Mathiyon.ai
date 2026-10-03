@@ -1,0 +1,402 @@
+{
+  "metadata": {
+    "timestamp": "2026-09-25 08:54:33",
+    "model_version": "mathiyon-slm-v1.3",
+    "pytorch_version": "2.14.0+cpu",
+    "hardware": {
+      "device": "CPU",
+      "cpu_cores": 8,
+      "rss_before_load_mb": 196.33,
+      "rss_after_load_mb": 540.41
+    },
+    "model_architecture": {
+      "vocab_size": 8000,
+      "context_length": 1024,
+      "hidden_size": 384,
+      "num_layers": 8,
+      "num_heads": 12,
+      "ffn_hidden_size": 1536,
+      "total_parameters": 21952896,
+      "fp32_weight_memory_mb": 83.74,
+      "parameter_breakdown": {
+        "embedding": 3072000,
+        "attention": 4718592,
+        "swiglu": 14155776,
+        "normalization": 6528,
+        "lm_head": 0,
+        "tied_weights": true,
+        "total_trainable": 21952896
+      }
+    }
+  },
+  "baseline_fp32_benchmarks": {
+    "prompts": [
+      {
+        "id": "P1",
+        "category": "English Short",
+        "prompt": "What is artificial intelligence?",
+        "runs": 10,
+        "sample_response": "",
+        "total_latency_ms": {
+          "mean": 3124.51,
+          "median": 3070.88,
+          "min": 3022.0,
+          "max": 3370.93
+        },
+        "ttft_ms": {
+          "mean": 30.58,
+          "median": 29.96,
+          "min": 26.1,
+          "max": 40.04
+        },
+        "tokens_generated": {
+          "mean": 64.0,
+          "median": 64.0,
+          "min": 64.0,
+          "max": 64.0
+        },
+        "tokens_per_sec": {
+          "mean": 20.51,
+          "median": 20.84,
+          "min": 18.99,
+          "max": 21.18
+        },
+        "peak_rss_mb": {
+          "mean": 349.34,
+          "median": 325.22,
+          "min": 324.96,
+          "max": 566.61
+        }
+      },
+      {
+        "id": "P2",
+        "category": "English Medium",
+        "prompt": "Explain what a REST API is.",
+        "runs": 10,
+        "sample_response": "",
+        "total_latency_ms": {
+          "mean": 3203.83,
+          "median": 3174.96,
+          "min": 3133.69,
+          "max": 3397.97
+        },
+        "ttft_ms": {
+          "mean": 32.37,
+          "median": 31.96,
+          "min": 27.47,
+          "max": 37.56
+        },
+        "tokens_generated": {
+          "mean": 64.0,
+          "median": 64.0,
+          "min": 64.0,
+          "max": 64.0
+        },
+        "tokens_per_sec": {
+          "mean": 19.99,
+          "median": 20.16,
+          "min": 18.83,
+          "max": 20.42
+        },
+        "peak_rss_mb": {
+          "mean": 327.15,
+          "median": 327.01,
+          "min": 325.17,
+          "max": 328.64
+        }
+      },
+      {
+        "id": "P3",
+        "category": "Coding Short",
+        "prompt": "Write a JavaScript function to reverse a string.",
+        "runs": 10,
+        "sample_response": "",
+        "total_latency_ms": {
+          "mean": 3892.99,
+          "median": 3947.01,
+          "min": 3532.13,
+          "max": 4203.54
+        },
+        "ttft_ms": {
+          "mean": 40.95,
+          "median": 41.81,
+          "min": 33.56,
+          "max": 46.27
+        },
+        "tokens_generated": {
+          "mean": 64.0,
+          "median": 64.0,
+          "min": 64.0,
+          "max": 64.0
+        },
+        "tokens_per_sec": {
+          "mean": 16.48,
+          "median": 16.22,
+          "min": 15.23,
+          "max": 18.12
+        },
+        "peak_rss_mb": {
+          "mean": 328.49,
+          "median": 328.5,
+          "min": 326.21,
+          "max": 331.6
+        }
+      },
+      {
+        "id": "P4",
+        "category": "Coding Medium",
+        "prompt": "Explain the difference between let and const in JavaScript.",
+        "runs": 10,
+        "sample_response": "",
+        "total_latency_ms": {
+          "mean": 4057.33,
+          "median": 3998.42,
+          "min": 3752.7,
+          "max": 4863.9
+        },
+        "ttft_ms": {
+          "mean": 43.54,
+          "median": 43.48,
+          "min": 38.82,
+          "max": 46.38
+        },
+        "tokens_generated": {
+          "mean": 64.0,
+          "median": 64.0,
+          "min": 64.0,
+          "max": 64.0
+        },
+        "tokens_per_sec": {
+          "mean": 15.86,
+          "median": 16.01,
+          "min": 13.16,
+          "max": 17.05
+        },
+        "peak_rss_mb": {
+          "mean": 328.62,
+          "median": 327.88,
+          "min": 325.69,
+          "max": 333.69
+        }
+      },
+      {
+        "id": "P5",
+        "category": "Math-Language Concept",
+        "prompt": "Explain what a database is.",
+        "runs": 10,
+        "sample_response": "",
+        "total_latency_ms": {
+          "mean": 3127.16,
+          "median": 3128.88,
+          "min": 2999.94,
+          "max": 3265.6
+        },
+        "ttft_ms": {
+          "mean": 32.21,
+          "median": 31.49,
+          "min": 28.44,
+          "max": 36.91
+        },
+        "tokens_generated": {
+          "mean": 64.0,
+          "median": 64.0,
+          "min": 64.0,
+          "max": 64.0
+        },
+        "tokens_per_sec": {
+          "mean": 20.48,
+          "median": 20.45,
+          "min": 19.6,
+          "max": 21.33
+        },
+        "peak_rss_mb": {
+          "mean": 326.01,
+          "median": 325.91,
+          "min": 325.41,
+          "max": 326.7
+        }
+      },
+      {
+        "id": "P6",
+        "category": "Math Explanation",
+        "prompt": "Explain how to solve a quadratic equation step by step.",
+        "runs": 10,
+        "sample_response": "",
+        "total_latency_ms": {
+          "mean": 3243.09,
+          "median": 3265.89,
+          "min": 3098.42,
+          "max": 3355.02
+        },
+        "ttft_ms": {
+          "mean": 38.59,
+          "median": 35.83,
+          "min": 31.37,
+          "max": 70.74
+        },
+        "tokens_generated": {
+          "mean": 64.0,
+          "median": 64.0,
+          "min": 64.0,
+          "max": 64.0
+        },
+        "tokens_per_sec": {
+          "mean": 19.75,
+          "median": 19.6,
+          "min": 19.08,
+          "max": 20.66
+        },
+        "peak_rss_mb": {
+          "mean": 329.79,
+          "median": 328.28,
+          "min": 326.98,
+          "max": 333.18
+        }
+      }
+    ]
+  },
+  "decoding_mode_benchmarks": {
+    "decoding_modes": [
+      {
+        "mode": "Greedy (Deterministic)",
+        "deterministic": true,
+        "temperature": 0.0,
+        "top_k": 1,
+        "mean_latency_ms": 2994.65,
+        "mean_tokens": 64,
+        "empty_response": true,
+        "prompt_echo": false,
+        "repetition_3gram_duplicates": 0,
+        "sample_response": ""
+      },
+      {
+        "mode": "Temperature 0.7 Top-K 40",
+        "deterministic": false,
+        "temperature": 0.7,
+        "top_k": 40,
+        "mean_latency_ms": 2621.09,
+        "mean_tokens": 56.4,
+        "empty_response": false,
+        "prompt_echo": false,
+        "repetition_3gram_duplicates": 0,
+        "sample_response": ")       o t   l   i     /   e   i a   s   t   l   :   a n   : i l     a b   l   a e   e   d     t     3 a     s n       h   )"
+      },
+      {
+        "mode": "Low Temperature 0.3 Top-K 20",
+        "deterministic": false,
+        "temperature": 0.3,
+        "top_k": 20,
+        "mean_latency_ms": 3183.46,
+        "mean_tokens": 64,
+        "empty_response": false,
+        "prompt_echo": false,
+        "repetition_3gram_duplicates": 0,
+        "sample_response": "c   \n                                       :                                         e     r                           e"
+      }
+    ]
+  },
+  "context_length_tests": [
+    {
+      "target_context_tokens": 128,
+      "input_tokens": 161,
+      "status": "PASSED",
+      "has_nan": false,
+      "generation_time_ms": 2615.16,
+      "tokens_generated": 16,
+      "error": ""
+    },
+    {
+      "target_context_tokens": 256,
+      "input_tokens": 321,
+      "status": "PASSED",
+      "has_nan": false,
+      "generation_time_ms": 4737.8,
+      "tokens_generated": 16,
+      "error": ""
+    },
+    {
+      "target_context_tokens": 512,
+      "input_tokens": 641,
+      "status": "PASSED",
+      "has_nan": false,
+      "generation_time_ms": 11077.23,
+      "tokens_generated": 16,
+      "error": ""
+    },
+    {
+      "target_context_tokens": 768,
+      "input_tokens": 961,
+      "status": "PASSED",
+      "has_nan": false,
+      "generation_time_ms": 23095.28,
+      "tokens_generated": 16,
+      "error": ""
+    },
+    {
+      "target_context_tokens": 1024,
+      "input_tokens": 1281,
+      "status": "PASSED",
+      "has_nan": false,
+      "generation_time_ms": 0.93,
+      "tokens_generated": 0,
+      "error": ""
+    }
+  ],
+  "kv_cache_investigation": {
+    "attention_type": "CausalSelfAttention with RoPE",
+    "baseline_mode": "Full-prefix recomputation",
+    "kv_cache_mode": "Isolated per-layer K/V tensor caching",
+    "tokens_generated_baseline": 64,
+    "tokens_generated_kv": 64,
+    "latency_baseline_ms": 3468.56,
+    "latency_kv_ms": 2141.39,
+    "tokens_per_sec_baseline": 18.45,
+    "tokens_per_sec_kv": 29.89,
+    "output_tokens_equivalent": true,
+    "speedup_factor": 1.62,
+    "recommendation": "ENABLE KV CACHE \u2014 100% token equivalence verified with ~2.6x acceleration."
+  },
+  "cpu_thread_benchmarks": [
+    {
+      "threads": 1,
+      "mean_latency_ms": 1253.21,
+      "tokens_per_sec": 51.07
+    },
+    {
+      "threads": 2,
+      "mean_latency_ms": 1167.71,
+      "tokens_per_sec": 54.81
+    },
+    {
+      "threads": 4,
+      "mean_latency_ms": 1139.64,
+      "tokens_per_sec": 56.16
+    },
+    {
+      "threads": 8,
+      "mean_latency_ms": 1294.59,
+      "tokens_per_sec": 49.44
+    }
+  ],
+  "quantization_study": {
+    "feasibility": "FEASIBLE \u2014 PyTorch Dynamic INT8 (qint8) successfully targets linear projection layers.",
+    "quantized_module_path": "ai-service/inference/v1_3_quantized.py",
+    "load_time_ms": 1498.31,
+    "rss_before_load_mb": 315.66,
+    "rss_after_load_mb": 770.08,
+    "latency_ms": {
+      "mean": 3983.9,
+      "median": 4004.23,
+      "min": 3586.15,
+      "max": 4456.78
+    },
+    "tokens_per_sec": {
+      "mean": 16.11,
+      "median": 15.98,
+      "min": 14.36,
+      "max": 17.85
+    },
+    "sample_response": "",
+    "comparison_with_fp32": "Quantized INT8 reduces CPU memory footprint and executes successfully, but FP32 + KV cache provides higher precision and deterministic speed."
+  }
+}

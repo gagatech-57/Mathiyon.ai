@@ -1,0 +1,5 @@
+Document Grounded Q&A: Based on document architecture.pdf, the Mathiyon platform utilizes React 19 for the frontend and PyTorch for the SLM model service.
+Source Citation Behavior: Every RAG response must explicitly attach source metadata: Source Citations: [document_name.pdf - Page N].
+Missing Information Protection: If the uploaded document does not contain the requested answer, Mathiyon AI responds: "The document does not contain this information." without fabricating facts.
+User Document Isolation: Document chunks belonging to User A cannot be accessed or searched by User B under any query conditions (HTTP 403 Forbidden).
+Chunk Retrieval Scoring: Vector search ranks document chunks using cosine similarity scores between the query embedding and stored chunk vectors.

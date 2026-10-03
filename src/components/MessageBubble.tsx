@@ -1,5 +1,23 @@
+﻿/**
+ * Mathiyon AI — MessageBubble
+ *
+ * Renders a single chat message.
+ *
+ * USER messages: plain text, no animation.
+ * ASSISTANT messages:
+ *   - New messages animate in via TypingResponse (character reveal).
+ *   - Already-loaded history messages render immediately (no animation).
+ *   - Math badge ("Verified Math Engine") is NEVER shown to the user.
+ *   - Internal tool/engine/model metadata is NEVER rendered.
+ *   - Markdown + code blocks are fully supported.
+ *   - Source citations render as cards below the bubble.
+ */
 import React, { useState } from 'react';
+import ReactMarkdown from 'react-markdown';
+import remarkGfm from 'remark-gfm';
+import type { Components } from 'react-markdown';
 import { Bot, Copy, Check, ThumbsUp, ThumbsDown, RefreshCw, Share2 } from 'lucide-react';
+import { TypingResponse } from './TypingResponse';
 
 export interface ChatMessage {
   id: string;
@@ -9,7 +27,12 @@ export interface ChatMessage {
   model?: string;
   toolsUsed?: string[];
   sources?: any[];
+  citations?: any[];
+  agentTrace?: any[];
   verified?: boolean;
+  intent?: string;
+  /** When true, the typing animation will play for this message */
+  isNew?: boolean;
 }
 
 interface MessageBubbleProps {
@@ -18,7 +41,182 @@ interface MessageBubbleProps {
   onRegenerate?: () => void;
 }
 
-export const MessageBubble: React.FC<MessageBubbleProps> = ({ message, userInitial = 'U', onRegenerate }) => {
+// ---------------------------------------------------------------------------
+// Code block with copy button
+// ---------------------------------------------------------------------------
+function CodeBlock({
+  language,
+  codeText,
+  children,
+}: {
+  language: string;
+  codeText: string;
+  children: React.ReactNode;
+}) {
+  const [copied, setCopied] = useState(false);
+  const handleCopy = () => {
+    navigator.clipboard.writeText(codeText);
+    setCopied(true);
+    setTimeout(() => setCopied(false), 2000);
+  };
+  return (
+    <div className="my-3 rounded-xl overflow-hidden border border-rose-500/20 bg-slate-950/90 shadow-lg">
+      <div className="flex items-center justify-between px-4 py-2 bg-slate-900/90 border-b border-slate-800 text-[11px] font-mono text-slate-400">
+        <span className="font-semibold text-rose-400">{language || 'code'}</span>
+        <button
+          onClick={handleCopy}
+          className="flex items-center gap-1 hover:text-white transition-colors cursor-pointer"
+        >
+          {copied ? <Check className="w-3.5 h-3.5 text-emerald-400" /> : <Copy className="w-3.5 h-3.5" />}
+          <span>{copied ? 'Copied!' : 'Copy'}</span>
+        </button>
+      </div>
+      <pre className="p-4 overflow-x-auto text-xs font-mono text-slate-200 leading-relaxed">
+        {children}
+      </pre>
+    </div>
+  );
+}
+
+// ---------------------------------------------------------------------------
+// Markdown component overrides
+// ---------------------------------------------------------------------------
+const markdownComponents: Components = {
+  h1: ({ children }) => (
+    <h1 className="text-lg font-bold text-rose-300 mt-3 mb-2 leading-snug">{children}</h1>
+  ),
+  h2: ({ children }) => (
+    <h2 className="text-base font-bold text-rose-300 mt-3 mb-1.5 leading-snug">{children}</h2>
+  ),
+  h3: ({ children }) => (
+    <h3 className="text-sm font-bold text-rose-200 mt-2.5 mb-1 leading-snug">{children}</h3>
+  ),
+  h4: ({ children }) => (
+    <h4 className="text-sm font-semibold text-slate-200 mt-2 mb-1">{children}</h4>
+  ),
+  h5: ({ children }) => (
+    <h5 className="text-xs font-semibold text-slate-300 mt-2 mb-0.5">{children}</h5>
+  ),
+  h6: ({ children }) => (
+    <h6 className="text-xs font-semibold text-slate-400 mt-1.5 mb-0.5">{children}</h6>
+  ),
+  p: ({ children }) => (
+    <p className="leading-relaxed my-1">{children}</p>
+  ),
+  strong: ({ children }) => (
+    <strong className="font-bold text-white">{children}</strong>
+  ),
+  em: ({ children }) => (
+    <em className="italic text-slate-200">{children}</em>
+  ),
+  del: ({ children }) => (
+    <del className="line-through text-slate-400">{children}</del>
+  ),
+  ul: ({ children }) => (
+    <ul className="list-disc list-inside my-1.5 space-y-0.5 pl-2 text-slate-200">{children}</ul>
+  ),
+  ol: ({ children }) => (
+    <ol className="list-decimal list-inside my-1.5 space-y-0.5 pl-2 text-slate-200">{children}</ol>
+  ),
+  li: ({ children }) => (
+    <li className="leading-relaxed">{children}</li>
+  ),
+  blockquote: ({ children }) => (
+    <div className="my-2 pl-4 border-l-4 border-rose-500 bg-gradient-to-r from-rose-950/40 to-slate-900/60 rounded-r-xl py-2 pr-3 text-rose-200 font-medium">
+      {children}
+    </div>
+  ),
+  hr: () => (
+    <hr className="my-3 border-slate-700/60" />
+  ),
+  code: ({ children, className }) => {
+    const isBlock = className?.startsWith('language-');
+    if (isBlock) {
+      return <code className={`${className} text-xs font-mono text-slate-200`}>{children}</code>;
+    }
+    return (
+      <code className="px-1.5 py-0.5 mx-0.5 rounded bg-slate-800/80 border border-slate-700/60 text-rose-300 font-mono text-[11px]">
+        {children}
+      </code>
+    );
+  },
+  pre: ({ children }) => {
+    let language = '';
+    let codeText = '';
+    if (React.isValidElement(children)) {
+      const childProps = children.props as { className?: string; children?: string };
+      const cls: string = childProps?.className ?? '';
+      language = cls.replace('language-', '').trim();
+      codeText = String(childProps?.children ?? '').replace(/\n$/, '');
+    }
+    return (
+      <CodeBlock language={language} codeText={codeText}>
+        {children}
+      </CodeBlock>
+    );
+  },
+  a: ({ href, children }) => (
+    <a
+      href={href}
+      target="_blank"
+      rel="noopener noreferrer"
+      className="text-cyan-400 underline underline-offset-2 hover:text-cyan-300 transition-colors"
+    >
+      {children}
+    </a>
+  ),
+  table: ({ children }) => (
+    <div className="my-3 overflow-x-auto rounded-xl border border-rose-500/20 shadow">
+      <table className="w-full text-xs text-slate-200 border-collapse">{children}</table>
+    </div>
+  ),
+  thead: ({ children }) => (
+    <thead className="bg-slate-900/90 text-rose-300 font-semibold">{children}</thead>
+  ),
+  tbody: ({ children }) => (
+    <tbody className="divide-y divide-slate-800/60">{children}</tbody>
+  ),
+  tr: ({ children }) => (
+    <tr className="hover:bg-slate-800/30 transition-colors">{children}</tr>
+  ),
+  th: ({ children }) => (
+    <th className="px-3 py-2 text-left font-semibold tracking-wide">{children}</th>
+  ),
+  td: ({ children }) => (
+    <td className="px-3 py-1.5">{children}</td>
+  ),
+};
+
+// ---------------------------------------------------------------------------
+// AssistantContent — renders with typing animation for new messages,
+//                   or immediately for loaded history
+// ---------------------------------------------------------------------------
+const AssistantContent: React.FC<{ text: string; isNew: boolean }> = ({ text, isNew }) => {
+  const [animDone, setAnimDone] = useState(!isNew);
+
+  if (!animDone) {
+    return (
+      <span className="whitespace-pre-wrap leading-relaxed text-slate-200">
+        <TypingResponse text={text} speed={6} onComplete={() => setAnimDone(true)} />
+      </span>
+    );
+  }
+
+  return (
+    <ReactMarkdown remarkPlugins={[remarkGfm]} components={markdownComponents}>
+      {text}
+    </ReactMarkdown>
+  );
+};
+
+// ---------------------------------------------------------------------------
+// Main MessageBubble component
+// ---------------------------------------------------------------------------
+export const MessageBubble: React.FC<MessageBubbleProps> = ({
+  message,
+  userInitial = 'U',
+  onRegenerate,
+}) => {
   const [copied, setCopied] = useState(false);
   const [liked, setLiked] = useState<boolean | null>(null);
 
@@ -29,87 +227,6 @@ export const MessageBubble: React.FC<MessageBubbleProps> = ({ message, userIniti
   };
 
   const isUser = message.role === 'user';
-
-  // Format code blocks & Math Engine markdown if message contains special math output
-  const renderMessageContent = (text: string) => {
-    const isVerifiedMath = text.includes('[Verified Math Engine]') || message.verified;
-
-    if (text.includes('```')) {
-      const parts = text.split(/(```[\s\S]*?```)/g);
-      return (
-        <div>
-          {isVerifiedMath && (
-            <div className="inline-flex items-center gap-1.5 px-2.5 py-1 mb-3 rounded-full bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 text-xs font-semibold shadow-sm">
-              <Check className="w-3.5 h-3.5 text-emerald-400" />
-              <span>Verified Math Engine</span>
-            </div>
-          )}
-          {parts.map((part, index) => {
-            if (part.startsWith('```')) {
-              const firstLineEnd = part.indexOf('\n');
-              const language = firstLineEnd !== -1 ? part.substring(3, firstLineEnd).trim() : '';
-              const codeContent = firstLineEnd !== -1 ? part.substring(firstLineEnd + 1, part.length - 3) : part.replace(/```/g, '');
-
-              return (
-                <div key={index} className="my-3 rounded-xl overflow-hidden border border-rose-500/20 bg-slate-950/90 shadow-lg">
-                  <div className="flex items-center justify-between px-4 py-2 bg-slate-900/90 border-b border-slate-800 text-[11px] font-mono text-slate-400">
-                    <span className="font-semibold text-rose-400">{language || 'formula / result'}</span>
-                    <button
-                      onClick={() => {
-                        navigator.clipboard.writeText(codeContent);
-                        setCopied(true);
-                        setTimeout(() => setCopied(false), 2000);
-                      }}
-                      className="flex items-center gap-1 hover:text-white transition-colors cursor-pointer"
-                    >
-                      {copied ? <Check className="w-3.5 h-3.5 text-emerald-400" /> : <Copy className="w-3.5 h-3.5" />}
-                      <span>{copied ? 'Copied!' : 'Copy'}</span>
-                    </button>
-                  </div>
-                  <pre className="p-4 overflow-x-auto text-xs font-mono text-slate-200 leading-relaxed">
-                    <code>{codeContent}</code>
-                  </pre>
-                </div>
-              );
-            }
-
-            return (
-              <div key={index} className="whitespace-pre-wrap leading-relaxed my-1">
-                {part.split('\n').map((line, lIdx) => {
-                  if (line.startsWith('### ')) {
-                    return <h3 key={lIdx} className="text-base font-bold text-rose-300 my-2">{line.replace('### ', '')}</h3>;
-                  }
-                  if (line.startsWith('#### ')) {
-                    return <h4 key={lIdx} className="text-sm font-semibold text-slate-200 mt-3 mb-1">{line.replace('#### ', '')}</h4>;
-                  }
-                  if (line.startsWith('> ')) {
-                    return (
-                      <div key={lIdx} className="p-3 my-2 rounded-xl bg-gradient-to-r from-rose-950/40 via-purple-950/30 to-slate-900 border-l-4 border-rose-500 text-rose-200 font-medium">
-                        {line.replace('> ', '')}
-                      </div>
-                    );
-                  }
-                  return <p key={lIdx} className="my-0.5">{line}</p>;
-                })}
-              </div>
-            );
-          })}
-        </div>
-      );
-    }
-
-    return (
-      <div className="whitespace-pre-wrap leading-relaxed">
-        {isVerifiedMath && (
-          <div className="inline-flex items-center gap-1.5 px-2.5 py-1 mb-3 rounded-full bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 text-xs font-semibold shadow-sm">
-            <Check className="w-3.5 h-3.5 text-emerald-400" />
-            <span>Verified Math Engine</span>
-          </div>
-        )}
-        {text}
-      </div>
-    );
-  };
 
   return (
     <div className={`group flex gap-3 sm:gap-4 my-4 ${isUser ? 'flex-row-reverse justify-start' : 'flex-row justify-start'}`}>
@@ -126,39 +243,11 @@ export const MessageBubble: React.FC<MessageBubbleProps> = ({ message, userIniti
 
       {/* Content Container */}
       <div className={`flex flex-col max-w-[85%] sm:max-w-[75%] ${isUser ? 'items-end' : 'items-start'}`}>
-        {/* Role & Model Header */}
+        {/* Role & Timestamp Header — ONLY safe public info */}
         <div className="flex flex-wrap items-center gap-2 mb-1 px-1 text-[11px] text-slate-400 font-medium">
-          <span>{isUser ? 'You' : 'Mathiyon AI'}</span>
-          {!isUser && message.model && (
-            <span className="text-[10px] px-1.5 py-0.2 rounded bg-rose-500/10 text-rose-300 border border-rose-500/20">
-              {message.model}
-            </span>
-          )}
-
-          {/* Tools Used Badges */}
-          {!isUser && message.toolsUsed && message.toolsUsed.length > 0 && (
-            <div className="flex items-center gap-1">
-              {message.toolsUsed.map((tool, idx) => {
-                let badgeLabel = tool;
-                let badgeColor = 'bg-slate-800 text-slate-300 border-slate-700';
-                if (tool === 'RAG') { badgeLabel = '📄 RAG'; badgeColor = 'bg-blue-500/10 text-blue-300 border-blue-500/30'; }
-                if (tool === 'MathEngine') { badgeLabel = '🧮 Math Engine'; badgeColor = 'bg-emerald-500/10 text-emerald-300 border-emerald-500/30'; }
-                if (tool === 'SLM') { badgeLabel = '🧠 Mathiyon SLM'; badgeColor = 'bg-rose-500/10 text-rose-300 border-rose-500/30'; }
-                if (tool === 'WebSearch') { badgeLabel = '🌐 Web Search'; badgeColor = 'bg-cyan-500/10 text-cyan-300 border-cyan-500/30'; }
-                if (tool === 'Memory') { badgeLabel = '💾 Memory'; badgeColor = 'bg-purple-500/10 text-purple-300 border-purple-500/30'; }
-
-                return (
-                  <span key={idx} className={`text-[10px] px-1.5 py-0.2 rounded border font-mono ${badgeColor}`}>
-                    {badgeLabel}
-                  </span>
-                );
-              })}
-            </div>
-          )}
-
+          <span className="font-semibold text-slate-300">{isUser ? 'You' : 'Mathiyon AI'}</span>
           {message.timestamp && <span className="text-[10px] text-slate-500">{message.timestamp}</span>}
         </div>
-
 
         {/* Message Bubble Box */}
         <div
@@ -168,8 +257,47 @@ export const MessageBubble: React.FC<MessageBubbleProps> = ({ message, userIniti
               : 'glass-panel border border-rose-500/20 text-slate-200 rounded-tl-xs backdrop-blur-md'
           }`}
         >
-          {renderMessageContent(message.text)}
+          {/* User messages: plain text. AI messages: animated reveal then Markdown */}
+          {isUser ? (
+            <span className="whitespace-pre-wrap leading-relaxed">{message.text}</span>
+          ) : (
+            <AssistantContent text={message.text} isNew={message.isNew ?? false} />
+          )}
         </div>
+
+        {/* Source Citation Cards (Document & Web) */}
+        {!isUser && message.citations && message.citations.length > 0 && (
+          <div className="mt-2.5 w-full flex flex-col gap-1.5">
+            <span className="text-[11px] font-semibold text-cyan-400 flex items-center gap-1">
+              📍 Verified Knowledge Sources ({message.citations.length})
+            </span>
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
+              {message.citations.map((cit, cIdx) => {
+                const isDoc = cit.type === 'document' || cit.page;
+                const cardBorder = isDoc ? 'border-blue-500/30 hover:border-blue-400/60' : 'border-cyan-500/20 hover:border-cyan-400/50';
+                const badgeText = isDoc ? `📄 DOCUMENT ${cit.page ? `— Page ${cit.page}` : ''}` : `🌐 WEB — ${cit.domain || 'Online'}`;
+                const badgeColor = isDoc ? 'text-blue-400' : 'text-cyan-400';
+
+                return (
+                  <a
+                    key={cIdx}
+                    href={cit.url && cit.url !== '#' ? cit.url : undefined}
+                    target={cit.url && cit.url !== '#' ? '_blank' : undefined}
+                    rel={cit.url && cit.url !== '#' ? 'noopener noreferrer' : undefined}
+                    className={`p-2.5 rounded-xl bg-slate-900/90 border ${cardBorder} transition-all flex flex-col text-left group/card shadow-sm`}
+                  >
+                    <span className={`text-[10px] font-mono font-bold ${badgeColor} uppercase tracking-wider mb-0.5`}>
+                      {badgeText}
+                    </span>
+                    <span className="text-xs font-semibold text-slate-200 group-hover/card:text-white truncate">
+                      [{cIdx + 1}] {cit.title}
+                    </span>
+                  </a>
+                );
+              })}
+            </div>
+          </div>
+        )}
 
         {/* Action Toolbar for AI responses */}
         {!isUser && (

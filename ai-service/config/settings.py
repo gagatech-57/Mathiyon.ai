@@ -3,8 +3,8 @@ Mathiyon AI Service Settings & Hyperparameters
 """
 import os
 
-PORT = int(os.getenv("AI_PORT", "8000"))
-HOST = os.getenv("AI_HOST", "0.0.0.0")
+PORT = int(os.getenv("PORT") or os.getenv("AI_PORT", "8000"))
+HOST = os.getenv("HOST") or os.getenv("AI_HOST", "0.0.0.0")
 
 # Small Language Model (SLM v1.2) Central Configuration
 MODEL_NAME = "Mathiyon SLM v1.2"

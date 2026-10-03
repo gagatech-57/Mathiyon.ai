@@ -1,0 +1,1276 @@
+{
+  "metadata": {
+    "total_prompts": 250,
+    "category_counts": {
+      "coding": 50,
+      "conversation": 50,
+      "general_english": 50,
+      "instruction_following": 50,
+      "mathematics": 50
+    },
+    "active_scope": [
+      "general_english",
+      "conversation",
+      "coding",
+      "mathematics",
+      "instruction_following"
+    ],
+    "excluded_scope": [
+      "tamil",
+      "tanglish"
+    ],
+    "deterministic_ordering": true
+  },
+  "prompts": [
+    {
+      "id": "prompt_001",
+      "category": "coding",
+      "prompt": "What is React?"
+    },
+    {
+      "id": "prompt_002",
+      "category": "coding",
+      "prompt": "Give me a simple React functional component example."
+    },
+    {
+      "id": "prompt_003",
+      "category": "coding",
+      "prompt": "Explain useState hook in React."
+    },
+    {
+      "id": "prompt_004",
+      "category": "coding",
+      "prompt": "Explain useEffect hook in React."
+    },
+    {
+      "id": "prompt_005",
+      "category": "coding",
+      "prompt": "What is TypeScript?"
+    },
+    {
+      "id": "prompt_006",
+      "category": "coding",
+      "prompt": "Explain the difference between JavaScript and TypeScript."
+    },
+    {
+      "id": "prompt_007",
+      "category": "coding",
+      "prompt": "What is Express.js?"
+    },
+    {
+      "id": "prompt_008",
+      "category": "coding",
+      "prompt": "What is MongoDB?"
+    },
+    {
+      "id": "prompt_009",
+      "category": "coding",
+      "prompt": "What is JWT authentication?"
+    },
+    {
+      "id": "prompt_010",
+      "category": "coding",
+      "prompt": "What is PyTorch?"
+    },
+    {
+      "id": "prompt_011",
+      "category": "coding",
+      "prompt": "What is HTML?"
+    },
+    {
+      "id": "prompt_012",
+      "category": "coding",
+      "prompt": "What is CSS?"
+    },
+    {
+      "id": "prompt_013",
+      "category": "coding",
+      "prompt": "What is SQL?"
+    },
+    {
+      "id": "prompt_014",
+      "category": "coding",
+      "prompt": "What is Git?"
+    },
+    {
+      "id": "prompt_015",
+      "category": "coding",
+      "prompt": "What is Docker?"
+    },
+    {
+      "id": "prompt_016",
+      "category": "coding",
+      "prompt": "What is a REST API?"
+    },
+    {
+      "id": "prompt_017",
+      "category": "coding",
+      "prompt": "Explain async/await in JavaScript."
+    },
+    {
+      "id": "prompt_018",
+      "category": "coding",
+      "prompt": "What is a Promise in JavaScript?"
+    },
+    {
+      "id": "prompt_019",
+      "category": "coding",
+      "prompt": "What is Big O notation?"
+    },
+    {
+      "id": "prompt_020",
+      "category": "coding",
+      "prompt": "What is a Binary Search Tree?"
+    },
+    {
+      "id": "prompt_021",
+      "category": "coding",
+      "prompt": "Write a JavaScript function to reverse a string."
+    },
+    {
+      "id": "prompt_022",
+      "category": "coding",
+      "prompt": "Write a Python function to check if a number is prime."
+    },
+    {
+      "id": "prompt_023",
+      "category": "coding",
+      "prompt": "Write a JavaScript arrow function to add two numbers."
+    },
+    {
+      "id": "prompt_024",
+      "category": "coding",
+      "prompt": "Write a Python function to calculate the factorial of a number."
+    },
+    {
+      "id": "prompt_025",
+      "category": "coding",
+      "prompt": "Write an SQL query to select all records from a table named 'users'."
+    },
+    {
+      "id": "prompt_026",
+      "category": "coding",
+      "prompt": "How to convert a JSON string to an object in JavaScript?"
+    },
+    {
+      "id": "prompt_027",
+      "category": "coding",
+      "prompt": "How to read a JSON file in Python?"
+    },
+    {
+      "id": "prompt_028",
+      "category": "coding",
+      "prompt": "Explain the concept of closure in JavaScript."
+    },
+    {
+      "id": "prompt_029",
+      "category": "coding",
+      "prompt": "How does Array.prototype.map() work in JavaScript?"
+    },
+    {
+      "id": "prompt_030",
+      "category": "coding",
+      "prompt": "How does Array.prototype.filter() work in JavaScript?"
+    },
+    {
+      "id": "prompt_031",
+      "category": "coding",
+      "prompt": "Write a Python snippet to sort a list of numbers."
+    },
+    {
+      "id": "prompt_032",
+      "category": "coding",
+      "prompt": "Explain inheritance in Object-Oriented Programming."
+    },
+    {
+      "id": "prompt_033",
+      "category": "coding",
+      "prompt": "How to handle CORS errors in Express.js?"
+    },
+    {
+      "id": "prompt_034",
+      "category": "coding",
+      "prompt": "What is middleware in web frameworks?"
+    },
+    {
+      "id": "prompt_035",
+      "category": "coding",
+      "prompt": "How to set up environment variables using .env file?"
+    },
+    {
+      "id": "prompt_036",
+      "category": "coding",
+      "prompt": "Explain HTTP status code 200 vs 404 vs 500."
+    },
+    {
+      "id": "prompt_037",
+      "category": "coding",
+      "prompt": "How to perform HTTP GET request in JavaScript using fetch?"
+    },
+    {
+      "id": "prompt_038",
+      "category": "coding",
+      "prompt": "Write a React component that renders a list of items from props."
+    },
+    {
+      "id": "prompt_039",
+      "category": "coding",
+      "prompt": "What is virtual DOM in React?"
+    },
+    {
+      "id": "prompt_040",
+      "category": "coding",
+      "prompt": "Explain tailwind CSS utility classes."
+    },
+    {
+      "id": "prompt_041",
+      "category": "coding",
+      "prompt": "How to implement error handling in async/await functions?"
+    },
+    {
+      "id": "prompt_042",
+      "category": "coding",
+      "prompt": "What is recursion? Write a recursive Fibonacci function in Python."
+    },
+    {
+      "id": "prompt_043",
+      "category": "coding",
+      "prompt": "Explain hash tables and dictionary data structure."
+    },
+    {
+      "id": "prompt_044",
+      "category": "coding",
+      "prompt": "How to fix 'Cannot read property of undefined' error in JS?"
+    },
+    {
+      "id": "prompt_045",
+      "category": "coding",
+      "prompt": "What is git commit and git push?"
+    },
+    {
+      "id": "prompt_046",
+      "category": "coding",
+      "prompt": "How to parse request body in Express.js?"
+    },
+    {
+      "id": "prompt_047",
+      "category": "coding",
+      "prompt": "What is a database index and why is it used?"
+    },
+    {
+      "id": "prompt_048",
+      "category": "coding",
+      "prompt": "Explain state management in modern web apps."
+    },
+    {
+      "id": "prompt_049",
+      "category": "coding",
+      "prompt": "What is single page application (SPA)?"
+    },
+    {
+      "id": "prompt_050",
+      "category": "coding",
+      "prompt": "How to validate user input in backend APIs?"
+    },
+    {
+      "id": "prompt_051",
+      "category": "conversation",
+      "prompt": "Hello! How can you help me today?"
+    },
+    {
+      "id": "prompt_052",
+      "category": "conversation",
+      "prompt": "Good morning! What features do you support?"
+    },
+    {
+      "id": "prompt_053",
+      "category": "conversation",
+      "prompt": "Hi there! What is your name?"
+    },
+    {
+      "id": "prompt_054",
+      "category": "conversation",
+      "prompt": "Who created you?"
+    },
+    {
+      "id": "prompt_055",
+      "category": "conversation",
+      "prompt": "What is your primary purpose?"
+    },
+    {
+      "id": "prompt_056",
+      "category": "conversation",
+      "prompt": "Tell me a fun fact about technology."
+    },
+    {
+      "id": "prompt_057",
+      "category": "conversation",
+      "prompt": "How are you doing today?"
+    },
+    {
+      "id": "prompt_058",
+      "category": "conversation",
+      "prompt": "Can you help me learn programming?"
+    },
+    {
+      "id": "prompt_059",
+      "category": "conversation",
+      "prompt": "I am learning how to code in Python."
+    },
+    {
+      "id": "prompt_060",
+      "category": "conversation",
+      "prompt": "What programming language should I learn first?"
+    },
+    {
+      "id": "prompt_061",
+      "category": "conversation",
+      "prompt": "Thank you for your assistance!"
+    },
+    {
+      "id": "prompt_062",
+      "category": "conversation",
+      "prompt": "Can you explain a complex concept simply?"
+    },
+    {
+      "id": "prompt_063",
+      "category": "conversation",
+      "prompt": "How can I improve my problem-solving skills?"
+    },
+    {
+      "id": "prompt_064",
+      "category": "conversation",
+      "prompt": "What is the best way to practice coding?"
+    },
+    {
+      "id": "prompt_065",
+      "category": "conversation",
+      "prompt": "I want to build a web application."
+    },
+    {
+      "id": "prompt_066",
+      "category": "conversation",
+      "prompt": "What frontend framework do you recommend?"
+    },
+    {
+      "id": "prompt_067",
+      "category": "conversation",
+      "prompt": "Tell me about fullstack web development."
+    },
+    {
+      "id": "prompt_068",
+      "category": "conversation",
+      "prompt": "How do software engineers debug errors?"
+    },
+    {
+      "id": "prompt_069",
+      "category": "conversation",
+      "prompt": "I have an error in my code, can you help?"
+    },
+    {
+      "id": "prompt_070",
+      "category": "conversation",
+      "prompt": "What is pair programming?"
+    },
+    {
+      "id": "prompt_071",
+      "category": "conversation",
+      "prompt": "Nice to meet you!"
+    },
+    {
+      "id": "prompt_072",
+      "category": "conversation",
+      "prompt": "Goodbye! Have a great day."
+    },
+    {
+      "id": "prompt_073",
+      "category": "conversation",
+      "prompt": "Can we talk about computer science?"
+    },
+    {
+      "id": "prompt_074",
+      "category": "conversation",
+      "prompt": "What is the role of artificial intelligence in daily life?"
+    },
+    {
+      "id": "prompt_075",
+      "category": "conversation",
+      "prompt": "How does a chatbot process natural language?"
+    },
+    {
+      "id": "prompt_076",
+      "category": "conversation",
+      "prompt": "What makes a good user interface?"
+    },
+    {
+      "id": "prompt_077",
+      "category": "conversation",
+      "prompt": "Why is clean code important?"
+    },
+    {
+      "id": "prompt_078",
+      "category": "conversation",
+      "prompt": "How do software teams collaborate effectively?"
+    },
+    {
+      "id": "prompt_079",
+      "category": "conversation",
+      "prompt": "What is agile development?"
+    },
+    {
+      "id": "prompt_080",
+      "category": "conversation",
+      "prompt": "Can you give me tips for technical interviews?"
+    },
+    {
+      "id": "prompt_081",
+      "category": "conversation",
+      "prompt": "I am studying computer engineering."
+    },
+    {
+      "id": "prompt_082",
+      "category": "conversation",
+      "prompt": "What is the difference between computer science and software engineering?"
+    },
+    {
+      "id": "prompt_083",
+      "category": "conversation",
+      "prompt": "How do databases handle large volumes of data?"
+    },
+    {
+      "id": "prompt_084",
+      "category": "conversation",
+      "prompt": "Tell me about cloud computing services."
+    },
+    {
+      "id": "prompt_085",
+      "category": "conversation",
+      "prompt": "What is open-source contribution?"
+    },
+    {
+      "id": "prompt_086",
+      "category": "conversation",
+      "prompt": "How do search engines rank websites?"
+    },
+    {
+      "id": "prompt_087",
+      "category": "conversation",
+      "prompt": "What is mobile app development?"
+    },
+    {
+      "id": "prompt_088",
+      "category": "conversation",
+      "prompt": "How does encryption keep data secure?"
+    },
+    {
+      "id": "prompt_089",
+      "category": "conversation",
+      "prompt": "What is machine learning model training?"
+    },
+    {
+      "id": "prompt_090",
+      "category": "conversation",
+      "prompt": "Can AI replace human programmers?"
+    },
+    {
+      "id": "prompt_091",
+      "category": "conversation",
+      "prompt": "What is the history of computing?"
+    },
+    {
+      "id": "prompt_092",
+      "category": "conversation",
+      "prompt": "How do web browsers render HTML and CSS?"
+    },
+    {
+      "id": "prompt_093",
+      "category": "conversation",
+      "prompt": "What is computer graphics?"
+    },
+    {
+      "id": "prompt_094",
+      "category": "conversation",
+      "prompt": "Explain the concept of open source software community."
+    },
+    {
+      "id": "prompt_095",
+      "category": "conversation",
+      "prompt": "How do servers handle thousands of requests?"
+    },
+    {
+      "id": "prompt_096",
+      "category": "conversation",
+      "prompt": "What is devops engineering?"
+    },
+    {
+      "id": "prompt_097",
+      "category": "conversation",
+      "prompt": "Tell me about data structures."
+    },
+    {
+      "id": "prompt_098",
+      "category": "conversation",
+      "prompt": "Why is mathematics important for machine learning?"
+    },
+    {
+      "id": "prompt_099",
+      "category": "conversation",
+      "prompt": "How can I learn React v19?"
+    },
+    {
+      "id": "prompt_100",
+      "category": "conversation",
+      "prompt": "What is Mathiyon AI?"
+    },
+    {
+      "id": "prompt_101",
+      "category": "general_english",
+      "prompt": "What is artificial intelligence?"
+    },
+    {
+      "id": "prompt_102",
+      "category": "general_english",
+      "prompt": "What is machine learning?"
+    },
+    {
+      "id": "prompt_103",
+      "category": "general_english",
+      "prompt": "What is deep learning?"
+    },
+    {
+      "id": "prompt_104",
+      "category": "general_english",
+      "prompt": "What is a neural network?"
+    },
+    {
+      "id": "prompt_105",
+      "category": "general_english",
+      "prompt": "Define cloud computing."
+    },
+    {
+      "id": "prompt_106",
+      "category": "general_english",
+      "prompt": "What is an operating system?"
+    },
+    {
+      "id": "prompt_107",
+      "category": "general_english",
+      "prompt": "What is a database?"
+    },
+    {
+      "id": "prompt_108",
+      "category": "general_english",
+      "prompt": "What is open source software?"
+    },
+    {
+      "id": "prompt_109",
+      "category": "general_english",
+      "prompt": "What is software architecture?"
+    },
+    {
+      "id": "prompt_110",
+      "category": "general_english",
+      "prompt": "What is a web server?"
+    },
+    {
+      "id": "prompt_111",
+      "category": "general_english",
+      "prompt": "What is cybersecurity?"
+    },
+    {
+      "id": "prompt_112",
+      "category": "general_english",
+      "prompt": "What is data science?"
+    },
+    {
+      "id": "prompt_113",
+      "category": "general_english",
+      "prompt": "What is cryptography?"
+    },
+    {
+      "id": "prompt_114",
+      "category": "general_english",
+      "prompt": "What is computer networking?"
+    },
+    {
+      "id": "prompt_115",
+      "category": "general_english",
+      "prompt": "What is a compiler?"
+    },
+    {
+      "id": "prompt_116",
+      "category": "general_english",
+      "prompt": "What is version control?"
+    },
+    {
+      "id": "prompt_117",
+      "category": "general_english",
+      "prompt": "What is a web browser?"
+    },
+    {
+      "id": "prompt_118",
+      "category": "general_english",
+      "prompt": "Explain how the internet works."
+    },
+    {
+      "id": "prompt_119",
+      "category": "general_english",
+      "prompt": "Explain the concept of algorithms."
+    },
+    {
+      "id": "prompt_120",
+      "category": "general_english",
+      "prompt": "Explain the difference between hardware and software."
+    },
+    {
+      "id": "prompt_121",
+      "category": "general_english",
+      "prompt": "Explain what an API is in simple terms."
+    },
+    {
+      "id": "prompt_122",
+      "category": "general_english",
+      "prompt": "What is the capital of France?"
+    },
+    {
+      "id": "prompt_123",
+      "category": "general_english",
+      "prompt": "How many continents are there on Earth?"
+    },
+    {
+      "id": "prompt_124",
+      "category": "general_english",
+      "prompt": "What is photosynthesis?"
+    },
+    {
+      "id": "prompt_125",
+      "category": "general_english",
+      "prompt": "What is gravity?"
+    },
+    {
+      "id": "prompt_126",
+      "category": "general_english",
+      "prompt": "What is the water cycle?"
+    },
+    {
+      "id": "prompt_127",
+      "category": "general_english",
+      "prompt": "What is the speed of light?"
+    },
+    {
+      "id": "prompt_128",
+      "category": "general_english",
+      "prompt": "What is an atom?"
+    },
+    {
+      "id": "prompt_129",
+      "category": "general_english",
+      "prompt": "Explain the structure of DNA."
+    },
+    {
+      "id": "prompt_130",
+      "category": "general_english",
+      "prompt": "What is renewable energy?"
+    },
+    {
+      "id": "prompt_131",
+      "category": "general_english",
+      "prompt": "Rewrite: 'The project was completed by the developer.' in active voice."
+    },
+    {
+      "id": "prompt_132",
+      "category": "general_english",
+      "prompt": "Rewrite: 'Give me the report now.' to sound polite and professional."
+    },
+    {
+      "id": "prompt_133",
+      "category": "general_english",
+      "prompt": "Rewrite: 'It is essential that we must start early.' to be concise."
+    },
+    {
+      "id": "prompt_134",
+      "category": "general_english",
+      "prompt": "Rewrite: 'The software failed because of errors.' in a technical tone."
+    },
+    {
+      "id": "prompt_135",
+      "category": "general_english",
+      "prompt": "Rewrite: 'I think React is good.' to sound persuasive."
+    },
+    {
+      "id": "prompt_136",
+      "category": "general_english",
+      "prompt": "Summarize the importance of data privacy."
+    },
+    {
+      "id": "prompt_137",
+      "category": "general_english",
+      "prompt": "Explain the concept of cache memory."
+    },
+    {
+      "id": "prompt_138",
+      "category": "general_english",
+      "prompt": "What is distributed computing?"
+    },
+    {
+      "id": "prompt_139",
+      "category": "general_english",
+      "prompt": "What is quantum computing?"
+    },
+    {
+      "id": "prompt_140",
+      "category": "general_english",
+      "prompt": "Explain the difference between synchronous and asynchronous operations."
+    },
+    {
+      "id": "prompt_141",
+      "category": "general_english",
+      "prompt": "What is virtual memory?"
+    },
+    {
+      "id": "prompt_142",
+      "category": "general_english",
+      "prompt": "What is a domain name system (DNS)?"
+    },
+    {
+      "id": "prompt_143",
+      "category": "general_english",
+      "prompt": "What is object-oriented programming?"
+    },
+    {
+      "id": "prompt_144",
+      "category": "general_english",
+      "prompt": "What is functional programming?"
+    },
+    {
+      "id": "prompt_145",
+      "category": "general_english",
+      "prompt": "Explain the concept of scalability in software systems."
+    },
+    {
+      "id": "prompt_146",
+      "category": "general_english",
+      "prompt": "What is microservice architecture?"
+    },
+    {
+      "id": "prompt_147",
+      "category": "general_english",
+      "prompt": "What is a load balancer?"
+    },
+    {
+      "id": "prompt_148",
+      "category": "general_english",
+      "prompt": "What is containerization?"
+    },
+    {
+      "id": "prompt_149",
+      "category": "general_english",
+      "prompt": "What is continuous integration and continuous deployment (CI/CD)?"
+    },
+    {
+      "id": "prompt_150",
+      "category": "general_english",
+      "prompt": "Explain the role of an operating system kernel."
+    },
+    {
+      "id": "prompt_151",
+      "category": "instruction_following",
+      "prompt": "Summarize what React is in one sentence."
+    },
+    {
+      "id": "prompt_152",
+      "category": "instruction_following",
+      "prompt": "List 3 features of TypeScript in bullet points."
+    },
+    {
+      "id": "prompt_153",
+      "category": "instruction_following",
+      "prompt": "Write a JS arrow function to multiply two numbers."
+    },
+    {
+      "id": "prompt_154",
+      "category": "instruction_following",
+      "prompt": "Convert JSON string to object in JS."
+    },
+    {
+      "id": "prompt_155",
+      "category": "instruction_following",
+      "prompt": "Write a basic HTML button element."
+    },
+    {
+      "id": "prompt_156",
+      "category": "instruction_following",
+      "prompt": "Explain HTTP 404 code in one short paragraph."
+    },
+    {
+      "id": "prompt_157",
+      "category": "instruction_following",
+      "prompt": "Explain HTTP 200 code in one short paragraph."
+    },
+    {
+      "id": "prompt_158",
+      "category": "instruction_following",
+      "prompt": "Explain HTTP 500 code in one short paragraph."
+    },
+    {
+      "id": "prompt_159",
+      "category": "instruction_following",
+      "prompt": "Explain HTTP 401 code in one short paragraph."
+    },
+    {
+      "id": "prompt_160",
+      "category": "instruction_following",
+      "prompt": "What is a .env file? Answer in 2 bullet points."
+    },
+    {
+      "id": "prompt_161",
+      "category": "instruction_following",
+      "prompt": "What is npm? Explain in one sentence."
+    },
+    {
+      "id": "prompt_162",
+      "category": "instruction_following",
+      "prompt": "What is package.json? List 3 key properties."
+    },
+    {
+      "id": "prompt_163",
+      "category": "instruction_following",
+      "prompt": "What is ESLint? Answer in bullet points."
+    },
+    {
+      "id": "prompt_164",
+      "category": "instruction_following",
+      "prompt": "What is Prettier? Answer in one sentence."
+    },
+    {
+      "id": "prompt_165",
+      "category": "instruction_following",
+      "prompt": "What is single page application? Answer in 2 sentences."
+    },
+    {
+      "id": "prompt_166",
+      "category": "instruction_following",
+      "prompt": "What is server-side rendering? Answer in 2 sentences."
+    },
+    {
+      "id": "prompt_167",
+      "category": "instruction_following",
+      "prompt": "What is static site generation? Answer in 2 sentences."
+    },
+    {
+      "id": "prompt_168",
+      "category": "instruction_following",
+      "prompt": "What is Next.js? List 3 main advantages."
+    },
+    {
+      "id": "prompt_169",
+      "category": "instruction_following",
+      "prompt": "What is Mathiyon SLM v1.2? Answer in one short sentence."
+    },
+    {
+      "id": "prompt_170",
+      "category": "instruction_following",
+      "prompt": "Explain clean code principles in 3 bullet points."
+    },
+    {
+      "id": "prompt_171",
+      "category": "instruction_following",
+      "prompt": "Output ONLY the word 'CONFIRMED'."
+    },
+    {
+      "id": "prompt_172",
+      "category": "instruction_following",
+      "prompt": "Respond strictly in JSON format with key 'status' set to 'success'."
+    },
+    {
+      "id": "prompt_173",
+      "category": "instruction_following",
+      "prompt": "List the numbers 1 to 5 separated by commas."
+    },
+    {
+      "id": "prompt_174",
+      "category": "instruction_following",
+      "prompt": "Write a 3-step guide on how to create a Git repository."
+    },
+    {
+      "id": "prompt_175",
+      "category": "instruction_following",
+      "prompt": "Explain what a function parameter is in less than 20 words."
+    },
+    {
+      "id": "prompt_176",
+      "category": "instruction_following",
+      "prompt": "Answer the following question with YES or NO: Is JavaScript a dynamically typed language?"
+    },
+    {
+      "id": "prompt_177",
+      "category": "instruction_following",
+      "prompt": "Format your response as a Markdown table with columns 'Feature' and 'Description' comparing SQL and NoSQL."
+    },
+    {
+      "id": "prompt_178",
+      "category": "instruction_following",
+      "prompt": "Provide a code block in Python that prints 'Hello Mathiyon AI'."
+    },
+    {
+      "id": "prompt_179",
+      "category": "instruction_following",
+      "prompt": "Do NOT use technical jargon. Explain what a database is to a child."
+    },
+    {
+      "id": "prompt_180",
+      "category": "instruction_following",
+      "prompt": "Provide 3 reasons why code documentation is useful, using numbered list format."
+    },
+    {
+      "id": "prompt_181",
+      "category": "instruction_following",
+      "prompt": "Write a definition of 'API' without using the words 'Application' or 'Interface'."
+    },
+    {
+      "id": "prompt_182",
+      "category": "instruction_following",
+      "prompt": "Express the number 256 in binary format."
+    },
+    {
+      "id": "prompt_183",
+      "category": "instruction_following",
+      "prompt": "List 4 common HTTP methods and their usage."
+    },
+    {
+      "id": "prompt_184",
+      "category": "instruction_following",
+      "prompt": "Write a CSS rule to set text color to red for all p elements."
+    },
+    {
+      "id": "prompt_185",
+      "category": "instruction_following",
+      "prompt": "Create a JSON schema representing a User with fields 'id' and 'username'."
+    },
+    {
+      "id": "prompt_186",
+      "category": "instruction_following",
+      "prompt": "Write a 2-line bash command to navigate to a folder and list its contents."
+    },
+    {
+      "id": "prompt_187",
+      "category": "instruction_following",
+      "prompt": "Explain recursion using a real-world analogy in 2 sentences."
+    },
+    {
+      "id": "prompt_188",
+      "category": "instruction_following",
+      "prompt": "Write a Python lambda function to add 10 to a given number."
+    },
+    {
+      "id": "prompt_189",
+      "category": "instruction_following",
+      "prompt": "List 3 advantages of using Docker containers."
+    },
+    {
+      "id": "prompt_190",
+      "category": "instruction_following",
+      "prompt": "Answer with only the exact result of: 15 * 4."
+    },
+    {
+      "id": "prompt_191",
+      "category": "instruction_following",
+      "prompt": "Explain the concept of DRY (Don't Repeat Yourself) in software development."
+    },
+    {
+      "id": "prompt_192",
+      "category": "instruction_following",
+      "prompt": "Format a bulleted list of 3 popular Python libraries for data science."
+    },
+    {
+      "id": "prompt_193",
+      "category": "instruction_following",
+      "prompt": "Write a JavaScript line of code to get the length of an array named 'items'."
+    },
+    {
+      "id": "prompt_194",
+      "category": "instruction_following",
+      "prompt": "Give 2 examples of relational databases."
+    },
+    {
+      "id": "prompt_195",
+      "category": "instruction_following",
+      "prompt": "Explain what a 403 Forbidden HTTP status code means."
+    },
+    {
+      "id": "prompt_196",
+      "category": "instruction_following",
+      "prompt": "Provide a short 2-sentence description of PyTorch."
+    },
+    {
+      "id": "prompt_197",
+      "category": "instruction_following",
+      "prompt": "List 3 primary HTTP headers used in REST APIs."
+    },
+    {
+      "id": "prompt_198",
+      "category": "instruction_following",
+      "prompt": "Write a single line of Python to read environment variable 'PORT'."
+    },
+    {
+      "id": "prompt_199",
+      "category": "instruction_following",
+      "prompt": "Write a SQL command to delete all rows from table 'logs'."
+    },
+    {
+      "id": "prompt_200",
+      "category": "instruction_following",
+      "prompt": "State the 3 main layers of web application architecture."
+    },
+    {
+      "id": "prompt_201",
+      "category": "mathematics",
+      "prompt": "Calculate 25 + 37."
+    },
+    {
+      "id": "prompt_202",
+      "category": "mathematics",
+      "prompt": "Calculate 144 / 12."
+    },
+    {
+      "id": "prompt_203",
+      "category": "mathematics",
+      "prompt": "Calculate 15 * 8."
+    },
+    {
+      "id": "prompt_204",
+      "category": "mathematics",
+      "prompt": "Calculate 99 - 43."
+    },
+    {
+      "id": "prompt_205",
+      "category": "mathematics",
+      "prompt": "Calculate 50 + 75."
+    },
+    {
+      "id": "prompt_206",
+      "category": "mathematics",
+      "prompt": "Calculate 200 - 85."
+    },
+    {
+      "id": "prompt_207",
+      "category": "mathematics",
+      "prompt": "Calculate 12 * 12."
+    },
+    {
+      "id": "prompt_208",
+      "category": "mathematics",
+      "prompt": "Calculate 81 / 9."
+    },
+    {
+      "id": "prompt_209",
+      "category": "mathematics",
+      "prompt": "Calculate 1000 / 25."
+    },
+    {
+      "id": "prompt_210",
+      "category": "mathematics",
+      "prompt": "Calculate 64 + 36."
+    },
+    {
+      "id": "prompt_211",
+      "category": "mathematics",
+      "prompt": "Calculate 25% of 200."
+    },
+    {
+      "id": "prompt_212",
+      "category": "mathematics",
+      "prompt": "Calculate 15% of 80."
+    },
+    {
+      "id": "prompt_213",
+      "category": "mathematics",
+      "prompt": "Calculate 50% of 450."
+    },
+    {
+      "id": "prompt_214",
+      "category": "mathematics",
+      "prompt": "Calculate 10% of 1250."
+    },
+    {
+      "id": "prompt_215",
+      "category": "mathematics",
+      "prompt": "Calculate 20% of 500."
+    },
+    {
+      "id": "prompt_216",
+      "category": "mathematics",
+      "prompt": "Calculate 5% of 60."
+    },
+    {
+      "id": "prompt_217",
+      "category": "mathematics",
+      "prompt": "Calculate 30% of 300."
+    },
+    {
+      "id": "prompt_218",
+      "category": "mathematics",
+      "prompt": "Calculate 75% of 80."
+    },
+    {
+      "id": "prompt_219",
+      "category": "mathematics",
+      "prompt": "Calculate 40% of 250."
+    },
+    {
+      "id": "prompt_220",
+      "category": "mathematics",
+      "prompt": "Calculate 12% of 400."
+    },
+    {
+      "id": "prompt_221",
+      "category": "mathematics",
+      "prompt": "Calculate 1/3 + 1/6."
+    },
+    {
+      "id": "prompt_222",
+      "category": "mathematics",
+      "prompt": "Calculate 3/4 - 1/2."
+    },
+    {
+      "id": "prompt_223",
+      "category": "mathematics",
+      "prompt": "Calculate 2/5 * 5/8."
+    },
+    {
+      "id": "prompt_224",
+      "category": "mathematics",
+      "prompt": "Calculate 1/2 / 1/4."
+    },
+    {
+      "id": "prompt_225",
+      "category": "mathematics",
+      "prompt": "Calculate 1/5 + 2/5."
+    },
+    {
+      "id": "prompt_226",
+      "category": "mathematics",
+      "prompt": "Solve 2x + 5 = 15."
+    },
+    {
+      "id": "prompt_227",
+      "category": "mathematics",
+      "prompt": "Solve 3x - 9 = 0."
+    },
+    {
+      "id": "prompt_228",
+      "category": "mathematics",
+      "prompt": "Solve 5x + 10 = 35."
+    },
+    {
+      "id": "prompt_229",
+      "category": "mathematics",
+      "prompt": "Solve 4x - 8 = 12."
+    },
+    {
+      "id": "prompt_230",
+      "category": "mathematics",
+      "prompt": "Solve x^2 - 4 = 0."
+    },
+    {
+      "id": "prompt_231",
+      "category": "mathematics",
+      "prompt": "Solve x^2 - 9 = 0."
+    },
+    {
+      "id": "prompt_232",
+      "category": "mathematics",
+      "prompt": "Solve 2x + 8 = 20."
+    },
+    {
+      "id": "prompt_233",
+      "category": "mathematics",
+      "prompt": "Solve 10x = 100."
+    },
+    {
+      "id": "prompt_234",
+      "category": "mathematics",
+      "prompt": "Solve 3x + 15 = 45."
+    },
+    {
+      "id": "prompt_235",
+      "category": "mathematics",
+      "prompt": "Solve 7x - 21 = 0."
+    },
+    {
+      "id": "prompt_236",
+      "category": "mathematics",
+      "prompt": "Differentiate x^2."
+    },
+    {
+      "id": "prompt_237",
+      "category": "mathematics",
+      "prompt": "Differentiate x^3 + 2x."
+    },
+    {
+      "id": "prompt_238",
+      "category": "mathematics",
+      "prompt": "Differentiate 5x^4."
+    },
+    {
+      "id": "prompt_239",
+      "category": "mathematics",
+      "prompt": "Differentiate sin(x)."
+    },
+    {
+      "id": "prompt_240",
+      "category": "mathematics",
+      "prompt": "Integrate x^2."
+    },
+    {
+      "id": "prompt_241",
+      "category": "mathematics",
+      "prompt": "Integrate 3x^2."
+    },
+    {
+      "id": "prompt_242",
+      "category": "mathematics",
+      "prompt": "Integrate 2x."
+    },
+    {
+      "id": "prompt_243",
+      "category": "mathematics",
+      "prompt": "Find determinant of [[1, 2], [3, 4]]."
+    },
+    {
+      "id": "prompt_244",
+      "category": "mathematics",
+      "prompt": "Find determinant of [[2, 0], [0, 5]]."
+    },
+    {
+      "id": "prompt_245",
+      "category": "mathematics",
+      "prompt": "Find GCD of 24 and 36."
+    },
+    {
+      "id": "prompt_246",
+      "category": "mathematics",
+      "prompt": "Find GCD of 18 and 48."
+    },
+    {
+      "id": "prompt_247",
+      "category": "mathematics",
+      "prompt": "Find LCM of 12 and 15."
+    },
+    {
+      "id": "prompt_248",
+      "category": "mathematics",
+      "prompt": "Find LCM of 6 and 8."
+    },
+    {
+      "id": "prompt_249",
+      "category": "mathematics",
+      "prompt": "What is the square root of 144?"
+    },
+    {
+      "id": "prompt_250",
+      "category": "mathematics",
+      "prompt": "What is the value of 2^10?"
+    }
+  ]
+}

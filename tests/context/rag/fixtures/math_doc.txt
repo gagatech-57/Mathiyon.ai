@@ -1,0 +1,10 @@
+# Financial Report Q3 2026
+
+Company: Mathiyon Intelligence Corp
+
+## Financial Metrics
+- Product Unit Price: ₹100
+- Total Q3 Revenue: ₹500000
+- Operating Expense: ₹200000
+- Net Profit: ₹300000
+- Active User Base: 12500 users

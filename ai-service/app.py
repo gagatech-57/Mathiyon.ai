@@ -1,11 +1,12 @@
 """
 Mathiyon AI - FastAPI PyTorch Service
-Exposes GET /health and POST /generate endpoints with full model metadata & sampling parameters.
+Exposes GET /health, GET /models, POST /generate (v1.2 Production), and POST /generate/v1.3 (v1.3 Experimental Test Endpoint).
 """
 from fastapi import FastAPI, HTTPException, status
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel, Field
 from typing import List, Optional, Dict, Any
+
 from config.settings import (
     HOST,
     PORT,
@@ -18,11 +19,12 @@ from config.settings import (
     TOP_P
 )
 from inference.generator import MathiyonGenerator
+from inference.model_registry import model_registry
 
 app = FastAPI(
     title="Mathiyon AI PyTorch Service",
-    description="Dedicated FastAPI neural inference service powered by PyTorch SLM v1.0",
-    version="1.0.0"
+    description="Dedicated FastAPI neural inference service with isolated ModelRegistry support",
+    version="1.3.0"
 )
 
 # Enable CORS for Express backend requests
@@ -34,7 +36,7 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-# Initialize PyTorch Model & Generator
+# Initialize Production PyTorch Model & Generator (v1.2)
 generator = MathiyonGenerator()
 
 class GenerateRequest(BaseModel):
@@ -44,6 +46,7 @@ class GenerateRequest(BaseModel):
     temperature: Optional[float] = Field(default=TEMPERATURE, description="Sampling temperature")
     top_k: Optional[int] = Field(default=TOP_K, description="Top-K sampling")
     top_p: Optional[float] = Field(default=TOP_P, description="Top-P nucleus sampling")
+    model: Optional[str] = Field(default="mathiyon-slm-v1.2", description="Target model ID override")
 
 class GenerateResponse(BaseModel):
     response: str
@@ -54,6 +57,22 @@ class GenerateResponse(BaseModel):
     tokens_generated: int
     generation_time_ms: float
     confidence: float
+
+class Generatev13Request(BaseModel):
+    prompt: Optional[str] = Field(default=None, description="User prompt string")
+    message: Optional[str] = Field(default=None, description="Alternative message field")
+    max_new_tokens: Optional[int] = Field(default=64, description="Max new tokens to generate")
+    temperature: Optional[float] = Field(default=0.7, description="Sampling temperature")
+    deterministic: Optional[bool] = Field(default=False, description="Use greedy decoding")
+    use_kv_cache: Optional[bool] = Field(default=True, description="Use KV cache acceleration")
+
+class Generatev13Response(BaseModel):
+    model: str = "mathiyon-slm-v1.3"
+    experimental: bool = True
+    use_kv_cache: Optional[bool] = True
+    response: str
+    generation_time_ms: float
+    tokens_generated: int
 
 @app.get("/health")
 def health_check():
@@ -69,23 +88,21 @@ def health_check():
         "framework": "PyTorch",
         "device": device,
         "cuda_available": torch.cuda.is_available(),
-        "model_loaded": is_model_loaded
+        "model_loaded": is_model_loaded,
+        "registry_active": True
     }
 
 @app.get("/models")
-def get_model_registry():
-    """Model Registry endpoint returning active & available model versions."""
+def get_model_registry_info():
+    """Model Registry endpoint returning active, production & experimental model details."""
     import torch
     device = "cuda" if torch.cuda.is_available() else "cpu"
+    registered = model_registry.list_models()
     return {
         "activeModel": "mathiyon-slm-v1.2",
-        "availableModels": [
-            "mathiyon-slm-v1.1",
-            "mathiyon-slm-v1.2",
-            "mathiyon-slm-v1.3 (Upcoming)",
-            "mathiyon-slm-v2.0 (Planned)"
-        ],
         "defaultModel": "mathiyon-slm-v1.2",
+        "availableModels": [m["model_id"] for m in registered],
+        "registeredModels": registered,
         "device": device,
         "cudaAvailable": torch.cuda.is_available()
     }
@@ -116,13 +133,57 @@ def solve_math_problem(payload: MathSolveRequest):
 
 @app.post("/generate", response_model=GenerateResponse)
 def generate_ai_response(payload: GenerateRequest):
-    """Generates AI response using PyTorch neural network forward pass & autoregressive sampling."""
+    """Production AI response endpoint (Default: SLM v1.2)."""
     if not payload.message or not payload.message.strip():
         raise HTTPException(
             status_code=status.HTTP_400_BAD_REQUEST,
             detail="Message prompt cannot be empty"
         )
-        
+    
+    # Handle explicit experimental override if requested, else use production v1.2 generator
+    raw_model = (payload.model or "mathiyon-slm-v1.2").strip()
+    target_model_id = raw_model.lower().replace(" ", "-")
+    
+    if target_model_id in ["mathiyon-slm-v1.3", "v1.3", "slm-v1.3"]:
+        try:
+            v13_gen = model_registry.load_v1_3_generator()
+            res_v13 = v13_gen.generate(
+                prompt=payload.message,
+                max_new_tokens=payload.max_new_tokens or 64,
+                temperature=payload.temperature if payload.temperature is not None else 0.7,
+                use_kv_cache=True
+            )
+            return {
+                "response": res_v13["response"],
+                "model": "mathiyon-slm-v1.3",
+                "version": "1.3",
+                "engine": "PyTorch Causal SLM v1.3 (RoPE + RMSNorm + SwiGLU + KV Cache)",
+                "tokens_processed": len(payload.message.split()),
+                "tokens_generated": res_v13["tokens_generated"],
+                "generation_time_ms": res_v13["generation_time_ms"],
+                "confidence": 0.95
+            }
+        except Exception as e:
+            raise HTTPException(
+                status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+                detail=f"v1.3 experimental model execution error: {str(e)}"
+            )
+
+    valid_v12_aliases = [
+        "mathiyon-slm-v1.2",
+        "v1.2",
+        "slm-v1.2",
+        "mathiyon-slm-v1.1",
+        "mathiyon-neural-prototype-/-slm-v1.0",
+        "mathiyon-slm-v1.2-orchestrator",
+        "default"
+    ]
+    if target_model_id not in valid_v12_aliases and not target_model_id.startswith("mathiyon-orchestrator"):
+        raise HTTPException(
+            status_code=status.HTTP_400_BAD_REQUEST,
+            detail=f"Invalid model ID '{payload.model}'. Active production model is 'mathiyon-slm-v1.2'."
+        )
+
     try:
         result = generator.generate(
             message=payload.message,
@@ -137,6 +198,33 @@ def generate_ai_response(payload: GenerateRequest):
         raise HTTPException(
             status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
             detail=f"PyTorch inference execution error: {str(e)}"
+        )
+
+
+@app.post("/generate/v1.3", response_model=Generatev13Response)
+def generate_v13_experimental_response(payload: Generatev13Request):
+    """Experimental test endpoint for Mathiyon SLM v1.3."""
+    user_prompt = payload.prompt or payload.message
+    if not user_prompt or not user_prompt.strip():
+        raise HTTPException(
+            status_code=status.HTTP_400_BAD_REQUEST,
+            detail="Prompt cannot be empty"
+        )
+        
+    try:
+        v13_gen = model_registry.load_v1_3_generator()
+        result = v13_gen.generate(
+            prompt=user_prompt,
+            max_new_tokens=payload.max_new_tokens or 64,
+            temperature=payload.temperature if payload.temperature is not None else 0.7,
+            deterministic=payload.deterministic or False,
+            use_kv_cache=payload.use_kv_cache if payload.use_kv_cache is not None else True
+        )
+        return result
+    except Exception as e:
+        raise HTTPException(
+            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+            detail=f"v1.3 inference execution error: {str(e)}"
         )
 
 
@@ -198,4 +286,3 @@ def embed_batch_texts(payload: EmbedBatchRequest):
 if __name__ == "__main__":
     import uvicorn
     uvicorn.run("app:app", host=HOST, port=PORT, reload=False)
-

@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 const Conversation = require('../models/Conversation');
 const Message = require('../models/Message');
 
-const PYTHON_AI_SERVICE_URL = process.env.PYTHON_AI_SERVICE_URL || 'http://127.0.0.1:8000';
+const PYTHON_AI_SERVICE_URL = process.env.AI_SERVICE_URL || process.env.PYTHON_AI_SERVICE_URL || 'http://127.0.0.1:8000';
 const MAX_CONTEXT_MESSAGES = 20;
 
 // Helper to query Python FastAPI PyTorch Service with Context Window
@@ -95,7 +95,9 @@ const sendChatMessage = async (req, res) => {
 
     if (isMongoConnected) {
       let conversation;
-      if (currentConvId) {
+      // Validate that conversationId is a valid MongoDB ObjectId before querying
+      const isValidObjectId = currentConvId && mongoose.Types.ObjectId.isValid(currentConvId);
+      if (isValidObjectId) {
         conversation = await Conversation.findOne({ _id: currentConvId, userId });
       }
 
@@ -147,13 +149,15 @@ const sendChatMessage = async (req, res) => {
 
     const finalResponse = orchResult.answer;
 
+    let responseModel = 'Mathiyon AI';
+
     if (isMongoConnected) {
       const savedMessage = await Message.create({
         conversationId: currentConvId,
         userId,
         message: message.trim(),
         response: finalResponse,
-        model: `Mathiyon Orchestrator (${orchResult.intent})`,
+        model: responseModel,
       });
 
       return res.status(201).json({
@@ -163,13 +167,16 @@ const sendChatMessage = async (req, res) => {
         intent: orchResult.intent,
         toolsUsed: orchResult.toolsUsed,
         sources: orchResult.sources,
+        citations: orchResult.citations || [],
         verified: orchResult.verified,
         requestId: orchResult.requestId,
         totalLatencyMs: orchResult.totalLatencyMs,
+        agentTrace: orchResult.agentTrace || [],
+        taskModel: orchResult.taskModel || null,
         conversationId: currentConvId,
         conversationTitle: convTitle,
         message: savedMessage.message,
-        model: savedMessage.model,
+        model: responseModel,
         timestamp: new Date(savedMessage.createdAt).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
       });
     } else {
@@ -180,13 +187,16 @@ const sendChatMessage = async (req, res) => {
         intent: orchResult.intent,
         toolsUsed: orchResult.toolsUsed,
         sources: orchResult.sources,
+        citations: orchResult.citations || [],
         verified: orchResult.verified,
         requestId: orchResult.requestId,
         totalLatencyMs: orchResult.totalLatencyMs,
+        agentTrace: orchResult.agentTrace || [],
+        taskModel: orchResult.taskModel || null,
         conversationId: currentConvId,
         conversationTitle: convTitle,
         message: message.trim(),
-        model: model || 'Mathiyon SLM v1.2 Orchestrator',
+        model: responseModel,
         timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
       });
     }
@@ -196,7 +206,7 @@ const sendChatMessage = async (req, res) => {
   }
 };
 
-// @desc    Get all conversations for logged in user
+// @desc    Get all conversations for logged in user (only conversations with messages)
 // @route   GET /api/chat/conversations
 // @access  Private (JWT Protected)
 const getConversations = async (req, res) => {
@@ -205,22 +215,34 @@ const getConversations = async (req, res) => {
     const isMongoConnected = mongoose.connection.readyState === 1;
 
     if (isMongoConnected) {
-      const conversations = await Conversation.find({ userId }).sort({ updatedAt: -1 });
+      // Find distinct conversation IDs that have messages
+      const activeConvIds = await Message.distinct('conversationId', { userId });
+      const conversations = await Conversation.find({ 
+        _id: { $in: activeConvIds },
+        userId,
+        title: { $ne: 'New Mathiyon Chat' }
+      }).sort({ isPinned: -1, updatedAt: -1 });
+
       const formatted = conversations.map((c) => ({
         id: c._id.toString(),
         title: c.title,
         model: c.model,
+        isPinned: Boolean(c.isPinned),
         timestamp: new Date(c.updatedAt).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
       }));
       return res.json({ success: true, conversations: formatted });
     } else {
+      const activeConvIds = new Set(
+        memoryMessages.filter((m) => m.userId === userId).map((m) => m.conversationId)
+      );
       const userConvs = memoryConversations
-        .filter((c) => c.userId === userId)
-        .sort((a, b) => b.updatedAt - a.updatedAt)
+        .filter((c) => c.userId === userId && activeConvIds.has(c.id))
+        .sort((a, b) => (b.isPinned ? 1 : 0) - (a.isPinned ? 1 : 0) || b.updatedAt - a.updatedAt)
         .map((c) => ({
           id: c.id,
           title: c.title,
           model: c.model,
+          isPinned: Boolean(c.isPinned),
           timestamp: new Date(c.updatedAt).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
         }));
       return res.json({ success: true, conversations: userConvs });
@@ -343,9 +365,118 @@ const createConversation = async (req, res) => {
   }
 };
 
+// @desc    Rename a conversation
+// @route   PATCH /api/chat/conversations/:id/rename
+// @access  Private (JWT Protected)
+const renameConversation = async (req, res) => {
+  try {
+    const userId = req.user.id;
+    const conversationId = req.params.id;
+    const { title } = req.body;
+
+    if (!title || !title.trim()) {
+      return res.status(400).json({ success: false, message: 'Chat title cannot be empty' });
+    }
+
+    const isMongoConnected = mongoose.connection.readyState === 1;
+
+    if (isMongoConnected) {
+      const conv = await Conversation.findOneAndUpdate(
+        { _id: conversationId, userId },
+        { title: title.trim(), updatedAt: new Date() },
+        { new: true }
+      );
+      if (!conv) {
+        return res.status(404).json({ success: false, message: 'Conversation not found' });
+      }
+      return res.json({ success: true, title: conv.title });
+    } else {
+      const conv = memoryConversations.find((c) => c.id === conversationId && c.userId === userId);
+      if (!conv) {
+        return res.status(404).json({ success: false, message: 'Conversation not found' });
+      }
+      conv.title = title.trim();
+      conv.updatedAt = new Date();
+      return res.json({ success: true, title: conv.title });
+    }
+  } catch (error) {
+    console.error('Rename Conversation Error:', error);
+    return res.status(500).json({ success: false, message: error.message });
+  }
+};
+
+// @desc    Toggle or set pin status of a conversation
+// @route   PATCH /api/chat/conversations/:id/pin
+// @access  Private (JWT Protected)
+const togglePinConversation = async (req, res) => {
+  try {
+    const userId = req.user.id;
+    const conversationId = req.params.id;
+    const isMongoConnected = mongoose.connection.readyState === 1;
+
+    if (isMongoConnected) {
+      const conv = await Conversation.findOne({ _id: conversationId, userId });
+      if (!conv) {
+        return res.status(404).json({ success: false, message: 'Conversation not found' });
+      }
+      const newPinnedState = req.body.isPinned !== undefined ? Boolean(req.body.isPinned) : !conv.isPinned;
+      conv.isPinned = newPinnedState;
+      conv.updatedAt = new Date();
+      await conv.save();
+      return res.json({ success: true, isPinned: conv.isPinned });
+    } else {
+      const conv = memoryConversations.find((c) => c.id === conversationId && c.userId === userId);
+      if (!conv) {
+        return res.status(404).json({ success: false, message: 'Conversation not found' });
+      }
+      const newPinnedState = req.body.isPinned !== undefined ? Boolean(req.body.isPinned) : !conv.isPinned;
+      conv.isPinned = newPinnedState;
+      conv.updatedAt = new Date();
+      return res.json({ success: true, isPinned: conv.isPinned });
+    }
+  } catch (error) {
+    console.error('Toggle Pin Conversation Error:', error);
+    return res.status(500).json({ success: false, message: error.message });
+  }
+};
+
+// @desc    Delete an entire conversation and its message history
+// @route   DELETE /api/chat/conversations/:id
+// @access  Private (JWT Protected)
+const deleteConversation = async (req, res) => {
+  try {
+    const userId = req.user.id;
+    const conversationId = req.params.id;
+    const isMongoConnected = mongoose.connection.readyState === 1;
+
+    if (isMongoConnected) {
+      await Conversation.deleteOne({ _id: conversationId, userId });
+      await Message.deleteMany({ conversationId, userId });
+      return res.json({ success: true, message: 'Conversation deleted successfully' });
+    } else {
+      const cIndex = memoryConversations.findIndex((c) => c.id === conversationId && c.userId === userId);
+      if (cIndex !== -1) {
+        memoryConversations.splice(cIndex, 1);
+      }
+      for (let i = memoryMessages.length - 1; i >= 0; i--) {
+        if (memoryMessages[i].conversationId === conversationId && memoryMessages[i].userId === userId) {
+          memoryMessages.splice(i, 1);
+        }
+      }
+      return res.json({ success: true, message: 'Conversation deleted successfully' });
+    }
+  } catch (error) {
+    console.error('Delete Conversation Error:', error);
+    return res.status(500).json({ success: false, message: error.message });
+  }
+};
+
 module.exports = {
   sendChatMessage,
   getConversations,
   getConversationMessages,
   createConversation,
+  renameConversation,
+  togglePinConversation,
+  deleteConversation,
 };

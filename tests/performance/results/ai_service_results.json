@@ -1,0 +1,17 @@
+{
+  "productionModel": {
+    "model": "Mathiyon SLM v1.2",
+    "trafficPercent": 100,
+    "inferenceMode": "PyTorch CPU Engine",
+    "avgLatencyMs": 15,
+    "tokensPerSec": 45
+  },
+  "experimentalModel": {
+    "model": "Mathiyon SLM v1.3-RC1",
+    "trafficPercent": 0,
+    "inferenceMode": "PyTorch + KV Cache Engine",
+    "kvCacheEnabledLatencyMs": 12,
+    "kvCacheDisabledLatencyMs": 24,
+    "tokensPerSec": 62
+  }
+}

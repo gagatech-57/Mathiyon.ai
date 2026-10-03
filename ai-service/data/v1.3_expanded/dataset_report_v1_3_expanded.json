@@ -1,0 +1,115 @@
+{
+  "dataset_version": "v1.3_expanded",
+  "total_files_scanned": 11,
+  "dataset_size_bytes": 28729,
+  "dataset_size_mb": 0.0274,
+  "total_samples": 146,
+  "valid_samples": 146,
+  "invalid_samples": 0,
+  "duplicate_count": 0,
+  "instruction_pair_count": 101,
+  "total_tokens": 14475,
+  "overall_avg_seq_len": 99.14,
+  "overall_unk_rate_pct": 7.9447,
+  "tokens_per_parameter": 0.000659,
+  "category_counts": {
+    "coding": 31,
+    "conversation": 6,
+    "general": 12,
+    "math": 31,
+    "tamil": 21,
+    "tanglish": 18,
+    "rag": 6,
+    "safety": 6,
+    "reasoning": 8,
+    "tool_use": 7
+  },
+  "split_counts": {
+    "train": 131,
+    "validation": 7,
+    "test": 8
+  },
+  "domain_token_stats": {
+    "coding": {
+      "sample_count": 31,
+      "total_tokens": 3862,
+      "avg_seq_len": 124.58,
+      "max_seq_len": 202,
+      "unk_count": 0,
+      "unk_rate_pct": 0.0
+    },
+    "conversation": {
+      "sample_count": 6,
+      "total_tokens": 640,
+      "avg_seq_len": 106.67,
+      "max_seq_len": 134,
+      "unk_count": 0,
+      "unk_rate_pct": 0.0
+    },
+    "general": {
+      "sample_count": 12,
+      "total_tokens": 1082,
+      "avg_seq_len": 90.17,
+      "max_seq_len": 137,
+      "unk_count": 0,
+      "unk_rate_pct": 0.0
+    },
+    "math": {
+      "sample_count": 31,
+      "total_tokens": 3187,
+      "avg_seq_len": 102.81,
+      "max_seq_len": 212,
+      "unk_count": 0,
+      "unk_rate_pct": 0.0
+    },
+    "tamil": {
+      "sample_count": 21,
+      "total_tokens": 1567,
+      "avg_seq_len": 74.62,
+      "max_seq_len": 167,
+      "unk_count": 981,
+      "unk_rate_pct": 62.6037
+    },
+    "tanglish": {
+      "sample_count": 18,
+      "total_tokens": 1295,
+      "avg_seq_len": 71.94,
+      "max_seq_len": 113,
+      "unk_count": 169,
+      "unk_rate_pct": 13.0502
+    },
+    "rag": {
+      "sample_count": 6,
+      "total_tokens": 564,
+      "avg_seq_len": 94.0,
+      "max_seq_len": 135,
+      "unk_count": 0,
+      "unk_rate_pct": 0.0
+    },
+    "safety": {
+      "sample_count": 6,
+      "total_tokens": 565,
+      "avg_seq_len": 94.17,
+      "max_seq_len": 140,
+      "unk_count": 0,
+      "unk_rate_pct": 0.0
+    },
+    "reasoning": {
+      "sample_count": 8,
+      "total_tokens": 993,
+      "avg_seq_len": 124.12,
+      "max_seq_len": 237,
+      "unk_count": 0,
+      "unk_rate_pct": 0.0
+    },
+    "tool_use": {
+      "sample_count": 7,
+      "total_tokens": 720,
+      "avg_seq_len": 102.86,
+      "max_seq_len": 137,
+      "unk_count": 0,
+      "unk_rate_pct": 0.0
+    }
+  },
+  "validation_issues": []
+}

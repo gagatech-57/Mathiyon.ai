@@ -17,7 +17,7 @@ const memoryService = {
   async saveUserMemory(userId, content, type = 'preference', importance = 1) {
     if (!userId || !content) return null;
     const isMongoConnected = mongoose.connection.readyState === 1;
-    if (!isMongoConnected) return { id: 'temp_mem', userId, content, type, createdAt: new Date() };
+    if (!isMongoConnected || !mongoose.Types.ObjectId.isValid(userId)) return { id: 'temp_mem', userId, content, type, createdAt: new Date() };
 
     // Clean content string (e.g. remove "remember that ")
     const cleanContent = content.replace(/^remember\s+(that\s+)?(my\s+)?/i, '').trim();
@@ -38,7 +38,7 @@ const memoryService = {
   async getUserMemories(userId) {
     if (!userId) return [];
     const isMongoConnected = mongoose.connection.readyState === 1;
-    if (!isMongoConnected) return [];
+    if (!isMongoConnected || !mongoose.Types.ObjectId.isValid(userId)) return [];
 
     return await Memory.find({ userId }).sort({ createdAt: -1 });
   },
@@ -49,7 +49,7 @@ const memoryService = {
   async getRelevantMemories(userId, query = '') {
     if (!userId) return [];
     const isMongoConnected = mongoose.connection.readyState === 1;
-    if (!isMongoConnected) return [];
+    if (!isMongoConnected || !mongoose.Types.ObjectId.isValid(userId)) return [];
 
     const memories = await Memory.find({ userId }).sort({ createdAt: -1 }).limit(10);
     if (!query) return memories;

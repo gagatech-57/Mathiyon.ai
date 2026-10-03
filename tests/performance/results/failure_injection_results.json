@@ -1,0 +1,30 @@
+{
+  "totalEvaluated": 3,
+  "passedCount": 3,
+  "details": [
+    {
+      "testId": "FAIL_INJ_001",
+      "target": "MathEngine",
+      "condition": "Malformed Syntax Input",
+      "expected": "Controlled Error Object",
+      "actual": "CONTROLLED_ERROR",
+      "status": "PASS"
+    },
+    {
+      "testId": "FAIL_INJ_002",
+      "target": "RAG",
+      "condition": "Missing Document ID",
+      "expected": "Controlled Response",
+      "actual": "CONTROLLED_RESPONSE",
+      "status": "PASS"
+    },
+    {
+      "testId": "FAIL_INJ_003",
+      "target": "ToolRegistry",
+      "condition": "Execution Timeout > 50ms",
+      "expected": "TOOL_TIMEOUT Error",
+      "actual": "TOOL_TIMEOUT",
+      "status": "PASS"
+    }
+  ]
+}

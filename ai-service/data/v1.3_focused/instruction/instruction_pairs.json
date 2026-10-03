@@ -1,0 +1,122 @@
+[
+  {
+    "instruction": "Explain the difference between let, const, and var in JavaScript.",
+    "context": "JavaScript variable declarations",
+    "response": "In JavaScript, var is function-scoped and hoisted with undefined initialization. let and const are block-scoped and subject to the Temporal Dead Zone. const cannot be reassigned after declaration.",
+    "category": "coding"
+  },
+  {
+    "instruction": "How do you create a simple Express HTTP server in Node.js?",
+    "context": "Node.js web backend",
+    "response": "const express = require('express'); const app = express(); app.get('/', (req, res) => res.send('Hello Mathiyon!')); app.listen(5000, () => console.log('Server running on port 5000'));",
+    "category": "coding"
+  },
+  {
+    "instruction": "What is the result of solving 2x + 5 = 15?",
+    "context": "Linear algebra equation",
+    "response": "To solve 2x + 5 = 15: subtract 5 from both sides to get 2x = 10, then divide both sides by 2 to find x = 5.",
+    "category": "math"
+  },
+  {
+    "instruction": "Calculate 1/3 + 1/6.",
+    "context": "Fraction arithmetic",
+    "response": "Find a common denominator: 1/3 = 2/6. Then add: 2/6 + 1/6 = 3/6, which simplifies to 1/2.",
+    "category": "math"
+  },
+  {
+    "instruction": "What is the Pythagorean theorem?",
+    "context": "Geometry",
+    "response": "The Pythagorean theorem states that in any right-angled triangle, the square of the hypotenuse (c) equals the sum of the squares of the other two sides (a and b): a^2 + b^2 = c^2.",
+    "category": "math"
+  },
+  {
+    "instruction": "How does JWT authentication work in a web application?",
+    "context": "Web Security",
+    "response": "The client logs in with credentials. The server verifies them and generates a signed JWT. The client stores the token and sends it in the Authorization header for protected API requests.",
+    "category": "coding"
+  },
+  {
+    "instruction": "What is the derivative of f(x) = 3x^4?",
+    "context": "Calculus",
+    "response": "Using the power rule d/dx (x^n) = n*x^(n-1), the derivative of 3x^4 is f'(x) = 3 * 4x^3 = 12x^3.",
+    "category": "math"
+  },
+  {
+    "instruction": "Explain Python list comprehensions with an example.",
+    "context": "Python programming",
+    "response": "List comprehensions provide a concise way to create lists. Example: squares = [x**2 for x in range(5)] creates [0, 1, 4, 9, 16].",
+    "category": "coding"
+  },
+  {
+    "instruction": "What is the derivative of sin(x)?",
+    "context": "Calculus Trigonometry",
+    "response": "The derivative of f(x) = sin(x) with respect to x is f'(x) = cos(x).",
+    "category": "math"
+  },
+  {
+    "instruction": "Explain the difference between SQL and NoSQL databases.",
+    "context": "Database Systems",
+    "response": "SQL databases are relational, table-based, and use structured schemas (e.g. PostgreSQL, MySQL). NoSQL databases are non-relational, document/key-value based, and support dynamic schemas (e.g. MongoDB).",
+    "category": "coding"
+  },
+  {
+    "instruction": "What is the probability of rolling a sum of 7 with two fair dice?",
+    "context": "Probability",
+    "response": "There are 36 possible outcomes when rolling two 6-sided dice. The outcomes summing to 7 are (1,6), (2,5), (3,4), (4,3), (5,2), and (6,1), giving 6 outcomes. Probability = 6/36 = 1/6.",
+    "category": "math"
+  },
+  {
+    "instruction": "What is the purpose of the useEffect hook in React?",
+    "context": "React Frontend",
+    "response": "useEffect allows functional components to perform side effects such as data fetching, setting up subscriptions, and manually changing the DOM after rendering.",
+    "category": "coding"
+  },
+  {
+    "instruction": "How do you calculate compound interest?",
+    "context": "Financial Mathematics",
+    "response": "Compound interest is calculated using A = P(1 + r/n)^(nt), where P is principal, r is annual interest rate, n is compounding frequency per year, and t is time in years.",
+    "category": "math"
+  },
+  {
+    "instruction": "What is deductive reasoning?",
+    "context": "Logic & Technical Reasoning",
+    "response": "Deductive reasoning is a logical process where a conclusion is drawn from the concordance of multiple premises that are generally assumed to be true (e.g. All men are mortal; Socrates is a man; therefore Socrates is mortal).",
+    "category": "general"
+  },
+  {
+    "instruction": "What is the time complexity of binary search?",
+    "context": "Algorithm Analysis",
+    "response": "Binary search has a logarithmic time complexity of O(log N) because it halves the search interval at each step.",
+    "category": "coding"
+  },
+  {
+    "instruction": "How do you define a generic function in TypeScript?",
+    "context": "TypeScript Language",
+    "response": "Generics are defined using angle brackets: function identity<T>(arg: T): T { return arg; }. They enable reusable components working with multiple data types while maintaining strict type safety.",
+    "category": "coding"
+  },
+  {
+    "instruction": "How do you calculate the determinant of a 2x2 matrix?",
+    "context": "Linear Algebra",
+    "response": "For a 2x2 matrix [[a, b], [c, d]], the determinant is calculated as det = (a * d) - (b * c).",
+    "category": "math"
+  },
+  {
+    "instruction": "What is the difference between REST and GraphQL?",
+    "context": "API Architecture",
+    "response": "REST exposes multiple fixed endpoints returning predefined data structures, whereas GraphQL exposes a single endpoint allowing clients to request exactly the fields they need.",
+    "category": "coding"
+  },
+  {
+    "instruction": "What is the formula for the volume of a sphere?",
+    "context": "3D Geometry",
+    "response": "The volume of a sphere of radius r is calculated using V = (4/3) * pi * r^3.",
+    "category": "math"
+  },
+  {
+    "instruction": "Explain the concept of asynchronous non-blocking I/O in Node.js.",
+    "context": "Backend Architecture",
+    "response": "Node.js offloads I/O operations (file reading, network requests) to the operating system kernel via libuv. When operations complete, callbacks are queued into the event loop without blocking thread execution.",
+    "category": "coding"
+  }
+]
